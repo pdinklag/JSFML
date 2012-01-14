@@ -74,6 +74,10 @@ public final class SFMLNative {
                 if (osArch.equals("x86")) {
                     nativeLibs.add("windows_x86/libsndfile-1.dll");
                     nativeLibs.add("windows_x86/openal32.dll");
+                    nativeLibs.add("windows_x86/sfml-system-2.dll");
+                    nativeLibs.add("windows_x86/sfml-window-2.dll");
+                    nativeLibs.add("windows_x86/sfml-audio-2.dll");
+                    nativeLibs.add("windows_x86/sfml-graphics-2.dll");
                     nativeLibs.add("windows_x86/jsfml.dll");
                 }
             } else if (osName.contains("Linux")) {

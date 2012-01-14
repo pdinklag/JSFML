@@ -55,6 +55,12 @@
 			<!-- base -->
 			<class name="${jsfml.package}.SFMLNative" />
 			<class name="${jsfml.package}.SFMLNativeObject" />
+			
+			<!-- window -->
+			<class name="${jsfml.package}.window.Joystick" />
+			<class name="${jsfml.package}.window.Keyboard" />
+			<class name="${jsfml.package}.window.Mouse" />
+			<class name="${jsfml.package}.window.VideoMode" />
 		</javah>
 	</target>
 	
@@ -93,11 +99,12 @@
 			<libset libs="stdc++" />
 			<!--<libset libs="kernel32, user32, uuid" />-->
 			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
-			<!--<libset dir="${sfml.path}/build/lib/Release" libs="sfml-main, sfml-audio-s, sfml-graphics-s, sfml-system-s, sfml-window-s" />-->
+			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-main, sfml-audio, sfml-graphics, sfml-system, sfml-window" />
 		</cc>
 		<delete file="${cpp.out}/${arch}/history.xml" />
 		<move file="${cpp.out}/${arch}/lib${jsfml.bin}.so" tofile="${cpp.out}/${arch}/${jsfml.bin}.dll" />
 		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${env.SFML_HOME}/build/lib" includes="*.dll" />
 			<fileset dir="${env.SFML_HOME}/extlibs/bin/x86" includes="*.dll" />
 		</copy>
 		<checksum>
