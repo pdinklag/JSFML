@@ -1,0 +1,55 @@
+=============
+=== JSFML ===
+=============
+
+JSFML - A Java binding to the Simple and Fast Multimedia Library (SFML)
+Copyright (c) 2011 by Patrick Dinklage (pdinklag@googlemail.com)
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the
+use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented;
+you must not claim that you wrote the original software.
+If you use this software in a product, an acknowledgment
+in the product documentation would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such,
+and must not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+
+-------------------------------------------------------------------------------
+
+============
+=== SFML ===
+============
+
+This software is a binding to the Simple and Fast Multimedia Library (SFML)
+by Laurent Gomila, which is provided under the zlib/png license
+(http://www.opensource.org/licenses/zlib-license.php).
+
+Please read http://www.sfml-dev.org/license.php for further information.
+
+The author of this software does not claim to have written or
+contributed to SFML.
+
+-------------------------------------------------------------------------------
+
+==========================
+=== External libraries ===
+==========================
+
+The following libraries are distributed along with this software in binary
+form, for the reasons of convenience and/or higher stability:
+
+- SFML, provided under the zlib/png license
+  (http://www.sfml-dev.org/license.php)
+- OpenAL-Soft, provided under the GNU Lesser General Public License
+  (http://kcat.strangesoft.net/openal.html)
+- libsndfile, provided under the GNU Lesser General Public License
+  (http://www.mega-nerd.com/libsndfile/)
