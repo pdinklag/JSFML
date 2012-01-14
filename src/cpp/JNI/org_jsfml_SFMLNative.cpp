@@ -12,6 +12,8 @@
 #include <JSFML/Intercom/Event.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
 
+#include <JSFML/Intercom/Color.hpp>
+
 JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass cls) {
     //initialize intercom types
     JavaEnum::Init(env);
@@ -25,4 +27,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::ContextSettings::Init(env);
     JSFML::Event::Init(env);
     JSFML::VideoMode::Init(env);
+
+    JSFML::Color::Init(env);
 }
