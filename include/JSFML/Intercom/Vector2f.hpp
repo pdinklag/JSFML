@@ -2,7 +2,6 @@
 #define JSFML_VECTOR2F_H_
 
 #include <jni.h>
-#include <vector>
 #include <SFML/System/Vector2.hpp>
 
 namespace JSFML {
