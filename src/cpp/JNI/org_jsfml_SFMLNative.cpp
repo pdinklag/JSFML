@@ -13,6 +13,7 @@
 #include <JSFML/Intercom/VideoMode.hpp>
 
 #include <JSFML/Intercom/Color.hpp>
+#include <JSFML/Intercom/Vertex.hpp>
 
 JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass cls) {
     //initialize intercom types
@@ -29,4 +30,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::VideoMode::Init(env);
 
     JSFML::Color::Init(env);
+    JSFML::Vertex::Init(env);
 }
