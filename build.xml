@@ -1,0 +1,137 @@
+<project name="JSFML">
+	<description>
+		JSFML build file for Apache Ant.
+	</description>
+	
+	<!-- cpptasks -->
+	<path id="cc.classpath" location="./antlib/cpptasks/cpptasks.jar" />
+	<taskdef resource="cpptasks.tasks" classpathref="cc.classpath" loaderRef="cctasks" />
+	<typedef resource="cpptasks.types" classpathref="cc.classpath" loaderRef="cctasks" />
+	
+	<!-- Environment -->
+	<property environment="env" />
+	
+	<!-- JSFML properties -->
+	<property name="jsfml.package" value="org.jsfml" />
+	<property name="jsfml.bin" value="jsfml" />
+	<property name="jsfml.out" value="./out" />
+	
+	<!-- Java properties -->
+	<property name="java.src" location="./src/java" />
+	<property name="java.out" location="${jsfml.out}/classes" />
+	<property name="java.classpath" value="${java.out}" />
+	<property name="java.target" value="1.6" />
+	
+	<!-- Javadoc properties -->
+	<property name="javadoc.out" location="./javadoc" />
+	
+	<!-- Jar properties -->
+	<property name="jar.file" value="${jsfml.out}/jsfml.jar" />
+	
+	<!-- C++ properties -->
+	<property name="cpp.src" location="./src/cpp" />
+	<property name="cpp.include" location="./include" />
+	<property name="cpp.obj" location="${jsfml.out}/obj" />
+	<property name="cpp.out" location="${jsfml.out}/bin" />
+	
+	<!-- JAR signing properties -->
+	<property name="jarsigner.alias" value="pdinklag" />
+	
+	<!-- Examples -->
+	<property name="examples" location="./examples" />
+	<property name="examples.src" location="${examples}/src" />
+	<property name="examples.out" location="${examples}/classes" />
+	
+	<!-- Compile Java -->
+	<target name="java.compile" description="Compile the Java sources.">
+		<mkdir dir="${java.out}" />
+		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" target="${java.target}" />
+	</target>
+	
+	<!-- Generate headers -->
+	<target name="cpp.headers" description="Generate the C++ JNI headers." depends="java.compile">
+		<mkdir dir="${cpp.include}/JSFML/JNI" />
+		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
+			<!-- base -->
+			<class name="${jsfml.package}.SFMLNative" />
+			<class name="${jsfml.package}.SFMLNativeObject" />
+		</javah>
+	</target>
+	
+	<!-- Compile C++ for Windows 32 -->
+	<target name="cpp.win32" description="Build the C++ sources for Windows 32 bit.">
+		
+		<property name="arch" value="windows_x86" />
+	
+		<delete file="${cpp.out}/${arch}/${jsfml.bin}.dll" />
+		<mkdir dir="${cpp.obj}" />
+		<mkdir dir="${cpp.out}" />
+		<mkdir dir="${cpp.out}/${arch}" />
+		
+		<cc name="g++"
+			debug="false"
+			multithreaded="true"
+			newenvironment="true"
+			incremental="false"
+			runtime="static"
+			outtype="shared"
+			outfile="${cpp.out}/${arch}/${jsfml.bin}"
+			objdir="${cpp.obj}"
+			exceptions="true">
+
+			<fileset dir="${cpp.src}" includes="**/*.cpp" />
+			
+			<!--<defineset define="SFML_STATIC" />-->
+			
+			<includepath location="${cpp.include}" />
+			<includepath location="${env.SFML_HOME}/include" />
+			<includepath location="${env.JAVA_HOME}/include" />
+			<includepath location="${env.JAVA_HOME}/include/win32" />
+			
+			<libset libs="stdc++" />
+			<libset libs="kernel32, user32, uuid" />
+			<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />
+			<!--<libset dir="${sfml.path}/build/lib/Release" libs="sfml-main, sfml-audio-s, sfml-graphics-s, sfml-system-s, sfml-window-s" />-->
+		</cc>
+		<delete file="${cpp.out}/${arch}/history.xml" />
+		<move file="${cpp.out}/${arch}/lib${jsfml.bin}.so" tofile="${cpp.out}/${arch}/${jsfml.bin}.dll" />
+		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${env.SFML_HOME}/extlibs/bin/x86" includes="*.dll" />
+		</copy>
+		<checksum>
+			<fileset dir="${cpp.out}/${arch}" includes="*.dll" />
+		</checksum>
+	</target>
+	
+	<!-- Jar -->
+	<target name="jar" description="Generate the JAR file." depends="java.compile">
+		<jar destfile="${jar.file}">
+			<fileset dir="${java.out}" includes="**/*.class" />
+			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so **/*.dylib **/*.MD5" />
+			<manifest>
+				<attribute name="Sealed" value="true" />
+				<attribute name="Specification-Title" value="JSFML" />
+				<attribute name="Specification-Version" value="0" />
+				<attribute name="Specification-Vendor" value="pdinklag" />
+				<attribute name="Implementation-Title" value="org.sfml" />
+				<attribute name="Implementation-Version" value="0" />
+				<attribute name="Implementation-Vendor" value="pdinklag" />
+			</manifest>
+		</jar>
+		<input message="Please enter keystore password:" addproperty="storepass" />
+		<signjar jar="${jar.file}" alias="${jarsigner.alias}" storepass="${storepass}" lazy="true" />
+	</target>
+	
+	<!-- Javadoc -->
+	<target name="javadoc" description="Generate the Javadoc.">
+		<mkdir dir="${javadoc.out}" />
+		<javadoc sourcepath="${java.src}" destdir="${javadoc.out}" />
+	</target>
+	
+	<!-- Clean everything -->
+	<target name="clean" description="Clean up.">
+		<delete dir="${jsfml.out}" />
+		<delete dir="${examples.out}" />
+		<delete dir="${javadoc.prod}" />
+	</target>
+</project>
