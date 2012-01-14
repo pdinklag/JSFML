@@ -19,7 +19,7 @@ the following preparations must be met:
  * The GNU C++ compiler executable `g++` must be in your system's `PATH` environment variable. The official Windows binaries were built with MinGW, therefore that is recommend.
  * The `JAVA_HOME` environment variable must point to a working JDK (1.6 or later).
  * The `SFML_HOME` environment variable must point to the SFML root directory, which contains `include` and `extlibs`.
- * It is assumed that `SFML_HOME` also has a sub-directory called `bin` in which the SFML binaries (DLL or SO) must be located.
+ * It is assumed that `SFML_HOME` also has a sub-directory called `build/lib` in which the SFML libraries (lib*.a) must be located for linking. It should also contain the respective binaries (*.dll or *.so).
 
 The Apache Ant buildfile contains the following set of targets to compile and link JSFML:
 
