@@ -88,9 +88,11 @@
 			<includepath location="${env.JAVA_HOME}/include" />
 			<includepath location="${env.JAVA_HOME}/include/win32" />
 			
+			<linkerarg location="start" value="-Wl,--add-stdcall-alias" />
+			
 			<libset libs="stdc++" />
-			<libset libs="kernel32, user32, uuid" />
-			<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />
+			<!--<libset libs="kernel32, user32, uuid" />-->
+			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
 			<!--<libset dir="${sfml.path}/build/lib/Release" libs="sfml-main, sfml-audio-s, sfml-graphics-s, sfml-system-s, sfml-window-s" />-->
 		</cc>
 		<delete file="${cpp.out}/${arch}/history.xml" />
