@@ -14,10 +14,10 @@ void JSFML::Vertex::Init(JNIEnv* env) {
     jclass javaClass = env->FindClass("org/jsfml/graphics/Vertex");
     if(javaClass) {
         cls = (jclass)env->NewGlobalRef(javaClass);
-        ctor = env->GetMethodID(javaClass, "<init>", "(Lorg.jsfml.graphics.Vector2f;Lorg.jsfml.graphics.Color;Lorg.jsfml.graphics.Vector2f;)V");
-        f_position = env->GetFieldID(javaClass, "position", "Lorg.jsfml.graphics.Vector2f;");
-        f_color = env->GetFieldID(javaClass, "color", "Lorg.jsfml.graphics.Color;");
-        f_texCoords = env->GetFieldID(javaClass, "texCoords", "Lorg.jsfml.graphics.Vector2f;");
+        ctor = env->GetMethodID(javaClass, "<init>", "(Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/Color;Lorg/jsfml/system/Vector2f;)V");
+        f_position = env->GetFieldID(javaClass, "position", "Lorg/jsfml/system/Vector2f;");
+        f_color = env->GetFieldID(javaClass, "color", "Lorg/jsfml/graphics/Color;");
+        f_texCoords = env->GetFieldID(javaClass, "texCoords", "Lorg/jsfml/system/Vector2f;");
 		env->DeleteLocalRef(javaClass);
     }
 }
