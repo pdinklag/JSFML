@@ -1,26 +1,32 @@
 package org.jsfml.system;
 
+import org.jsfml.Intercom;
+
 import java.io.Serializable;
 
 /**
  * Utility class for manipulating 3-dimensional vectors.
  */
+@Intercom
 public class Vector3f implements Cloneable, Serializable {
     private static final long serialVersionUID = -2176250005619169432L;
 
     /**
      * The vector's X coordinate.
      */
+    @Intercom
     public float x = 0;
 
     /**
      * The vector's Y coordinate.
      */
+    @Intercom
     public float y = 0;
 
     /**
      * The vector's Z coordinate.
      */
+    @Intercom
     public float z = 0;
 
     /**
@@ -47,6 +53,7 @@ public class Vector3f implements Cloneable, Serializable {
      * @param y The Y coordinate.
      * @param z The Z coordinate.
      */
+    @Intercom
     public Vector3f(float x, float y, float z) {
         this.x = x;
         this.y = y;

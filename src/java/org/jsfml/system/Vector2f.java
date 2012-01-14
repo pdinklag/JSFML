@@ -1,21 +1,26 @@
 package org.jsfml.system;
 
+import org.jsfml.Intercom;
+
 import java.io.Serializable;
 
 /**
  * Utility class for manipulating 2-dimensional vectors.
  */
+@Intercom
 public class Vector2f implements Cloneable, Serializable {
     private static final long serialVersionUID = -2082611034304583379L;
 
     /**
      * The vector's X coordinate.
      */
+    @Intercom
     public float x = 0;
 
     /**
      * The vector's Y coordinate.
      */
+    @Intercom
     public float y = 0;
 
     /**
@@ -40,6 +45,7 @@ public class Vector2f implements Cloneable, Serializable {
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
+    @Intercom
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;

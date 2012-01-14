@@ -1,18 +1,23 @@
 package org.jsfml.system;
 
+import org.jsfml.Intercom;
+
 import java.io.Serializable;
 
+@Intercom
 public class Vector2i implements Cloneable, Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
     /**
      * The vector's X coordinate.
      */
+    @Intercom
     public int x = 0;
 
     /**
      * The vector's Y coordinate.
      */
+    @Intercom
     public int y = 0;
 
     /**
@@ -37,6 +42,7 @@ public class Vector2i implements Cloneable, Serializable {
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
+    @Intercom
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
