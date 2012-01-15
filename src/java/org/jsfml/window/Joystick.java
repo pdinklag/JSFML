@@ -18,7 +18,7 @@ public class Joystick {
     /**
      * Axes supported by joysticks.
      */
-    public enum Axis {
+    public static enum Axis {
         X,
         Y,
         Z,

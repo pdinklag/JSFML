@@ -19,7 +19,7 @@ public class Mouse {
     /**
      * Mouse Buttons.
      */
-    public enum Button {
+    public static enum Button {
         LEFT,
         RIGHT,
         MIDDLE,
