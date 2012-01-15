@@ -57,11 +57,6 @@ public class RenderStates {
         setShader(shader);
     }
 
-    @Intercom
-    private RenderStates(int blendMode, Transform transform, Texture texture, Shader shader)  {
-        this(BlendMode.values()[blendMode], transform, texture, shader);
-    }
-
     /**
      * Creates a new set of render states.
      * @param blendMode The blending mode.
