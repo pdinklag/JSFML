@@ -63,19 +63,33 @@ public class View extends SFMLNativeObject {
      */
     public native void setRotation(float angle);
 
+    private native void nativeSetViewport(FloatRect rect);
+
     /**
      * Sets the viewport rectangle of this view.
      *
      * @param rect The new viewport rectangle.
      */
-    public native void setViewport(FloatRect rect);
+    public void setViewport(FloatRect rect) {
+        if (rect == null)
+            throw new IllegalArgumentException("rect must not be null.");
+
+        nativeSetViewport(rect);
+    }
+
+    private native void nativeReset(FloatRect rect);
 
     /**
      * Resets the view to a certain viewport rectangle, resetting the rotation angle in the process.
      *
      * @param rect The viewport rectangle.
      */
-    public native void reset(FloatRect rect);
+    public void reset(FloatRect rect) {
+        if (rect == null)
+            throw new IllegalArgumentException("rect must not be null.");
+
+        nativeReset(rect);
+    }
 
     /**
      * Gets the current center of the view.

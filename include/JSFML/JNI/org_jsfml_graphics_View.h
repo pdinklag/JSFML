@@ -44,18 +44,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setRotation
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    setViewport
+ * Method:    nativeSetViewport
  * Signature: (Lorg/jsfml/graphics/FloatRect;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setViewport
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetViewport
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    reset
+ * Method:    nativeReset
  * Signature: (Lorg/jsfml/graphics/FloatRect;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_reset
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeReset
   (JNIEnv *, jobject, jobject);
 
 /*
