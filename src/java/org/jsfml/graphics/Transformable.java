@@ -20,7 +20,7 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
-    public native void setPosition(float x, float y);
+    public abstract void setPosition(float x, float y);
 
     /**
      * Sets the position of this object.
@@ -36,7 +36,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param angle The new rotation in degrees.
      */
-    public native void setRotation(float angle);
+    public abstract void setRotation(float angle);
 
     /**
      * Sets the scaling of this object.
@@ -44,7 +44,7 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X scaling factor.
      * @param y The Y scaling factor.
      */
-    public native void setScale(float x, float y);
+    public abstract void setScale(float x, float y);
 
     /**
      * Sets the scaling of this object.
@@ -61,7 +61,7 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
-    public native void setOrigin(float x, float y);
+    public abstract void setOrigin(float x, float y);
 
     /**
      * Sets the rotation, scaling and drawing origin of this object.
@@ -77,28 +77,28 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @return The current position.
      */
-    public native Vector2f getPosition();
+    public abstract Vector2f getPosition();
 
     /**
      * Gets the rotation angle of this object.
      *
      * @return The current rotation angle in degrees.
      */
-    public native float getRotation();
+    public abstract float getRotation();
 
     /**
      * Gets the scaling of this object.
      *
      * @return The current scaling factors.
      */
-    public native Vector2f getScale();
+    public abstract Vector2f getScale();
 
     /**
      * Gets the origin of this object.
      *
      * @return The current origin.
      */
-    public native Vector2f getOrigin();
+    public abstract Vector2f getOrigin();
 
     /**
      * Moves this object.
@@ -106,7 +106,7 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X offset.
      * @param y The Y offset.
      */
-    public native void move(float x, float y);
+    public abstract void move(float x, float y);
 
     /**
      * Moves this object.
@@ -122,7 +122,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param angle The rotation angle in degrees.
      */
-    public native void rotate(float angle);
+    public abstract void rotate(float angle);
 
     /**
      * Scales this object.
@@ -130,7 +130,7 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X scaling factor.
      * @param y The Y scaling factor.
      */
-    public native void scale(float x, float y);
+    public abstract void scale(float x, float y);
 
     /**
      * Scales this object.
@@ -146,12 +146,12 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @return The current transform.
      */
-    public native Transform getTransform();
+    public abstract Transform getTransform();
 
     /**
      * Gets the inverse of the current transform matrix.
      *
      * @return The inverse of the current transform.
      */
-    public native Transform getInverseTransform();
+    public abstract Transform getInverseTransform();
 }
