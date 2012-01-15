@@ -15,6 +15,7 @@
 #include <JSFML/Intercom/Color.hpp>
 #include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/IntRect.hpp>
+#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
@@ -39,6 +40,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::Color::Init(env);
     JSFML::FloatRect::Init(env);
     JSFML::IntRect::Init(env);
+    JSFML::RenderStates::Init(env);
     JSFML::Transform::Init(env);
     JSFML::Vertex::Init(env);
 }
