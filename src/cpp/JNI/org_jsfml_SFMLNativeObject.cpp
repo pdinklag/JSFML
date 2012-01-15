@@ -6,7 +6,7 @@
  * Method:    nativeDelete
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_org_sfml_SFMLNativeObject_nativeDelete (JNIEnv *env, jobject obj) {
+JNIEXPORT void JNICALL Java_org_jsfml_SFMLNativeObject_nativeDelete (JNIEnv *env, jobject obj) {
 	void* ptr = THIS(void);
 	if(ptr) delete ptr;
 }
