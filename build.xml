@@ -61,6 +61,9 @@
 			<class name="${jsfml.package}.window.Keyboard" />
 			<class name="${jsfml.package}.window.Mouse" />
 			<class name="${jsfml.package}.window.VideoMode" />
+			
+			<!-- graphics -->
+			<class name="${jsfml.package}.graphics.View" />
 		</javah>
 	</target>
 	
