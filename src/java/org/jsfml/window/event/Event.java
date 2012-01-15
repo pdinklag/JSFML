@@ -22,7 +22,7 @@ public class Event {
     public final static int NONE = -1;
 
     /**
-     * Fired when a {@link org.jsfml.window.Window} was closed. Creates a {@link Event}.
+     * Fired when the user clicked a {@link org.jsfml.window.Window}'s close button. Creates a {@link Event}.
      */
     public final static int CLOSED = 0;
 

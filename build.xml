@@ -64,6 +64,7 @@
 			
 			<!-- graphics -->
 			<class name="${jsfml.package}.graphics.Image" />
+			<class name="${jsfml.package}.graphics.RenderWindow" />
 			<class name="${jsfml.package}.graphics.Shader" />
 			<class name="${jsfml.package}.graphics.Texture" />
 			<class name="${jsfml.package}.graphics.View" />

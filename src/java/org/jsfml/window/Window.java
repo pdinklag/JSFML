@@ -3,7 +3,7 @@ package org.jsfml.window;
 import org.jsfml.JSFMLException;
 import org.jsfml.window.event.Event;
 
-import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Interface for windows that serve as OpenGL targets.
@@ -19,7 +19,7 @@ public interface Window {
      * @param settings The context settings to be applied to the context.
      * @see {@link WindowStyle}, {@link org.jsfml.window.VideoMode#isValid()}, {@link ContextSettings}
      */
-    public void create(VideoMode mode, String title, long style, ContextSettings settings);
+    public void create(VideoMode mode, String title, int style, ContextSettings settings);
 
     /**
      * Creates a window or re-creates it if it was already opened with default context settings.
@@ -30,7 +30,7 @@ public interface Window {
      * @param style The style of the window.
      * @see {@link WindowStyle}, {@link org.jsfml.window.VideoMode#isValid()}
      */
-    public void create(VideoMode mode, String title, long style);
+    public void create(VideoMode mode, String title, int style);
 
     /**
      * Creates a window or re-creates it if it was already opened with default context settings and style
@@ -53,7 +53,7 @@ public interface Window {
      *
      * @return <tt>true</tt> if the window has been created and is currently opened.
      */
-    public boolean isOpened();
+    public boolean isOpen();
 
     /**
      * Retrieves the width of the rendering region within the window.
@@ -155,7 +155,7 @@ public interface Window {
      * @param icon The icon.
      * @throws JSFMLException In case an error occurs trying to convert the icon to an SFML-compatible format.
      */
-    public void setIcon(Icon icon) throws JSFMLException;
+    public void setIcon(BufferedImage icon) throws JSFMLException;
 
     /**
      * Activates or deactivates the window as the current OpenGL rendering target.
@@ -198,11 +198,4 @@ public interface Window {
      * @see org.jsfml.window.event.JoystickMoveEvent
      */
     public void setJoystickTreshold(float treshold);
-
-    /**
-     * Retrieves the operating system handle of this window.
-     *
-     * @return The window's system handle.
-     */
-    public long getSystemHandle();
 }
