@@ -18,8 +18,12 @@
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
+/*
+ * Class:     org_jsfml_SFMLNative
+ * Method:    nativeInit
+ * Signature: ()V
+ */
 JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass cls) {
-    //initialize intercom types
     JavaEnum::Init(env);
 
     JSFML::NativeObject::Init(env);

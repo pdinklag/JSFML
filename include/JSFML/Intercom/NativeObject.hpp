@@ -20,6 +20,6 @@ namespace JSFML {
 }
 
 //Helpers
-#define PTR(type) JSFML::NativeObject::GetPointer<type>(env, obj)
+#define THIS(type) JSFML::NativeObject::GetPointer<type>(env, obj)
 
 #endif
