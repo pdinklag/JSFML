@@ -2,7 +2,6 @@
 #define JSFML_COLOR_H_
 
 #include <jni.h>
-#include <vector>
 #include <SFML/Graphics/Color.hpp>
 
 namespace JSFML {
