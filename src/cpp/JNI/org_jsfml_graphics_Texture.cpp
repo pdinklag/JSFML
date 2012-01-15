@@ -35,10 +35,12 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_create (JNIEnv *env, 
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    loadFromMemory
+ * Method:    nativeLoadFromMemory
  * Signature: ([BLorg/jsfml/graphics/IntRect;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_loadFromMemory (JNIEnv *env, jobject obj, jbyteArray arr, jobject area) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
+    (JNIEnv *env, jobject obj, jbyteArray arr, jobject area) {
+
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
 
@@ -46,6 +48,19 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_loadFromMemory (JNIEn
 
     env->ReleaseByteArrayElements(arr, mem, 0);
     return result;
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromImage
+ * Signature: (Lorg/jsfml/graphics/Image;Lorg/jsfml/graphics/IntRect;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
+    (JNIEnv *env, jobject obj, jobject image, jobject area) {
+
+    return THIS(sf::Texture)->LoadFromImage(
+        *JSFML::NativeObject::GetPointer<sf::Image>(env, image),
+        JSFML::IntRect::ToSFML(env, area));
 }
 
 /*
@@ -68,10 +83,36 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getHeight (JNIEnv *env, j
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeCopyToImage
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage (JNIEnv *env, jobject obj) {
+    sf::Image* image = new sf::Image();
+    sf::Image copy = THIS(sf::Texture)->CopyToImage();
+
+    image->Create(copy.GetWidth(), copy.GetHeight(), copy.GetPixelsPtr());
+    return (jlong)image;
+}
+
+ /*
+  * Class:     org_jsfml_graphics_Texture
+  * Method:    nativeUpdate
+  * Signature: (Lorg/jsfml/graphics/Image;II)V
+  */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_graphics_Image_2II
+    (JNIEnv *env, jobject obj, jobject image, jint x, jint y) {
+
+    THIS(sf::Texture)->Update(*JSFML::NativeObject::GetPointer<sf::Image>(env, image), x, y);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeUpdate
  * Signature: (Lorg/jsfml/window/Window;II)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate (JNIEnv *env, jobject obj, jobject window, jint x, jint y) {
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_window_Window_2II
+    (JNIEnv *env, jobject obj, jobject window, jint x, jint y) {
+
     THIS(sf::Texture)->Update(*JSFML::NativeObject::GetPointer<sf::Window>(env, window), x, y);
 }
 

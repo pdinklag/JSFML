@@ -36,11 +36,19 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_create
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    loadFromMemory
+ * Method:    nativeLoadFromMemory
  * Signature: ([BLorg/jsfml/graphics/IntRect;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_loadFromMemory
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
   (JNIEnv *, jobject, jbyteArray, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromImage
+ * Signature: (Lorg/jsfml/graphics/Image;Lorg/jsfml/graphics/IntRect;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
+  (JNIEnv *, jobject, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture
@@ -60,10 +68,26 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getHeight
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeCopyToImage
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeUpdate
+ * Signature: (Lorg/jsfml/graphics/Image;II)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_graphics_Image_2II
+  (JNIEnv *, jobject, jobject, jint, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeUpdate
  * Signature: (Lorg/jsfml/window/Window;II)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_window_Window_2II
   (JNIEnv *, jobject, jobject, jint, jint);
 
 /*

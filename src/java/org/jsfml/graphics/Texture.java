@@ -61,7 +61,7 @@ public class Texture extends SFMLNativeObject {
      */
     public native boolean create(int width, int height);
 
-    private native boolean loadFromMemory(byte[] memory, IntRect area);
+    private native boolean nativeLoadFromMemory(byte[] memory, IntRect area);
 
     /**
      * Fully loads all available bytes from an {@link InputStream} and attempts to load the texture from it.
@@ -82,7 +82,7 @@ public class Texture extends SFMLNativeObject {
         if (n != b.length)
             throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
 
-        return loadFromMemory(b, area);
+        return nativeLoadFromMemory(b, area);
     }
 
     /**
@@ -140,7 +140,34 @@ public class Texture extends SFMLNativeObject {
         return loadFromFile(file, new IntRect());
     }
 
-    //TODO public native boolean loadFromImage(Image image, IntRect area);
+    private native boolean nativeLoadFromImage(Image image, IntRect area);
+
+    /**
+     * Attempts to load the texture from a source image.
+     *
+     * @param image The source image.
+     * @param area  The area of the image to load into the texture.
+     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
+     */
+    public boolean loadFromImage(Image image, IntRect area) {
+        if (image == null)
+            throw new IllegalArgumentException("image must not be null.");
+
+        if (area == null)
+            throw new IllegalArgumentException("area must not be null.");
+
+        return nativeLoadFromImage(image, area);
+    }
+
+    /**
+     * Attempts to load the texture from a source image.
+     *
+     * @param image The source image.
+     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
+     */
+    public boolean loadFromImage(Image image) {
+        return loadFromImage(image, new IntRect());
+    }
 
     /**
      * Gets the width of the texture.
@@ -156,9 +183,30 @@ public class Texture extends SFMLNativeObject {
      */
     public native int getHeight();
 
-    //TODO public native Image copyToImage();
+    private native long nativeCopyToImage();
 
-    //TODO public native void update(Image image, int x, int y);
+    public Image copyToImage() {
+        Image image = new Image(nativeCopyToImage());
+        UnsafeOperations.manageSFMLObject(image, true);
+
+        return image;
+    }
+
+    private native void nativeUpdate(Image image, int x, int y);
+
+    /**
+     * Updates a part of the texture from an image.
+     *
+     * @param image The image to update from.
+     * @param x     The X offset inside the texture.
+     * @param y     The Y offset inside the texture.
+     */
+    public void update(Image image, int x, int y) {
+        if (image == null)
+            throw new IllegalArgumentException("image must not be null.");
+
+        nativeUpdate(image, x, y);
+    }
 
     private native void nativeUpdate(Window window, int x, int y);
 
