@@ -94,7 +94,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw__Lorg_jsf
 
     THIS(sf::RenderWindow)->Draw(
         *JSFML::NativeObject::GetPointer<sf::Drawable>(env, drawable),
-        *JSFML::NativeObject::GetPointer<sf::RenderStates>(env, renderStates));
+        JSFML::RenderStates::ToSFML(env, renderStates));
 }
 
 /*
