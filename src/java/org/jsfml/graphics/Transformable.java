@@ -140,4 +140,18 @@ public abstract class Transformable extends SFMLNativeObject {
     public void scale(Vector2f factors) {
         scale(factors.x, factors.y);
     }
+
+    /**
+     * Gets the current transform matrix.
+     *
+     * @return The current transform.
+     */
+    public native Transform getTransform();
+
+    /**
+     * Gets the inverse of the current transform matrix.
+     *
+     * @return The inverse of the current transform.
+     */
+    public native Transform getInverseTransform();
 }

@@ -1,6 +1,7 @@
 #include <JSFML/JNI/org_jsfml_graphics_Transformable.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
 #include <SFML/Graphics/Transformable.hpp>
@@ -102,4 +103,22 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Transformable_rotate (JNIEnv *env
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Transformable_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
     THIS(sf::Transformable)->Scale(x, y);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Transformable
+ * Method:    getTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Transformable_getTransform (JNIEnv *env, jobject obj) {
+    return JSFML::Transform::FromSFML(env, THIS(sf::Transformable)->GetTransform());
+}
+
+/*
+ * Class:     org_jsfml_graphics_Transformable
+ * Method:    getInverseTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Transformable_getInverseTransform (JNIEnv *env, jobject obj) {
+    return JSFML::Transform::FromSFML(env, THIS(sf::Transformable)->GetInverseTransform());
 }

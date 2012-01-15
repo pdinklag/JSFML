@@ -98,6 +98,22 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Transformable_rotate
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Transformable_scale
   (JNIEnv *, jobject, jfloat, jfloat);
 
+/*
+ * Class:     org_jsfml_graphics_Transformable
+ * Method:    getTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Transformable_getTransform
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Transformable
+ * Method:    getInverseTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Transformable_getInverseTransform
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
