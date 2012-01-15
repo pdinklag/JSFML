@@ -108,17 +108,19 @@ public class Texture extends SFMLNativeObject {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
-        InputStream in = new FileInputStream(file);
+        InputStream in = null;
 
         boolean result = false;
         IOException ioException = null;
 
         try {
+            in = new FileInputStream(file);
             result = loadFromStream(in, area);
         } catch (IOException ex) {
             ioException = ex;
         } finally {
-            in.close();
+            if (in != null)
+                in.close();
         }
 
         if (ioException != null)
