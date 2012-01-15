@@ -71,9 +71,11 @@ public abstract class SFMLNativeObject {
         if (wasWrapped && !wrapped) {
             numWrapped--;
             numManaged++;
+            System.out.println("SFMLNativeObject [MANAGE]   " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged + " - numWrapped=" + numWrapped);
         } else if (!wasWrapped && wrapped) {
             numWrapped++;
             numManaged--;
+            System.out.println("SFMLNativeObject [UNMANAGE]   " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged + " - numWrapped=" + numWrapped);
         }
     }
 
