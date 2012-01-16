@@ -141,7 +141,7 @@ public abstract class Shape extends Transformable implements Drawable {
      */
     public Vector2f getPoint(int i) {
         if (i < 0 || i >= getPointCount())
-            throw new ArrayIndexOutOfBoundsException(i);
+            throw new IndexOutOfBoundsException(Integer.toString(i));
 
         return nativeGetPoint(i);
     }

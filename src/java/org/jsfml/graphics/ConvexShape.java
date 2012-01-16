@@ -39,7 +39,7 @@ public class ConvexShape extends Shape {
             throw new IllegalArgumentException("point must not be null.");
 
         if (i < 0 || i >= getPointCount())
-            throw new ArrayIndexOutOfBoundsException(i);
+            throw new IndexOutOfBoundsException(Integer.toString(i));
 
         nativeSetPoint(i, v);
     }

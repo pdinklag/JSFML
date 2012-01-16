@@ -56,7 +56,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      */
     public Vertex getVertex(int i) {
         if (i < 0 || i >= numVertices)
-            throw new ArrayIndexOutOfBoundsException(i);
+            throw new IndexOutOfBoundsException(Integer.toString(i));
 
         return nativeGetVertex(i);
     }
@@ -74,7 +74,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
             throw new IllegalArgumentException("vertex must not be null.");
 
         if (i < 0 || i >= numVertices)
-            throw new ArrayIndexOutOfBoundsException(i);
+            throw new IndexOutOfBoundsException(Integer.toString(i));
 
         nativeSetVertex(i, vertex);
     }
