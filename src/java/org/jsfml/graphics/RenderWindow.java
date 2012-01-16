@@ -78,6 +78,9 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
         nativeClear(color);
     }
 
+    /**
+     * Clears the target with black.
+     */
     public void clear() {
         nativeClear(Color.BLACK);
     }
