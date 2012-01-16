@@ -6,7 +6,6 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
-import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 import java.awt.image.BufferedImage;
@@ -37,7 +36,6 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
      * @param title    The window title.
      * @param style    The window style.
      * @param settings The settings for the OpenGL context.
-     * @see WindowStyle
      */
     public RenderWindow(VideoMode mode, String title, int style, ContextSettings settings) {
         this();
@@ -50,7 +48,6 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
      * @param mode  The video mode to use for rendering.
      * @param title The window title.
      * @param style The window style.
-     * @see WindowStyle
      */
     public RenderWindow(VideoMode mode, String title, int style) {
         this();
@@ -62,11 +59,10 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
      *
      * @param mode  The video mode to use for rendering.
      * @param title The window title.
-     * @see WindowStyle
      */
     public RenderWindow(VideoMode mode, String title) {
         this();
-        create(mode, title, WindowStyle.DEFAULT, new ContextSettings());
+        create(mode, title, DEFAULT, new ContextSettings());
     }
 
     @Override
@@ -144,7 +140,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
         if (drawable == null)
             throw new IllegalArgumentException("drawable must not be null.");
 
-        if(!(drawable instanceof SFMLNativeObject))
+        if (!(drawable instanceof SFMLNativeObject))
             throw new IllegalArgumentException("drawable must be a native SFML object.");
 
         if (renderStates == null)
@@ -197,7 +193,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
 
     @Override
     public void create(VideoMode mode, String title) {
-        create(mode, title, WindowStyle.DEFAULT, new ContextSettings());
+        create(mode, title, DEFAULT, new ContextSettings());
     }
 
     @Override

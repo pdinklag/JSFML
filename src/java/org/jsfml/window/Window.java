@@ -10,14 +10,47 @@ import java.awt.image.BufferedImage;
  */
 public interface Window {
     /**
+     * Unstyled window.
+     */
+    public static final int NONE = 0;
+
+    /**
+     * The window will have a title bar.
+     */
+    public static final int TITLEBAR = 0x01;
+
+    /**
+     * The window is resizable.
+     */
+    public static final int RESIZE = 0x02;
+
+    /**
+     * The window has a close button.
+     */
+    public static final int CLOSE = 0x04;
+
+    /**
+     * The window emulates a fullscreen mode.
+     */
+    public static final int FULLSCREEN = 0x08;
+
+    /**
+     * The default style, a resizable and closeable window with a title bar.
+     */
+    public static final int DEFAULT = TITLEBAR | RESIZE | CLOSE;
+
+    /**
      * Creates a window or re-creates it if it was already opened.
      *
      * @param mode     The video mode to use for the OpenGL context. This must be a valid video mode in case
-     *                 {@link WindowStyle#FULLSCREEN} is set.
+     *                 {@link Window#FULLSCREEN} is set.
      * @param title    The window title.
-     * @param style    The style of the window.
+     * @param style    The style of the window. This should be a ORed combination of style flags
+     *                 {@link Window#TITLEBAR}, {@link Window#RESIZE}, {@link Window#CLOSE} and
+     *                 {@link Window#FULLSCREEN}, or {@link Window#NONE} for no style. {@link Window#DEFAULT}
+     *                 provides a default combination of style flags.
      * @param settings The context settings to be applied to the context.
-     * @see {@link WindowStyle}, {@link org.jsfml.window.VideoMode#isValid()}, {@link ContextSettings}
+     * @see {@link org.jsfml.window.VideoMode#isValid()}, {@link ContextSettings}
      */
     public void create(VideoMode mode, String title, int style, ContextSettings settings);
 
@@ -25,16 +58,16 @@ public interface Window {
      * Creates a window or re-creates it if it was already opened with default context settings.
      *
      * @param mode  The video mode to use for the OpenGL context. This must be a valid video mode in case
-     *              {@link WindowStyle#FULLSCREEN} is set.
+     *              {@link Window#FULLSCREEN} is set.
      * @param title The window title.
      * @param style The style of the window.
-     * @see {@link WindowStyle}, {@link org.jsfml.window.VideoMode#isValid()}
+     * @see {@link org.jsfml.window.VideoMode#isValid()}
      */
     public void create(VideoMode mode, String title, int style);
 
     /**
      * Creates a window or re-creates it if it was already opened with default context settings and style
-     * ({@link WindowStyle#DEFAULT}.
+     * ({@link Window#DEFAULT}.
      *
      * @param mode  The video mode to use for the OpenGL context.
      * @param title The window title.
