@@ -12,6 +12,14 @@ extern "C" {
 /* Inaccessible static: numWrapped */
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    isAvailable
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_isAvailable
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    nativeCreate
  * Signature: ()J
  */

@@ -14,9 +14,16 @@ import java.io.InputStream;
  */
 public class Shader extends SFMLNativeObject {
     /**
+     * Checks if shaders are available on this system.
+     *
+     * @return <tt>true</tt> if shaders are available, <tt>false</tt> otherwise.
+     */
+    public static native boolean isAvailable();
+
+    /**
      * Shader type enumeration.
      */
-    public enum Type {
+    public static enum Type {
         /**
          * Type for vertex shaders.
          */
