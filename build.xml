@@ -68,6 +68,7 @@
 			<class name="${jsfml.package}.graphics.Shader" />
 			<class name="${jsfml.package}.graphics.Sprite" />
 			<class name="${jsfml.package}.graphics.Texture" />
+			<class name="${jsfml.package}.graphics.VertexArray" />
 			<class name="${jsfml.package}.graphics.View" />
 		</javah>
 	</target>
