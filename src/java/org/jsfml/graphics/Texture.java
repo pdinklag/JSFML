@@ -36,10 +36,15 @@ public class Texture extends SFMLNativeObject {
     }
 
     @SuppressWarnings("deprecation")
-    private Texture(long wrap) {
+    Texture(long wrap) {
         super(wrap);
     }
 
+    /**
+     * Creates a texture from another texture.
+     *
+     * @param other The texture to copy.
+     */
     @SuppressWarnings("deprecation")
     public Texture(Texture other) {
         super(0);
