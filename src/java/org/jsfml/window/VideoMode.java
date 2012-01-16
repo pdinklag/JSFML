@@ -25,19 +25,19 @@ public class VideoMode implements Serializable {
      * The width of the video mode in pixels.
      */
     @Intercom
-    public int width;
+    public final int width;
 
     /**
      * The height of the video mode in pixels.
      */
     @Intercom
-    public int height;
+    public final int height;
 
     /**
      * The pixel depth of the video mode, in bits per pixel.
      */
     @Intercom
-    public int bpp;
+    public final int bpp;
 
     /**
      * Retrieves the current desktop's video mode.
