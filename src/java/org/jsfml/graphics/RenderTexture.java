@@ -7,7 +7,8 @@ import org.jsfml.system.Vector2f;
  * Target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-    private View view, defaultView;
+    private ImmutableView defaultView;
+    private View view;
     private ImmutableTexture texture;
 
     /**
@@ -16,7 +17,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     public RenderTexture() {
         super();
 
-        defaultView = new View(nativeGetDefaultView());
+        defaultView = new ImmutableView(nativeGetDefaultView());
         view = defaultView;
         texture = new ImmutableTexture(nativeGetTexture());
     }

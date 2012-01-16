@@ -14,7 +14,8 @@ import java.awt.image.BufferedImage;
  * Window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends SFMLNativeObject implements RenderTarget, Window {
-    private View view, defaultView;
+    private ImmutableView defaultView;
+    private View view;
     private long iconPtr;
 
     /**
@@ -25,7 +26,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     public RenderWindow() {
         super();
 
-        defaultView = new View(nativeGetDefaultView());
+        defaultView = new ImmutableView(nativeGetDefaultView());
         view = defaultView;
     }
 
