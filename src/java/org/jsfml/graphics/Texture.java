@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.UnsafeOperations;
@@ -76,7 +77,7 @@ public class Texture extends SFMLNativeObject {
      * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in, IntRect area) throws IOException {
+    public boolean loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
@@ -102,7 +103,7 @@ public class Texture extends SFMLNativeObject {
      * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file, IntRect area) throws IOException {
+    public boolean loadFromFile(File file, @NotNull IntRect area) throws IOException {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
@@ -129,7 +130,7 @@ public class Texture extends SFMLNativeObject {
      * @param area  The area of the image to load into the texture.
      * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      */
-    public boolean loadFromImage(Image image, IntRect area) {
+    public boolean loadFromImage(@NotNull Image image, @NotNull IntRect area) {
         if (image == null)
             throw new IllegalArgumentException("image must not be null.");
 
@@ -181,7 +182,7 @@ public class Texture extends SFMLNativeObject {
      * @param x     The X offset inside the texture.
      * @param y     The Y offset inside the texture.
      */
-    public void update(Image image, int x, int y) {
+    public void update(@NotNull Image image, int x, int y) {
         if (image == null)
             throw new IllegalArgumentException("image must not be null.");
 
@@ -197,7 +198,7 @@ public class Texture extends SFMLNativeObject {
      * @param x      The X offset inside the texture.
      * @param y      The Y offset inside the texture.
      */
-    public void update(Window window, int x, int y) {
+    public void update(@NotNull Window window, int x, int y) {
         if (window == null)
             throw new IllegalArgumentException("window must not be null.");
 
@@ -220,7 +221,7 @@ public class Texture extends SFMLNativeObject {
      *
      * @param coordinateType The coordinate type to use.
      */
-    public void bind(CoordinateType coordinateType) {
+    public void bind(@NotNull CoordinateType coordinateType) {
         if (coordinateType == null)
             throw new IllegalArgumentException("coordinateType must not be null.");
 

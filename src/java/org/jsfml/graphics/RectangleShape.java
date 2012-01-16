@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -33,7 +34,7 @@ public class RectangleShape extends Shape {
      *
      * @param size The dimensions of the rectangle.
      */
-    public void setSize(Vector2f size) {
+    public void setSize(@NotNull Vector2f size) {
         if (size == null)
             throw new IllegalArgumentException("size must not be null.");
 

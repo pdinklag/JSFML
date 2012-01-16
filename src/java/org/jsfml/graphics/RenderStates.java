@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.Intercom;
+import org.jsfml.NotNull;
 
 /**
  * Defines the states used for drawing to a {@link RenderTarget}
@@ -75,7 +76,7 @@ public class RenderStates {
         return blendMode;
     }
 
-    public void setBlendMode(BlendMode blendMode) {
+    public void setBlendMode(@NotNull BlendMode blendMode) {
         if(blendMode == null)
             throw new IllegalArgumentException("blendMode must not be null.");
 
@@ -86,7 +87,7 @@ public class RenderStates {
         return transform;
     }
 
-    public void setTransform(Transform transform) {
+    public void setTransform(@NotNull Transform transform) {
         if(transform == null)
             throw new IllegalArgumentException("transform must not be null.");
 

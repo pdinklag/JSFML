@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -34,7 +35,7 @@ public class ConvexShape extends Shape {
      * @param i The index of the point to set.
      * @param v The point to set at the given index.
      */
-    public void setPoint(int i, Vector2f v) {
+    public void setPoint(int i, @NotNull Vector2f v) {
         if (v == null)
             throw new IllegalArgumentException("point must not be null.");
 

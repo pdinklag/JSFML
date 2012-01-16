@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.Intercom;
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -85,9 +86,9 @@ public class Vertex implements Serializable {
      *
      * @param position The vertex' new position.
      */
-    public void setPosition(Vector2f position) {
-        if (color == null)
-            throw new IllegalArgumentException("A vertex position cannot be null.");
+    public void setPosition(@NotNull Vector2f position) {
+        if (position == null)
+            throw new IllegalArgumentException("position must not be null.");
 
         this.position = position;
     }
@@ -106,9 +107,9 @@ public class Vertex implements Serializable {
      *
      * @param color The vertex' new color.
      */
-    public void setColor(Color color) {
+    public void setColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("A vertex color cannot be null.");
+            throw new IllegalArgumentException("color must not be null.");
 
         this.color = color;
     }
@@ -127,9 +128,9 @@ public class Vertex implements Serializable {
      *
      * @param texCoords The vertex' new texture coordinates.
      */
-    public void setTexCoords(Vector2f texCoords) {
-        if (color == null)
-            throw new IllegalArgumentException("A vertex tex coords cannot be null.");
+    public void setTexCoords(@NotNull Vector2f texCoords) {
+        if (texCoords == null)
+            throw new IllegalArgumentException("texCoords must not be null.");
 
         this.texCoords = texCoords;
     }

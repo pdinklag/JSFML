@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 
 /**
@@ -69,7 +70,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      * @param i      The index at which to set.
      * @param vertex The vertex to set at the given index.
      */
-    public void setVertex(int i, Vertex vertex) {
+    public void setVertex(int i, @NotNull Vertex vertex) {
         if (vertex == null)
             throw new IllegalArgumentException("vertex must not be null.");
 
@@ -111,7 +112,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      *
      * @param v The vertex to append.
      */
-    public void append(Vertex v) {
+    public void append(@NotNull Vertex v) {
         if (v == null)
             throw new IllegalArgumentException("vertex must not be null.");
 
@@ -125,7 +126,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      *
      * @param type The primitive type.
      */
-    public void setPrimitiveType(PrimitiveType type) {
+    public void setPrimitiveType(@NotNull PrimitiveType type) {
         if (type == null)
             throw new IllegalArgumentException("type must not be null.");
 

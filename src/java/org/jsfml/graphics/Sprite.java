@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -48,7 +49,7 @@ public class Sprite extends Transformable implements Drawable {
      * @param texture   The new texture.
      * @param resetRect <tt>true</tt> to reset the texture rectangle, <tt>false</tt> otherwise.
      */
-    public void setTexture(Texture texture, boolean resetRect) {
+    public void setTexture(@NotNull Texture texture, boolean resetRect) {
         if (texture == null)
             throw new IllegalArgumentException("texture must not be null.");
 
@@ -72,7 +73,7 @@ public class Sprite extends Transformable implements Drawable {
      *
      * @param rect The texture portion.
      */
-    public void setTextureRect(IntRect rect) {
+    public void setTextureRect(@NotNull IntRect rect) {
         if (rect == null)
             throw new IllegalArgumentException("rect must not be null.");
 
@@ -86,7 +87,7 @@ public class Sprite extends Transformable implements Drawable {
      *
      * @param color The new color.
      */
-    public void setColor(Color color) {
+    public void setColor(@NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 

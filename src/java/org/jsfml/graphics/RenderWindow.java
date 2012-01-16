@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.JSFMLException;
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.ContextSettings;
@@ -72,7 +73,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeClear(Color color);
 
     @Override
-    public void clear(Color color) {
+    public void clear(@NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 
@@ -89,7 +90,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(View view) {
+    public void setView(@NotNull View view) {
         if (view == null)
             throw new IllegalArgumentException("view must not be null.");
 
@@ -112,7 +113,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native IntRect nativeGetViewport(View view);
 
     @Override
-    public IntRect getViewport(View view) {
+    public IntRect getViewport(@NotNull View view) {
         if (view == null)
             throw new IllegalArgumentException("view must not be null.");
 
@@ -125,7 +126,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native Vector2f nativeConvertCoords(float x, float y, View view);
 
     @Override
-    public Vector2f convertCoords(float x, float y, View view) {
+    public Vector2f convertCoords(float x, float y, @NotNull View view) {
         if (view == null)
             throw new IllegalArgumentException("view must not be null.");
 
@@ -140,7 +141,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeDraw(Drawable drawable, RenderStates states);
 
     @Override
-    public void draw(Drawable drawable, RenderStates renderStates) {
+    public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
         if (drawable == null)
             throw new IllegalArgumentException("drawable must not be null.");
 
@@ -161,7 +162,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
 
     @Override
-    public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
+    public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
         if (vertices == null)
             throw new IllegalArgumentException("vertices must not be null.");
 
@@ -177,7 +178,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
 
     @Override
-    public void create(VideoMode mode, String title, int style, ContextSettings settings) {
+    public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
         if (mode == null)
             throw new IllegalArgumentException("mode must not be null.");
 
@@ -236,7 +237,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     private native void nativeSetTitle(String title);
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle(@NotNull String title) {
         if (title == null)
             throw new IllegalArgumentException("title must not be null.");
 

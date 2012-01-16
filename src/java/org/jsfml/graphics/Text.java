@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -79,7 +80,7 @@ public class Text extends Transformable implements Drawable {
      *
      * @param string The string to display.
      */
-    public void setString(String string) {
+    public void setString(@NotNull String string) {
         if (string == null)
             throw new IllegalArgumentException("string must not be null");
 
@@ -94,7 +95,7 @@ public class Text extends Transformable implements Drawable {
      *
      * @param font The text's font.
      */
-    public void setFont(Font font) {
+    public void setFont(@NotNull Font font) {
         if (font == null)
             throw new IllegalArgumentException("font must not be null");
 
@@ -125,7 +126,7 @@ public class Text extends Transformable implements Drawable {
      *
      * @param color The font color for this text.
      */
-    public void setColor(Color color) {
+    public void setColor(@NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null");
 

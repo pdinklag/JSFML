@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
@@ -70,7 +71,7 @@ public class View extends SFMLNativeObject {
      *
      * @param rect The new viewport rectangle.
      */
-    public void setViewport(FloatRect rect) {
+    public void setViewport(@NotNull FloatRect rect) {
         if (rect == null)
             throw new IllegalArgumentException("rect must not be null.");
 
@@ -84,7 +85,7 @@ public class View extends SFMLNativeObject {
      *
      * @param rect The viewport rectangle.
      */
-    public void reset(FloatRect rect) {
+    public void reset(@NotNull FloatRect rect) {
         if (rect == null)
             throw new IllegalArgumentException("rect must not be null.");
 

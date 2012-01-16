@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.system.Vector2f;
@@ -56,7 +57,7 @@ public class Shader extends SFMLNativeObject {
      * @param shaderType The shader type.
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      */
-    public boolean loadFromSource(String source, Type shaderType) {
+    public boolean loadFromSource(@NotNull String source, @NotNull Type shaderType) {
         if (source == null)
             throw new IllegalArgumentException("source must not be null.");
 
@@ -73,7 +74,7 @@ public class Shader extends SFMLNativeObject {
      * @param fragmentShaderSource The fragment shader's source code.
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      */
-    public boolean loadFromSource(String vertexShaderSource, String fragmentShaderSource) {
+    public boolean loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource) {
         if (vertexShaderSource == null)
             throw new IllegalArgumentException("vertexShaderSource must not be null.");
 
@@ -91,7 +92,7 @@ public class Shader extends SFMLNativeObject {
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in, Type shaderType) throws IOException {
+    public boolean loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
@@ -120,7 +121,7 @@ public class Shader extends SFMLNativeObject {
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file, Type shaderType) throws IOException {
+    public boolean loadFromFile(File file, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
@@ -149,7 +150,7 @@ public class Shader extends SFMLNativeObject {
      * @param name The parameter's name.
      * @param x    The parameter's value.
      */
-    public void setParameter(String name, float x) {
+    public void setParameter(@NotNull String name, float x) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 
@@ -165,7 +166,7 @@ public class Shader extends SFMLNativeObject {
      * @param x    The parameter's value.
      * @param y    The parameter's value.
      */
-    public void setParameter(String name, float x, float y) {
+    public void setParameter(@NotNull String name, float x, float y) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 
@@ -192,7 +193,7 @@ public class Shader extends SFMLNativeObject {
      * @param y    The parameter's value.
      * @param z    The parameter's value.
      */
-    public void setParameter(String name, float x, float y, float z) {
+    public void setParameter(@NotNull String name, float x, float y, float z) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 
@@ -220,7 +221,7 @@ public class Shader extends SFMLNativeObject {
      * @param z    The parameter's value.
      * @param w    The parameter's value.
      */
-    public void setParameter(String name, float x, float y, float z, float w) {
+    public void setParameter(@NotNull String name, float x, float y, float z, float w) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 
@@ -249,7 +250,7 @@ public class Shader extends SFMLNativeObject {
      * @param name  The parameter's name.
      * @param xform The parameter's value.
      */
-    public void setParameter(String name, Transform xform) {
+    public void setParameter(@NotNull String name, @NotNull Transform xform) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 
@@ -267,7 +268,7 @@ public class Shader extends SFMLNativeObject {
      * @param name    The parameter's name.
      * @param texture The parameter's value.
      */
-    public void setParameter(String name, Texture texture) {
+    public void setParameter(@NotNull String name, @NotNull Texture texture) {
         if (name == null)
             throw new IllegalArgumentException("name must not be null.");
 

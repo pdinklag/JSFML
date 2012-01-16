@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 
@@ -35,7 +36,7 @@ public class Image extends SFMLNativeObject {
      * @param height The image's height.
      * @param color  The fill color of the image.
      */
-    public void create(int width, int height, Color color) {
+    public void create(int width, int height, @NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 
@@ -84,7 +85,7 @@ public class Image extends SFMLNativeObject {
      * @param file The file to write.
      * @return <tt>true</tt> if the image was saved successfully, <tt>false</tt> otherwise.
      */
-    public boolean saveToFile(File file) {
+    public boolean saveToFile(@NotNull File file) {
         if (file == null)
             throw new IllegalArgumentException("file must not be null");
 
@@ -113,7 +114,7 @@ public class Image extends SFMLNativeObject {
      * @param color The color to be made transparent.
      * @param alpha The alpha value to assign to transparent pixels.
      */
-    public void createMaskFromColor(Color color, int alpha) {
+    public void createMaskFromColor(@NotNull Color color, int alpha) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 
@@ -141,7 +142,7 @@ public class Image extends SFMLNativeObject {
      * @param sourceRect The source rectangle. An empty rectangle means the full image.
      * @param applyAlpha <tt>true</tt> to copy alpha values as well, <tt>false</tt> to leave the destination alpha.
      */
-    public void copy(Image source, int destX, int destY, IntRect sourceRect, boolean applyAlpha) {
+    public void copy(@NotNull Image source, int destX, int destY, @NotNull IntRect sourceRect, boolean applyAlpha) {
         if (source == null)
             throw new IllegalArgumentException("source must not be null.");
 
@@ -183,7 +184,7 @@ public class Image extends SFMLNativeObject {
      * @param y     The pixel's Y coordinate.
      * @param color The color to apply to the pixel.
      */
-    public void setPixel(int x, int y, Color color) {
+    public void setPixel(int x, int y, @NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 

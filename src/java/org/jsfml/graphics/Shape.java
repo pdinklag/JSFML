@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -45,7 +46,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @param rect The texture portion to use for drawing. An empty rectangle means the whole texture.
      */
-    public void setTextureRect(IntRect rect) {
+    public void setTextureRect(@NotNull IntRect rect) {
         if (rect == null)
             throw new IllegalArgumentException("rect must not be null.");
 
@@ -59,7 +60,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @param color The fill color of the shape.
      */
-    public void setFillColor(Color color) {
+    public void setFillColor(@NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 
@@ -73,7 +74,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @param color The outline color of the shape.
      */
-    public void setOutlineColor(Color color) {
+    public void setOutlineColor(@NotNull Color color) {
         if (color == null)
             throw new IllegalArgumentException("color must not be null.");
 
