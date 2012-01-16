@@ -63,6 +63,7 @@
 			<class name="${jsfml.package}.window.VideoMode" />
 			
 			<!-- graphics -->
+			<class name="${jsfml.package}.graphics.CircleShape" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
 			<class name="${jsfml.package}.graphics.Shader" />
