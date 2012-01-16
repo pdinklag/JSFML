@@ -1,9 +1,9 @@
 package org.jsfml.graphics;
 
 import org.jsfml.SFMLNativeObject;
+import org.jsfml.StreamUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -62,14 +62,7 @@ public class Image extends SFMLNativeObject {
      * @throws java.io.IOException In case an I/O error occurs.
      */
     public boolean loadFromStream(InputStream in) throws IOException {
-        int n = in.available();
-        byte[] b = new byte[n];
-
-        n = in.read(b);
-        if (n != b.length)
-            throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-        return nativeLoadFromMemory(b);
+        return nativeLoadFromMemory(StreamUtil.readStream(in));
     }
 
     /**
@@ -80,25 +73,7 @@ public class Image extends SFMLNativeObject {
      * @throws IOException In case an I/O error occurs.
      */
     public boolean loadFromFile(File file) throws IOException {
-        InputStream in = null;
-
-        boolean result = false;
-        IOException ioException = null;
-
-        try {
-            in = new FileInputStream(file);
-            result = loadFromStream(in);
-        } catch (IOException ex) {
-            ioException = ex;
-        } finally {
-            if (in != null)
-                in.close();
-        }
-
-        if (ioException != null)
-            throw ioException;
-
-        return result;
+        return nativeLoadFromMemory(StreamUtil.readFile(file));
     }
 
     private native boolean nativeSaveToFile(String fileName);

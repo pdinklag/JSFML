@@ -1,18 +1,60 @@
 package org.jsfml;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * Provides stream utility functions.
  */
-class StreamUtil {
+public class StreamUtil {
     private final static String TEMPFILE_PREFIX = "jsfml";
     private final static String TEMPFILE_SUFFIX = "temp";
 
     private final static int BUFFER_SIZE = 16384;
+
+    /**
+     * Fully reads an input stream into a byte array.
+     *
+     * @param inputStream The input stream to read.
+     * @return The bytes read from the stream.
+     * @throws IOException If an error occurs in the process.
+     */
+    public static byte[] readStream(InputStream inputStream) throws IOException {
+        int n = inputStream.available();
+        byte[] b = new byte[n];
+
+        n = inputStream.read(b);
+        if (n != b.length)
+            throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
+
+        return b;
+    }
+
+    /**
+     * Fully reads an input stream into a byte array.
+     *
+     * @param file The file to read.
+     * @return The bytes read from the file.
+     * @throws IOException If an error occurs in the process.
+     */
+    public static byte[] readFile(File file) throws IOException {
+        InputStream fis = new FileInputStream(file);
+
+        byte[] b = null;
+        IOException ioException = null;
+
+        try {
+            b = readStream(fis);
+        } catch (IOException ex) {
+            ioException = ex;
+        } finally {
+            fis.close();
+        }
+
+        if (ioException != null)
+            throw ioException;
+
+        return b;
+    }
 
     /**
      * Fully reads an input stream and writes it into a file.

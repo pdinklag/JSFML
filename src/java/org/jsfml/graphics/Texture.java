@@ -1,11 +1,11 @@
 package org.jsfml.graphics;
 
 import org.jsfml.SFMLNativeObject;
+import org.jsfml.StreamUtil;
 import org.jsfml.UnsafeOperations;
 import org.jsfml.window.Window;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -75,14 +75,7 @@ public class Texture extends SFMLNativeObject {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
-        int n = in.available();
-        byte[] b = new byte[n];
-
-        n = in.read(b);
-        if (n != b.length)
-            throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-        return nativeLoadFromMemory(b, area);
+        return nativeLoadFromMemory(StreamUtil.readStream(in), area);
     }
 
     /**
@@ -108,25 +101,7 @@ public class Texture extends SFMLNativeObject {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
-        InputStream in = null;
-
-        boolean result = false;
-        IOException ioException = null;
-
-        try {
-            in = new FileInputStream(file);
-            result = loadFromStream(in, area);
-        } catch (IOException ex) {
-            ioException = ex;
-        } finally {
-            if (in != null)
-                in.close();
-        }
-
-        if (ioException != null)
-            throw ioException;
-
-        return result;
+        return nativeLoadFromMemory(StreamUtil.readFile(file), area);
     }
 
     /**

@@ -1,11 +1,11 @@
 package org.jsfml.graphics;
 
 import org.jsfml.SFMLNativeObject;
+import org.jsfml.StreamUtil;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector3f;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -88,14 +88,7 @@ public class Shader extends SFMLNativeObject {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
-        int n = in.available();
-        byte[] b = new byte[n];
-
-        n = in.read(b);
-        if (n != b.length)
-            throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-        return loadFromSource(new String(b), shaderType);
+        return loadFromSource(new String(StreamUtil.readStream(in)), shaderType);
     }
 
     /**
@@ -107,31 +100,9 @@ public class Shader extends SFMLNativeObject {
      * @throws IOException In case an I/O error occurs.
      */
     public boolean loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn) throws IOException {
-        String vertSource, fragSource;
-
-        {
-            int n = vertexShaderIn.available();
-            byte[] b = new byte[n];
-
-            n = vertexShaderIn.read(b);
-            if (n != b.length)
-                throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-            vertSource = new String(b);
-        }
-
-        {
-            int n = fragmentShaderIn.available();
-            byte[] b = new byte[n];
-
-            n = fragmentShaderIn.read(b);
-            if (n != b.length)
-                throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-            fragSource = new String(b);
-        }
-
-        return loadFromSource(vertSource, fragSource);
+        return loadFromSource(
+                new String(StreamUtil.readStream(vertexShaderIn)),
+                new String(StreamUtil.readStream(fragmentShaderIn)));
     }
 
     /**
@@ -146,11 +117,7 @@ public class Shader extends SFMLNativeObject {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
-        InputStream in = new FileInputStream(file);
-        boolean result = loadFromStream(in, shaderType);
-        in.close();
-
-        return result;
+        return loadFromSource(new String(StreamUtil.readFile(file)), shaderType);
     }
 
     /**
@@ -162,37 +129,9 @@ public class Shader extends SFMLNativeObject {
      * @throws IOException In case an I/O error occurs.
      */
     public boolean loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
-        IOException ioException = null;
-
-        InputStream vertIn = null;
-        InputStream fragIn = null;
-
-        boolean result = false;
-
-        try {
-            vertIn = new FileInputStream(vertexShaderFile);
-            fragIn = new FileInputStream(fragmentShaderFile);
-
-            result = loadFromStream(vertIn, fragIn);
-
-        } catch (IOException ex) {
-            ioException = ex;
-        } finally {
-            try {
-                if (vertIn != null)
-                    vertIn.close();
-            } catch (IOException ex) {
-                //
-            }
-
-            if (fragIn != null)
-                fragIn.close();
-        }
-
-        if (ioException != null)
-            throw ioException;
-
-        return result;
+        return loadFromSource(
+                new String(StreamUtil.readFile(vertexShaderFile)),
+                new String(StreamUtil.readFile(fragmentShaderFile)));
     }
 
     private native void nativeSetParameter(String name, float x);
@@ -299,6 +238,7 @@ public class Shader extends SFMLNativeObject {
 
     /**
      * Sets a matrix (mat4) parameter value in the shader.
+     *
      * @param name  The parameter's name.
      * @param xform The parameter's value.
      */
@@ -316,7 +256,8 @@ public class Shader extends SFMLNativeObject {
 
     /**
      * Sets a texture (sampler2D) parameter value in the shader.
-     * @param name  The parameter's name.
+     *
+     * @param name    The parameter's name.
      * @param texture The parameter's value.
      */
     public void setParameter(String name, Texture texture) {
