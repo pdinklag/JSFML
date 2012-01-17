@@ -123,8 +123,8 @@
 		<delete file="${cpp.out}/${arch}/history.xml" />
 		<move file="${cpp.out}/${arch}/lib${jsfml.bin}.so" tofile="${cpp.out}/${arch}/${jsfml.bin}.dll" />
 		<copy todir="${cpp.out}/${arch}">
-			<fileset dir="${env.SFML_HOME}/build/lib" includes="*.dll" />
-			<fileset dir="${env.SFML_HOME}/extlibs/bin/x86" includes="*.dll" />
+			<fileset dir="${env.SFML_HOME}/build/lib" includes="sfml-audio-2.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll" />
+			<fileset dir="${env.SFML_HOME}/extlibs/bin/x86" includes="libsndfile-1.dll openal32.dll" />
 		</copy>
 		<checksum>
 			<fileset dir="${cpp.out}/${arch}" includes="*.dll" />
@@ -163,11 +163,11 @@
 			
 			<libset libs="stdc++" />
 			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
-			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-main, sfml-audio, sfml-graphics, sfml-system, sfml-window" />
+			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-audio, sfml-graphics, sfml-system, sfml-window" />
 		</cc>
 		<delete file="${cpp.out}/${arch}/history.xml" />
 		<copy todir="${cpp.out}/${arch}">
-			<fileset dir="${env.SFML_HOME}/build/lib" includes="*.so.2.0" />
+			<fileset dir="${env.SFML_HOME}/build/lib" includes="libsfml-audio.so.2.0 libsfml-graphics.so.2.0 libsfml-system.so.2.0 libsfml-window.so.2.0" />
 		</copy>
 		<checksum>
 			<fileset dir="${cpp.out}/${arch}" includes="*.so*" />
@@ -178,7 +178,7 @@
 	<target name="jar" description="Generate the JAR file." depends="java.compile">
 		<jar destfile="${jar.file}">
 			<fileset dir="${java.out}" includes="**/*.class" />
-			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so **/*.dylib **/*.MD5" />
+			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so* **/*.dylib **/*.MD5" />
 			<manifest>
 				<attribute name="Sealed" value="true" />
 				<attribute name="Specification-Title" value="JSFML" />
