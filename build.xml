@@ -159,8 +159,6 @@
 			<includepath location="${env.JAVA_HOME}/include" />
 			<includepath location="${env.JAVA_HOME}/include/linux" />
 			
-			<linkerarg location="start" value="--add-stdcall-alias" />
-			
 			<libset libs="stdc++" />
 			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
 			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-audio, sfml-graphics, sfml-system, sfml-window" />
