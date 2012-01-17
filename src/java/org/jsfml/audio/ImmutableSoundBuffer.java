@@ -13,17 +13,14 @@ class ImmutableSoundBuffer extends SoundBuffer {
     }
 
     @Override
-    public boolean loadFromStream(InputStream in) throws IOException {
-        return false;
+    public void loadFromStream(InputStream in) throws IOException {
     }
 
     @Override
-    public boolean loadFromFile(File file) throws IOException {
-        return false;
+    public void loadFromFile(File file) throws IOException {
     }
 
     @Override
-    public boolean loadFromSamples(short[] samples, int channelCount, int sampleRate) {
-        return false;
+    public void loadFromSamples(short[] samples, int channelCount, int sampleRate) {
     }
 }

@@ -20,13 +20,11 @@ class ImmutableTexture extends Texture {
     }
 
     @Override
-    public boolean loadFromStream(InputStream in, IntRect area) throws IOException {
-        return false;
+    public void loadFromStream(InputStream in, IntRect area) throws IOException {
     }
 
     @Override
-    public boolean loadFromFile(File file, IntRect area) throws IOException {
-        return false;
+    public void loadFromFile(File file, IntRect area) throws IOException {
     }
 
     @Override

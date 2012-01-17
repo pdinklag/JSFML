@@ -13,12 +13,10 @@ public class ImmutableFont extends Font {
     }
 
     @Override
-    public boolean loadFromStream(InputStream in) throws IOException {
-        return false;
+    public void loadFromStream(InputStream in) throws IOException {
     }
 
     @Override
-    public boolean loadFromFile(File file) throws IOException {
-        return false;
+    public void loadFromFile(File file) throws IOException {
     }
 }
