@@ -25,7 +25,8 @@ public class Joystick {
         R,
         U,
         V,
-        POV
+        POV_X,
+        POV_Y
     }
 
     /**
