@@ -130,6 +130,49 @@
 			<fileset dir="${cpp.out}/${arch}" includes="*.dll" />
 		</checksum>
 	</target>
+
+	<!-- Compile C++ for Linux 32 -->
+	<target name="cpp.linux32" description="Build the C++ sources for Linux 32 bit.">
+		
+		<property name="arch" value="linux_x86" />
+	
+		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.so" />
+		<mkdir dir="${cpp.obj}" />
+		<mkdir dir="${cpp.out}" />
+		<mkdir dir="${cpp.out}/${arch}" />
+		
+		<cc name="g++"
+			debug="false"
+			multithreaded="true"
+			newenvironment="true"
+			incremental="false"
+			runtime="static"
+			outtype="shared"
+			outfile="${cpp.out}/${arch}/${jsfml.bin}"
+			objdir="${cpp.obj}"
+			exceptions="true">
+
+			<fileset dir="${cpp.src}" includes="**/*.cpp" />
+			
+			<includepath location="${cpp.include}" />
+			<includepath location="${env.SFML_HOME}/include" />
+			<includepath location="${env.JAVA_HOME}/include" />
+			<includepath location="${env.JAVA_HOME}/include/linux" />
+			
+			<linkerarg location="start" value="--add-stdcall-alias" />
+			
+			<libset libs="stdc++" />
+			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
+			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-main, sfml-audio, sfml-graphics, sfml-system, sfml-window" />
+		</cc>
+		<delete file="${cpp.out}/${arch}/history.xml" />
+		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${env.SFML_HOME}/build/lib" includes="*.so.2.0" />
+		</copy>
+		<checksum>
+			<fileset dir="${cpp.out}/${arch}" includes="*.so*" />
+		</checksum>
+	</target>
 	
 	<!-- Jar -->
 	<target name="jar" description="Generate the JAR file." depends="java.compile">
