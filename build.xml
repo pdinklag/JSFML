@@ -76,6 +76,9 @@
 			<class name="${jsfml.package}.graphics.Texture" />
 			<class name="${jsfml.package}.graphics.VertexArray" />
 			<class name="${jsfml.package}.graphics.View" />
+			
+			<!-- audio -->
+			<class name="${jsfml.package}.audio.Listener" />
 		</javah>
 	</target>
 	
