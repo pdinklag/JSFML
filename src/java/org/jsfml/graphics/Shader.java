@@ -55,16 +55,18 @@ public class Shader extends SFMLNativeObject {
      *
      * @param source     The source code.
      * @param shaderType The shader type.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      */
-    public boolean loadFromSource(@NotNull String source, @NotNull Type shaderType) {
+    public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
+            throws IOException {
+
         if (source == null)
             throw new IllegalArgumentException("source must not be null.");
 
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
-        return nativeLoadFromSource(source, shaderType);
+        if (!nativeLoadFromSource(source, shaderType))
+            throw new IOException("Failed to load shader from source.");
     }
 
     /**
@@ -72,16 +74,19 @@ public class Shader extends SFMLNativeObject {
      *
      * @param vertexShaderSource   The vertex shader's source code.
      * @param fragmentShaderSource The fragment shader's source code.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
+     * @throws java.io.IOException In case an I/O error occurs.
      */
-    public boolean loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource) {
+    public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
+            throws IOException {
+
         if (vertexShaderSource == null)
             throw new IllegalArgumentException("vertexShaderSource must not be null.");
 
         if (fragmentShaderSource == null)
             throw new IllegalArgumentException("fragmentShaderSource must not be null.");
 
-        return nativeLoadFromSource(vertexShaderSource, fragmentShaderSource);
+        if (!nativeLoadFromSource(vertexShaderSource, fragmentShaderSource))
+            throw new IOException("Failed to load shader from source.");
     }
 
     /**
@@ -89,14 +94,13 @@ public class Shader extends SFMLNativeObject {
      *
      * @param in         The input stream to read from.
      * @param shaderType The shader type.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
+    public void loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
-        return loadFromSource(new String(StreamUtil.readStream(in)), shaderType);
+        loadFromSource(new String(StreamUtil.readStream(in)), shaderType);
     }
 
     /**
@@ -104,11 +108,10 @@ public class Shader extends SFMLNativeObject {
      *
      * @param vertexShaderIn   The input stream to read the vertex shader from.
      * @param fragmentShaderIn The input stream to read the fragment shader from.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn) throws IOException {
-        return loadFromSource(
+    public void loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn) throws IOException {
+        loadFromSource(
                 new String(StreamUtil.readStream(vertexShaderIn)),
                 new String(StreamUtil.readStream(fragmentShaderIn)));
     }
@@ -121,11 +124,11 @@ public class Shader extends SFMLNativeObject {
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file, @NotNull Type shaderType) throws IOException {
+    public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
             throw new IllegalArgumentException("shaderType must not be null.");
 
-        return loadFromSource(new String(StreamUtil.readFile(file)), shaderType);
+        loadFromSource(new String(StreamUtil.readFile(file)), shaderType);
     }
 
     /**
@@ -136,8 +139,8 @@ public class Shader extends SFMLNativeObject {
      * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
-        return loadFromSource(
+    public void loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
+        loadFromSource(
                 new String(StreamUtil.readFile(vertexShaderFile)),
                 new String(StreamUtil.readFile(fragmentShaderFile)));
     }

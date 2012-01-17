@@ -31,28 +31,28 @@ public class Music extends SoundStream {
      * The temporary file is deleted once the JVM terminates.
      *
      * @param in The input stream to read from.
-     * @return <tt>true</tt> if the sound buffer was successfully loaded, <tt>false</tt> otherwise.
      * @throws java.io.IOException In case an I/O error occurs.
      */
-    public boolean openFromStream(InputStream in) throws IOException {
+    public void openFromStream(InputStream in) throws IOException {
         File tempFile = StreamUtil.streamToTempFile(in);
         tempFile.deleteOnExit();
 
-        return nativeOpenFromFile(tempFile.getAbsolutePath());
+        if (!nativeOpenFromFile(tempFile.getAbsolutePath()))
+            throw new IOException("Failed to open music from input stream.");
     }
 
     /**
      * Attempts to open the stream from a file.
      *
      * @param file The file to load the sound buffer from.
-     * @return <tt>true</tt> if the sound buffer was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean openFromFile(File file) throws IOException {
+    public void openFromFile(File file) throws IOException {
         if (!file.isFile())
             throw new IOException("file not found: " + file);
 
-        return nativeOpenFromFile(file.getAbsolutePath());
+        if (!nativeOpenFromFile(file.getAbsolutePath()))
+            throw new IOException("Failed to open music from file: " + file);
     }
 
     /**

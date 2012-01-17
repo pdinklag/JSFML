@@ -53,22 +53,22 @@ public class SoundBuffer extends SFMLNativeObject {
      * the sound buffer from it.
      *
      * @param in The input stream to read from.
-     * @return <tt>true</tt> if the sound buffer was successfully loaded, <tt>false</tt> otherwise.
      * @throws java.io.IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in) throws IOException {
-        return nativeLoadFromMemory(StreamUtil.readStream(in));
+    public void loadFromStream(InputStream in) throws IOException {
+        if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
+            throw new IOException("Failed to load sound buffer from input stream.");
     }
 
     /**
      * Attempts to load the sound buffer from a file.
      *
      * @param file The file to load the sound buffer from.
-     * @return <tt>true</tt> if the sound buffer was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file) throws IOException {
-        return nativeLoadFromMemory(StreamUtil.readFile(file));
+    public void loadFromFile(File file) throws IOException {
+        if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
+            throw new IOException("Failed to load sound buffer from file: " + file);
     }
 
     private native boolean nativeLoadFromSamples(short[] samples, int channelCount, int sampleRate);
@@ -79,13 +79,15 @@ public class SoundBuffer extends SFMLNativeObject {
      * @param samples      The samples data.
      * @param channelCount The amount of audio channels.
      * @param sampleRate   The sample rate in samples per second.
-     * @return <tt>true</tt> if the sound buffer was successfully loaded, <tt>false</tt> otherwise.
+     * @throws java.io.IOException In case an I/O error occurs.
      */
-    public boolean loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate) {
+    public void loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate)
+            throws IOException {
         if (samples == null)
             throw new IllegalArgumentException("samples must not be null");
 
-        return nativeLoadFromSamples(samples, channelCount, sampleRate);
+        if (!nativeLoadFromSamples(samples, channelCount, sampleRate))
+            throw new IOException("Failed to load sound buffer from samples.");
     }
 
     private native boolean nativeSaveToFile(String fileName);

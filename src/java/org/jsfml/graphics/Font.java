@@ -65,22 +65,22 @@ public class Font extends SFMLNativeObject {
      * Fully loads all available bytes from an {@link java.io.InputStream} and attempts to load the texture from it.
      *
      * @param in The input stream to read from.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws java.io.IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in) throws IOException {
-        return nativeLoadFromMemory(StreamUtil.readStream(in));
+    public void loadFromStream(InputStream in) throws IOException {
+        if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
+            throw new IOException("Failed to load font from input stream.");
     }
 
     /**
      * Attempts to load the texture from a file.
      *
      * @param file The file to load the texture from.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file) throws IOException {
-        return nativeLoadFromMemory(StreamUtil.readFile(file));
+    public void loadFromFile(File file) throws IOException {
+        if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
+            throw new IOException("Failed to load font from file: " + file);
     }
 
     /**

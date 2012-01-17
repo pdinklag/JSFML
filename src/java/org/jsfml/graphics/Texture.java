@@ -73,25 +73,24 @@ public class Texture extends SFMLNativeObject {
      *
      * @param in   The input stream to read from.
      * @param area The area of the image to load into the texture.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
+    public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
-        return nativeLoadFromMemory(StreamUtil.readStream(in), area);
+        if (!nativeLoadFromMemory(StreamUtil.readStream(in), area))
+            throw new IOException("Failed to load texture from stream.");
     }
 
     /**
      * Fully loads all available bytes from an {@link InputStream} and attempts to load the texture from it.
      *
      * @param in The input stream to read from.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromStream(InputStream in) throws IOException {
-        return loadFromStream(in, new IntRect());
+    public void loadFromStream(InputStream in) throws IOException {
+        loadFromStream(in, new IntRect());
     }
 
     /**
@@ -99,25 +98,24 @@ public class Texture extends SFMLNativeObject {
      *
      * @param file The file to load the texture from.
      * @param area The area of the image to load into the texture.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file, @NotNull IntRect area) throws IOException {
+    public void loadFromFile(File file, @NotNull IntRect area) throws IOException {
         if (area == null)
             throw new IllegalArgumentException("area must not be null.");
 
-        return nativeLoadFromMemory(StreamUtil.readFile(file), area);
+        if (!nativeLoadFromMemory(StreamUtil.readFile(file), area))
+            throw new IOException("Failed to load texture from file: " + file);
     }
 
     /**
      * Attempts to load the texture from a file.
      *
      * @param file The file to load the texture from.
-     * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
-    public boolean loadFromFile(File file) throws IOException {
-        return loadFromFile(file, new IntRect());
+    public void loadFromFile(File file) throws IOException {
+        loadFromFile(file, new IntRect());
     }
 
     private native boolean nativeLoadFromImage(Image image, IntRect area);
