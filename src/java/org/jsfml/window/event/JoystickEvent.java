@@ -7,7 +7,6 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public abstract class JoystickEvent extends Event {
-    @Intercom
     private int joystickId;
 
     @Intercom

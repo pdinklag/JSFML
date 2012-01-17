@@ -4,11 +4,11 @@ import org.jsfml.Intercom;
 import org.jsfml.window.Mouse;
 
 /**
- * Event class for event types {@link Event#MOUSE_BUTTON_PRESSED} and {@link Event#MOUSE_BUTTON_RELEASED}.
+ * Event class for event types {@link Event.Type#MOUSE_BUTTON_PRESSED} and
+ * {@link Event.Type#MOUSE_BUTTON_RELEASED}.
  */
 @Intercom
 public class MouseButtonEvent extends MouseEvent {
-    @Intercom
     private int button;
 
     @Intercom

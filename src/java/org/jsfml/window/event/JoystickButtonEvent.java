@@ -3,11 +3,11 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Event class for event types {@link Event#JOYSTICK_BUTTON_PRESSED} and {@link Event#JOYSTICK_BUTTON_RELEASED}.
+ * Event class for event types {@link Event.Type#JOYSTICK_BUTTON_PRESSED} and
+ * {@link Event.Type#JOYSTICK_BUTTON_RELEASED}.
  */
 @Intercom
 public class JoystickButtonEvent extends JoystickEvent {
-    @Intercom
     private int button;
 
     @Intercom

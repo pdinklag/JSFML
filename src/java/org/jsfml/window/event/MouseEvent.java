@@ -4,11 +4,11 @@ import org.jsfml.Intercom;
 import org.jsfml.system.Vector2i;
 
 /**
- * Base class for mouse related events and event class for event type {@link Event#MOUSE_MOVED}.
+ * Base class for mouse related events and event class for event type {@link Event.Type#MOUSE_MOVED}.
  */
 @Intercom
 public class MouseEvent extends Event {
-    @Intercom
+
     private int x, y;
 
     @Intercom

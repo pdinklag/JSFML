@@ -39,7 +39,7 @@ public class ShortExample {
             Event event = window.pollEvent();
             while (event != null) {
                 //Close window : exit
-                if (event.getType() == Event.CLOSED)
+                if (event.getType() == Event.Type.CLOSED)
                     window.close();
             }
         }

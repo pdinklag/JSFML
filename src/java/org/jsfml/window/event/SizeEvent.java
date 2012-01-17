@@ -3,11 +3,10 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Event class for event type {@link Event#RESIZED}.
+ * Event class for event type {@link Event.Type#RESIZED}.
  */
 @Intercom
 public class SizeEvent extends Event {
-    @Intercom
     int width, height;
 
     @Intercom

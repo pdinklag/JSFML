@@ -4,14 +4,11 @@ import org.jsfml.Intercom;
 import org.jsfml.window.Keyboard;
 
 /**
- * Event class for event types {@link Event#KEY_PRESSED} and {@link Event#KEY_RELEASED}.
+ * Event class for event types {@link Event.Type#KEY_PRESSED} and {@link Event.Type#KEY_RELEASED}.
  */
 @Intercom
 public class KeyEvent extends Event {
-    @Intercom
     private int keyCode;
-
-    @Intercom
     private boolean alt, shift, control, system;
 
     @Intercom

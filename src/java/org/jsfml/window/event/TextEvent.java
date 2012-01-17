@@ -3,11 +3,10 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Event class for event type {@link Event#TEXT_ENTERED}.
+ * Event class for event type {@link Event.Type#TEXT_ENTERED}.
  */
 @Intercom
 public class TextEvent extends Event {
-    @Intercom
     private long unicode;
 
     @Intercom

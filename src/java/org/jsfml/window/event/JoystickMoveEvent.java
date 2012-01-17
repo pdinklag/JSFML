@@ -4,14 +4,11 @@ import org.jsfml.Intercom;
 import org.jsfml.window.Joystick;
 
 /**
- * Event class for event type {@link Event#JOYSTICK_MOVED}.
+ * Event class for event type {@link Event.Type#JOYSTICK_MOVED}.
  */
 @Intercom
 public class JoystickMoveEvent extends JoystickEvent {
-    @Intercom
     private int joyAxis;
-
-    @Intercom
     private float position;
 
     @Intercom

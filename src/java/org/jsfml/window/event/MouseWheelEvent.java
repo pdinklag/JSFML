@@ -3,11 +3,10 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Event class for event type {@link Event#MOUSE_WHEEL_MOVED}.
+ * Event class for event type {@link Event.Type#MOUSE_WHEEL_MOVED}.
  */
 @Intercom
 public class MouseWheelEvent extends MouseEvent {
-    @Intercom
     private int delta;
 
     @Intercom
