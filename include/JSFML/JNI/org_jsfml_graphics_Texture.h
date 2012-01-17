@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeCopy
  * Signature: ()J
  */

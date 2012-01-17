@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_VertexArray_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_VertexArray
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_VertexArray
  * Method:    getVertexCount
  * Signature: ()I
  */

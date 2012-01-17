@@ -54,7 +54,6 @@
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
 			<!-- base -->
 			<class name="${jsfml.package}.SFMLNative" />
-			<class name="${jsfml.package}.SFMLNativeObject" />
 			
 			<!-- window -->
 			<class name="${jsfml.package}.window.Joystick" />
@@ -109,9 +108,7 @@
 			exceptions="true">
 
 			<fileset dir="${cpp.src}" includes="**/*.cpp" />
-			
-			<!--<defineset define="SFML_STATIC" />-->
-			
+
 			<includepath location="${cpp.include}" />
 			<includepath location="${env.SFML_HOME}/include" />
 			<includepath location="${env.JAVA_HOME}/include" />
@@ -120,7 +117,6 @@
 			<linkerarg location="start" value="--add-stdcall-alias" />
 			
 			<libset libs="stdc++" />
-			<!--<libset libs="kernel32, user32, uuid" />-->
 			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
 			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-main, sfml-audio, sfml-graphics, sfml-system, sfml-window" />
 		</cc>

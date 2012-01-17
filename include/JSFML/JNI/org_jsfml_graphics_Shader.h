@@ -28,6 +28,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Shader_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    nativeLoadFromSource
  * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader$Type;)Z
  */

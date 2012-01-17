@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeCreate
 
 /*
  * Class:     org_jsfml_audio_SoundBufferRecorder
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundBufferRecorder
  * Method:    nativeGetBuffer
  * Signature: ()J
  */

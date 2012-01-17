@@ -27,6 +27,9 @@ public class RectangleShape extends Shape {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native void nativeSetSize(Vector2f size);
 
     /**

@@ -29,6 +29,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_Font
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Font
  * Method:    nativeCopy
  * Signature: ()J
  */

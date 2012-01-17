@@ -20,6 +20,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Text_nativeCreate (JNIEnv *env, 
 
 /*
  * Class:     org_jsfml_graphics_Text
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::Text);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Text
  * Method:    nativeSetString
  * Signature: (Ljava/lang/String;)V
  */

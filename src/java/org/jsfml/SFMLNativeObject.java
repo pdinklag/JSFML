@@ -39,8 +39,13 @@ public abstract class SFMLNativeObject {
      * Creates an JSFML native object by invoking the <code>nativeCreate</code> method and retrieving
      * a pointer to the SFML object in the JVM heap.
      */
+    @SuppressWarnings("deprecation")
     protected SFMLNativeObject() {
         ptr = nativeCreate();
+
+        if (ptr == 0)
+            throw new JSFMLError("nativeCreate() yielded a NULL pointer: " + this);
+
         wrapped = false;
 
         numManaged++;
@@ -52,10 +57,14 @@ public abstract class SFMLNativeObject {
      * Wraps an JSFML native object around an already existing native SFML object.
      *
      * @param wrap The pointer to the native SFML object in the JNI heap.
-     * @deprecated Do <b>NOT</b> play with this!
+     * @deprecated This is intended for internal use only. Using this from outside may cause
+     *             undefined behaviour.
      */
     @Deprecated
     protected SFMLNativeObject(long wrap) {
+        if (wrap == 0)
+            throw new JSFMLError("Tried to wrap around a NULL pointer: " + this);
+
         ptr = wrap;
         wrapped = true;
 
@@ -79,24 +88,30 @@ public abstract class SFMLNativeObject {
         }
     }
 
-
-    final void setPointer(long ptr) {
-        this.ptr = ptr;
-    }
-
     /**
      * Creates a new native SFML object of the represented SFML class in the JNI memory heap.
+     * <p/>
+     * NOTE: This method is intended for internal use <i>only</i>.
+     * Using this from outside may cause memory leaks.
      *
      * @return The pointer to the newly created native SFML object.
      */
     protected abstract long nativeCreate();
 
-    private native void nativeDelete();
+    /**
+     * Deletes the underlying SFML object.
+     * <p/>
+     * NOTE: This method is inteded for internal use <i>only</i>.
+     * Using this from outside may cause undefined behaviour and crashes.
+     */
+    protected abstract void nativeDelete();
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void finalize() throws Throwable {
         if (!wrapped) {
-            nativeDelete();
+            if (ptr != 0)
+                nativeDelete();
 
             numManaged--;
             if (debug)

@@ -70,6 +70,9 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native void nativeClear(Color color);
 
     @Override

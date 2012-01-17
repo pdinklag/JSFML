@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_ConvexShape_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_ConvexShape
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_ConvexShape
  * Method:    nativeSetPoint
  * Signature: (ILorg/jsfml/system/Vector2f;)V
  */

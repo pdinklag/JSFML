@@ -25,6 +25,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate__ (JNI
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::RenderWindow);
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
@@ -312,7 +321,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDeleteIcon (JNIEnv *env, jobject obj, jlong ptr) {
-    if(ptr) delete (void*)ptr;
+    if(ptr) delete[] (sf::Uint8*)ptr;
 }
 
 /*

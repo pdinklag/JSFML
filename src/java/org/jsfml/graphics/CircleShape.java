@@ -39,6 +39,9 @@ public class CircleShape extends Shape {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     /**
      * Sets the radius of this circle.
      *

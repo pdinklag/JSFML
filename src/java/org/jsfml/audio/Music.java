@@ -21,6 +21,9 @@ public class Music extends SoundStream {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native boolean nativeOpenFromFile(String fileName);
 
     /**

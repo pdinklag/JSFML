@@ -44,6 +44,9 @@ public class SoundBuffer extends SFMLNativeObject {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native long nativeCopy();
 
     private native boolean nativeLoadFromMemory(byte[] memory);

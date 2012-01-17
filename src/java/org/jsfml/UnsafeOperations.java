@@ -7,16 +7,6 @@ package org.jsfml;
  */
 public final class UnsafeOperations {
     /**
-     * Manually sets the pointer to a native SFML object in the JNI heap.
-     *
-     * @param object The SFML object wrapper.
-     * @param ptr    The new SFML object pointer.
-     */
-    public static void setSFMLObjectPointer(SFMLNativeObject object, long ptr) {
-        object.setPointer(ptr);
-    }
-
-    /**
      * Flags an SFML object as Java managed or unmanaged. Java managed objects will be destroyed using the
      * <code>nativeDelete</code> method when this object gets finalized.
      *

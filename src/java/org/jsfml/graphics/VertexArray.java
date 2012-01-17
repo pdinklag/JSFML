@@ -40,6 +40,9 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     /**
      * Gets the amount of vertices stored in this vertex array.
      *

@@ -26,6 +26,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     /**
      * Sets up the render texture.
      *

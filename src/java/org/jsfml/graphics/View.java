@@ -23,6 +23,9 @@ public class View extends SFMLNativeObject {
     @Override
     protected final native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     /**
      * Sets the center of the view.
      *

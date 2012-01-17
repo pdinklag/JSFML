@@ -17,6 +17,9 @@ public class SoundBufferRecorder extends SoundRecorder {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native long nativeGetBuffer();
 
     /**

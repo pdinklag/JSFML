@@ -27,6 +27,9 @@ public class ConvexShape extends Shape {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native void nativeSetPoint(int i, Vector2f v);
 
     /**

@@ -19,6 +19,15 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_isAvailable (JNIEnv *e
 
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::Shader);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    nativeCreate
  * Signature: ()J
  */

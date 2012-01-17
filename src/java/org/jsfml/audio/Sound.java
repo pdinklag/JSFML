@@ -40,6 +40,9 @@ public class Sound extends SoundSource {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native long nativeCopy();
 
     /**

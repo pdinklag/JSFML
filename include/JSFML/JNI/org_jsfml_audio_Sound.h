@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeCreate
 
 /*
  * Class:     org_jsfml_audio_Sound
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_Sound
  * Method:    nativeCopy
  * Signature: ()J
  */

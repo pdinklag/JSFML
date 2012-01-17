@@ -41,6 +41,9 @@ public class Sprite extends Transformable implements Drawable {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native void nativeSetTexture(Texture texture);
 
     /**

@@ -20,6 +20,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_CircleShape_nativeCreate (JNIEnv
 
 /*
  * Class:     org_jsfml_graphics_CircleShape
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::CircleShape);
+}
+
+/*
+ * Class:     org_jsfml_graphics_CircleShape
  * Method:    setRadius
  * Signature: (F)V
  */

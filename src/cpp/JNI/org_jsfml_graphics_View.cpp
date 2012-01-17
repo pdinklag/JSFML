@@ -17,6 +17,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_View_nativeCreate (JNIEnv *env, 
 
 /*
  * Class:     org_jsfml_graphics_View
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::View);
+}
+
+/*
+ * Class:     org_jsfml_graphics_View
  * Method:    setCenter
  * Signature: (FF)V
  */

@@ -20,6 +20,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Sprite_nativeCreate (JNIEnv *env
 
 /*
  * Class:     org_jsfml_graphics_Sprite
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::Sprite);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeSetTexture
  * Signature: (Lorg/jsfml/graphics/Texture;)V
  */

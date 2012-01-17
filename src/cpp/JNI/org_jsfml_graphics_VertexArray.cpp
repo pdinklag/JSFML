@@ -18,6 +18,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_VertexArray_nativeCreate (JNIEnv
 
 /*
  * Class:     org_jsfml_graphics_VertexArray
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::VertexArray);
+}
+
+/*
+ * Class:     org_jsfml_graphics_VertexArray
  * Method:    getVertexCount
  * Signature: ()I
  */

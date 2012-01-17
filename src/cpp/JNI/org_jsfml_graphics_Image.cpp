@@ -18,6 +18,15 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Image_nativeCreate__ (JNIEnv *en
 
 /*
  * Class:     org_jsfml_graphics_Image
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeDelete (JNIEnv *env, jobject obj) {
+    delete THIS(sf::Image);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Image
  * Method:    nativeCreate
  * Signature: (IILorg/jsfml/graphics/Color;)V
  */

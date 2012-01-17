@@ -27,6 +27,9 @@ public class Image extends SFMLNativeObject {
     @Override
     protected native long nativeCreate();
 
+    @Override
+    protected native void nativeDelete();
+
     private native void nativeCreate(int width, int height, Color color);
 
     /**
