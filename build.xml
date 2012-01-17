@@ -79,6 +79,7 @@
 			
 			<!-- audio -->
 			<class name="${jsfml.package}.audio.Listener" />
+			<class name="${jsfml.package}.audio.Sound" />
 			<class name="${jsfml.package}.audio.SoundBuffer" />
 		</javah>
 	</target>

@@ -7,6 +7,10 @@ import org.jsfml.system.Vector3f;
  * Base class for playable sound instances.
  */
 public abstract class SoundSource extends SFMLNativeObject {
+    static {
+        //TODO add audio device shutdown hook
+    }
+
     /**
      * Enumeration of sound source states.
      */
@@ -34,7 +38,6 @@ public abstract class SoundSource extends SFMLNativeObject {
         super();
     }
 
-    @Deprecated
     @SuppressWarnings("deprecation")
     SoundSource(long wrap) {
         super(wrap);
