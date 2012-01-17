@@ -133,4 +133,110 @@ public class Event {
     public int getType() {
         return type;
     }
+
+    /**
+     * Attempts to cast this event to the given type.
+     *
+     * @param clazz The event class to cast this event to.
+     * @param <T>   The destination type.
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends Event> T as(Class<T> clazz) {
+        try {
+            return (T) this;
+        } catch (ClassCastException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Attempts to cast this event to a {@link JoystickButtonEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public JoystickButtonEvent asJoystickButtonEvent() {
+        return as(JoystickButtonEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link JoystickConnectEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public JoystickConnectEvent asJoystickConnectEvent() {
+        return as(JoystickConnectEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link JoystickEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public JoystickEvent asJoystickEvent() {
+        return as(JoystickConnectEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link JoystickMoveEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public JoystickMoveEvent asJoystickMoveEvent() {
+        return as(JoystickMoveEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link KeyEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public KeyEvent asKeyEvent() {
+        return as(KeyEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link MouseButtonEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public MouseButtonEvent asMouseButtonEvent() {
+        return as(MouseButtonEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link MouseEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public MouseEvent asMouseEvent() {
+        return as(MouseEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link MouseWheelEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public MouseWheelEvent asMouseWheelEvent() {
+        return as(MouseWheelEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link SizeEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public SizeEvent asSizeEvent() {
+        return as(SizeEvent.class);
+    }
+
+    /**
+     * Attempts to cast this event to a {@link TextEvent}.
+     *
+     * @return The casted event, or <tt>null</tt> if casting is not possible.
+     */
+    public TextEvent asTextEvent() {
+        return as(TextEvent.class);
+    }
 }
