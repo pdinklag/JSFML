@@ -1,5 +1,3 @@
-package de.pdinklag.jsfml.examples;
-
 import org.jsfml.audio.Music;
 import org.jsfml.graphics.*;
 import org.jsfml.window.VideoMode;
