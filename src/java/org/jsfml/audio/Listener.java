@@ -14,6 +14,8 @@ public class Listener {
         } catch (JSFMLException ex) {
             throw new UnsatisfiedLinkError(ex.getMessage());
         }
+
+        //TODO add audio device shutdown hook
     }
 
     /**
