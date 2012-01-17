@@ -48,8 +48,7 @@ public class Texture extends SFMLNativeObject {
      */
     @SuppressWarnings("deprecation")
     public Texture(Texture other) {
-        super(0);
-        UnsafeOperations.setSFMLObjectPointer(this, other.nativeCopy());
+        super(other.nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 

@@ -50,8 +50,7 @@ public class Font extends SFMLNativeObject {
      */
     @SuppressWarnings("deprecation")
     public Font(Font other) {
-        super(0);
-        UnsafeOperations.setSFMLObjectPointer(this, other.nativeCopy());
+        super(other.nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
