@@ -46,10 +46,18 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCopy
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeLoadFromMemory
- * Signature: ([B)Z
+ * Signature: ([B)J
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
   (JNIEnv *, jobject, jbyteArray);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeReleaseMemory
+ * Signature: ([BJ)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
+  (JNIEnv *, jobject, jbyteArray, jlong);
 
 /*
  * Class:     org_jsfml_graphics_Font

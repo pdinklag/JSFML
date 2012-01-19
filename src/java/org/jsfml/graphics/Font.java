@@ -32,6 +32,12 @@ public class Font extends SFMLNativeObject {
     private final HashMap<Integer, ImmutableTexture> textureMap = new HashMap<Integer, ImmutableTexture>();
 
     /**
+     * Memory reference and heap pointer that keeps alive the data input stream for freetype.
+     */
+    private byte[] memRef = null;
+    private long memPtr = 0;
+
+    /**
      * Creates a font.
      */
     public Font() {
@@ -62,7 +68,19 @@ public class Font extends SFMLNativeObject {
 
     private native long nativeCopy();
 
-    private native boolean nativeLoadFromMemory(byte[] memory);
+    private native long nativeLoadFromMemory(byte[] memory);
+
+    private native void nativeReleaseMemory(byte[] memory, long ptr);
+
+    private void releaseMemory() {
+        if (memRef != null) {
+            if (memPtr != 0)
+                nativeReleaseMemory(memRef, memPtr);
+
+            memRef = null;
+            memPtr = 0;
+        }
+    }
 
     /**
      * Fully loads all available bytes from an {@link java.io.InputStream} and attempts to load the texture from it.
@@ -71,8 +89,14 @@ public class Font extends SFMLNativeObject {
      * @throws java.io.IOException In case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
+        releaseMemory();
+        memRef = StreamUtil.readStream(in);
+        memPtr = nativeLoadFromMemory(memRef);
+
+        if (memPtr == 0) {
+            releaseMemory();
             throw new IOException("Failed to load font from input stream.");
+        }
     }
 
     /**
@@ -82,8 +106,14 @@ public class Font extends SFMLNativeObject {
      * @throws IOException In case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
+        releaseMemory();
+        memRef = StreamUtil.readFile(file);
+        memPtr = nativeLoadFromMemory(memRef);
+
+        if (memPtr == 0) {
+            releaseMemory();
             throw new IOException("Failed to load font from file: " + file);
+        }
     }
 
     /**
@@ -138,5 +168,11 @@ public class Font extends SFMLNativeObject {
         }
 
         return texture;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        releaseMemory();
+        super.finalize();
     }
 }

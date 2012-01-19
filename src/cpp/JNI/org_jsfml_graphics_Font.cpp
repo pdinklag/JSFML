@@ -44,18 +44,31 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCopy (JNIEnv *env, jo
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeLoadFromMemory
- * Signature: ([B)Z
+ * Signature: ([B)J
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
     (JNIEnv *env, jobject obj, jbyteArray arr) {
 
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
 
-    jboolean result = THIS(sf::Font)->LoadFromMemory(mem, n);
+    if(THIS(sf::Font)->LoadFromMemory(mem, n)) {
+        return (jlong)mem;
+    } else {
+        env->ReleaseByteArrayElements(arr, mem, 0);
+        return 0;
+    }
+}
 
-    env->ReleaseByteArrayElements(arr, mem, 0);
-    return result;
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeReleaseMemory
+ * Signature: ([BJ)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
+    (JNIEnv *env, jobject obj, jbyteArray arr, jlong memPtr) {
+
+    env->ReleaseByteArrayElements(arr, (jbyte*)memPtr, 0);
 }
 
 /*
