@@ -141,7 +141,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate__Lorg_j
         JSFML::VideoMode::ToSFML(env, videoMode),
         std::string(JavaString::getUTF8(env, title)),
         (sf::Uint32)style,
-        JSFML::ContextSettings::ToSFML(env, videoMode));
+        JSFML::ContextSettings::ToSFML(env, settings));
 }
 
 /*
