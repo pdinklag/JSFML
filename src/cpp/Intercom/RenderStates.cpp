@@ -29,5 +29,5 @@ sf::RenderStates JSFML::RenderStates::ToSFML(JNIEnv* env, jobject states) {
         (sf::BlendMode)JavaEnum::ordinal(env, env->GetObjectField(states, f_blendMode)),
         JSFML::Transform::ToSFML(env, env->GetObjectField(states, f_transform)),
         JSFML::NativeObject::GetPointer<sf::Texture>(env, env->GetObjectField(states, f_texture)),
-        JSFML::NativeObject::GetPointer<sf::Shader>(env, env->GetObjectField(states, f_texture)));
+        JSFML::NativeObject::GetPointer<sf::Shader>(env, env->GetObjectField(states, f_shader)));
 }
