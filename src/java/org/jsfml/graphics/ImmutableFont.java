@@ -7,7 +7,7 @@ import java.io.InputStream;
 /**
  * Immutable font that cannot be altered.
  */
-public class ImmutableFont extends Font {
+class ImmutableFont extends Font {
     ImmutableFont(long wrap) {
         super(wrap);
     }
