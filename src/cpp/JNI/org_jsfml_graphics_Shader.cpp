@@ -133,6 +133,19 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
 
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    nativeSetParameterCurrentTexture
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentTexture
+    (JNIEnv *env, jobject obj, jstring name) {
+
+    THIS(sf::Shader)->SetParameter(
+        std::string(JavaString::getUTF8(env, name)),
+        sf::Shader::CurrentTexture);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    bind
  * Signature: ()V
  */

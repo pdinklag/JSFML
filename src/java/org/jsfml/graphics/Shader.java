@@ -15,11 +15,31 @@ import java.io.InputStream;
  */
 public class Shader extends SFMLNativeObject {
     /**
+     * Special value denoting that the texture of the object being drawn
+     * should be used, which cannot be known before it is actually being drawn.
+     *
+     * @see Shader#setParameter(String, org.jsfml.graphics.Shader.CurrentTextureType)
+     */
+    public static final CurrentTextureType CURRENT_TEXTURE = new CurrentTextureType();
+
+    /**
      * Checks if shaders are available on this system.
      *
      * @return <tt>true</tt> if shaders are available, <tt>false</tt> otherwise.
      */
     public static native boolean isAvailable();
+
+    /**
+     * Special type denoting that the texture of the object being drawn
+     * should be used, which cannot be known before it is actually being drawn.
+     *
+     * @see Shader#setParameter(String, org.jsfml.graphics.Shader.CurrentTextureType)
+     */
+    public static final class CurrentTextureType {
+        private CurrentTextureType() {
+            //cannot instantiate from outside.
+        }
+    }
 
     /**
      * Shader type enumeration.
@@ -282,6 +302,25 @@ public class Shader extends SFMLNativeObject {
             throw new IllegalArgumentException("texture must not be null.");
 
         nativeSetParameter(name, texture);
+    }
+
+    private native void nativeSetParameterCurrentTexture(String name);
+
+    /**
+     * Sets a texture (sampler2D) parameter value in the shader to the texture
+     * of the object being drawn in the moment the shader is applied.
+     * <p/>
+     * Since that texture cannot be known before the object is actually being drawn,
+     * this overload can be used to tell the shader to use it when applied.
+     *
+     * @param name           The parameter's name.
+     * @param currentTexture Should be {@link Shader#CURRENT_TEXTURE}.
+     */
+    public void setParameter(@NotNull String name, CurrentTextureType currentTexture) {
+        if (name == null)
+            throw new IllegalArgumentException("name must not be null.");
+
+        nativeSetParameterCurrentTexture(name);
     }
 
     /**

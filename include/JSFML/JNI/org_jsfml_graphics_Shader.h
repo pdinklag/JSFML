@@ -10,6 +10,7 @@ extern "C" {
 /* Inaccessible static: debug */
 /* Inaccessible static: numManaged */
 /* Inaccessible static: numWrapped */
+/* Inaccessible static: CURRENT_TEXTURE */
 /*
  * Class:     org_jsfml_graphics_Shader
  * Method:    isAvailable
@@ -97,6 +98,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2Lorg_jsfml_graphics_Texture_2
   (JNIEnv *, jobject, jstring, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Shader
+ * Method:    nativeSetParameterCurrentTexture
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentTexture
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     org_jsfml_graphics_Shader
