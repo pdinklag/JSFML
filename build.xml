@@ -37,11 +37,6 @@
 	<!-- JAR signing properties -->
 	<property name="jarsigner.alias" value="pdinklag" />
 	
-	<!-- Examples -->
-	<property name="examples" location="./examples" />
-	<property name="examples.src" location="${examples}/src" />
-	<property name="examples.out" location="${examples}/classes" />
-	
 	<!-- Compile Java -->
 	<target name="java.compile" description="Compile the Java sources.">
 		<mkdir dir="${java.out}" />

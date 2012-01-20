@@ -1,0 +1,52 @@
+<project name="JSFML Examples" default="compile">
+	<description>
+		JSFML Examples build file for Apache Ant.
+	</description>
+	
+	<!-- Dependencies -->
+	<property name="jsfml.out" location="../out" />
+	<property name="jsfml.classes" location="../out/classes" />
+	
+	<!-- Java properties -->
+	<property name="java.src" location="./src" />
+	<property name="java.out" location="./classes" />
+	<property name="java.classpath" value=".;${java.out};${jsfml.out};${jsfml.classes}" />
+	<property name="java.target" value="1.6" />
+	
+	<!-- Jar properties -->
+	<property name="jar.file" value="${jsfml.out}/jsfml-examples.jar" />
+
+	<!-- JAR signing properties -->
+	<property name="jarsigner.alias" value="pdinklag" />
+	
+	<!-- Compile Java -->
+	<target name="compile" description="Compile the JSFML examples.">
+		<mkdir dir="${java.out}" />
+		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" target="${java.target}" />
+	</target>
+	
+	<!-- Jar -->
+	<target name="jar" description="Generate the JAR file." depends="compile">
+		<jar destfile="${jar.file}">
+			<fileset dir="${java.out}" includes="**/*.class" />
+			<fileset dir="." includes="resources/**/*" />
+			<manifest>
+				<attribute name="Sealed" value="true" />
+				<attribute name="Specification-Title" value="JSFML" />
+				<attribute name="Specification-Version" value="0" />
+				<attribute name="Specification-Vendor" value="pdinklag" />
+				<attribute name="Implementation-Title" value="org.jsfml.examples" />
+				<attribute name="Implementation-Version" value="0" />
+				<attribute name="Implementation-Vendor" value="pdinklag" />
+			</manifest>
+		</jar>
+		<input message="Please enter keystore password:" addproperty="storepass" />
+		<signjar jar="${jar.file}" alias="${jarsigner.alias}" storepass="${storepass}" lazy="true" />
+	</target>
+	
+	<!-- Clean up -->
+	<target name="clean" description="Clean up.">
+		<delete file="${jar.file}" />
+		<delete dir="${java.out}" />
+	</target>
+</project>
