@@ -19,14 +19,13 @@ public class StreamUtil {
      * @throws IOException If an error occurs in the process.
      */
     public static byte[] readStream(InputStream inputStream) throws IOException {
-        int n = inputStream.available();
-        byte[] b = new byte[n];
-
-        n = inputStream.read(b);
-        if (n != b.length)
-            throw new IOException("Read error, expected " + b.length + ", got " + n + ".");
-
-        return b;
+        byte[] buffer = new byte[BUFFER_SIZE];
+        ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
+        
+        for(int n = inputStream.read(buffer); n > 0; n = inputStream.read(buffer))
+            out.write(buffer, 0, n);
+        
+        return out.toByteArray();
     }
 
     /**

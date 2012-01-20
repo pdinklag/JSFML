@@ -31,6 +31,8 @@
 			<fileset dir="${java.out}" includes="**/*.class" />
 			<fileset dir="." includes="resources/**/*" />
 			<manifest>
+				<attribute name="Main-Class" value="org.jsfml.examples.scene.Standalone" />
+				<attribute name="Class-Path" value="jsfml.jar" />
 				<attribute name="Sealed" value="true" />
 				<attribute name="Specification-Title" value="JSFML" />
 				<attribute name="Specification-Version" value="0" />
