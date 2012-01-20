@@ -62,15 +62,10 @@ public final class SFMLNative {
             String osName = System.getProperty("os.name");
             String osArch = System.getProperty("os.arch");
 
-            LinkedList<String> jreLibs = new LinkedList<String>();
             LinkedList<String> nativeLibs = new LinkedList<String>();
 
             //Determine which native libraries to load
             if (osName.contains("Windows")) {
-                jreLibs.add("client/jvm");
-                jreLibs.add("awt");
-                jreLibs.add("jawt");
-
                 if (osArch.equals("x86")) {
                     nativeLibs.add("windows_x86/libsndfile-1.dll");
                     nativeLibs.add("windows_x86/openal32.dll");
@@ -95,16 +90,6 @@ public final class SFMLNative {
             //Check if operating system is supported
             if (nativeLibs.size() == 0) {
                 throw new JSFMLException("Unsupported operating system: " + osName + " " + osArch);
-            }
-
-            //Load JRE libraries
-            for (String lib : jreLibs) {
-                try {
-                    System.loadLibrary(lib);
-                } catch (UnsatisfiedLinkError error) {
-                    if (!error.getMessage().contains("already loaded"))
-                        throw new JSFMLException(error.getMessage(), error);
-                }
             }
 
             //Locate native libraries
