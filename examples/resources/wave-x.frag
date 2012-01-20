@@ -2,9 +2,9 @@ uniform sampler2D texture;
 
 const float pi = 3.141592654;
 
-uniform float amplitude = 0.05;
-uniform float wavelen = 0.25;
-uniform float offset = 0.0;
+uniform float amplitude;
+uniform float wavelen;
+uniform float offset;
 
 void main()
 {
