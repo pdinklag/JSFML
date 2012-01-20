@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.JSFMLException;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
@@ -9,15 +8,13 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends SFMLNativeObject implements RenderTarget, Window {
     private ImmutableView defaultView;
     private View view;
-    private long iconPtr;
+    private Image icon = null;
 
     /**
      * Constructs a new window without creating it.
@@ -253,30 +250,15 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     @Override
     public native void enableKeyRepeat(boolean enable);
 
-    private native long nativeSetIcon(int width, int height, int bpp, int[] pixels);
-
-    private native void nativeDeleteIcon(long ptr);
+    private native long nativeSetIcon(Image image);
 
     @Override
-    public void setIcon(BufferedImage icon) throws JSFMLException {
-        deleteIcon();
+    public void setIcon(@NotNull Image icon) {
+        if(icon == null)
+            throw new IllegalArgumentException("icon must not be null.");
 
-        int[] pixels = icon.getData().getPixels(0, 0, icon.getWidth(), icon.getHeight(), (int[]) null);
-
-        //FIXME UGLY way to "determine" bytes per pixel
-        int bytesPerPixel;
-        if (pixels.length % 3 == 0)
-            bytesPerPixel = 3;
-        else if (pixels.length % 4 == 0)
-            bytesPerPixel = 4;
-        else
-            throw new JSFMLException("Unsupported image type - please make sure your image is 32-bit RGBA or 24-bit RGB.");
-
-        iconPtr = nativeSetIcon(
-                icon.getWidth(),
-                icon.getHeight(),
-                bytesPerPixel,
-                pixels);
+        this.icon = icon; //keep a local reference
+        nativeSetIcon(icon);
     }
 
     @Override
@@ -302,17 +284,4 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
 
     @Override
     public native void resetGLStates();
-
-    private void deleteIcon() {
-        if (iconPtr != 0) {
-            nativeDeleteIcon(iconPtr);
-            iconPtr = 0;
-        }
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        deleteIcon();
-        super.finalize();
-    }
 }

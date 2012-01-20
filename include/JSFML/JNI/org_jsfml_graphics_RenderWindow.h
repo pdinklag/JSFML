@@ -213,18 +213,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeSetIcon
- * Signature: (III[I)J
+ * Signature: (Lorg/jsfml/graphics/Image;)J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
-  (JNIEnv *, jobject, jint, jint, jint, jintArray);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDeleteIcon
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDeleteIcon
-  (JNIEnv *, jobject, jlong);
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow

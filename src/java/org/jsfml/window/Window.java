@@ -1,9 +1,7 @@
 package org.jsfml.window;
 
-import org.jsfml.JSFMLException;
+import org.jsfml.graphics.Image;
 import org.jsfml.window.event.Event;
-
-import java.awt.image.BufferedImage;
 
 /**
  * Interface for windows that serve as OpenGL targets.
@@ -186,9 +184,8 @@ public interface Window {
      * Sets the icon of the window.
      *
      * @param icon The icon.
-     * @throws JSFMLException In case an error occurs trying to convert the icon to an SFML-compatible format.
      */
-    public void setIcon(BufferedImage icon) throws JSFMLException;
+    public void setIcon(Image icon);
 
     /**
      * Activates or deactivates the window as the current OpenGL rendering target.

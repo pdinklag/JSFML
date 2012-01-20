@@ -13,6 +13,7 @@
 #include <JSFML/Intercom/VideoMode.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Image.hpp>
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -283,45 +284,16 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat (JNI
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeSetIcon
- * Signature: (III[I)J
+ * Signature: (Lorg/jsfml/graphics/Image;)J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
-    (JNIEnv *env, jobject obj, jint width, jint height, jint bytesPerPixel, jintArray pixels) {
+    (JNIEnv * env, jobject obj, jobject jicon) {
 
-	sf::Uint8* data = new sf::Uint8[width * height * 4]; //32bit RGBA
-	jint* source = env->GetIntArrayElements(pixels, 0);
-
-	int s = 0;
-	int d = 0;
-
-	for(int y = 0; y < height; y++) {
-		for(int x = 0; x < width; x++) {
-			for(int i = 0; i < 4; i++) {
-				data[d + i] = 0xFF;
-				if(bytesPerPixel < 4 && i == 3)
-					data[d + i] = 0xFF;
-				else
-					data[d + i] = source[s + i] & 0xFF;
-			}
-
-			d += 4;
-			s += bytesPerPixel;
-		}
-	}
-
-	env->ReleaseIntArrayElements(pixels, source, 0);
-
-	THIS(sf::RenderWindow)->SetIcon(width, height, data);
-	return (jlong)data;
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDeleteIcon
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDeleteIcon (JNIEnv *env, jobject obj, jlong ptr) {
-    if(ptr) delete[] (sf::Uint8*)ptr;
+    sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
+    THIS(sf::RenderWindow)->SetIcon(
+        icon->GetWidth(),
+        icon->GetHeight(),
+        icon->GetPixelsPtr());
 }
 
 /*
