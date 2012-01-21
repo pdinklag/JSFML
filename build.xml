@@ -50,6 +50,9 @@
 			<!-- base -->
 			<class name="${jsfml.package}.SFMLNative" />
 			
+			<!-- system -->
+			<class name="${jsfml.package}.system.Clock" />
+			
 			<!-- window -->
 			<class name="${jsfml.package}.window.Joystick" />
 			<class name="${jsfml.package}.window.Keyboard" />
