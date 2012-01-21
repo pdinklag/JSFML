@@ -37,9 +37,9 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromFile
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    getDuration
- * Signature: ()J
+ * Signature: ()Lorg/jsfml/system/Time;
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_getDuration
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration
   (JNIEnv *, jobject);
 
 /*
@@ -92,18 +92,18 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_nativeGetStatus
 
 /*
  * Class:     org_jsfml_audio_Music
- * Method:    setPlayingOffset
- * Signature: (J)V
+ * Method:    nativeSetPlayingOffset
+ * Signature: (Lorg/jsfml/system/Time;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPlayingOffset
-  (JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeSetPlayingOffset
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    getPlayingOffset
- * Signature: ()J
+ * Signature: ()Lorg/jsfml/system/Time;
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_getPlayingOffset
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPlayingOffset
   (JNIEnv *, jobject);
 
 /*

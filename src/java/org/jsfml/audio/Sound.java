@@ -2,6 +2,7 @@ package org.jsfml.audio;
 
 import org.jsfml.NotNull;
 import org.jsfml.UnsafeOperations;
+import org.jsfml.system.Time;
 import org.jsfml.system.Vector3f;
 
 /**
@@ -82,12 +83,19 @@ public class Sound extends SoundSource {
      */
     public native void setLoop(boolean loop);
 
+    private native void nativeSetPlayingOffset(Time offset);
+
     /**
      * Sets the playing offset from where to start playing in the underlying buffer.
      *
      * @param offset The playing offset in milliseconds.
      */
-    public native void setPlayingOffset(long offset);
+    public void setPlayingOffset(@NotNull Time offset) {
+        if (offset == null)
+            throw new IllegalArgumentException("offset must not be null.");
+
+        nativeSetPlayingOffset(offset);
+    }
 
     /**
      * Gets the underlying sound buffer that is being played from.
@@ -110,7 +118,7 @@ public class Sound extends SoundSource {
      *
      * @return The playing offset from where to start playing in the underlying buffer.
      */
-    public native long getPlayingOffset();
+    public native Time getPlayingOffset();
 
     private native int nativeGetStatus();
 

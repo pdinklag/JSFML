@@ -1,6 +1,7 @@
 package org.jsfml.audio;
 
 import org.jsfml.StreamUtil;
+import org.jsfml.system.Time;
 import org.jsfml.system.Vector3f;
 
 import java.io.File;
@@ -63,7 +64,7 @@ public class Music extends SoundStream {
      *
      * @return The total duration of the music in milliseconds.
      */
-    public native long getDuration();
+    public native Time getDuration();
 
     @Override
     public native void play();
@@ -88,10 +89,10 @@ public class Music extends SoundStream {
     }
 
     @Override
-    public native void setPlayingOffset(long offset);
+    native void nativeSetPlayingOffset(Time offset);
 
     @Override
-    public native long getPlayingOffset();
+    public native Time getPlayingOffset();
 
     @Override
     public native void setLoop(boolean loop);

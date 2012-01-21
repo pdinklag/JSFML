@@ -1,5 +1,8 @@
 package org.jsfml.audio;
 
+import org.jsfml.NotNull;
+import org.jsfml.system.Time;
+
 /**
  * Abstract base class for streamed audio sources.
  */
@@ -47,20 +50,26 @@ public abstract class SoundStream extends SoundSource {
      */
     public abstract Status getStatus();
 
+    abstract void nativeSetPlayingOffset(Time offset);
+
     /**
      * Sets the playing offset at which to play from the stream.
      *
      * @param offset The playing offset, in milliseconds, at which to play from the stream.
      */
-    public abstract void setPlayingOffset(long offset);
+    public void setPlayingOffset(@NotNull Time offset) {
+        if(offset == null)
+            throw new IllegalArgumentException("offset must not be null.");
 
+        nativeSetPlayingOffset(offset);
+    }
 
     /**
      * Gets the playing offset at which to play from the stream.
      *
      * @return The playing offset, in milliseconds, at which to play from the stream.
      */
-    public abstract long getPlayingOffset();
+    public abstract Time getPlayingOffset();
 
     /**
      * Enables or disables repeated looping of the sound stream playback.

@@ -244,14 +244,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setFramerateLimit
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getFrameTime
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_getFrameTime
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    setJoystickTreshold
  * Signature: (F)V
  */

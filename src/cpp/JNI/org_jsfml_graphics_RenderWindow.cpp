@@ -8,6 +8,7 @@
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
+#include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
@@ -321,15 +322,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_display (JNIEnv *env
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setFramerateLimit (JNIEnv *env, jobject obj, jint fps) {
     THIS(sf::RenderWindow)->SetFramerateLimit(fps);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getFrameTime
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_getFrameTime (JNIEnv *env, jobject obj) {
-    return (jlong)THIS(sf::RenderWindow)->GetFrameTime();
 }
 
 /*

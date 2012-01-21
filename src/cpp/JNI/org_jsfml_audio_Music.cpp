@@ -2,6 +2,7 @@
 
 #include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
 
 #include <SFML/Audio/Music.hpp>
@@ -38,10 +39,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromFile
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    getDuration
- * Signature: ()J
+ * Signature: ()Lorg/jsfml/system/Time
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_getDuration (JNIEnv *env, jobject obj) {
-    return (jlong)THIS(sf::Music)->GetDuration();
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration (JNIEnv *env, jobject obj) {
+    return JSFML::Time::FromSFML(env, THIS(sf::Music)->GetDuration());
 }
 
 /*
@@ -100,11 +101,13 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setLoop (JNIEnv *env, jobject 
 
 /*
  * Class:     org_jsfml_audio_Music
- * Method:    setPlayingOffset
- * Signature: (J)V
+ * Method:    nativeSetPlayingOffset
+ * Signature: (Lorg/jsfml/system/Time;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPlayingOffset (JNIEnv *env, jobject obj, jlong offset) {
-	THIS(sf::Music)->SetPlayingOffset(offset & 0xFFFFFFFF);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeSetPlayingOffset
+    (JNIEnv *env, jobject obj, jobject offset) {
+
+	THIS(sf::Music)->SetPlayingOffset(JSFML::Time::ToSFML(env, offset));
 }
 
 /*
@@ -119,10 +122,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_isLoop (JNIEnv *env, jobje
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    getPlayingOffset
- * Signature: ()J
+ * Signature: ()Lorg/jsfml/system/Time;
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_getPlayingOffset (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetPlayingOffset();
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPlayingOffset (JNIEnv *env, jobject obj) {
+	return JSFML::Time::FromSFML(env, THIS(sf::Music)->GetPlayingOffset());
 }
 
 /*

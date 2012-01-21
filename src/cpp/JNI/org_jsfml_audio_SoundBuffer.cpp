@@ -2,6 +2,7 @@
 
 #include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/Time.hpp>
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
@@ -122,8 +123,8 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount (JNIEnv 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
  * Method:    getDuration
- * Signature: ()J
+ * Signature: ()Lorg.jsfml.system.Time
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration (JNIEnv *env, jobject obj) {
-    return (jlong)THIS(sf::SoundBuffer)->GetDuration();
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration (JNIEnv *env, jobject obj) {
+    return JSFML::Time::FromSFML(env, THIS(sf::SoundBuffer)->GetDuration());
 }

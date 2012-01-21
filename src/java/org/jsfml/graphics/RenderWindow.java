@@ -271,9 +271,6 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     public native void setFramerateLimit(int flimit);
 
     @Override
-    public native long getFrameTime();
-
-    @Override
     public native void setJoystickTreshold(float treshold);
 
     @Override

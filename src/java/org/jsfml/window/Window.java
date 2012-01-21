@@ -212,13 +212,6 @@ public interface Window {
     public void setFramerateLimit(int flimit);
 
     /**
-     * Retrieves the duration of the last frame in milliseconds.
-     *
-     * @return The duration of the last frame in milliseconds.
-     */
-    public long getFrameTime();
-
-    /**
      * Sets the joystick treshold.
      * <p/>
      * Joystick axis movements with a magnitude smaller than this treshold will not fire a joystick event.

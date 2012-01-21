@@ -5,6 +5,7 @@ import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.UnsafeOperations;
+import org.jsfml.system.Time;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,5 +142,5 @@ public class SoundBuffer extends SFMLNativeObject {
      *
      * @return The duration of the sound in milliseconds.
      */
-    public native long getDuration();
+    public native Time getDuration();
 }

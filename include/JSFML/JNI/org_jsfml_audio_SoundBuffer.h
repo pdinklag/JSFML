@@ -93,9 +93,9 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount
 /*
  * Class:     org_jsfml_audio_SoundBuffer
  * Method:    getDuration
- * Signature: ()J
+ * Signature: ()Lorg/jsfml/system/Time;
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration
+JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
