@@ -37,9 +37,13 @@ public class ExampleScene implements Scene {
     private final RectangleShape textBackground = new RectangleShape();
 
     private Text noShadersText = null;
-    
+
     //screen size
     private int screenWidth, screenHeight;
+
+    //FPS counter
+    private int fpsFrames = 0;
+    private float fpsTime = 1.0f;
 
     //wave shader
     private Shader waveXShader = null;
@@ -264,8 +268,14 @@ public class ExampleScene implements Scene {
 
     @Override
     public void update(float dt) {
-        //Update FPS text
-        updateFpsText((int) (1.0f / dt));
+        //Update FPS
+        fpsFrames++;
+        fpsTime -= dt;
+        if (fpsTime <= 0.0f) {
+            updateFpsText(fpsFrames);
+            fpsTime += 1.0f;
+            fpsFrames = 0;
+        }
 
         //Update entities
         Vector2f v = new Vector2f();

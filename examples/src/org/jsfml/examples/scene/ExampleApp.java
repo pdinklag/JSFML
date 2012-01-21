@@ -11,9 +11,6 @@ public class ExampleApp {
     private final static int FPS = 60;
     private final static float FRAME_TIME = 1.0f / (float) FPS;
 
-    //Maximum value for time delta between frames (for fluid simulation in case of hangups).
-    private final static float MAX_DT = 10.0f * FRAME_TIME;
-
     private final RenderWindow window;
 
     /**
@@ -51,7 +48,7 @@ public class ExampleApp {
                 scene.handleEvent(event);
 
             //Calculate time delta in seconds
-            float dt = Math.min((float) window.getFrameTime() / 1000.0f, MAX_DT);
+            float dt = (float) window.getFrameTime() / 1000.0f;
 
             //Update the scene
             scene.update(dt);
