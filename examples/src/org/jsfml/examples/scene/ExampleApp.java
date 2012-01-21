@@ -12,7 +12,7 @@ public class ExampleApp {
     private final static float FRAME_TIME = 1.0f / (float) FPS;
 
     //Maximum value for time delta between frames (for fluid simulation in case of hangups).
-    private final static float MAX_DT = 1.25f * FRAME_TIME;
+    private final static float MAX_DT = 10.0f * FRAME_TIME;
 
     private final RenderWindow window;
 
