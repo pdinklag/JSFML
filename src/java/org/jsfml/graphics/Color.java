@@ -7,12 +7,9 @@ import java.io.Serializable;
 
 /**
  * Utility class for manipulating RGBA colors.
- * <p/>
- * This class is a simple data holder for the components <i>Red</i>, <i>Green</i>, <i>Blue</i> and <i>Alpha</i>
- * (opacity), all ranging between 0 and 255.
  */
 @Intercom
-public class Color implements Serializable {
+public class Color implements Cloneable, Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
     /**
@@ -48,6 +45,50 @@ public class Color implements Serializable {
      * Cyan <tt>(RGB:0,255,255)</tt>
      */
     public final static Color CYAN = new Color(0, 255, 255);
+
+    /**
+     * Modulates two colors by adding them to one another.
+     *
+     * @param a The left color.
+     * @param b The right color.
+     * @return A new color, the modulation of the two given colors.
+     */
+    public static Color add(Color a, Color b) {
+        return new Color(a).add(b);
+    }
+
+    /**
+     * Modulates two colors by subtracting one color from another.
+     *
+     * @param a The left color.
+     * @param b The right color.
+     * @return A new color, the modulation of the two given colors.
+     */
+    public static Color sub(Color a, Color b) {
+        return new Color(a).sub(b);
+    }
+
+    /**
+     * Modulates two colors by multiplying their components.
+     *
+     * @param a The left color.
+     * @param b The right color.
+     * @return A new color, the modulation of the two given colors.
+     */
+    public static Color mul(Color a, Color b) {
+        return new Color(a).mul(b);
+    }
+
+    /**
+     * Modulates a color by multiplying its components with a factor.
+     *
+     * @param color The color.
+     * @param f     The factor.
+     * @return A new color, the modulation of the given color.
+     */
+    public static Color mul(Color color, float f) {
+        return new Color(color).mul(f);
+    }
 
     private static int clamp(int x) {
         return Math.max(0, Math.min(x, 255));
@@ -104,16 +145,28 @@ public class Color implements Serializable {
     }
 
     /**
-     * Creates a new color from an AWT color.
+     * Creates a color from another color.
      *
-     * @param awtColor The AWT color to create this color from.
+     * @param color The color to copy.
      */
-    public Color(java.awt.Color awtColor) {
-        this(
-                awtColor.getRed(),
-                awtColor.getGreen(),
-                awtColor.getBlue(),
-                awtColor.getAlpha());
+    public Color(Color color) {
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
+        this.a = color.a;
+    }
+
+    /**
+     * Creates a color from another color with a new alpha value.
+     *
+     * @param color The color to copy.
+     * @param alpha The alpha value of the new color.
+     */
+    public Color(Color color, int alpha) {
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
+        this.a = clamp(alpha);
     }
 
     /**
@@ -121,7 +174,7 @@ public class Color implements Serializable {
      *
      * @return The color's red component.
      */
-    public int getR() {
+    public int getRed() {
         return r;
     }
 
@@ -130,7 +183,7 @@ public class Color implements Serializable {
      *
      * @param r The color's new red component.
      */
-    public void setR(int r) {
+    public void setRed(int r) {
         this.r = clamp(r);
     }
 
@@ -139,7 +192,7 @@ public class Color implements Serializable {
      *
      * @return The color's green component.
      */
-    public int getG() {
+    public int getGreen() {
         return g;
     }
 
@@ -148,7 +201,7 @@ public class Color implements Serializable {
      *
      * @param g The color's new green component.
      */
-    public void setG(int g) {
+    public void setGreen(int g) {
         this.g = clamp(g);
     }
 
@@ -157,7 +210,7 @@ public class Color implements Serializable {
      *
      * @return The color's blue component.
      */
-    public int getB() {
+    public int getBlue() {
         return b;
     }
 
@@ -166,7 +219,7 @@ public class Color implements Serializable {
      *
      * @param b The color's new blue component.
      */
-    public void setB(int b) {
+    public void setBlue(int b) {
         this.b = clamp(b);
     }
 
@@ -175,7 +228,7 @@ public class Color implements Serializable {
      *
      * @return The color's alpha component.
      */
-    public int getA() {
+    public int getAlpha() {
         return a;
     }
 
@@ -184,7 +237,7 @@ public class Color implements Serializable {
      *
      * @param a The color's new alpha component.
      */
-    public void setA(int a) {
+    public void setAlpha(int a) {
         this.a = clamp(a);
     }
 
@@ -194,14 +247,30 @@ public class Color implements Serializable {
      * The addition is performed per component. Components exceeding 255 will be clamped to that value.
      *
      * @param color The color to add.
-     * @return A new color object, representing the modulated color.
+     * @return This color after the modulation.
      */
     public Color add(Color color) {
-        return new Color(
-                r + color.r,
-                g + color.g,
-                b + color.b,
-                a + color.a);
+        this.r = clamp(this.r + color.r);
+        this.g = clamp(this.g + color.g);
+        this.b = clamp(this.b + color.b);
+        this.a = clamp(this.a + color.a);
+        return this;
+    }
+
+    /**
+     * Modulates the color by subtracting another color from it.
+     * <p/>
+     * The addition is performed per component. Components exceeding 255 will be clamped to that value.
+     *
+     * @param color The color to subtract.
+     * @return This color after the modulation.
+     */
+    public Color sub(Color color) {
+        this.r = clamp(this.r - color.r);
+        this.g = clamp(this.g - color.g);
+        this.b = clamp(this.b - color.b);
+        this.a = clamp(this.a - color.a);
+        return this;
     }
 
     /**
@@ -209,15 +278,34 @@ public class Color implements Serializable {
      * <p/>
      * The multiplication is performed per component. The components are each divided by 255 after the operation.
      *
-     * @param color The color to add.
-     * @return A new color object, representing the modulated color.
+     * @param color The color to multiply.
+     * @return This color after the modulation.
      */
     public Color mul(Color color) {
-        return new Color(
-                r * color.r / 255,
-                g * color.g / 255,
-                b * color.b / 255,
-                a * color.a / 255);
+        this.r = clamp(this.r * color.r / 255);
+        this.g = clamp(this.g * color.g / 255);
+        this.b = clamp(this.b * color.b / 255);
+        this.a = clamp(this.a * color.a / 255);
+        return this;
+    }
+
+    /**
+     * Modulates the color by multiplying its components with a factor.
+     *
+     * @param f The factor.
+     * @return This color after the modulation.
+     */
+    public Color mul(float f) {
+        this.r = clamp((int) (this.r * f));
+        this.g = clamp((int) (this.g * f));
+        this.b = clamp((int) (this.b * f));
+        this.a = clamp((int) (this.a * f));
+        return this;
+    }
+
+    @Override
+    protected Color clone() throws CloneNotSupportedException {
+        return (Color) super.clone();
     }
 
     @Override
@@ -252,14 +340,5 @@ public class Color implements Serializable {
                 ", b=" + b +
                 ", a=" + a +
                 '}';
-    }
-
-    /**
-     * Converts this color to an AWT color.
-     *
-     * @return The AWT color converted from this color.
-     */
-    public java.awt.Color toAWT() {
-        return new java.awt.Color(r, g, b, a);
     }
 }
