@@ -273,8 +273,9 @@ public class ExampleScene implements Scene {
         fpsTime -= dt;
         if (fpsTime <= 0.0f) {
             updateFpsText(fpsFrames);
-            fpsTime += 1.0f;
+
             fpsFrames = 0;
+            fpsTime += 1.0f;
         }
 
         //Update entities

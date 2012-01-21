@@ -1,6 +1,7 @@
 package org.jsfml.examples.scene;
 
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Clock;
 import org.jsfml.window.event.Event;
 
 /**
@@ -40,6 +41,9 @@ public class ExampleApp {
             ex.printStackTrace();
             return;
         }
+        
+        //Create a clock for measuring frame time
+        Clock frameClock = new Clock();
 
         //Enter main loop
         while (!scene.isDone()) {
@@ -47,11 +51,8 @@ public class ExampleApp {
             for (Event event = window.pollEvent(); event != null; event = window.pollEvent())
                 scene.handleEvent(event);
 
-            //Calculate time delta in seconds
-            float dt = (float) window.getFrameTime() / 1000.0f;
-
             //Update the scene
-            scene.update(dt);
+            scene.update(frameClock.restart().asSeconds());
 
             //Clear the window
             window.clear();
