@@ -12,6 +12,96 @@ public class Vector3f implements Cloneable, Serializable {
     private static final long serialVersionUID = -2176250005619169432L;
 
     /**
+     * Adds two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the sum of the two vectors.
+     */
+    public static Vector3f add(Vector3f a, Vector3f b) {
+        return new Vector3f(a).add(b);
+    }
+
+    /**
+     * Subtracts two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the difference between the two vectors.
+     */
+    public static Vector3f sub(Vector3f a, Vector3f b) {
+        return new Vector3f(a).sub(b);
+    }
+
+    /**
+     * Performs a component-wise multiplication of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "product" of the two vectors.
+     */
+    public static Vector3f mul(Vector3f a, Vector3f b) {
+        return new Vector3f(a).mul(b);
+    }
+
+    /**
+     * Multiplies a vector by a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector3f mul(Vector3f a, float s) {
+        return new Vector3f(a).mul(s);
+    }
+
+    /**
+     * Performs a vector multiplication of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return The vector product, or dot product, of the two vectors.
+     */
+    public static float dot(Vector3f a, Vector3f b) {
+        return a.x * b.x + a.y + b.y;
+    }
+
+    /**
+     * Computes the cross product between two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the cross product of the two vectors.
+     */
+    public static Vector3f cross(Vector3f a, Vector3f b) {
+        return new Vector3f(
+                a.y * b.z - a.z * b.y,
+                a.z * b.x - a.x * b.z,
+                a.x * b.y - a.y * b.x
+        );
+    }
+
+    /**
+     * Computes the normal of a vector.
+     *
+     * @param v The vector.
+     * @return A new vector, representing the normal of the given vector.
+     */
+    public static Vector3f normal(Vector3f v) {
+        return new Vector3f(v).normalize();
+    }
+
+    /**
+     * Computes the negative of a vector.
+     *
+     * @param v The vector.
+     * @return A new vector, representing the negative of the given vector.
+     */
+    public static Vector3f neg(Vector3f v) {
+        return new Vector3f(v).negate();
+    }
+
+    /**
      * The vector's X coordinate.
      */
     @Intercom
@@ -58,6 +148,103 @@ public class Vector3f implements Cloneable, Serializable {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    /**
+     * Adds another vector to this vector.
+     *
+     * @param v The vector to add.
+     * @return This vector after the addition.
+     */
+    public Vector3f add(Vector3f v) {
+        this.x += v.x;
+        this.y += v.y;
+        this.z += v.z;
+        return this;
+    }
+
+    /**
+     * Subtracts another vector from this vector.
+     *
+     * @param v The vector to subtract.
+     * @return This vector after the subtraction.
+     */
+    public Vector3f sub(Vector3f v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        this.z -= v.z;
+        return this;
+    }
+
+    /**
+     * Multiplies this vector by another vector component-wise.
+     *
+     * @param v The vector to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector3f mul(Vector3f v) {
+        this.x *= v.x;
+        this.y *= v.y;
+        this.z *= v.z;
+        return this;
+    }
+
+    /**
+     * Multiplies each component of this vector by a scalar.
+     *
+     * @param s The scalar to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector3f mul(float s) {
+        this.x *= s;
+        this.y *= s;
+        this.z *= s;
+        return this;
+    }
+
+    /**
+     * Normalizes this vector.
+     *
+     * @return This vector after the normalization.
+     */
+    public Vector3f normalize() {
+        float l = length();
+        if (l != 0.0f) {
+            this.x /= l;
+            this.y /= l;
+            this.z /= l;
+        }
+        return this;
+    }
+
+    /**
+     * Negates this vector.
+     *
+     * @return This vector after the negation.
+     */
+    public Vector3f negate() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        return this;
+    }
+
+    /**
+     * Computes the squared length of this vector.
+     *
+     * @return The squared length of this vector.
+     */
+    public float lengthSquared() {
+        return this.x * this.x + this.y * this.y + this.z * this.z;
+    }
+
+    /**
+     * Returns the length of this vector.
+     *
+     * @return The length of this vector.
+     */
+    public float length() {
+        return (float) Math.sqrt(this.lengthSquared());
     }
 
     @Override

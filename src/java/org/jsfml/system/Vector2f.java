@@ -12,6 +12,79 @@ public class Vector2f implements Cloneable, Serializable {
     private static final long serialVersionUID = -2082611034304583379L;
 
     /**
+     * Adds two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the sum of the two vectors.
+     */
+    public static Vector2f add(Vector2f a, Vector2f b) {
+        return new Vector2f(a).add(b);
+    }
+
+    /**
+     * Subtracts two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the difference between the two vectors.
+     */
+    public static Vector2f sub(Vector2f a, Vector2f b) {
+        return new Vector2f(a).sub(b);
+    }
+
+    /**
+     * Performs a component-wise multiplication of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "product" of the two vectors.
+     */
+    public static Vector2f mul(Vector2f a, Vector2f b) {
+        return new Vector2f(a).mul(b);
+    }
+
+    /**
+     * Multiplies a vector by a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector2f mul(Vector2f a, float s) {
+        return new Vector2f(a).mul(s);
+    }
+
+    /**
+     * Performs a vector multiplication of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return The vector product, or dot product, of the two vectors.
+     */
+    public static float dot(Vector2f a, Vector2f b) {
+        return a.x * b.x + a.y + b.y;
+    }
+
+    /**
+     * Computes the normal of a vector.
+     * @param v The vector.
+     * @return A new vector, representing the normal of the given vector.
+     */
+    public static Vector2f normal(Vector2f v) {
+        return new Vector2f(v).normalize();
+    }
+
+    /**
+     * Computes the negative of a vector.
+     * @param v The vector.
+     * @return A new vector, representing the negative of the given vector.
+     */
+    public static Vector2f neg(Vector2f v) {
+        return new Vector2f(v).negate();
+    }
+
+    /**
      * The vector's X coordinate.
      */
     @Intercom
@@ -49,6 +122,97 @@ public class Vector2f implements Cloneable, Serializable {
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Adds another vector to this vector.
+     *
+     * @param v The vector to add.
+     * @return This vector after the addition.
+     */
+    public Vector2f add(Vector2f v) {
+        this.x += v.x;
+        this.y += v.y;
+        return this;
+    }
+
+    /**
+     * Subtracts another vector from this vector.
+     *
+     * @param v The vector to subtract.
+     * @return This vector after the subtraction.
+     */
+    public Vector2f sub(Vector2f v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        return this;
+    }
+
+    /**
+     * Multiplies this vector by another vector component-wise.
+     *
+     * @param v The vector to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector2f mul(Vector2f v) {
+        this.x *= v.x;
+        this.y *= v.y;
+        return this;
+    }
+
+    /**
+     * Multiplies each component of this vector by a scalar.
+     *
+     * @param s The scalar to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector2f mul(float s) {
+        this.x *= s;
+        this.y *= s;
+        return this;
+    }
+
+    /**
+     * Normalizes this vector.
+     *
+     * @return This vector after the normalization.
+     */
+    public Vector2f normalize() {
+        float l = length();
+        if (l != 0.0f) {
+            this.x /= l;
+            this.y /= l;
+        }
+        return this;
+    }
+
+    /**
+     * Negates this vector.
+     *
+     * @return This vector after the negation.
+     */
+    public Vector2f negate() {
+        this.x = -this.x;
+        this.y = -this.y;
+        return this;
+    }
+
+    /**
+     * Computes the squared length of this vector.
+     *
+     * @return The squared length of this vector.
+     */
+    public float lengthSquared() {
+        return this.x * this.x + this.y * this.y;
+    }
+
+    /**
+     * Returns the length of this vector.
+     *
+     * @return The length of this vector.
+     */
+    public float length() {
+        return (float) Math.sqrt(this.lengthSquared());
     }
 
     @Override

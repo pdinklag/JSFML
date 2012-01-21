@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Base class for the representation of time values.
  */
 @Intercom
-public class Time implements Comparable, Serializable {
+public class Time implements Cloneable, Comparable, Serializable {
     private static final long serialVersionUID = 7038088548302750096L;
 
     /**
@@ -42,6 +42,39 @@ public class Time implements Comparable, Serializable {
     }
 
     /**
+     * Adds two times.
+     *
+     * @param a The left time.
+     * @param b The right time.
+     * @return A new time, representing the sum of the two times.
+     */
+    public static Time add(Time a, Time b) {
+        return new Time(a).add(b);
+    }
+
+    /**
+     * Subtracts two times.
+     *
+     * @param a The left time.
+     * @param b The right time.
+     * @return A new time, representing the difference between the two times.
+     */
+    public static Time sub(Time a, Time b) {
+        return new Time(a).sub(b);
+    }
+
+    /**
+     * Computes a time's ratio of another time.
+     *
+     * @param a The first time.
+     * @param b The right time.
+     * @return The ratio of the first time to the second time.
+     */
+    public static float ratio(Time a, Time b) {
+        return (float) a.microseconds / (float) b.microseconds;
+    }
+
+    /**
      * Gets a new time with a zero time value;
      *
      * @return A new time with a zero value.
@@ -59,6 +92,15 @@ public class Time implements Comparable, Serializable {
     @Intercom
     private Time(long microseconds) {
         this.microseconds = microseconds;
+    }
+
+    /**
+     * Creates a new time from another time.
+     *
+     * @param time The time to copy.
+     */
+    public Time(Time time) {
+        this.microseconds = time.microseconds;
     }
 
     /**
@@ -86,6 +128,33 @@ public class Time implements Comparable, Serializable {
      */
     public long asMicroseconds() {
         return microseconds;
+    }
+
+    /**
+     * Adds another time to this time.
+     *
+     * @param t The time to add.
+     * @return This time after the addition.
+     */
+    public Time add(Time t) {
+        this.microseconds += t.microseconds;
+        return this;
+    }
+
+    /**
+     * Subtracts another time from this time.
+     *
+     * @param t The time to subtract.
+     * @return This time after the subtraction.
+     */
+    public Time sub(Time t) {
+        this.microseconds -= t.microseconds;
+        return this;
+    }
+
+    @Override
+    protected Time clone() throws CloneNotSupportedException {
+        return (Time) super.clone();
     }
 
     @Override

@@ -9,6 +9,37 @@ public class Vector2i implements Cloneable, Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
     /**
+     * Adds two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the sum of the two vectors.
+     */
+    public static Vector2i add(Vector2i a, Vector2i b) {
+        return new Vector2i(a).add(b);
+    }
+
+    /**
+     * Subtracts two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the difference between the two vectors.
+     */
+    public static Vector2i sub(Vector2i a, Vector2i b) {
+        return new Vector2i(a).sub(b);
+    }
+
+    /**
+     * Computes the negative of a vector.
+     * @param v The vector.
+     * @return A new vector, representing the negative of the given vector.
+     */
+    public static Vector2i neg(Vector2i v) {
+        return new Vector2i(v).negate();
+    }
+
+    /**
      * The vector's X coordinate.
      */
     @Intercom
@@ -46,6 +77,41 @@ public class Vector2i implements Cloneable, Serializable {
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Adds another vector to this vector.
+     *
+     * @param v The vector to add.
+     * @return This vector after the addition.
+     */
+    public Vector2i add(Vector2i v) {
+        this.x += v.x;
+        this.y += v.y;
+        return this;
+    }
+
+    /**
+     * Subtracts another vector from this vector.
+     *
+     * @param v The vector to subtract.
+     * @return This vector after the subtraction.
+     */
+    public Vector2i sub(Vector2i v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        return this;
+    }
+
+    /**
+     * Negates this vector.
+     *
+     * @return This vector after the negation.
+     */
+    public Vector2i negate() {
+        this.x = -this.x;
+        this.y = -this.y;
+        return this;
     }
 
     @Override
