@@ -107,11 +107,14 @@
 
 			<fileset dir="${cpp.src}" includes="**/*.cpp" />
 
+			<compilerarg location="start" value="-m32" />
+
 			<includepath location="${cpp.include}" />
 			<includepath location="${env.SFML_HOME}/include" />
 			<includepath location="${env.JAVA_HOME}/include" />
 			<includepath location="${env.JAVA_HOME}/include/win32" />
 			
+			<linkerarg location="start" value="-m32" />
 			<linkerarg location="start" value="--add-stdcall-alias" />
 			
 			<libset libs="stdc++" />
