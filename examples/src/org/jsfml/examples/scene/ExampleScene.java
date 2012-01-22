@@ -383,7 +383,7 @@ public class ExampleScene implements Scene {
             shape.setOutlineThickness(2);
 
             Color color = colors[random.nextInt(colors.length)];
-            color.setA(96);
+            color.setAlpha(96);
             shape.setFillColor(color);
 
             velocity = new Vector2f(
