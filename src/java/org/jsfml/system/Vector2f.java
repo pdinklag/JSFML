@@ -40,8 +40,19 @@ public class Vector2f implements Cloneable, Serializable {
      * @param b The right vector.
      * @return A new vector, representing the "product" of the two vectors.
      */
-    public static Vector2f mul(Vector2f a, Vector2f b) {
-        return new Vector2f(a).mul(b);
+    public static Vector2f componentwiseMul(Vector2f a, Vector2f b) {
+        return new Vector2f(a).componentwiseMul(b);
+    }
+
+    /**
+     * Performs a component-wise division of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "quotient" of the two vectors.
+     */
+    public static Vector2f componentwiseDiv(Vector2f a, Vector2f b) {
+        return new Vector2f(a).componentwiseDiv(b);
     }
 
     /**
@@ -53,6 +64,17 @@ public class Vector2f implements Cloneable, Serializable {
      */
     public static Vector2f mul(Vector2f a, float s) {
         return new Vector2f(a).mul(s);
+    }
+
+    /**
+     * Multiplies a vector by the inverse of a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector2f div(Vector2f a, float s) {
+        return new Vector2f(a).div(s);
     }
 
     /**
@@ -68,6 +90,7 @@ public class Vector2f implements Cloneable, Serializable {
 
     /**
      * Computes the normal of a vector.
+     *
      * @param v The vector.
      * @return A new vector, representing the normal of the given vector.
      */
@@ -77,6 +100,7 @@ public class Vector2f implements Cloneable, Serializable {
 
     /**
      * Computes the negative of a vector.
+     *
      * @param v The vector.
      * @return A new vector, representing the negative of the given vector.
      */
@@ -154,9 +178,24 @@ public class Vector2f implements Cloneable, Serializable {
      * @param v The vector to multiply.
      * @return This vector after the multiplication.
      */
-    public Vector2f mul(Vector2f v) {
+    public Vector2f componentwiseMul(Vector2f v) {
         this.x *= v.x;
         this.y *= v.y;
+        return this;
+    }
+
+    /**
+     * Divides this vector by another vector component-wise.
+     *
+     * @param v The vector to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector2f componentwiseDiv(Vector2f v) {
+        if (v.x == 0 || v.y == 0)
+            throw new IllegalArgumentException("Division by zero.");
+
+        this.x /= v.x;
+        this.y /= v.y;
         return this;
     }
 
@@ -169,6 +208,21 @@ public class Vector2f implements Cloneable, Serializable {
     public Vector2f mul(float s) {
         this.x *= s;
         this.y *= s;
+        return this;
+    }
+
+    /**
+     * Multiplies each component of this vector by the inverse of a scalar.
+     *
+     * @param s The scalar to divide by.
+     * @return This vector after the division.
+     */
+    public Vector2f div(float s) {
+        if (s == 0)
+            throw new IllegalArgumentException("Division by zero.");
+
+        this.x /= s;
+        this.y /= s;
         return this;
     }
 

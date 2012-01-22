@@ -40,8 +40,19 @@ public class Vector3f implements Cloneable, Serializable {
      * @param b The right vector.
      * @return A new vector, representing the "product" of the two vectors.
      */
-    public static Vector3f mul(Vector3f a, Vector3f b) {
-        return new Vector3f(a).mul(b);
+    public static Vector3f componentwiseMul(Vector3f a, Vector3f b) {
+        return new Vector3f(a).componentwiseMul(b);
+    }
+
+    /**
+     * Performs a component-wise division of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "quotient" of the two vectors.
+     */
+    public static Vector3f componentwiseDiv(Vector3f a, Vector3f b) {
+        return new Vector3f(a).componentwiseDiv(b);
     }
 
     /**
@@ -53,6 +64,17 @@ public class Vector3f implements Cloneable, Serializable {
      */
     public static Vector3f mul(Vector3f a, float s) {
         return new Vector3f(a).mul(s);
+    }
+
+    /**
+     * Multiplies a vector by the inverse of a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector3f div(Vector3f a, float s) {
+        return new Vector3f(a).div(s);
     }
 
     /**
@@ -182,10 +204,26 @@ public class Vector3f implements Cloneable, Serializable {
      * @param v The vector to multiply.
      * @return This vector after the multiplication.
      */
-    public Vector3f mul(Vector3f v) {
+    public Vector3f componentwiseMul(Vector3f v) {
         this.x *= v.x;
         this.y *= v.y;
         this.z *= v.z;
+        return this;
+    }
+
+    /**
+     * Divides this vector by another vector component-wise.
+     *
+     * @param v The vector to multiply.
+     * @return This vector after the multiplication.
+     */
+    public Vector3f componentwiseDiv(Vector3f v) {
+        if (v.x == 0 || v.y == 0 || v.z == 0)
+            throw new IllegalArgumentException("Division by zero.");
+
+        this.x /= v.x;
+        this.y /= v.y;
+        this.z /= v.z;
         return this;
     }
 
@@ -199,6 +237,22 @@ public class Vector3f implements Cloneable, Serializable {
         this.x *= s;
         this.y *= s;
         this.z *= s;
+        return this;
+    }
+
+    /**
+     * Multiplies each component of this vector by the inverse of a scalar.
+     *
+     * @param s The scalar to divide by.
+     * @return This vector after the division.
+     */
+    public Vector3f div(float s) {
+        if (s == 0)
+            throw new IllegalArgumentException("Division by zero.");
+
+        this.x /= s;
+        this.y /= s;
+        this.z /= s;
         return this;
     }
 
