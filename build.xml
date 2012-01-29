@@ -101,6 +101,7 @@
 		<!-- compile -->
 		<exec executable="${cl}" dir="${cwd}" failonerror="true">
 			<arg value="/nologo" />
+			<arg value="/c" />
 			<arg value="/Ox" />
 			<arg value="/EHsc" />
 			<arg value="/I${path.winsdk}/Include" />
