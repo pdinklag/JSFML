@@ -10,6 +10,9 @@
 
 #include <SFML/Graphics/RenderTexture.hpp>
 
+#define VERTEX_BUFSIZE_RTEXTURE 0x400
+sf::Vertex sfVertexBuffer_RenderTexture[VERTEX_BUFSIZE_RTEXTURE];
+
 /*
  * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeCreate
@@ -186,13 +189,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw___3Lorg_
 
     jint num = env->GetArrayLength(vertices);
     if(num > 0) {
-        sf::Vertex sfmlVertices[env->GetArrayLength(vertices)];
-
         for(jint i = 0; i < num; i++)
-            sfmlVertices[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
+            sfVertexBuffer_RenderTexture[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
 
         THIS(sf::RenderTexture)->Draw(
-            sfmlVertices,
+            sfVertexBuffer_RenderTexture,
             num,
             (sf::PrimitiveType)JavaEnum::ordinal(env, type),
             JSFML::RenderStates::ToSFML(env, renderStates));

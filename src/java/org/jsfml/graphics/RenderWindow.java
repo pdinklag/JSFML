@@ -250,7 +250,7 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     @Override
     public native void enableKeyRepeat(boolean enable);
 
-    private native long nativeSetIcon(Image image);
+    private native void nativeSetIcon(Image image);
 
     @Override
     public void setIcon(@NotNull Image icon) {

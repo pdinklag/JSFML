@@ -213,9 +213,9 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeSetIcon
- * Signature: (Lorg/jsfml/graphics/Image;)J
+ * Signature: (Lorg/jsfml/graphics/Image;)V
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
   (JNIEnv *, jobject, jobject);
 
 /*

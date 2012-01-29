@@ -16,6 +16,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
 
+#define VERTEX_BUFSIZE_RWINDOW 0x400
+sf::Vertex sfVertexBuffer_RenderWindow[VERTEX_BUFSIZE_RWINDOW];
+
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeCreate
@@ -118,13 +121,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw___3Lorg_j
 
     jint num = env->GetArrayLength(vertices);
     if(num > 0) {
-        sf::Vertex sfmlVertices[env->GetArrayLength(vertices)];
-
         for(jint i = 0; i < num; i++)
-            sfmlVertices[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
+            sfVertexBuffer_RenderWindow[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
 
         THIS(sf::RenderWindow)->Draw(
-            sfmlVertices,
+            sfVertexBuffer_RenderWindow,
             num,
             (sf::PrimitiveType)JavaEnum::ordinal(env, type),
             JSFML::RenderStates::ToSFML(env, renderStates));
@@ -287,7 +288,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat (JNI
  * Method:    nativeSetIcon
  * Signature: (Lorg/jsfml/graphics/Image;)J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
     (JNIEnv * env, jobject obj, jobject jicon) {
 
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
