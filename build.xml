@@ -99,30 +99,16 @@
 		</fileset>
 		<pathconvert pathsep=" " property="cpp.src.files" refid="cpp.src.fileset"/>
 		
-		<!-- compile -->
+		<!-- compile and link -->
 		<exec executable="g++" dir="${cpp.obj}" failonerror="true">
-			<arg value="-c" />
 			<arg value="-I${cpp.include}" />
 			<arg value="-I${sfml.include}" />
 			<arg value="-I${env.JAVA_HOME}/include" />
 			<arg value="-I${env.JAVA_HOME}/include/linux" />
-			<arg line="${cpp.src.files}" />
-		</exec>
-		
-		<!-- get object files -->
-		<fileset id="cpp.obj.fileset" dir="${cpp.obj}" includes="*.obj" />
-		<pathconvert pathsep=" " property="cpp.obj.files" refid="cpp.obj.fileset"/>
-
-		<!-- link -->
-		<exec executable="ld" failonerror="true">
 			<arg value="-shared" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
-			<arg value="-L${sfml.bin}/${arch}" />
-			<arg value="-lsfml-system" />
-			<arg value="-lsfml-window" />
-			<arg value="-lsfml-graphics" />
-			<arg value="-lsfml-audio" />
-			<arg line="${cpp.obj.files}" />
+			<arg value="-Wl,-fpic,-L${sfml.bin}/${arch},-lstdc++,-lsfml-system,-lsfml-window,-lsfml-graphics,-lsfml-audio" />
+			<arg line="${cpp.src.files}" />
 		</exec>
 		
 		<copy todir="${cpp.out}/${arch}">
