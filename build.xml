@@ -106,8 +106,9 @@
 			<arg value="-I${env.JAVA_HOME}/include" />
 			<arg value="-I${env.JAVA_HOME}/include/linux" />
 			<arg value="-shared" />
+			<arg value="-fPIC" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
-			<arg value="-Wl,-fpic,-L${sfml.bin}/${arch},-lstdc++,-lsfml-system,-lsfml-window,-lsfml-graphics,-lsfml-audio" />
+			<arg value="-Wl,-L${sfml.bin}/${arch},-lstdc++,-lsfml-system,-lsfml-window,-lsfml-graphics,-lsfml-audio" />
 			<arg line="${cpp.src.files}" />
 		</exec>
 		
