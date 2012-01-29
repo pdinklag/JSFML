@@ -14,6 +14,7 @@
 	<!-- SFML properties -->
 	<property name="sfml.bin" location="./sfml/bin" />
 	<property name="sfml.lib" location="./sfml/lib" />
+	<property name="sfml.include" location="./sfml/include" />
 	
 	<!-- Java properties -->
 	<property name="java.src" location="./src/java" />
@@ -105,7 +106,7 @@
 			<arg value="/I${path.winsdk}/Include" />
 			<arg value="/I${path.vs}/VC/include" />
 			<arg value="/I${cpp.include}" />
-			<arg value="/I${env.SFML_HOME}/include" />
+			<arg value="/I${sfml.include}" />
 			<arg value="/I${env.JAVA_HOME}/include" />
 			<arg value="/I${env.JAVA_HOME}/include/win32" />
 			<arg value="${cpp.src}/Intercom/*.cpp" />
