@@ -90,6 +90,12 @@ public final class SFMLNative {
                     nativeLibs.add("linux_x86/libsfml-graphics.so.2.0");
                     nativeLibs.add("linux_x86/libsfml-audio.so.2.0");
                     nativeLibs.add("linux_x86/libjsfml.so");
+                } else if (osArch.equals("amd64")) {
+                    nativeLibs.add("linux_x64/libsfml-system.so.2.0");
+                    nativeLibs.add("linux_x64/libsfml-window.so.2.0");
+                    nativeLibs.add("linux_x64/libsfml-graphics.so.2.0");
+                    nativeLibs.add("linux_x64/libsfml-audio.so.2.0");
+                    nativeLibs.add("linux_x64/libjsfml.so");
                 }
             } else if (osName.contains("Mac OS X")) {
                 //TODO
