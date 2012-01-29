@@ -84,6 +84,68 @@
 		</javah>
 	</target>
 	
+	<!-- Compile C++ for Linux - not to be used directly, use either linux32 or linux64 -->
+	<target name="linux.build">
+		<!-- Requires ${arch} -->
+		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.so" />
+		<mkdir dir="${cpp.obj}" />
+		<mkdir dir="${cpp.out}" />
+		<mkdir dir="${cpp.out}/${arch}" />
+		
+		<!-- get source files -->
+		<fileset id="cpp.src.fileset" dir="${cpp.src}">
+			<include name="Intercom/*.cpp" />
+			<include name="JNI/*.cpp" />
+		</fileset>
+		<pathconvert pathsep=" " property="cpp.src.files" refid="cpp.src.fileset"/>
+		
+		<!-- compile -->
+		<exec executable="g++" dir="${cpp.obj}" failonerror="true">
+			<arg value="-c" />
+			<arg value="-I${cpp.include}" />
+			<arg value="-I${sfml.include}" />
+			<arg value="-I${env.JAVA_HOME}/include" />
+			<arg value="-I${env.JAVA_HOME}/include/linux" />
+			<arg line="${cpp.src.files}" />
+		</exec>
+		
+		<!-- get object files -->
+		<fileset id="cpp.obj.fileset" dir="${cpp.obj}" includes="*.obj" />
+		<pathconvert pathsep=" " property="cpp.obj.files" refid="cpp.obj.fileset"/>
+
+		<!-- link -->
+		<exec executable="ld" failonerror="true">
+			<arg value="-shared" />
+			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
+			<arg value="-L${sfml.bin}/${arch}" />
+			<arg value="-lsfml-system" />
+			<arg value="-lsfml-window" />
+			<arg value="-lsfml-graphics" />
+			<arg value="-lsfml-audio" />
+			<arg line="${cpp.obj.files}" />
+		</exec>
+		
+		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${sfml.bin}/${arch}" includes="*.so" />
+		</copy>
+		
+		<checksum>
+			<fileset dir="${cpp.out}/${arch}" includes="*.so" />
+		</checksum>
+	</target>
+	
+	<!-- Compile C++ for Linux 32 -->
+	<target name="linux32" description="Build the C++ sources for Linux 32 bit.">
+		<property name="arch" value="linux_x86" />
+		<ant target="linux.build" />
+	</target>
+	
+	<!-- Compile C++ for Linux 64 -->
+	<target name="linux64" description="Build the C++ sources for Linux 64 bit.">
+		<property name="arch" value="linux_x64" />
+		<ant target="linux.build" />
+	</target>
+	
 	<!-- Phony target to determine the Microsoft Visual Studio and Windows SDK paths on Windows systems. -->
 	<target name="windows.find.paths">
 		<exec executable="windows-find-vs.bat" outputproperty="path.vs" />
@@ -158,7 +220,7 @@
 	</target>
 	
 	<!-- Compile C++ for Windows 64 -->
-	<target name="win64" description="Build the C++ sources for Windows 32 bit." depends="windows.find.paths">
+	<target name="win64" description="Build the C++ sources for Windows 64 bit." depends="windows.find.paths">
 		<property name="cl" value="${path.vs}/VC/bin/amd64/cl.exe" />
 		<property name="link" value="${path.vs}/VC/bin/amd64/link.exe" />
 		<property name="cwd" value="${path.vs}/VC/bin/amd64" />
