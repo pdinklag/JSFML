@@ -2,19 +2,18 @@
 	<description>
 		JSFML build file for Apache Ant.
 	</description>
-	
-	<!-- cpptasks -->
-	<path id="cc.classpath" location="./antlib/cpptasks/cpptasks.jar" />
-	<taskdef resource="cpptasks.tasks" classpathref="cc.classpath" loaderRef="cctasks" />
-	<typedef resource="cpptasks.types" classpathref="cc.classpath" loaderRef="cctasks" />
-	
+
 	<!-- Environment -->
 	<property environment="env" />
 	
 	<!-- JSFML properties -->
 	<property name="jsfml.package" value="org.jsfml" />
 	<property name="jsfml.bin" value="jsfml" />
-	<property name="jsfml.out" value="./out" />
+	<property name="jsfml.out" location="./out" />
+	
+	<!-- SFML properties -->
+	<property name="sfml.bin" location="./sfml/bin" />
+	<property name="sfml.lib" location="./sfml/lib" />
 	
 	<!-- Java properties -->
 	<property name="java.src" location="./src/java" />
@@ -38,13 +37,13 @@
 	<property name="jarsigner.alias" value="pdinklag" />
 	
 	<!-- Compile Java -->
-	<target name="java.compile" description="Compile the Java sources.">
+	<target name="compile" description="Compile the Java sources.">
 		<mkdir dir="${java.out}" />
 		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" target="${java.target}" />
 	</target>
 	
 	<!-- Generate headers -->
-	<target name="cpp.headers" description="Generate the C++ JNI headers." depends="java.compile">
+	<target name="headers" description="Generate the C++ JNI headers." depends="compile">
 		<mkdir dir="${cpp.include}/JSFML/JNI" />
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
 			<!-- base -->
@@ -84,97 +83,94 @@
 		</javah>
 	</target>
 	
-	<!-- Compile C++ for Windows 32 -->
-	<target name="cpp.win32" description="Build the C++ sources for Windows 32 bit.">
-		
-		<property name="arch" value="windows_x86" />
+	<!-- Phony target to determine the Microsoft Visual Studio and Windows SDK paths on Windows systems. -->
+	<target name="windows.find.paths">
+		<exec executable="windows-find-vs.bat" outputproperty="path.vs" />
+		<exec executable="windows-find-winsdk.bat" outputproperty="path.winsdk" />
+	</target>
 	
+	<!-- Compile C++ for Windows - not to be used directly, use either win32 or win64 -->
+	<target name="windows.build">
+		<!-- Requires ${arch}, ${cl}, ${link}, ${cwd}, ${winsdk.lib} and ${vs.lib} -->
 		<delete file="${cpp.out}/${arch}/${jsfml.bin}.dll" />
 		<mkdir dir="${cpp.obj}" />
 		<mkdir dir="${cpp.out}" />
 		<mkdir dir="${cpp.out}/${arch}" />
 		
-		<cc name="g++"
-			debug="false"
-			multithreaded="true"
-			newenvironment="true"
-			incremental="false"
-			runtime="static"
-			outtype="shared"
-			outfile="${cpp.out}/${arch}/${jsfml.bin}"
-			objdir="${cpp.obj}"
-			exceptions="true">
+		<!-- compile -->
+		<exec executable="${cl}" dir="${cwd}">
+			<arg value="/nologo" />
+			<arg value="/Ox" />
+			<arg value="/EHsc" />
+			<arg value="/I${path.winsdk}/Include" />
+			<arg value="/I${path.vs}/VC/include" />
+			<arg value="/I${cpp.include}" />
+			<arg value="/I${env.SFML_HOME}/include" />
+			<arg value="/I${env.JAVA_HOME}/include" />
+			<arg value="/I${env.JAVA_HOME}/include/win32" />
+			<arg value="${cpp.src}/Intercom/*.cpp" />
+			<arg value="${cpp.src}/JNI/*.cpp" />
+			<arg value="/Fo${cpp.obj}/" />
+		</exec>
 
-			<fileset dir="${cpp.src}" includes="**/*.cpp" />
-
-			<compilerarg location="start" value="-m32" />
-
-			<includepath location="${cpp.include}" />
-			<includepath location="${env.SFML_HOME}/include" />
-			<includepath location="${env.JAVA_HOME}/include" />
-			<includepath location="${env.JAVA_HOME}/include/win32" />
-			
-			<linkerarg location="start" value="-m32" />
-			<linkerarg location="start" value="--add-stdcall-alias" />
-			
-			<libset libs="stdc++" />
-			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
-			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-main, sfml-audio, sfml-graphics, sfml-system, sfml-window" />
-		</cc>
-		<delete file="${cpp.out}/${arch}/history.xml" />
-		<move file="${cpp.out}/${arch}/lib${jsfml.bin}.so" tofile="${cpp.out}/${arch}/${jsfml.bin}.dll" />
+		<!-- link -->
+		<exec executable="${link}" dir="${cwd}">
+			<arg value="/nologo" />
+			<arg value="/DLL" />
+			<arg value="/OUT:${cpp.out}/${arch}/${jsfml.bin}.dll" />
+			<arg value="/LIBPATH:${winsdk.lib}" />
+			<arg value="/LIBPATH:${vs.lib}" />
+			<arg value="/LIBPATH:${sfml.lib}/${arch}" />
+			<arg value="sfml-main.lib" />
+			<arg value="sfml-system.lib" />
+			<arg value="sfml-window.lib" />
+			<arg value="sfml-graphics.lib" />
+			<arg value="sfml-audio.lib" />
+			<arg value="${cpp.obj}/*.obj" />
+		</exec>
+		
+		<delete file="${cpp.out}/${arch}/${jsfml.bin}.exp" />
+		<delete file="${cpp.out}/${arch}/${jsfml.bin}.lib" />
+		
 		<copy todir="${cpp.out}/${arch}">
-			<fileset dir="${env.SFML_HOME}/build/lib" includes="sfml-audio-2.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll" />
-			<fileset dir="${env.SFML_HOME}/extlibs/bin/x86" includes="libsndfile-1.dll openal32.dll" />
+			<fileset dir="${sfml.bin}/${arch}" includes="*.dll" />
 		</copy>
+		
 		<checksum>
 			<fileset dir="${cpp.out}/${arch}" includes="*.dll" />
 		</checksum>
 	</target>
-
-	<!-- Compile C++ for Linux 32 -->
-	<target name="cpp.linux32" description="Build the C++ sources for Linux 32 bit.">
-		
-		<property name="arch" value="linux_x86" />
 	
-		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.so" />
-		<mkdir dir="${cpp.obj}" />
-		<mkdir dir="${cpp.out}" />
-		<mkdir dir="${cpp.out}/${arch}" />
+	<!-- Compile C++ for Windows 32 -->
+	<target name="win32" description="Build the C++ sources for Windows 32 bit." depends="windows.find.paths">
+		<property name="cl" value="${path.vs}/VC/bin/cl.exe" />
+		<property name="link" value="${path.vs}/VC/bin/link.exe" />
+		<property name="cwd" value="${path.vs}/Common7/IDE" />
 		
-		<cc name="g++"
-			debug="false"
-			multithreaded="true"
-			newenvironment="true"
-			incremental="false"
-			runtime="static"
-			outtype="shared"
-			outfile="${cpp.out}/${arch}/${jsfml.bin}"
-			objdir="${cpp.obj}"
-			exceptions="true">
-
-			<fileset dir="${cpp.src}" includes="**/*.cpp" />
-			
-			<includepath location="${cpp.include}" />
-			<includepath location="${env.SFML_HOME}/include" />
-			<includepath location="${env.JAVA_HOME}/include" />
-			<includepath location="${env.JAVA_HOME}/include/linux" />
-			
-			<libset libs="stdc++" />
-			<!--<libset dir="${env.JAVA_HOME}/lib" libs="jawt" />-->
-			<libset dir="${env.SFML_HOME}/build/lib" libs="sfml-audio, sfml-graphics, sfml-system, sfml-window" />
-		</cc>
-		<delete file="${cpp.out}/${arch}/history.xml" />
-		<copy todir="${cpp.out}/${arch}">
-			<fileset dir="${env.SFML_HOME}/build/lib" includes="libsfml-audio.so.2.0 libsfml-graphics.so.2.0 libsfml-system.so.2.0 libsfml-window.so.2.0" />
-		</copy>
-		<checksum>
-			<fileset dir="${cpp.out}/${arch}" includes="*.so*" />
-		</checksum>
+		<property name="vs.lib" value="${path.vs}/VC/lib" />
+		<property name="winsdk.lib" value="${path.winsdk}/Lib" />
+		
+		<property name="arch" value="windows_x86" />
+		
+		<ant target="windows.build" />
+	</target>
+	
+	<!-- Compile C++ for Windows 64 -->
+	<target name="win64" description="Build the C++ sources for Windows 32 bit." depends="windows.find.paths">
+		<property name="cl" value="${path.vs}/VC/bin/amd64/cl.exe" />
+		<property name="link" value="${path.vs}/VC/bin/amd64/link.exe" />
+		<property name="cwd" value="${path.vs}/VC/bin/amd64" />
+		
+		<property name="vs.lib" value="${path.vs}/VC/lib/amd64" />
+		<property name="winsdk.lib" value="${path.winsdk}/Lib/x64" />
+		
+		<property name="arch" value="windows_x64" />
+		
+		<ant target="windows.build" />
 	</target>
 	
 	<!-- Jar -->
-	<target name="jar" description="Generate the JAR file." depends="java.compile">
+	<target name="jar" description="Generate the JAR file." depends="compile">
 		<jar destfile="${jar.file}">
 			<fileset dir="${java.out}" includes="**/*.class" />
 			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so* **/*.dylib **/*.MD5" />
