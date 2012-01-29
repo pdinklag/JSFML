@@ -198,6 +198,6 @@
 	<target name="clean" description="Clean up.">
 		<delete dir="${jsfml.out}" />
 		<delete dir="${examples.out}" />
-		<delete dir="${javadoc.prod}" />
+		<delete dir="${javadoc.out}" />
 	</target>
 </project>
