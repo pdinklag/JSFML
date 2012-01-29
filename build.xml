@@ -99,7 +99,7 @@
 		<mkdir dir="${cpp.out}/${arch}" />
 		
 		<!-- compile -->
-		<exec executable="${cl}" dir="${cwd}">
+		<exec executable="${cl}" dir="${cwd}" failonerror="true">
 			<arg value="/nologo" />
 			<arg value="/Ox" />
 			<arg value="/EHsc" />
@@ -115,7 +115,7 @@
 		</exec>
 
 		<!-- link -->
-		<exec executable="${link}" dir="${cwd}">
+		<exec executable="${link}" dir="${cwd}" failonerror="true">
 			<arg value="/nologo" />
 			<arg value="/DLL" />
 			<arg value="/OUT:${cpp.out}/${arch}/${jsfml.bin}.dll" />
