@@ -6,7 +6,7 @@ import org.jsfml.graphics.Image;
 import org.jsfml.window.event.Event;
 
 /**
- * Interface for windows that serve as OpenGL targets.
+ * Basic window that serves as an OpenGL target.
  */
 public class Window extends SFMLNativeObject {
     /**
@@ -40,6 +40,51 @@ public class Window extends SFMLNativeObject {
     public static final int DEFAULT = TITLEBAR | RESIZE | CLOSE;
 
     private Image icon = null;
+
+    /**
+     * Constructs a new window without creating it.
+     *
+     * @see Window#create(org.jsfml.window.VideoMode, String, int, org.jsfml.window.ContextSettings)
+     */
+    public Window() {
+        super();
+    }
+
+    /**
+     * Creates a new window.
+     *
+     * @param mode     The video mode to use for OpenGL rendering.
+     * @param title    The window title.
+     * @param style    The window style.
+     * @param settings The settings for the OpenGL context.
+     */
+    public Window(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+        this();
+        create(mode, title, style, settings);
+    }
+
+    /**
+     * Creates a new window with default context settings.
+     *
+     * @param mode  The video mode to use for OpenGL rendering.
+     * @param title The window title.
+     * @param style The window style.
+     */
+    public Window(@NotNull VideoMode mode, @NotNull String title, int style) {
+        this();
+        create(mode, title, style, new ContextSettings());
+    }
+
+    /**
+     * Creates a new window with default style and context settings.
+     *
+     * @param mode  The video mode to use for rendering.
+     * @param title The window title.
+     */
+    public Window(@NotNull VideoMode mode, @NotNull String title) {
+        this();
+        create(mode, title, DEFAULT, new ContextSettings());
+    }
 
     @Override
     protected native long nativeCreate();
