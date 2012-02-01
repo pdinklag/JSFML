@@ -1,12 +1,14 @@
 package org.jsfml.window;
 
+import org.jsfml.NotNull;
+import org.jsfml.SFMLNativeObject;
 import org.jsfml.graphics.Image;
 import org.jsfml.window.event.Event;
 
 /**
  * Interface for windows that serve as OpenGL targets.
  */
-public interface Window {
+public class Window extends SFMLNativeObject {
     /**
      * Unstyled window.
      */
@@ -37,6 +39,16 @@ public interface Window {
      */
     public static final int DEFAULT = TITLEBAR | RESIZE | CLOSE;
 
+    private Image icon = null;
+
+    @Override
+    protected native long nativeCreate();
+
+    @Override
+    protected native void nativeDelete();
+
+    protected native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
+
     /**
      * Creates a window or re-creates it if it was already opened.
      *
@@ -50,7 +62,18 @@ public interface Window {
      * @param settings The context settings to be applied to the context.
      * @see {@link org.jsfml.window.VideoMode#isValid()}, {@link ContextSettings}
      */
-    public void create(VideoMode mode, String title, int style, ContextSettings settings);
+    public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+        if (mode == null)
+            throw new IllegalArgumentException("mode must not be null.");
+
+        if (title == null)
+            throw new IllegalArgumentException("title must not be null.");
+
+        if (settings == null)
+            throw new IllegalArgumentException("settings must not be null.");
+
+        nativeCreate(mode, title, style, settings);
+    }
 
     /**
      * Creates a window or re-creates it if it was already opened with default context settings.
@@ -61,7 +84,9 @@ public interface Window {
      * @param style The style of the window.
      * @see {@link org.jsfml.window.VideoMode#isValid()}
      */
-    public void create(VideoMode mode, String title, int style);
+    public void create(@NotNull VideoMode mode, @NotNull String title, int style) {
+        create(mode, title, style, new ContextSettings());
+    }
 
     /**
      * Creates a window or re-creates it if it was already opened with default context settings and style
@@ -70,12 +95,14 @@ public interface Window {
      * @param mode  The video mode to use for the OpenGL context.
      * @param title The window title.
      */
-    public void create(VideoMode mode, String title);
+    public void create(@NotNull VideoMode mode, @NotNull String title) {
+        create(mode, title, DEFAULT, new ContextSettings());
+    }
 
     /**
      * Closes the window and destroys all attached resources.
      */
-    public void close();
+    public native void close();
 
     /**
      * Checks if the window has been created and is opened.
@@ -84,28 +111,28 @@ public interface Window {
      *
      * @return <tt>true</tt> if the window has been created and is currently opened.
      */
-    public boolean isOpen();
+    public native boolean isOpen();
 
     /**
      * Retrieves the width of the rendering region within the window.
      *
      * @return The width of the rendering region within the window.
      */
-    public int getWidth();
+    public native int getWidth();
 
     /**
      * Retrieves the height of the rendering region within the window.
      *
      * @return The height of the rendering region within the window.
      */
-    public int getHeight();
+    public native int getHeight();
 
     /**
      * Retrieves the context settings of the window's rendering context.
      *
      * @return The context settings of the window's rendering context.
      */
-    public ContextSettings getSettings();
+    public native ContextSettings getSettings();
 
     /**
      * Pops the event on top of the event stack, if any, and returns it.
@@ -113,7 +140,7 @@ public interface Window {
      * @return The event currently on top of the event stack, or <tt>null</tt> if there is none.
      * @see {@link Window#waitEvent()} ()}
      */
-    public Event pollEvent();
+    public native Event pollEvent();
 
     /**
      * Pops the event on top of the event stack and returns it, or waits until an event occurs and then
@@ -124,21 +151,21 @@ public interface Window {
      * @return The event currently on top of the event stack, or the next event that will occur.
      * @see {@link Window#pollEvent()} ()}
      */
-    public Event waitEvent();
+    public native Event waitEvent();
 
     /**
      * Enables or disables vertical synchronization (VSync).
      *
      * @param enable <tt>true</tt> to enable, <tt>false</tt> to disable.
      */
-    public void enableVerticalSync(boolean enable);
+    public native void enableVerticalSync(boolean enable);
 
     /**
      * Determines whether the mouse cursor, if moved over the window, is visible or not.
      *
      * @param show <tt>true</tt> to make the cursor visible, <tt>false</tt> to hide it.
      */
-    public void showMouseCursor(boolean show);
+    public native void showMouseCursor(boolean show);
 
     /**
      * Sets the position of the window on the screen.
@@ -146,7 +173,7 @@ public interface Window {
      * @param x The X position on the screen.
      * @param y The Y position on the screen.
      */
-    public void setPosition(int x, int y);
+    public native void setPosition(int x, int y);
 
     /**
      * Sets the size of the rendering region within the window.
@@ -154,21 +181,28 @@ public interface Window {
      * @param width  The width of the rendering region.
      * @param height The height of the rendering region.
      */
-    public void setSize(int width, int height);
+    public native void setSize(int width, int height);
+
+    protected native void nativeSetTitle(String title);
 
     /**
      * Sets the window's title.
      *
      * @param title The window's new title.
      */
-    public void setTitle(String title);
+    public void setTitle(@NotNull String title) {
+        if (title == null)
+            throw new IllegalArgumentException("title must not be null.");
+
+        nativeSetTitle(title);
+    }
 
     /**
      * Shows or hides the window.
      *
      * @param show <tt>true</tt> to show the window, <tt>false</tt> to hide it.
      */
-    public void show(boolean show);
+    public native void show(boolean show);
 
     /**
      * Determines whether automatic key repeat is enabled.
@@ -178,14 +212,22 @@ public interface Window {
      *
      * @param enable <tt>true</tt> to enable, <tt>false</tt> to disabled.
      */
-    public void enableKeyRepeat(boolean enable);
+    public native void enableKeyRepeat(boolean enable);
+
+    protected native void nativeSetIcon(Image image);
 
     /**
      * Sets the icon of the window.
      *
      * @param icon The icon.
      */
-    public void setIcon(Image icon);
+    public void setIcon(@NotNull Image icon) {
+        if (icon == null)
+            throw new IllegalArgumentException("icon must not be null.");
+
+        this.icon = icon; //keep a local reference
+        nativeSetIcon(icon);
+    }
 
     /**
      * Activates or deactivates the window as the current OpenGL rendering target.
@@ -195,21 +237,21 @@ public interface Window {
      *
      * @param active <tt>true</tt> to activate, <tt>false</tt> to deactivate.
      */
-    public void setActive(boolean active);
+    public native void setActive(boolean active);
 
     /**
      * Flushes the OpenGL pixel buffer to the screen.
      * <p/>
      * This should be called every frame to visibly update the scene.
      */
-    public void display();
+    public native void display();
 
     /**
      * Sets the maximum frame rate in frames per second.
      *
      * @param flimit The maximum frame rate in frames per second.
      */
-    public void setFramerateLimit(int flimit);
+    public native void setFramerateLimit(int flimit);
 
     /**
      * Sets the joystick treshold.
@@ -220,5 +262,5 @@ public interface Window {
      * @param treshold The joystick treshold in a range between 0 and 100.
      * @see org.jsfml.window.event.JoystickMoveEvent
      */
-    public void setJoystickTreshold(float treshold);
+    public native void setJoystickTreshold(float treshold);
 }

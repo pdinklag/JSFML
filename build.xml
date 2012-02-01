@@ -58,6 +58,7 @@
 			<class name="${jsfml.package}.window.Keyboard" />
 			<class name="${jsfml.package}.window.Mouse" />
 			<class name="${jsfml.package}.window.VideoMode" />
+            <class name="${jsfml.package}.window.Window" />
 			
 			<!-- graphics -->
 			<class name="${jsfml.package}.graphics.CircleShape" />

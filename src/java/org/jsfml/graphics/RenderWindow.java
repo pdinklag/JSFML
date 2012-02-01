@@ -11,10 +11,9 @@ import org.jsfml.window.event.Event;
 /**
  * Window that can serve as a target for 2D drawing.
  */
-public class RenderWindow extends SFMLNativeObject implements RenderTarget, Window {
+public class RenderWindow extends Window implements RenderTarget  {
     private ImmutableView defaultView;
     private View view;
-    private Image icon = null;
 
     /**
      * Constructs a new window without creating it.
@@ -175,31 +174,8 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
         nativeDraw(vertices, type, states);
     }
 
-    private native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
-
     @Override
-    public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
-        if (mode == null)
-            throw new IllegalArgumentException("mode must not be null.");
-
-        if (title == null)
-            throw new IllegalArgumentException("title must not be null.");
-
-        if (settings == null)
-            throw new IllegalArgumentException("settings must not be null.");
-
-        nativeCreate(mode, title, style, settings);
-    }
-
-    @Override
-    public void create(VideoMode mode, String title, int style) {
-        create(mode, title, style, new ContextSettings());
-    }
-
-    @Override
-    public void create(VideoMode mode, String title) {
-        create(mode, title, DEFAULT, new ContextSettings());
-    }
+    protected native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
 
     @Override
     public native void close();
@@ -234,15 +210,8 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     @Override
     public native void setSize(int width, int height);
 
-    private native void nativeSetTitle(String title);
-
     @Override
-    public void setTitle(@NotNull String title) {
-        if (title == null)
-            throw new IllegalArgumentException("title must not be null.");
-
-        nativeSetTitle(title);
-    }
+    protected native void nativeSetTitle(String title);
 
     @Override
     public native void show(boolean show);
@@ -250,16 +219,8 @@ public class RenderWindow extends SFMLNativeObject implements RenderTarget, Wind
     @Override
     public native void enableKeyRepeat(boolean enable);
 
-    private native void nativeSetIcon(Image image);
-
     @Override
-    public void setIcon(@NotNull Image icon) {
-        if(icon == null)
-            throw new IllegalArgumentException("icon must not be null.");
-
-        this.icon = icon; //keep a local reference
-        nativeSetIcon(icon);
-    }
+    protected native void nativeSetIcon(Image image);
 
     @Override
     public native void setActive(boolean active);

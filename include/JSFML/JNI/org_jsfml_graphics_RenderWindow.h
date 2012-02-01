@@ -10,6 +10,18 @@ extern "C" {
 /* Inaccessible static: debug */
 /* Inaccessible static: numManaged */
 /* Inaccessible static: numWrapped */
+#undef org_jsfml_graphics_RenderWindow_NONE
+#define org_jsfml_graphics_RenderWindow_NONE 0L
+#undef org_jsfml_graphics_RenderWindow_TITLEBAR
+#define org_jsfml_graphics_RenderWindow_TITLEBAR 1L
+#undef org_jsfml_graphics_RenderWindow_RESIZE
+#define org_jsfml_graphics_RenderWindow_RESIZE 2L
+#undef org_jsfml_graphics_RenderWindow_CLOSE
+#define org_jsfml_graphics_RenderWindow_CLOSE 4L
+#undef org_jsfml_graphics_RenderWindow_FULLSCREEN
+#define org_jsfml_graphics_RenderWindow_FULLSCREEN 8L
+#undef org_jsfml_graphics_RenderWindow_DEFAULT
+#define org_jsfml_graphics_RenderWindow_DEFAULT 7L
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeCreate
