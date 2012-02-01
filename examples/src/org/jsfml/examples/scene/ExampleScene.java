@@ -34,6 +34,9 @@ public class ExampleScene implements Scene {
     private final Text fpsText = new Text();
     private final Text fpsTextShadow = new Text();
 
+    private final Text eventText = new Text();
+    private final Text eventTextShadow = new Text();
+
     private final RectangleShape textBackground = new RectangleShape();
 
     private Text noShadersText = null;
@@ -43,7 +46,11 @@ public class ExampleScene implements Scene {
 
     //FPS counter
     private int fpsFrames = 0;
-    private float fpsTime = 1.0f;
+
+    //Event counter
+    private int events = 0;
+
+    private float timer = 1.0f;
 
     //wave shader
     private Shader waveXShader = null;
@@ -102,9 +109,6 @@ public class ExampleScene implements Scene {
         instructionsTextShadow.setPosition(7, 7);
         instructionsTextShadow.setScale(0.9f, 1.0f);
 
-        //Setup entity count text
-        updateInfoText();
-
         infoText.setFont(terminatorFont);
         infoText.setColor(Color.YELLOW);
         infoText.setCharacterSize(24);
@@ -113,24 +117,41 @@ public class ExampleScene implements Scene {
         infoTextShadow.setColor(new Color(0, 0, 0, 96));
         infoTextShadow.setCharacterSize(24);
 
+        updateEntityText();
+
         FloatRect infoTextBounds = infoText.getGlobalBounds();
         infoText.setPosition(5, target.getHeight() - infoTextBounds.height - 10);
         infoTextShadow.setPosition(7, target.getHeight() - infoTextBounds.height - 8);
 
         //Setup FPS text
-        updateFpsText(99);
-
         fpsText.setFont(terminatorFont);
         fpsText.setColor(Color.GREEN);
         fpsText.setCharacterSize(24);
+        fpsText.setString("FPS:");
 
         fpsTextShadow.setFont(terminatorFont);
         fpsTextShadow.setColor(new Color(0, 0, 0, 96));
         fpsTextShadow.setCharacterSize(24);
+        fpsTextShadow.setString(fpsText.getString());
 
         FloatRect fpsTextBounds = fpsText.getGlobalBounds();
-        fpsText.setPosition(5, target.getHeight() - infoTextBounds.height - fpsTextBounds.height - 15);
-        fpsTextShadow.setPosition(7, target.getHeight() - infoTextBounds.height - fpsTextBounds.height - 13);
+        fpsText.setPosition(5, infoText.getPosition().y - fpsTextBounds.height - 5);
+        fpsTextShadow.setPosition(7, infoText.getPosition().y - fpsTextBounds.height - 3);
+
+        //Setup Events text
+        eventText.setFont(terminatorFont);
+        eventText.setColor(Color.CYAN);
+        eventText.setCharacterSize(24);
+        eventText.setString("Events:");
+
+        eventTextShadow.setFont(terminatorFont);
+        eventTextShadow.setColor(new Color(0, 0, 0, 96));
+        eventTextShadow.setCharacterSize(24);
+        eventTextShadow.setString(eventText.getString());
+
+        FloatRect eventTextBounds = eventText.getGlobalBounds();
+        eventText.setPosition(5, fpsText.getPosition().y - eventTextBounds.height - 5);
+        eventTextShadow.setPosition(7, fpsText.getPosition().y - eventTextBounds.height - 3);
 
         //Setup text background
         textBackground.setOutlineColor(Color.BLACK);
@@ -138,7 +159,7 @@ public class ExampleScene implements Scene {
         textBackground.setFillColor(new Color(0, 0, 0, 128));
         textBackground.setSize(new Vector2f(
                 target.getWidth(),
-                infoTextBounds.height + fpsTextBounds.height + 18.0f));
+                infoTextBounds.height + fpsTextBounds.height + eventTextBounds.height + 18.0f));
         textBackground.setOrigin(0, textBackground.getSize().y);
         textBackground.setPosition(0, target.getHeight());
 
@@ -169,18 +190,23 @@ public class ExampleScene implements Scene {
         }
     }
 
-    private void updateInfoText() {
+    private void updatePerformanceTexts() {
+        eventText.setString("Events: " + events);
+        eventTextShadow.setString(eventText.getString());
+
+        fpsText.setString("FPS: " + fpsFrames);
+        fpsTextShadow.setString(fpsText.getString());
+    }
+    
+    private void updateEntityText() {
         infoText.setString("Entities: " + entities.size());
         infoTextShadow.setString(infoText.getString());
     }
 
-    private void updateFpsText(int fps) {
-        fpsText.setString("FPS: " + fps);
-        fpsTextShadow.setString(fpsText.getString());
-    }
-
     @Override
     public void handleEvent(Event event) {
+        events++;
+
         switch (event.getType()) {
             case CLOSED:
                 //The close button has been pressed
@@ -249,13 +275,13 @@ public class ExampleScene implements Scene {
                         Entity e = new Entity();
                         e.shape.setPosition(screenWidth / 2, screenHeight / 2);
                         entities.add(e);
-                        updateInfoText();
+                        updateEntityText();
                         break;
 
                     case D:
                         if (entities.size() > 0) {
                             entities.removeFirst();
-                            updateInfoText();
+                            updateEntityText();
                         }
                         break;
 
@@ -270,12 +296,14 @@ public class ExampleScene implements Scene {
     public void update(float dt) {
         //Update FPS
         fpsFrames++;
-        fpsTime -= dt;
-        if (fpsTime <= 0.0f) {
-            updateFpsText(fpsFrames);
+        timer -= dt;
+        if (timer <= 0.0f) {
+            updatePerformanceTexts();
 
             fpsFrames = 0;
-            fpsTime += 1.0f;
+            events = 0;
+            
+            timer += 1.0f;
         }
 
         //Update entities
@@ -332,6 +360,9 @@ public class ExampleScene implements Scene {
 
         target.draw(fpsTextShadow);
         target.draw(fpsText);
+
+        target.draw(eventTextShadow);
+        target.draw(eventText);
     }
 
     @Override
