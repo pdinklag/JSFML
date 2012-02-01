@@ -11,7 +11,7 @@ import org.jsfml.window.event.Event;
 /**
  * Window that can serve as a target for 2D drawing.
  */
-public class RenderWindow extends Window implements RenderTarget  {
+public class RenderWindow extends Window implements RenderTarget {
     private ImmutableView defaultView;
     private View view;
 
@@ -35,7 +35,7 @@ public class RenderWindow extends Window implements RenderTarget  {
      * @param style    The window style.
      * @param settings The settings for the OpenGL context.
      */
-    public RenderWindow(VideoMode mode, String title, int style, ContextSettings settings) {
+    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
         this();
         create(mode, title, style, settings);
     }
@@ -47,7 +47,7 @@ public class RenderWindow extends Window implements RenderTarget  {
      * @param title The window title.
      * @param style The window style.
      */
-    public RenderWindow(VideoMode mode, String title, int style) {
+    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style) {
         this();
         create(mode, title, style, new ContextSettings());
     }
@@ -58,7 +58,7 @@ public class RenderWindow extends Window implements RenderTarget  {
      * @param mode  The video mode to use for rendering.
      * @param title The window title.
      */
-    public RenderWindow(VideoMode mode, String title) {
+    public RenderWindow(@NotNull VideoMode mode, @NotNull String title) {
         this();
         create(mode, title, DEFAULT, new ContextSettings());
     }
