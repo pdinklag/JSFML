@@ -1,3 +1,5 @@
+#version 110
+
 uniform sampler2D texture;
 
 const float pi = 3.141592654;
