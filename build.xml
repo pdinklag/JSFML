@@ -85,6 +85,74 @@
 		</javah>
 	</target>
 	
+	<!-- Compile C++ for Mac OS X - not to be used directly, use macosx64 -->
+	<target name="macosx.build">
+		<!-- Requires ${arch} -->
+		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.jnilib" />
+		<mkdir dir="${cpp.obj}" />
+		<mkdir dir="${cpp.out}" />
+		<mkdir dir="${cpp.out}/${arch}" />
+		
+		<!-- get source files -->
+		<fileset id="cpp.src.fileset" dir="${cpp.src}">
+			<include name="Intercom/*.cpp" />
+			<include name="JNI/*.cpp" />
+		</fileset>
+		<pathconvert pathsep=" " property="cpp.src.files" refid="cpp.src.fileset"/>
+		
+		<!-- compile and link -->
+		<exec executable="g++" dir="${cpp.obj}" failonerror="true">
+			<arg value="-I${cpp.include}" />
+			<arg value="-I${sfml.include}" />
+			<arg value="-I${env.JAVA_HOME}/include" />
+			<arg value="-dynamiclib" />
+			<arg value="-arch" />
+			<arg value="i386" />
+			<arg value="-arch" />
+			<arg value="x86_64" />
+			<arg value="-o" />
+            <arg value="${cpp.out}/${arch}/lib${jsfml.bin}.jnilib" />
+			<arg value="-Wl,-L${sfml.bin}/${arch},-lsfml-system,-lsfml-window,-lsfml-graphics,-lsfml-audio" />
+			<arg line="${cpp.src.files}" />
+		</exec>
+        
+        <!-- edit load path of the libjsfml.jnilib's dependencies -->
+		<exec executable="install_name_tool" dir="${cpp.out}/${arch}/" failonerror="true">
+            <arg value="-id" />
+            <arg value="libjsfml.jnilib" />
+            <arg value="libjsfml.jnilib" />
+        </exec>
+        <exec executable="install_name_tool" dir="${cpp.out}/${arch}/" failonerror="true">
+            <arg value="-change" />
+            <arg value="libsfml-system.dylib" />
+            <arg value="@loader_path/libsfml-system.dylib" />
+            <arg value="-change" />
+            <arg value="libsfml-window.dylib" />
+            <arg value="@loader_path/libsfml-window.dylib" />
+            <arg value="-change" />
+            <arg value="libsfml-graphics.dylib" />
+            <arg value="@loader_path/libsfml-graphics.dylib" />
+            <arg value="-change" />
+            <arg value="libsfml-audio.dylib" />
+            <arg value="@loader_path/libsfml-audio.dylib" />
+            <arg value="libjsfml.jnilib" />
+        </exec>
+        
+		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${sfml.bin}/${arch}" includes="*.dylib" />
+		</copy>
+		
+		<checksum>
+			<fileset dir="${cpp.out}/${arch}" includes="*.jnilib" />
+		</checksum>
+	</target>
+	
+	<!-- Compile C++ for Mac OS X -->
+	<target name="macosx" description="Build the C++ sources for Mac OS X Universal binary.">
+		<property name="arch" value="macosx_universal" />
+		<ant target="macosx.build" />
+	</target>
+	
 	<!-- Compile C++ for Linux - not to be used directly, use either linux32 or linux64 -->
 	<target name="linux.build">
 		<!-- Requires ${arch} -->
@@ -225,7 +293,7 @@
 	<target name="jar" description="Generate the JAR file." depends="compile">
 		<jar destfile="${jar.file}">
 			<fileset dir="${java.out}" includes="**/*.class" />
-			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so* **/*.dylib **/*.MD5" />
+			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so* **/*.jnilib **/*.dylib **/*.MD5" />
 			<manifest>
 				<attribute name="Sealed" value="true" />
 				<attribute name="Specification-Title" value="JSFML" />
