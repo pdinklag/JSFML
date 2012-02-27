@@ -1,9 +1,14 @@
 package org.jsfml.window;
 
+import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.graphics.Image;
 import org.jsfml.window.event.Event;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 
 /**
  * Basic window that serves as an OpenGL target.
@@ -116,6 +121,15 @@ public class Window extends SFMLNativeObject {
 
         if (settings == null)
             throw new IllegalArgumentException("settings must not be null.");
+
+        //On MacOSX, Java needs to be running in the main thread. Check this here.
+        if (System.getProperty("os.name").contains(SFMLNative.OS_NAME_MACOSX)) {
+            RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
+            if (!runtime.getInputArguments().contains("-XstartOnFirstThread")) {
+                throw new JSFMLError("In order to create a window on Mac OS X, you MUST run your" +
+                        "application with the -XstartOnFirstThread command line argument!");
+            }
+        }
 
         nativeCreate(mode, title, style, settings);
     }
