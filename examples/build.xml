@@ -42,19 +42,11 @@
 				<attribute name="Implementation-Vendor" value="pdinklag" />
 			</manifest>
 		</jar>
-        
-        <!-- Sign the jar if the user give a password -->
-		<input message="Please enter keystore password (or empty to skip signing):" addproperty="storepass" />
-        <condition property="hasPassword">
-            <not>
-                <equals arg1="${storepass}" arg2="" />
-            </not>
-        </condition>
-        <ant target="signjar" />
 	</target>
     
     <!-- Sign jar -->
-    <target name="signjar" description="Sign the jar with the password given by the user." if="hasPassword">
+    <target name="signjar" description="Sign the jar with the password given by the user.">
+		<input message="Please enter keystore password (or empty to skip signing):" addproperty="storepass" />
         <signjar jar="${jar.file}" alias="${jarsigner.alias}" storepass="${storepass}" lazy="true" />
     </target>
 	
