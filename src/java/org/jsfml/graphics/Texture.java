@@ -166,6 +166,10 @@ public class Texture extends SFMLNativeObject {
 
     private native long nativeCopyToImage();
 
+    /**
+     * Copies this texture to an editable {@link Image}.
+     * @return The image that contains a coyp of the texure's contents.
+     */
     public Image copyToImage() {
         Image image = new Image(nativeCopyToImage());
         UnsafeOperations.manageSFMLObject(image, true);
