@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -54,49 +54,49 @@ public :
     ///
     /// The vertex color is white and texture coordinates are (0, 0).
     ///
-    /// \param position Vertex position
+    /// \param thePosition Vertex position
     ///
     ////////////////////////////////////////////////////////////
-    Vertex(const Vector2f& position);
+    Vertex(const Vector2f& thePosition);
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct the vertex from its position and color
     ///
     /// The texture coordinates are (0, 0).
     ///
-    /// \param position Vertex position
-    /// \param color    Vertex color
+    /// \param thePosition Vertex position
+    /// \param theColor    Vertex color
     ///
     ////////////////////////////////////////////////////////////
-    Vertex(const Vector2f& position, const sf::Color& color);
+    Vertex(const Vector2f& thePosition, const Color& theColor);
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct the vertex from its position and texture coordinates
     ///
     /// The vertex color is white.
     ///
-    /// \param position  Vertex position
-    /// \param texCoords Vertex texture coordinates
+    /// \param thePosition  Vertex position
+    /// \param theTexCoords Vertex texture coordinates
     ///
     ////////////////////////////////////////////////////////////
-    Vertex(const Vector2f& position, const Vector2f& texCoords);
+    Vertex(const Vector2f& thePosition, const Vector2f& theTexCoords);
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct the vertex from its position, color and texture coordinates
     ///
-    /// \param position  Vertex position
-    /// \param color     Vertex color
-    /// \param texCoords Vertex texture coordinates
+    /// \param thePosition  Vertex position
+    /// \param theColor     Vertex color
+    /// \param theTexCoords Vertex texture coordinates
     ///
     ////////////////////////////////////////////////////////////
-    Vertex(const Vector2f& position, const sf::Color& color, const Vector2f& texCoords);
+    Vertex(const Vector2f& thePosition, const Color& theColor, const Vector2f& theTexCoords);
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Vector2f  Position;  ///< 2D position of the vertex
-    sf::Color Color;     ///< Color of the vertex
-    Vector2f  TexCoords; ///< Coordinates of the texture's pixel to map to the vertex
+    Vector2f  position;  ///< 2D position of the vertex
+    Color     color;     ///< Color of the vertex
+    Vector2f  texCoords; ///< Coordinates of the texture's pixel to map to the vertex
 };
 
 } // namespace sf
@@ -136,7 +136,7 @@ public :
 /// };
 ///
 /// // draw it
-/// window.Draw(vertices, 4, sf::Quads);
+/// window.draw(vertices, 4, sf::Quads);
 /// \endcode
 ///
 /// Note: although texture coordinates are supposed to be an integer

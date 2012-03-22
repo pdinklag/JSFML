@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -46,14 +46,14 @@ public :
     /// \brief Default constructor
     ///
     ////////////////////////////////////////////////////////////
-    Glyph() : Advance(0) {}
+    Glyph() : advance(0) {}
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    int     Advance;     ///< Offset to move horizontically to the next character
-    IntRect Bounds;      ///< Bounding rectangle of the glyph, in coordinates relative to the baseline
-    IntRect TextureRect; ///< Texture coordinates of the glyph inside the font's texture
+    int     advance;     ///< Offset to move horizontically to the next character
+    IntRect bounds;      ///< Bounding rectangle of the glyph, in coordinates relative to the baseline
+    IntRect textureRect; ///< Texture coordinates of the glyph inside the font's texture
 };
 
 } // namespace sf

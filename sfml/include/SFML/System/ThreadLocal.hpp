@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -68,7 +68,7 @@ public :
     /// \param value Value of the variable for the current thread
     ///
     ////////////////////////////////////////////////////////////
-    void SetValue(void* value);
+    void setValue(void* value);
 
     ////////////////////////////////////////////////////////////
     /// \brief Retrieve the thread-specific value of the variable
@@ -76,14 +76,14 @@ public :
     /// \return Value of the variable for the current thread
     ///
     ////////////////////////////////////////////////////////////
-    void* GetValue() const;
+    void* getValue() const;
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::ThreadLocalImpl* myImpl; ///< Pointer to the OS specific implementation
+    priv::ThreadLocalImpl* m_impl; ///< Pointer to the OS specific implementation
 };
 
 } // namespace sf

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -37,7 +37,7 @@ ThreadLocal(value)
 template <typename T>
 T& ThreadLocalPtr<T>::operator *() const
 {
-    return *static_cast<T*>(GetValue());
+    return *static_cast<T*>(getValue());
 }
 
 
@@ -45,7 +45,7 @@ T& ThreadLocalPtr<T>::operator *() const
 template <typename T>
 T* ThreadLocalPtr<T>::operator ->() const
 {
-    return static_cast<T*>(GetValue());
+    return static_cast<T*>(getValue());
 }
 
 
@@ -53,7 +53,7 @@ T* ThreadLocalPtr<T>::operator ->() const
 template <typename T>
 ThreadLocalPtr<T>::operator T*() const
 {
-    return static_cast<T*>(GetValue());
+    return static_cast<T*>(getValue());
 }
 
 
@@ -61,7 +61,7 @@ ThreadLocalPtr<T>::operator T*() const
 template <typename T>
 ThreadLocalPtr<T>& ThreadLocalPtr<T>::operator =(T* value)
 {
-    SetValue(value);
+    setValue(value);
     return *this;
 }
 
@@ -70,7 +70,7 @@ ThreadLocalPtr<T>& ThreadLocalPtr<T>::operator =(T* value)
 template <typename T>
 ThreadLocalPtr<T>& ThreadLocalPtr<T>::operator =(const ThreadLocalPtr<T>& right)
 {
-    SetValue(right.GetValue());
+    setValue(right.getValue());
     return *this;
 }
 

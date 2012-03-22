@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -101,30 +101,15 @@ public :
     virtual ~RenderWindow();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the width of the rendering region of the window
+    /// \brief Get the size of the rendering region of the window
     ///
-    /// The width doesn't include the titlebar and borders
+    /// The size doesn't include the titlebar and borders
     /// of the window.
     ///
-    /// \return Width in pixels
-    ///
-    /// \see GetHeight
+    /// \return Size in pixels
     ///
     ////////////////////////////////////////////////////////////
-    virtual unsigned int GetWidth() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the height of the rendering region of the window
-    ///
-    /// The height doesn't include the titlebar and borders
-    /// of the window.
-    ///
-    /// \return Height in pixels
-    ///
-    /// \see GetWidth
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual unsigned int GetHeight() const;
+    virtual Vector2u getSize() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Copy the current contents of the window to an image
@@ -133,14 +118,14 @@ public :
     /// screenshots of the application. If you want to update an
     /// image with the contents of the window and then use it for
     /// drawing, you should rather use a sf::Texture and its
-    /// Update(Window&) function.
+    /// update(Window&) function.
     /// You can also draw things directly to a texture with the
     /// sf::RenderTexture class.
     ///
     /// \return Image containing the captured contents
     ///
     ////////////////////////////////////////////////////////////
-    Image Capture() const;
+    Image capture() const;
 
 private :
 
@@ -152,7 +137,7 @@ private :
     /// the window is created.
     ///
     ////////////////////////////////////////////////////////////
-    virtual void OnCreate();
+    virtual void onCreate();
 
     ////////////////////////////////////////////////////////////
     /// \brief Function called after the window has been resized
@@ -161,7 +146,7 @@ private :
     /// perform custom actions when the size of the window changes.
     ///
     ////////////////////////////////////////////////////////////
-    virtual void OnResize();
+    virtual void onResize();
 
     ////////////////////////////////////////////////////////////
     /// \brief Activate the target for rendering
@@ -171,7 +156,7 @@ private :
     /// \return True if the function succeeded
     ///
     ////////////////////////////////////////////////////////////
-    virtual bool Activate(bool active);
+    virtual bool activate(bool active);
 };
 
 } // namespace sf
@@ -203,30 +188,30 @@ private :
 /// sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 ///
 /// // Limit the framerate to 60 frames per second (this step is optional)
-/// window.SetFramerateLimit(60);
+/// window.setFramerateLimit(60);
 ///
 /// // The main loop - ends as soon as the window is closed
-/// while (window.IsOpen())
+/// while (window.isOpen())
 /// {
 ///    // Event processing
 ///    sf::Event event;
-///    while (window.PollEvent(event))
+///    while (window.pollEvent(event))
 ///    {
 ///        // Request for closing the window
-///        if (event.Type == sf::Event::Closed)
-///            window.Close();
+///        if (event.type == sf::Event::Closed)
+///            window.close();
 ///    }
 ///
 ///    // Clear the whole window before rendering a new frame
-///    window.Clear();
+///    window.clear();
 ///
 ///    // Draw some graphical entities
-///    window.Draw(sprite);
-///    window.Draw(circle);
-///    window.Draw(text);
+///    window.draw(sprite);
+///    window.draw(circle);
+///    window.draw(text);
 ///
 ///    // End the current frame and display its contents on screen
-///    window.Display();
+///    window.display();
 /// }
 /// \endcode
 ///
@@ -248,15 +233,15 @@ private :
 /// ...
 ///
 /// // Start the rendering loop
-/// while (window.IsOpen())
+/// while (window.isOpen())
 /// {
 ///     // Process events
 ///     ...
 ///
 ///     // Draw a background sprite
-///     window.PushGLStates();
-///     window.Draw(sprite);
-///     window.PopGLStates();
+///     window.pushGLStates();
+///     window.draw(sprite);
+///     window.popGLStates();
 ///
 ///     // Draw a 3D object using OpenGL
 ///     glBegin(GL_QUADS);
@@ -265,12 +250,12 @@ private :
 ///     glEnd();
 ///
 ///     // Draw text on top of the 3D object
-///     window.PushGLStates();
-///     window.Draw(text);
-///     window.PopGLStates();
+///     window.pushGLStates();
+///     window.draw(text);
+///     window.popGLStates();
 ///
 ///     // Finally, display the rendered frame on screen
-///     window.Display();
+///     window.display();
 /// }
 /// \endcode
 ///

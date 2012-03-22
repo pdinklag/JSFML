@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -70,7 +70,7 @@ public :
     /// \see Unlock
     ///
     ////////////////////////////////////////////////////////////
-    void Lock();
+    void lock();
 
     ////////////////////////////////////////////////////////////
     /// \brief Unlock the mutex
@@ -78,14 +78,14 @@ public :
     /// \see Lock
     ///
     ////////////////////////////////////////////////////////////
-    void Unlock();
+    void unlock();
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::MutexImpl* myMutexImpl; ///< OS-specific implementation
+    priv::MutexImpl* m_mutexImpl; ///< OS-specific implementation
 };
 
 } // namespace sf
@@ -115,16 +115,16 @@ private :
 ///
 /// void thread1()
 /// {
-///     mutex.Lock(); // this call will block the thread if the mutex is already locked by thread2
+///     mutex.lock(); // this call will block the thread if the mutex is already locked by thread2
 ///     database.write(...);
-///     mutex.Unlock(); // if thread2 was waiting, it will now be unblocked
+///     mutex.unlock(); // if thread2 was waiting, it will now be unblocked
 /// }
 /// 
 /// void thread2()
 /// {
-///     mutex.Lock(); // this call will block the thread if the mutex is already locked by thread1
+///     mutex.lock(); // this call will block the thread if the mutex is already locked by thread1
 ///     database.write(...);
-///     mutex.Unlock(); // if thread1 was waiting, it will now be unblocked
+///     mutex.unlock(); // if thread1 was waiting, it will now be unblocked
 /// }
 /// \endcode
 ///
@@ -140,8 +140,8 @@ private :
 /// a mutex multiple times in the same thread without creating
 /// a deadlock. In this case, the first call to Lock() behaves
 /// as usual, and the following ones have no effect.
-/// However, you must call Unlock() exactly as many times as you
-/// called Lock(). If you don't, the mutex won't be released.
+/// However, you must call unlock() exactly as many times as you
+/// called lock(). If you don't, the mutex won't be released.
 ///
 /// \see sf::Lock
 ///

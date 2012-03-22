@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -63,10 +63,10 @@ public :
     /// \param color  Fill color
     ///
     ////////////////////////////////////////////////////////////
-    void Create(unsigned int width, unsigned int height, const Color& color = Color(0, 0, 0));
+    void create(unsigned int width, unsigned int height, const Color& color = Color(0, 0, 0));
 
     ////////////////////////////////////////////////////////////
-    /// \brief Create the image from an arry of pixels
+    /// \brief Create the image from an array of pixels
     ///
     /// The \a pixel array is assumed to contain 32-bits RGBA pixels,
     /// and have the given \a width and \a height. If not, this is
@@ -78,7 +78,7 @@ public :
     /// \param pixels Array of pixels to copy to the image
     ///
     ////////////////////////////////////////////////////////////
-    void Create(unsigned int width, unsigned int height, const Uint8* pixels);
+    void create(unsigned int width, unsigned int height, const Uint8* pixels);
 
     ////////////////////////////////////////////////////////////
     /// \brief Load the image from a file on disk
@@ -92,10 +92,10 @@ public :
     ///
     /// \return True if loading was successful
     ///
-    /// \see LoadFromMemory, LoadFromStream, SaveToFile
+    /// \see loadFromMemory, loadFromStream, saveToFile
     ///
     ////////////////////////////////////////////////////////////
-    bool LoadFromFile(const std::string& filename);
+    bool loadFromFile(const std::string& filename);
 
     ////////////////////////////////////////////////////////////
     /// \brief Load the image from a file in memory
@@ -110,10 +110,10 @@ public :
     ///
     /// \return True if loading was successful
     ///
-    /// \see LoadFromFile, LoadFromStream
+    /// \see loadFromFile, loadFromStream
     ///
     ////////////////////////////////////////////////////////////
-    bool LoadFromMemory(const void* data, std::size_t size);
+    bool loadFromMemory(const void* data, std::size_t size);
 
     ////////////////////////////////////////////////////////////
     /// \brief Load the image from a custom stream
@@ -127,10 +127,10 @@ public :
     ///
     /// \return True if loading was successful
     ///
-    /// \see LoadFromFile, LoadFromMemory
+    /// \see loadFromFile, loadFromMemory
     ///
     ////////////////////////////////////////////////////////////
-    bool LoadFromStream(InputStream& stream);
+    bool loadFromStream(InputStream& stream);
 
     ////////////////////////////////////////////////////////////
     /// \brief Save the image to a file on disk
@@ -144,30 +144,30 @@ public :
     ///
     /// \return True if saving was successful
     ///
-    /// \see Create, LoadFromFile, LoadFromMemory
+    /// \see create, loadFromFile, loadFromMemory
     ///
     ////////////////////////////////////////////////////////////
-    bool SaveToFile(const std::string& filename) const;
+    bool saveToFile(const std::string& filename) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Return the width of the image
     ///
     /// \return Width in pixels
     ///
-    /// \see GetHeight
+    /// \see getHeight
     ///
     ////////////////////////////////////////////////////////////
-    unsigned int GetWidth() const;
+    unsigned int getWidth() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Return the height of the image
     ///
     /// \return Height in pixels
     ///
-    /// \see GetWidth
+    /// \see getWidth
     ///
     ////////////////////////////////////////////////////////////
-    unsigned int GetHeight() const;
+    unsigned int getHeight() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Create a transparency mask from a specified color-key
@@ -180,7 +180,7 @@ public :
     /// \param alpha Alpha value to assign to transparent pixels
     ///
     ////////////////////////////////////////////////////////////
-    void CreateMaskFromColor(const Color& color, Uint8 alpha = 0);
+    void createMaskFromColor(const Color& color, Uint8 alpha = 0);
 
     ////////////////////////////////////////////////////////////
     /// \brief Copy pixels from another image onto this one
@@ -202,7 +202,7 @@ public :
     /// \param applyAlpha Should the copy take in account the source transparency?
     ///
     ////////////////////////////////////////////////////////////
-    void Copy(const Image& source, unsigned int destX, unsigned int destY, const IntRect& sourceRect = IntRect(0, 0, 0, 0), bool applyAlpha = false);
+    void copy(const Image& source, unsigned int destX, unsigned int destY, const IntRect& sourceRect = IntRect(0, 0, 0, 0), bool applyAlpha = false);
 
     ////////////////////////////////////////////////////////////
     /// \brief Change the color of a pixel
@@ -215,10 +215,10 @@ public :
     /// \param y     Y coordinate of pixel to change
     /// \param color New color of the pixel
     ///
-    /// \see GetPixel
+    /// \see getPixel
     ///
     ////////////////////////////////////////////////////////////
-    void SetPixel(unsigned int x, unsigned int y, const Color& color);
+    void setPixel(unsigned int x, unsigned int y, const Color& color);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the color of a pixel
@@ -232,8 +232,10 @@ public :
     ///
     /// \return Color of the pixel at coordinates (x, y)
     ///
+    /// \see setPixel
+    ///
     ////////////////////////////////////////////////////////////
-    Color GetPixel(unsigned int x, unsigned int y) const;
+    Color getPixel(unsigned int x, unsigned int y) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get a read-only pointer to the array of pixels
@@ -248,28 +250,28 @@ public :
     /// \return Read-only pointer to the array of pixels
     ///
     ////////////////////////////////////////////////////////////
-    const Uint8* GetPixelsPtr() const;
+    const Uint8* getPixelsPtr() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Flip the image horizontally (left <-> right)
     ///
     ////////////////////////////////////////////////////////////
-    void FlipHorizontally();
+    void flipHorizontally();
 
     ////////////////////////////////////////////////////////////
     /// \brief Flip the image vertically (top <-> bottom)
     ///
     ////////////////////////////////////////////////////////////
-    void FlipVertically();
+    void flipVertically();
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    unsigned int       myWidth;  ///< Image width
-    unsigned int       myHeight; ///< Image Height
-    std::vector<Uint8> myPixels; ///< Pixels of the image
+    unsigned int       m_width;  ///< Image width
+    unsigned int       m_height; ///< Image Height
+    std::vector<Uint8> m_pixels; ///< Pixels of the image
 };
 
 } // namespace sf
@@ -293,7 +295,7 @@ private :
 /// channels -- just like a sf::Color.
 /// All the functions that return an array of pixels follow
 /// this rule, and all parameters that you pass to sf::Image
-/// functions (such as LoadFromPixels) must use this
+/// functions (such as loadFromPixels) must use this
 /// representation as well.
 ///
 /// A sf::Image can be copied, but it is a heavy resource and
@@ -304,24 +306,24 @@ private :
 /// \code
 /// // Load an image file from a file
 /// sf::Image background;
-/// if (!background.LoadFromFile("background.jpg"))
+/// if (!background.loadFromFile("background.jpg"))
 ///     return -1;
 ///
 /// // Create a 20x20 image filled with black color
 /// sf::Image image;
-/// if (!image.Create(20, 20, sf::Color::Black))
+/// if (!image.create(20, 20, sf::Color::Black))
 ///     return -1;
 ///
 /// // Copy image1 on image2 at position (10, 10)
-/// image.Copy(background, 10, 10);
+/// image.copy(background, 10, 10);
 ///
 /// // Make the top-left pixel transparent
-/// sf::Color color = image.GetPixel(0, 0);
+/// sf::Color color = image.getPixel(0, 0);
 /// color.a = 0;
-/// image.SetPixel(0, 0, color);
+/// image.setPixel(0, 0, color);
 ///
 /// // Save the image to a file
-/// if (!image.SaveToFile("result.png"))
+/// if (!image.saveToFile("result.png"))
 ///     return -1;
 /// \endcode
 ///

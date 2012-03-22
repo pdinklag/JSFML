@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -143,7 +143,7 @@ public :
     /// running in parallel to the calling code.
     ///
     ////////////////////////////////////////////////////////////
-    void Launch();
+    void launch();
 
     ////////////////////////////////////////////////////////////
     /// \brief Wait until the thread finishes
@@ -156,7 +156,7 @@ public :
     /// returns without doing anything.
     ///
     ////////////////////////////////////////////////////////////
-    void Wait();
+    void wait();
 
     ////////////////////////////////////////////////////////////
     /// \brief Terminate the thread
@@ -169,7 +169,7 @@ public :
     /// the thread function terminate by itself.
     ///
     ////////////////////////////////////////////////////////////
-    void Terminate();
+    void terminate();
 
 private :
 
@@ -181,13 +181,13 @@ private :
     /// This function is called by the thread implementation.
     ///
     ////////////////////////////////////////////////////////////
-    void Run();
+    void run();
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::ThreadImpl* myImpl;       ///< OS-specific implementation of the thread
-    priv::ThreadFunc* myEntryPoint; ///< Abstraction of the function to run
+    priv::ThreadImpl* m_impl;       ///< OS-specific implementation of the thread
+    priv::ThreadFunc* m_entryPoint; ///< Abstraction of the function to run
 };
 
 #include <SFML/System/Thread.inl>
@@ -224,19 +224,19 @@ private :
 ///
 /// The thread ends when its function is terminated. If the
 /// owner sf::Thread instance is destroyed before the
-/// thread is finished, the destructor will wait (see Wait())
+/// thread is finished, the destructor will wait (see wait())
 ///
 /// Usage examples:
 /// \code
 /// // example 1: non member function with one argument
 ///
-/// void ThreadFunc(int argument)
+/// void threadFunc(int argument)
 /// {
 ///     ...
 /// }
 ///
-/// sf::Thread thread(&ThreadFunc, 5);
-/// thread.Launch(); // start the thread (internally calls ThreadFunc(5))
+/// sf::Thread thread(&threadFunc, 5);
+/// thread.launch(); // start the thread (internally calls threadFunc(5))
 /// \endcode
 ///
 /// \code
@@ -245,15 +245,15 @@ private :
 /// class Task
 /// {
 /// public :
-///     void Run()
+///     void run()
 ///     {
 ///         ...
 ///     }
 /// };
 ///
 /// Task task;
-/// sf::Thread thread(&Task::Run, &task);
-/// thread.Launch(); // start the thread (internally calls task.run())
+/// sf::Thread thread(&Task::run, &task);
+/// thread.launch(); // start the thread (internally calls task.run())
 /// \endcode
 ///
 /// \code
@@ -268,7 +268,7 @@ private :
 /// };
 ///
 /// sf::Thread thread(Task());
-/// thread.Launch(); // start the thread (internally calls operator() on the Task instance)
+/// thread.launch(); // start the thread (internally calls operator() on the Task instance)
 /// \endcode
 ///
 /// Creating parallel threads of execution can be dangerous:

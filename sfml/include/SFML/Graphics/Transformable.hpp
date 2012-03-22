@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -55,7 +55,7 @@ public :
     virtual ~Transformable();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the position of the object
+    /// \brief set the position of the object
     ///
     /// This function completely overwrites the previous position.
     /// See Move to apply an offset based on the previous position instead.
@@ -64,13 +64,13 @@ public :
     /// \param x X coordinate of the new position
     /// \param y Y coordinate of the new position
     ///
-    /// \see Move, GetPosition
+    /// \see move, getPosition
     ///
     ////////////////////////////////////////////////////////////
-    void SetPosition(float x, float y);
+    void setPosition(float x, float y);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the position of the object
+    /// \brief set the position of the object
     ///
     /// This function completely overwrites the previous position.
     /// See Move to apply an offset based on the previous position instead.
@@ -78,13 +78,13 @@ public :
     ///
     /// \param position New position
     ///
-    /// \see Move, GetPosition
+    /// \see move, getPosition
     ///
     ////////////////////////////////////////////////////////////
-    void SetPosition(const Vector2f& position);
+    void setPosition(const Vector2f& position);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the orientation of the object
+    /// \brief set the orientation of the object
     ///
     /// This function completely overwrites the previous rotation.
     /// See Rotate to add an angle based on the previous rotation instead.
@@ -92,13 +92,13 @@ public :
     ///
     /// \param angle New rotation, in degrees
     ///
-    /// \see Rotate, GetRotation
+    /// \see rotate, getRotation
     ///
     ////////////////////////////////////////////////////////////
-    void SetRotation(float angle);
+    void setRotation(float angle);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the scale factors of the object
+    /// \brief set the scale factors of the object
     ///
     /// This function completely overwrites the previous scale.
     /// See Scale to add a factor based on the previous scale instead.
@@ -107,13 +107,13 @@ public :
     /// \param factorX New horizontal scale factor
     /// \param factorY New vertical scale factor
     ///
-    /// \see Scale, GetScale
+    /// \see scale, getScale
     ///
     ////////////////////////////////////////////////////////////
-    void SetScale(float factorX, float factorY);
+    void setScale(float factorX, float factorY);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the scale factors of the object
+    /// \brief set the scale factors of the object
     ///
     /// This function completely overwrites the previous scale.
     /// See Scale to add a factor based on the previous scale instead.
@@ -121,13 +121,13 @@ public :
     ///
     /// \param factors New scale factors
     ///
-    /// \see Scale, GetScale
+    /// \see scale, getScale
     ///
     ////////////////////////////////////////////////////////////
-    void SetScale(const Vector2f& factors);
+    void setScale(const Vector2f& factors);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the local origin of the object
+    /// \brief set the local origin of the object
     ///
     /// The origin of an object defines the center point for
     /// all transformations (position, scale, rotation).
@@ -139,13 +139,13 @@ public :
     /// \param x X coordinate of the new origin
     /// \param y Y coordinate of the new origin
     ///
-    /// \see GetOrigin
+    /// \see getOrigin
     ///
     ////////////////////////////////////////////////////////////
-    void SetOrigin(float x, float y);
+    void setOrigin(float x, float y);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the local origin of the object
+    /// \brief set the local origin of the object
     ///
     /// The origin of an object defines the center point for
     /// all transformations (position, scale, rotation).
@@ -156,174 +156,174 @@ public :
     ///
     /// \param origin New origin
     ///
-    /// \see GetOrigin
+    /// \see getOrigin
     ///
     ////////////////////////////////////////////////////////////
-    void SetOrigin(const Vector2f& origin);
+    void setOrigin(const Vector2f& origin);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the position of the object
+    /// \brief get the position of the object
     ///
     /// \return Current position
     ///
-    /// \see SetPosition
+    /// \see setPosition
     ///
     ////////////////////////////////////////////////////////////
-    const Vector2f& GetPosition() const;
+    const Vector2f& getPosition() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the orientation of the object
+    /// \brief get the orientation of the object
     ///
     /// The rotation is always in the range [0, 360].
     ///
     /// \return Current rotation, in degrees
     ///
-    /// \see SetRotation
+    /// \see setRotation
     ///
     ////////////////////////////////////////////////////////////
-    float GetRotation() const;
+    float getRotation() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the current scale of the object
+    /// \brief get the current scale of the object
     ///
     /// \return Current scale factors
     ///
-    /// \see SetScale
+    /// \see setScale
     ///
     ////////////////////////////////////////////////////////////
-    const Vector2f& GetScale() const;
+    const Vector2f& getScale() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the local origin of the object
+    /// \brief get the local origin of the object
     ///
     /// \return Current origin
     ///
-    /// \see SetOrigin
+    /// \see setOrigin
     ///
     ////////////////////////////////////////////////////////////
-    const Vector2f& GetOrigin() const;
+    const Vector2f& getOrigin() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Move the object by a given offset
     ///
     /// This function adds to the current position of the object,
-    /// unlike SetPosition which overwrites it.
+    /// unlike setPosition which overwrites it.
     /// Thus, it is equivalent to the following code:
     /// \code
-    /// sf::Vector2f pos = object.GetPosition();
-    /// object.SetPosition(pos.x + offsetX, pos.y + offsetY);
+    /// sf::Vector2f pos = object.getPosition();
+    /// object.setPosition(pos.x + offsetX, pos.y + offsetY);
     /// \endcode
     ///
     /// \param offsetX X offset
     /// \param offsetY Y offset
     ///
-    /// \see SetPosition
+    /// \see setPosition
     ///
     ////////////////////////////////////////////////////////////
-    void Move(float offsetX, float offsetY);
+    void move(float offsetX, float offsetY);
 
     ////////////////////////////////////////////////////////////
     /// \brief Move the object by a given offset
     ///
     /// This function adds to the current position of the object,
-    /// unlike SetPosition which overwrites it.
+    /// unlike setPosition which overwrites it.
     /// Thus, it is equivalent to the following code:
     /// \code
-    /// object.SetPosition(object.GetPosition() + offset);
+    /// object.setPosition(object.getPosition() + offset);
     /// \endcode
     ///
     /// \param offset Offset
     ///
-    /// \see SetPosition
+    /// \see setPosition
     ///
     ////////////////////////////////////////////////////////////
-    void Move(const Vector2f& offset);
+    void move(const Vector2f& offset);
 
     ////////////////////////////////////////////////////////////
     /// \brief Rotate the object
     ///
     /// This function adds to the current rotation of the object,
-    /// unlike SetRotation which overwrites it.
+    /// unlike setRotation which overwrites it.
     /// Thus, it is equivalent to the following code:
     /// \code
-    /// object.SetRotation(object.GetRotation() + angle);
+    /// object.setRotation(object.getRotation() + angle);
     /// \endcode
     ///
     /// \param angle Angle of rotation, in degrees
     ///
     ////////////////////////////////////////////////////////////
-    void Rotate(float angle);
+    void rotate(float angle);
 
     ////////////////////////////////////////////////////////////
     /// \brief Scale the object
     ///
     /// This function multiplies the current scale of the object,
-    /// unlike SetScale which overwrites it.
+    /// unlike setScale which overwrites it.
     /// Thus, it is equivalent to the following code:
     /// \code
-    /// sf::Vector2f scale = object.GetScale();
-    /// object.SetScale(scale.x * factorX, scale.y * factorY);
+    /// sf::Vector2f scale = object.getScale();
+    /// object.setScale(scale.x * factorX, scale.y * factorY);
     /// \endcode
     ///
     /// \param factorX Horizontal scale factor
     /// \param factorY Vertical scale factor
     ///
-    /// \see SetScale
+    /// \see setScale
     ///
     ////////////////////////////////////////////////////////////
-    void Scale(float factorX, float factorY);
+    void scale(float factorX, float factorY);
 
     ////////////////////////////////////////////////////////////
     /// \brief Scale the object
     ///
     /// This function multiplies the current scale of the object,
-    /// unlike SetScale which overwrites it.
+    /// unlike setScale which overwrites it.
     /// Thus, it is equivalent to the following code:
     /// \code
-    /// sf::Vector2f scale = object.GetScale();
-    /// object.SetScale(scale.x * factor.x, scale.y * factor.y);
+    /// sf::Vector2f scale = object.getScale();
+    /// object.setScale(scale.x * factor.x, scale.y * factor.y);
     /// \endcode
     ///
     /// \param factor Scale factors
     ///
-    /// \see SetScale
+    /// \see setScale
     ///
     ////////////////////////////////////////////////////////////
-    void Scale(const Vector2f& factor);
+    void scale(const Vector2f& factor);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the combined transform of the object
+    /// \brief get the combined transform of the object
     ///
     /// \return Transform combining the position/rotation/scale/origin of the object
     ///
-    /// \see GetInverseTransform
+    /// \see getInverseTransform
     ///
     ////////////////////////////////////////////////////////////
-    const Transform& GetTransform() const;
+    const Transform& getTransform() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the inverse of the combined transform of the object
+    /// \brief get the inverse of the combined transform of the object
     ///
-    /// \return Inversed of the combined transformations applied to the object
+    /// \return Inverse of the combined transformations applied to the object
     ///
-    /// \see GetTransform
+    /// \see getTransform
     ///
     ////////////////////////////////////////////////////////////
-    const Transform& GetInverseTransform() const;
+    const Transform& getInverseTransform() const;
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Vector2f          myOrigin;                     ///< Origin of translation/rotation/scaling of the object
-    Vector2f          myPosition;                   ///< Position of the object in the 2D world
-    float             myRotation;                   ///< Orientation of the object, in degrees
-    Vector2f          myScale;                      ///< Scale of the object
-    mutable Transform myTransform;                  ///< Combined transformation of the object
-    mutable bool      myTransformNeedUpdate;        ///< Does the transform need to be recomputed?
-    mutable Transform myInverseTransform;           ///< Combined transformation of the object
-    mutable bool      myInverseTransformNeedUpdate; ///< Does the transform need to be recomputed?
+    Vector2f          m_origin;                     ///< Origin of translation/rotation/scaling of the object
+    Vector2f          m_position;                   ///< Position of the object in the 2D world
+    float             m_rotation;                   ///< Orientation of the object, in degrees
+    Vector2f          m_scale;                      ///< Scale of the object
+    mutable Transform m_transform;                  ///< Combined transformation of the object
+    mutable bool      m_transformNeedUpdate;        ///< Does the transform need to be recomputed?
+    mutable Transform m_inverseTransform;           ///< Combined transformation of the object
+    mutable bool      m_inverseTransformNeedUpdate; ///< Does the transform need to be recomputed?
 };
 
 } // namespace sf
@@ -377,17 +377,17 @@ private :
 /// \code
 /// class MyEntity : public sf::Transformable, public sf::Drawable
 /// {
-///     virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
 ///     {
-///         states.Transform *= GetTransform();
-///         target.Draw(..., states);
+///         states.transform *= getTransform();
+///         target.draw(..., states);
 ///     }
 /// };
 ///
 /// MyEntity entity;
-/// entity.SetPosition(10, 20);
-/// entity.SetRotation(45);
-/// window.Draw(entity);
+/// entity.setPosition(10, 20);
+/// entity.setRotation(45);
+/// window.draw(entity);
 /// \endcode
 ///
 /// It can also be used as a member, if you don't want to use
@@ -397,18 +397,18 @@ private :
 /// class MyEntity
 /// {
 /// public :
-///     void setPosition(const MyVector& v)
+///     void SetPosition(const MyVector& v)
 ///     {
-///         m_transform.SetPosition(v.x(), v.y());
+///         myTransform.setPosition(v.x(), v.y());
 ///     }
 ///
-///     void draw(sf::RenderTarget& target) const
+///     void Draw(sf::RenderTarget& target) const
 ///     {
-///         target.Draw(..., m_transform.GetTransform());
+///         target.draw(..., myTransform.getTransform());
 ///     }
 ///
 /// private :
-///     sf::Transformable m_transform;
+///     sf::Transformable myTransform;
 /// };
 /// \endcode
 ///

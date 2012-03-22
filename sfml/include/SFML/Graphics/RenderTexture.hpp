@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -52,9 +52,9 @@ public :
     /// \brief Default constructor
     ///
     /// Constructs an empty, invalid render-texture. You must
-    /// call Create to have a valid render-texture.
+    /// call create to have a valid render-texture.
     ///
-    /// \see Create
+    /// \see create
     ///
     ////////////////////////////////////////////////////////////
     RenderTexture();
@@ -76,37 +76,37 @@ public :
     /// a depth-buffer. Otherwise it is unnecessary, and you should
     /// leave this parameter to false (which is its default value).
     ///
-    /// \param width        Width of the render-texture
-    /// \param height       Height of the render-texture
-    /// \param depthBuffer  Do you want this render-texture to have a depth buffer?
+    /// \param width       Width of the render-texture
+    /// \param height      Height of the render-texture
+    /// \param depthBuffer Do you want this render-texture to have a depth buffer?
     ///
     /// \return True if creation has been successful
     ///
     ////////////////////////////////////////////////////////////
-    bool Create(unsigned int width, unsigned int height, bool depthBuffer = false);
+    bool create(unsigned int width, unsigned int height, bool depthBuffer = false);
 
     ////////////////////////////////////////////////////////////
     /// \brief Enable or disable texture smoothing
     ///
-    /// This function is similar to Texture::SetSmooth.
+    /// This function is similar to Texture::setSmooth.
     /// This parameter is disabled by default.
     ///
     /// \param smooth True to enable smoothing, false to disable it
     ///
-    /// \see IsSmooth
+    /// \see isSmooth
     ///
     ////////////////////////////////////////////////////////////
-    void SetSmooth(bool smooth);
+    void setSmooth(bool smooth);
 
     ////////////////////////////////////////////////////////////
     /// \brief Tell whether the smooth filtering is enabled or not
     ///
     /// \return True if texture smoothing is enabled
     ///
-    /// \see SetSmooth
+    /// \see setSmooth
     ///
     ////////////////////////////////////////////////////////////
-    bool IsSmooth() const;
+    bool isSmooth() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Activate of deactivate the render-texture for rendering
@@ -123,7 +123,7 @@ public :
     /// \return True if operation was successful, false otherwise
     ///
     ////////////////////////////////////////////////////////////
-    bool SetActive(bool active = true);
+    bool setActive(bool active = true);
 
     ////////////////////////////////////////////////////////////
     /// \brief Update the contents of the target texture
@@ -134,33 +134,18 @@ public :
     /// it may leave the texture in an undefined state.
     ///
     ////////////////////////////////////////////////////////////
-    void Display();
+    void display();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Return the width of the rendering region of the texture
+    /// \brief Return the size of the rendering region of the texture
     ///
     /// The returned value is the size that you passed to
-    /// the Create function.
+    /// the create function.
     ///
-    /// \return Width in pixels
-    ///
-    /// \return GetHeight
+    /// \return Size in pixels
     ///
     ////////////////////////////////////////////////////////////
-    virtual unsigned int GetWidth() const;
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Return the height of the rendering region of the texture
-    ///
-    /// The returned value is the size that you passed to
-    /// the Create function.
-    ///
-    /// \return Height in pixels
-    ///
-    /// \return GetWidth
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual unsigned int GetHeight() const;
+    virtual Vector2u getSize() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get a read-only reference to the target texture
@@ -176,7 +161,7 @@ public :
     /// \return Const reference to the texture
     ///
     ////////////////////////////////////////////////////////////
-    const Texture& GetTexture() const;
+    const Texture& getTexture() const;
 
 private :
 
@@ -191,13 +176,13 @@ private :
     /// \return True if the function succeeded
     ///
     ////////////////////////////////////////////////////////////
-    virtual bool Activate(bool active);
+    virtual bool activate(bool active);
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::RenderTextureImpl* myImpl;    ///< Platform/hardware specific implementation
-    Texture                  myTexture; ///< Target texture to draw on
+    priv::RenderTextureImpl* m_impl;    ///< Platform/hardware specific implementation
+    Texture                  m_texture; ///< Target texture to draw on
 };
 
 } // namespace sf
@@ -230,35 +215,35 @@ private :
 ///
 /// // Create a new render-texture
 /// sf::RenderTexture texture;
-/// if (!texture.Create(500, 500))
+/// if (!texture.create(500, 500))
 ///     return -1
 ///
 /// // The main loop
-/// while (window.IsOpen())
+/// while (window.isOpen())
 /// {
 ///    // Event processing
 ///    // ...
 ///
 ///    // Clear the whole texture with red color
-///    texture.Clear(sf::Color::Red);
+///    texture.clear(sf::Color::Red);
 ///
 ///    // Draw stuff to the texture
-///    texture.Draw(sprite);  // sprite is a sf::Sprite
-///    texture.Draw(shape);   // shape is a sf::Shape
-///    texture.Draw(text);    // text is a sf::Text
+///    texture.draw(sprite);  // sprite is a sf::Sprite
+///    texture.draw(shape);   // shape is a sf::Shape
+///    texture.draw(text);    // text is a sf::Text
 ///
 ///    // We're done drawing to the texture
-///    texture.Display();
+///    texture.display();
 ///
 ///    // Now we start rendering to the window, clear it first
-///    window.Clear();
+///    window.clear();
 ///
 ///    // Draw the texture
-///    sf::Sprite sprite(texture.GetTexture());
-///    window.Draw(sprite);
+///    sf::Sprite sprite(texture.getTexture());
+///    window.draw(sprite);
 ///
 ///    // End the current frame and display its contents on screen
-///    window.Display();
+///    window.display();
 /// }
 /// \endcode
 ///

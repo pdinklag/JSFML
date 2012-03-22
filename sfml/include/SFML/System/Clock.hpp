@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -54,13 +54,13 @@ public :
     /// \brief Get the elapsed time
     ///
     /// This function returns the time elapsed since the last call
-    /// to Restart() (or the construction of the instance if Restart()
+    /// to restart() (or the construction of the instance if restart()
     /// has not been called).
     ///
     /// \return Time elapsed
     ///
     ////////////////////////////////////////////////////////////
-    Time GetElapsedTime() const;
+    Time getElapsedTime() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Restart the clock
@@ -71,14 +71,14 @@ public :
     /// \return Time elapsed
     ///
     ////////////////////////////////////////////////////////////
-    Time Restart();
+    Time restart();
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Time myStartTime; ///< Time of last reset, in microseconds
+    Time m_startTime; ///< Time of last reset, in microseconds
 };
 
 } // namespace sf
@@ -103,9 +103,9 @@ private :
 /// \code
 /// sf::Clock clock;
 /// ...
-/// Time time1 = clock.GetElapsedTime();
+/// Time time1 = clock.getElapsedTime();
 /// ...
-/// Time time2 = clock.Restart();
+/// Time time2 = clock.restart();
 /// \endcode
 ///
 /// The sf::Time value returned by the clock can then be

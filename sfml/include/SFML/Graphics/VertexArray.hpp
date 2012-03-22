@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -64,12 +64,12 @@ public :
     VertexArray(PrimitiveType type, unsigned int vertexCount = 0);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Return the vertices count
+    /// \brief Return the vertex count
     ///
     /// \return Number of vertices in the array
     ///
     ////////////////////////////////////////////////////////////
-    unsigned int GetVertexCount() const;
+    unsigned int getVertexCount() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get a read-write access to a vertex by its index
@@ -82,7 +82,7 @@ public :
     ///
     /// \return Reference to the index-th vertex
     ///
-    /// \see GetVertexCount
+    /// \see getVertexCount
     ///
     ////////////////////////////////////////////////////////////
     Vertex& operator [](unsigned int index);
@@ -98,7 +98,7 @@ public :
     ///
     /// \return Const reference to the index-th vertex
     ///
-    /// \see GetVertexCount
+    /// \see getVertexCount
     ///
     ////////////////////////////////////////////////////////////
     const Vertex& operator [](unsigned int index) const;
@@ -112,21 +112,21 @@ public :
     /// reallocating all the memory.
     ///
     ////////////////////////////////////////////////////////////
-    void Clear();
+    void clear();
 
     ////////////////////////////////////////////////////////////
     /// \brief Resize the vertex array
     ///
-    /// If \a count is greater than the current size, the previous
+    /// If \a vertexCount is greater than the current size, the previous
     /// vertices are kept and new (default-constructed) vertices are
     /// added.
-    /// If \a count is less than the current size, existing vertices
+    /// If \a vertexCount is less than the current size, existing vertices
     /// are removed from the array.
     ///
     /// \param vertexCount New size of the array (number of vertices)
     ///
     ////////////////////////////////////////////////////////////
-    void Resize(unsigned int vertexCount);
+    void resize(unsigned int vertexCount);
 
     ////////////////////////////////////////////////////////////
     /// \brief Add a vertex to the array
@@ -134,7 +134,7 @@ public :
     /// \param vertex Vertex to add
     ///
     ////////////////////////////////////////////////////////////
-    void Append(const Vertex& vertex);
+    void append(const Vertex& vertex);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the type of primitives to draw
@@ -150,7 +150,7 @@ public :
     /// \param type Type of primitive
     ///
     ////////////////////////////////////////////////////////////
-    void SetPrimitiveType(PrimitiveType type);
+    void setPrimitiveType(PrimitiveType type);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the type of primitives drawn by the vertex array
@@ -158,7 +158,7 @@ public :
     /// \return Primitive type
     ///
     ////////////////////////////////////////////////////////////
-    PrimitiveType GetPrimitiveType() const;
+    PrimitiveType getPrimitiveType() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Compute the bounding rectangle of the vertex array
@@ -169,7 +169,7 @@ public :
     /// \return Bounding rectangle of the vertex array
     ///
     ////////////////////////////////////////////////////////////
-    FloatRect GetBounds() const;
+    FloatRect getBounds() const;
 
 private :
 
@@ -180,15 +180,15 @@ private :
     /// \param states Current render states
     ///
     ////////////////////////////////////////////////////////////
-    virtual void Draw(RenderTarget& target, RenderStates states) const;
+    virtual void draw(RenderTarget& target, RenderStates states) const;
 
 private:
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    std::vector<Vertex> myVertices;      ///< Vertices contained in the array
-    PrimitiveType       myPrimitiveType; ///< Type of primitives to draw
+    std::vector<Vertex> m_vertices;      ///< Vertices contained in the array
+    PrimitiveType       m_primitiveType; ///< Type of primitives to draw
 };
 
 } // namespace sf
@@ -210,12 +210,12 @@ private:
 /// Example:
 /// \code
 /// sf::VertexArray lines(sf::LinesStrip, 4);
-/// lines[0].Position = sf::Vector2f(10, 0);
-/// lines[1].Position = sf::Vector2f(20, 0);
-/// lines[2].Position = sf::Vector2f(30, 5);
-/// lines[3].Position = sf::Vector2f(40, 2);
+/// lines[0].position = sf::Vector2f(10, 0);
+/// lines[1].position = sf::Vector2f(20, 0);
+/// lines[2].position = sf::Vector2f(30, 5);
+/// lines[3].position = sf::Vector2f(40, 2);
 ///
-/// window.Draw(lines);
+/// window.draw(lines);
 /// \endcode
 ///
 /// \see sf::Vertex

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -55,20 +55,20 @@ public :
     ///
     /// \param size New size of the rectangle
     ///
-    /// \see GetSize
+    /// \see getSize
     ///
     ////////////////////////////////////////////////////////////
-    void SetSize(const Vector2f& size);
+    void setSize(const Vector2f& size);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the size of the rectangle
     ///
     /// \return Size of the rectangle
     ///
-    /// \see SetSize
+    /// \see setSize
     ///
     ////////////////////////////////////////////////////////////
-    const Vector2f& GetSize() const;
+    const Vector2f& getSize() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the number of points defining the shape
@@ -76,7 +76,7 @@ public :
     /// \return Number of points of the shape
     ///
     ////////////////////////////////////////////////////////////
-    virtual unsigned int GetPointCount() const;
+    virtual unsigned int getPointCount() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get a point of the shape
@@ -88,14 +88,14 @@ public :
     /// \return Index-th point of the shape
     ///
     ////////////////////////////////////////////////////////////
-    virtual Vector2f GetPoint(unsigned int index) const;
+    virtual Vector2f getPoint(unsigned int index) const;
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Vector2f mySize; ///< Size of the rectangle
+    Vector2f m_size; ///< Size of the rectangle
 };
 
 } // namespace sf
@@ -115,12 +115,12 @@ private :
 /// Usage example:
 /// \code
 /// sf::RectangleShape rectangle;
-/// rectangle.SetSize(sf::Vector2f(100, 50));
-/// rectangle.SetOutlineColor(sf::Color::Red);
-/// rectangle.SetOutlineThickness(5);
-/// rectangle.SetPosition(10, 20);
+/// rectangle.setSize(sf::Vector2f(100, 50));
+/// rectangle.setOutlineColor(sf::Color::Red);
+/// rectangle.setOutlineThickness(5);
+/// rectangle.setPosition(10, 20);
 /// ...
-/// window.Draw(rectangle);
+/// window.draw(rectangle);
 /// \endcode
 ///
 /// \see sf::Shape, sf::CircleShape, sf::ConvexShape

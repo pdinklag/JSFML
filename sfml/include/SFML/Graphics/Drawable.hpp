@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -66,7 +66,7 @@ private :
     /// \param states Current render states
     ///
     ////////////////////////////////////////////////////////////
-    virtual void Draw(RenderTarget& target, RenderStates states) const = 0;
+    virtual void draw(RenderTarget& target, RenderStates states) const = 0;
 };
 
 } // namespace sf
@@ -100,14 +100,14 @@ private :
 ///
 /// private :
 ///
-///     virtual void Draw(sf::RenderTarget& target, RenderStates states) const
+///     virtual void draw(sf::RenderTarget& target, RenderStates states) const
 ///     {
 ///         // You can draw other high-level objects
-///         target.Draw(mySprite, states);
+///         target.draw(m_sprite, states);
 ///
 ///         // ... or use the low-level API
-///         states.Texture = &myTexture;
-///         target.Draw(myVertices, states);
+///         states.Texture = &m_texture;
+///         target.draw(m_vertices, states);
 ///
 ///         // ... or draw with OpenGL directly
 ///         glBegin(GL_QUADS);
@@ -115,9 +115,9 @@ private :
 ///         glEnd();
 ///     }
 ///
-///     sf::Sprite mySprite;
-///     sf::Texture myTexture;
-///     sf::VertexArray myVertices;
+///     sf::Sprite m_sprite;
+///     sf::Texture m_texture;
+///     sf::VertexArray m_vertices;
 /// };
 /// \endcode
 ///

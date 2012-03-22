@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -78,10 +78,10 @@ public :
     ///
     /// \param pitch New pitch to apply to the sound
     ///
-    /// \see GetPitch
+    /// \see getPitch
     ///
     ////////////////////////////////////////////////////////////
-    void SetPitch(float pitch);
+    void setPitch(float pitch);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the volume of the sound
@@ -91,10 +91,10 @@ public :
     ///
     /// \param volume Volume of the sound
     ///
-    /// \see GetVolume
+    /// \see getVolume
     ///
     ////////////////////////////////////////////////////////////
-    void SetVolume(float volume);
+    void setVolume(float volume);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the 3D position of the sound in the audio scene
@@ -107,10 +107,10 @@ public :
     /// \param y Y coordinate of the position of the sound in the scene
     /// \param z Z coordinate of the position of the sound in the scene
     ///
-    /// \see GetPosition
+    /// \see getPosition
     ///
     ////////////////////////////////////////////////////////////
-    void SetPosition(float x, float y, float z);
+    void setPosition(float x, float y, float z);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the 3D position of the sound in the audio scene
@@ -121,10 +121,10 @@ public :
     ///
     /// \param position Position of the sound in the scene
     ///
-    /// \see GetPosition
+    /// \see getPosition
     ///
     ////////////////////////////////////////////////////////////
-    void SetPosition(const Vector3f& position);
+    void setPosition(const Vector3f& position);
 
     ////////////////////////////////////////////////////////////
     /// \brief Make the sound's position relative to the listener or absolute
@@ -137,10 +137,10 @@ public :
     ///
     /// \param relative True to set the position relative, false to set it absolute
     ///
-    /// \see IsRelativeToListener
+    /// \see isRelativeToListener
     ///
     ////////////////////////////////////////////////////////////
-    void SetRelativeToListener(bool relative);
+    void setRelativeToListener(bool relative);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the minimum distance of the sound
@@ -154,10 +154,10 @@ public :
     ///
     /// \param distance New minimum distance of the sound
     ///
-    /// \see GetMinDistance, SetAttenuation
+    /// \see getMinDistance, setAttenuation
     ///
     ////////////////////////////////////////////////////////////
-    void SetMinDistance(float distance);
+    void setMinDistance(float distance);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the attenuation factor of the sound
@@ -173,40 +173,40 @@ public :
     ///
     /// \param attenuation New attenuation factor of the sound
     ///
-    /// \see GetAttenuation, SetMinDistance
+    /// \see getAttenuation, setMinDistance
     ///
     ////////////////////////////////////////////////////////////
-    void SetAttenuation(float attenuation);
+    void setAttenuation(float attenuation);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the pitch of the sound
     ///
     /// \return Pitch of the sound
     ///
-    /// \see SetPitch
+    /// \see setPitch
     ///
     ////////////////////////////////////////////////////////////
-    float GetPitch() const;
+    float getPitch() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the volume of the sound
     ///
     /// \return Volume of the sound, in the range [0, 100]
     ///
-    /// \see SetVolume
+    /// \see setVolume
     ///
     ////////////////////////////////////////////////////////////
-    float GetVolume() const;
+    float getVolume() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the 3D position of the sound in the audio scene
     ///
     /// \return Position of the sound
     ///
-    /// \see SetPosition
+    /// \see setPosition
     ///
     ////////////////////////////////////////////////////////////
-    Vector3f GetPosition() const;
+    Vector3f getPosition() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Tell whether the sound's position is relative to the
@@ -214,30 +214,30 @@ public :
     ///
     /// \return True if the position is relative, false if it's absolute
     ///
-    /// \see SetRelativeToListener
+    /// \see setRelativeToListener
     ///
     ////////////////////////////////////////////////////////////
-    bool IsRelativeToListener() const;
+    bool isRelativeToListener() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the minimum distance of the sound
     ///
     /// \return Minimum distance of the sound
     ///
-    /// \see SetMinDistance, GetAttenuation
+    /// \see setMinDistance, getAttenuation
     ///
     ////////////////////////////////////////////////////////////
-    float GetMinDistance() const;
+    float getMinDistance() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the attenuation factor of the sound
     ///
     /// \return Attenuation factor of the sound
     ///
-    /// \see SetAttenuation, GetMinDistance
+    /// \see setAttenuation, getMinDistance
     ///
     ////////////////////////////////////////////////////////////
-    float GetAttenuation() const;
+    float getAttenuation() const;
 
 protected :
 
@@ -255,12 +255,12 @@ protected :
     /// \return Current status of the sound
     ///
     ////////////////////////////////////////////////////////////
-    Status GetStatus() const;
+    Status getStatus() const;
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    unsigned int mySource; ///< OpenAL source identifier
+    unsigned int m_source; ///< OpenAL source identifier
 };
 
 } // namespace sf

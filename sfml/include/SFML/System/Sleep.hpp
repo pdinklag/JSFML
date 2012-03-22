@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -38,13 +38,13 @@ namespace sf
 /// \ingroup system
 /// \brief Make the current thread sleep for a given duration
 ///
-/// sf::Sleep is the best way to block a program or one of its
+/// sf::sleep is the best way to block a program or one of its
 /// threads, as it doesn't consume any CPU power.
 ///
 /// \param duration Time to sleep
 ///
 ////////////////////////////////////////////////////////////
-void SFML_SYSTEM_API Sleep(Time duration);
+void SFML_SYSTEM_API sleep(Time duration);
 
 } // namespace sf
 

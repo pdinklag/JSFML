@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -77,7 +77,7 @@ public :
     /// \param characterSize  Base size of characters, in pixels
     ///
     ////////////////////////////////////////////////////////////
-    explicit Text(const String& string, const Font& font = Font::GetDefaultFont(), unsigned int characterSize = 30);
+    explicit Text(const String& string, const Font& font = Font::getDefaultFont(), unsigned int characterSize = 30);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the text's string
@@ -95,29 +95,29 @@ public :
     ///
     /// \param string New string
     ///
-    /// \see GetString
+    /// \see getString
     ///
     ////////////////////////////////////////////////////////////
-    void SetString(const String& string);
+    void setString(const String& string);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the text's font
     ///
-    /// The \a font argument refers to a texture that must
+    /// The \a font argument refers to a font that must
     /// exist as long as the text uses it. Indeed, the text
     /// doesn't store its own copy of the font, but rather keeps
     /// a pointer to the one that you passed to this function.
     /// If the font is destroyed and the text tries to
     /// use it, the behaviour is undefined.
     /// Texts have a valid font by default, which the built-in
-    /// Font::GetDefaultFont().
+    /// Font::getDefaultFont().
     ///
     /// \param font New font
     ///
-    /// \see GetFont
+    /// \see getFont
     ///
     ////////////////////////////////////////////////////////////
-    void SetFont(const Font& font);
+    void setFont(const Font& font);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the character size
@@ -126,10 +126,10 @@ public :
     ///
     /// \param size New character size, in pixels
     ///
-    /// \see GetCharacterSize
+    /// \see getCharacterSize
     ///
     ////////////////////////////////////////////////////////////
-    void SetCharacterSize(unsigned int size);
+    void setCharacterSize(unsigned int size);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the text's style
@@ -140,10 +140,10 @@ public :
     ///
     /// \param style New style
     ///
-    /// \see GetStyle
+    /// \see getStyle
     ///
     ////////////////////////////////////////////////////////////
-    void SetStyle(Uint32 style);
+    void setStyle(Uint32 style);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the global color of the text
@@ -152,10 +152,10 @@ public :
     ///
     /// \param color New color of the text
     ///
-    /// \see GetColor
+    /// \see getColor
     ///
     ////////////////////////////////////////////////////////////
-    void SetColor(const Color& color);
+    void setColor(const Color& color);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the text's string
@@ -164,17 +164,17 @@ public :
     /// be converted to standard string types. So, the following
     /// lines of code are all valid:
     /// \code
-    /// sf::String   s1 = text.GetString();
-    /// std::string  s2 = text.GetString();
-    /// std::wstring s3 = text.GetString();
+    /// sf::String   s1 = text.getString();
+    /// std::string  s2 = text.getString();
+    /// std::wstring s3 = text.getString();
     /// \endcode
     ///
     /// \return Text's string
     ///
-    /// \see GetString
+    /// \see setString
     ///
     ////////////////////////////////////////////////////////////
-    const String& GetString() const;
+    const String& getString() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the text's font
@@ -184,40 +184,40 @@ public :
     ///
     /// \return Text's font
     ///
-    /// \see SetFont
+    /// \see setFont
     ///
     ////////////////////////////////////////////////////////////
-    const Font& GetFont() const;
+    const Font& getFont() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the character size
     ///
     /// \return Size of the characters, in pixels
     ///
-    /// \see SetCharacterSize
+    /// \see setCharacterSize
     ///
     ////////////////////////////////////////////////////////////
-    unsigned int GetCharacterSize() const;
+    unsigned int getCharacterSize() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the text's style
     ///
     /// \return Text's style
     ///
-    /// \see SetStyle
+    /// \see setStyle
     ///
     ////////////////////////////////////////////////////////////
-    Uint32 GetStyle() const;
+    Uint32 getStyle() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the global color of the text
     ///
     /// \return Global color of the text
     ///
-    /// \see SetColor
+    /// \see setColor
     ///
     ////////////////////////////////////////////////////////////
-    const Color& GetColor() const;
+    const Color& getColor() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Return the position of the \a index-th character
@@ -234,7 +234,7 @@ public :
     /// \return Position of the character
     ///
     ////////////////////////////////////////////////////////////
-    Vector2f FindCharacterPos(std::size_t index) const;
+    Vector2f findCharacterPos(std::size_t index) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the local bounding rectangle of the entity
@@ -248,7 +248,7 @@ public :
     /// \return Local bounding rectangle of the entity
     ///
     ////////////////////////////////////////////////////////////
-    FloatRect GetLocalBounds() const;
+    FloatRect getLocalBounds() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the global bounding rectangle of the entity
@@ -262,7 +262,7 @@ public :
     /// \return Global bounding rectangle of the entity
     ///
     ////////////////////////////////////////////////////////////
-    FloatRect GetGlobalBounds() const;
+    FloatRect getGlobalBounds() const;
 
 private :
 
@@ -273,24 +273,24 @@ private :
     /// \param states Current render states
     ///
     ////////////////////////////////////////////////////////////
-    virtual void Draw(RenderTarget& target, RenderStates states) const;
+    virtual void draw(RenderTarget& target, RenderStates states) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Update the text's geometry
     ///
     ////////////////////////////////////////////////////////////
-    void UpdateGeometry();
+    void updateGeometry();
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    String        myString;        ///< String to display
-    const Font*   myFont;          ///< Font used to display the string
-    unsigned int  myCharacterSize; ///< Base size of characters, in pixels
-    Uint32        myStyle;         ///< Text style (see Style enum)
-    Color         myColor;         ///< Text color
-    VertexArray   myVertices;      ///< Vertex array containing the text's geometry
-    FloatRect     myBounds;        ///< Bounding rectangle of the text (in local coordinates)
+    String        m_string;        ///< String to display
+    const Font*   m_font;          ///< Font used to display the string
+    unsigned int  m_characterSize; ///< Base size of characters, in pixels
+    Uint32        m_style;         ///< Text style (see Style enum)
+    Color         m_color;         ///< Text color
+    VertexArray   m_vertices;      ///< Vertex array containing the text's geometry
+    FloatRect     m_bounds;        ///< Bounding rectangle of the text (in local coordinates)
 };
 
 } // namespace sf
@@ -335,17 +335,17 @@ private :
 /// \code
 /// // Declare and load a font
 /// sf::Font font;
-/// font.LoadFromFile("arial.ttf");
+/// font.loadFromFile("arial.ttf");
 /// 
 /// // Create a text
 /// sf::Text text("hello");
-/// text.SetFont(font);
-/// text.SetCharacterSize(30);
-/// text.SetStyle(sf::Text::Bold);
-/// text.SetColor(sf::Color::Red);
+/// text.setFont(font);
+/// text.setCharacterSize(30);
+/// text.setStyle(sf::Text::Bold);
+/// text.setColor(sf::Color::Red);
 ///
 /// // Draw it
-/// window.Draw(text);
+/// window.draw(text);
 /// \endcode
 ///
 /// Note that you don't need to load a font to draw text,

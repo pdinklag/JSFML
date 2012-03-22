@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -58,20 +58,20 @@ public :
     ///
     /// \param count New number of points of the polygon
     ///
-    /// \see GetPointCount
+    /// \see getPointCount
     ///
     ////////////////////////////////////////////////////////////
-    void SetPointCount(unsigned int count);
+    void setPointCount(unsigned int count);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the number of points of the polygon
     ///
     /// \return Number of points of the polygon
     ///
-    /// \see SetPointCount
+    /// \see setPointCount
     ///
     ////////////////////////////////////////////////////////////
-    virtual unsigned int GetPointCount() const;
+    virtual unsigned int getPointCount() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the position of a point
@@ -85,10 +85,10 @@ public :
     /// \param index Index of the point to change, in range [0 .. GetPointCount() - 1]
     /// \param point New position of the point
     ///
-    /// \see GetPoint
+    /// \see getPoint
     ///
     ////////////////////////////////////////////////////////////
-    void SetPoint(unsigned int index, const Vector2f& point);
+    void setPoint(unsigned int index, const Vector2f& point);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the position of a point
@@ -99,17 +99,17 @@ public :
     ///
     /// \return Position of the index-th point of the polygon
     ///
-    /// \see SetPoint
+    /// \see setPoint
     ///
     ////////////////////////////////////////////////////////////
-    virtual Vector2f GetPoint(unsigned int index) const;
+    virtual Vector2f getPoint(unsigned int index) const;
 
 private :
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    std::vector<Vector2f> myPoints; ///< Points composing the convex polygon
+    std::vector<Vector2f> m_points; ///< Points composing the convex polygon
 };
 
 } // namespace sf
@@ -134,15 +134,15 @@ private :
 /// Usage example:
 /// \code
 /// sf::ConvexShape polygon;
-/// polygon.SetPointCount(3);
-/// polygon.SetPoint(0, sf::Vector2f(0, 0));
-/// polygon.SetPoint(1, sf::Vector2f(0, 10));
-/// polygon.SetPoint(2, sf::Vector2f(25, 5));
-/// polygon.SetOutlineColor(sf::Color::Red);
-/// polygon.SetOutlineThickness(5);
-/// polygon.SetPosition(10, 20);
+/// polygon.setPointCount(3);
+/// polygon.setPoint(0, sf::Vector2f(0, 0));
+/// polygon.setPoint(1, sf::Vector2f(0, 10));
+/// polygon.setPoint(2, sf::Vector2f(25, 5));
+/// polygon.setOutlineColor(sf::Color::Red);
+/// polygon.setOutlineThickness(5);
+/// polygon.setPosition(10, 20);
 /// ...
-/// window.Draw(polygon);
+/// window.draw(polygon);
 /// \endcode
 ///
 /// \see sf::Shape, sf::RectangleShape, sf::CircleShape
