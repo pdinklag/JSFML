@@ -30,7 +30,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeDelete (JNIEnv *env, j
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setCenter (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::View)->SetCenter(x, y);
+    THIS(sf::View)->setCenter(x, y);
 }
 
 /*
@@ -39,7 +39,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setCenter (JNIEnv *env, jobj
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setSize (JNIEnv *env, jobject obj, jfloat width, jfloat height) {
-    THIS(sf::View)->SetSize(width, height);
+    THIS(sf::View)->setSize(width, height);
 }
 
 /*
@@ -48,7 +48,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setSize (JNIEnv *env, jobjec
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::View)->SetRotation(angle);
+    THIS(sf::View)->setRotation(angle);
 }
 
 /*
@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setRotation (JNIEnv *env, jo
  * Signature: (Lorg/jsfml/graphics/FloatRect;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetViewport (JNIEnv *env, jobject obj, jobject rect) {
-    THIS(sf::View)->SetViewport(JSFML::FloatRect::ToSFML(env, rect));
+    THIS(sf::View)->setViewport(JSFML::FloatRect::ToSFML(env, rect));
 }
 
 /*
@@ -66,7 +66,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetViewport (JNIEnv *e
  * Signature: (Lorg/jsfml/graphics/FloatRect;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeReset (JNIEnv *env, jobject obj, jobject rect) {
-    THIS(sf::View)->Reset(JSFML::FloatRect::ToSFML(env, rect));
+    THIS(sf::View)->reset(JSFML::FloatRect::ToSFML(env, rect));
 }
 
 /*
@@ -75,7 +75,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeReset (JNIEnv *env, jo
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getCenter (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::View)->GetCenter());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::View)->getCenter());
 }
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getCenter (JNIEnv *env, j
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getSize (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::View)->GetSize());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::View)->getSize());
 }
 
 /*
@@ -93,7 +93,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getSize (JNIEnv *env, job
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_View_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::View)->GetRotation();
+    return THIS(sf::View)->getRotation();
 }
 
 /*
@@ -102,7 +102,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_View_getRotation (JNIEnv *env, 
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getViewport (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::View)->GetViewport());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::View)->getViewport());
 }
 
 /*
@@ -111,7 +111,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getViewport (JNIEnv *env,
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::View)->Rotate(angle);
+    THIS(sf::View)->rotate(angle);
 }
 
 /*
@@ -120,7 +120,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_rotate (JNIEnv *env, jobject
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::View)->Move(x, y);
+    THIS(sf::View)->move(x, y);
 }
 
 /*
@@ -129,5 +129,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_move (JNIEnv *env, jobject o
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_zoom (JNIEnv *env, jobject obj, jfloat factor) {
-    THIS(sf::View)->Zoom(factor);
+    THIS(sf::View)->zoom(factor);
 }

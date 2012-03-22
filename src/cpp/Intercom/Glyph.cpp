@@ -16,7 +16,7 @@ void JSFML::Glyph::Init(JNIEnv* env) {
 
 jobject JSFML::Glyph::FromSFML(JNIEnv* env, const sf::Glyph& glyph) {
     return env->NewObject(cls, ctor,
-        glyph.Advance,
-        JSFML::IntRect::FromSFML(env, glyph.Bounds),
-        JSFML::IntRect::FromSFML(env, glyph.TextureRect));
+        glyph.advance,
+        JSFML::IntRect::FromSFML(env, glyph.bounds),
+        JSFML::IntRect::FromSFML(env, glyph.textureRect));
 }

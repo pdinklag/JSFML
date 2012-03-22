@@ -30,7 +30,7 @@ sf::Transform JSFML::Transform::ToSFML(JNIEnv* env, jobject transform) {
 }
 
 jobject JSFML::Transform::FromSFML(JNIEnv* env, const sf::Transform& transform) {
-    const float* data = transform.GetMatrix();
+    const float* data = transform.getMatrix();
     return env->NewObject(cls, ctor,
             data[0], data[4], data[12],
             data[1], data[5], data[13],

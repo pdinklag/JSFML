@@ -4,6 +4,9 @@ import org.jsfml.Intercom;
 
 import java.io.Serializable;
 
+/**
+ * Utility class for manipulating 2-dimensional vectors.
+ */
 @Intercom
 public class Vector2i implements Cloneable, Serializable {
     private static final long serialVersionUID = 4059550337913883695L;

@@ -31,7 +31,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDelete (JNIEnv 
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_getVertexCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::VertexArray)->GetVertexCount();
+    return THIS(sf::VertexArray)->getVertexCount();
 }
 
 /*
@@ -62,7 +62,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeSetVertex
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeClear (JNIEnv *env, jobject obj) {
-    THIS(sf::VertexArray)->Clear();
+    THIS(sf::VertexArray)->clear();
 }
 
 /*
@@ -73,7 +73,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeClear (JNIEnv *
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeResize
     (JNIEnv *env, jobject obj, jint num) {
 
-    THIS(sf::VertexArray)->Resize(num);
+    THIS(sf::VertexArray)->resize(num);
 }
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeResize
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeAppend
     (JNIEnv *env, jobject obj, jobject v) {
 
-    THIS(sf::VertexArray)->Append(JSFML::Vertex::ToSFML(env, v));
+    THIS(sf::VertexArray)->append(JSFML::Vertex::ToSFML(env, v));
 }
 
 /*
@@ -95,7 +95,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeAppend
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeSetPrimitiveType
     (JNIEnv *env, jobject obj, jobject type) {
 
-    THIS(sf::VertexArray)->SetPrimitiveType((sf::PrimitiveType)JavaEnum::ordinal(env, type));
+    THIS(sf::VertexArray)->setPrimitiveType((sf::PrimitiveType)JavaEnum::ordinal(env, type));
 }
 
 /*
@@ -104,7 +104,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeSetPrimitiveTyp
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_nativeGetPrimitiveType (JNIEnv *env, jobject obj) {
-    return (jint)THIS(sf::VertexArray)->GetPrimitiveType();
+    return (jint)THIS(sf::VertexArray)->getPrimitiveType();
 }
 
 /*
@@ -113,5 +113,5 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_nativeGetPrimitiveTyp
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_VertexArray_getBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::VertexArray)->GetBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::VertexArray)->getBounds());
 }

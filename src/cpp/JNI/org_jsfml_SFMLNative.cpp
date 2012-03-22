@@ -7,6 +7,7 @@
 #include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector2i.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
+#include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
 
 #include <JSFML/Intercom/ContextSettings.hpp>
@@ -33,6 +34,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::Time::Init(env);
     JSFML::Vector2i::Init(env);
     JSFML::Vector2f::Init(env);
+    JSFML::Vector2u::Init(env);
     JSFML::Vector3f::Init(env);
 
     JSFML::ContextSettings::Init(env);

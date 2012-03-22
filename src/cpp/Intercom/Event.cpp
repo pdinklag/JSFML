@@ -85,40 +85,40 @@ void JSFML::Event::Init(JNIEnv* env) {
     }
 }
 
-#define EVENT_PARAMS(x) x.cls, x.ctor, event.Type
+#define EVENT_PARAMS(x) x.cls, x.ctor, event.type
 
 jobject JSFML::Event::FromSFML(JNIEnv* env, const sf::Event& event) {
-	switch(event.Type) {
+	switch(event.type) {
 		case sf::Event::Resized:
-			return env->NewObject(EVENT_PARAMS(SizeEvent), event.Size.Width, event.Size.Height);
+			return env->NewObject(EVENT_PARAMS(SizeEvent), event.size.width, event.size.height);
 
 		case sf::Event::TextEntered:
-			return env->NewObject(EVENT_PARAMS(TextEvent), (jlong)event.Text.Unicode);
+			return env->NewObject(EVENT_PARAMS(TextEvent), (jlong)event.text.unicode);
 
 		case sf::Event::KeyPressed:
 		case sf::Event::KeyReleased:
-			return env->NewObject(EVENT_PARAMS(KeyEvent), event.Key.Code, event.Key.Alt, event.Key.Shift, event.Key.Control, event.Key.System);
+			return env->NewObject(EVENT_PARAMS(KeyEvent), event.key.code, event.key.alt, event.key.shift, event.key.control, event.key.system);
 
 		case sf::Event::MouseMoved:
-			return env->NewObject(EVENT_PARAMS(MouseMoveEvent), event.MouseMove.X, event.MouseMove.Y);
+			return env->NewObject(EVENT_PARAMS(MouseMoveEvent), event.mouseMove.x, event.mouseMove.x);
 
 		case sf::Event::MouseButtonPressed:
 		case sf::Event::MouseButtonReleased:
-			return env->NewObject(EVENT_PARAMS(MouseButtonEvent), event.MouseButton.X, event.MouseButton.Y, event.MouseButton.Button);
+			return env->NewObject(EVENT_PARAMS(MouseButtonEvent), event.mouseButton.x, event.mouseButton.y, event.mouseButton.button);
 
 		case sf::Event::MouseWheelMoved:
-			return env->NewObject(EVENT_PARAMS(MouseWheelEvent), event.MouseWheel.X, event.MouseWheel.Y, event.MouseWheel.Delta);
+			return env->NewObject(EVENT_PARAMS(MouseWheelEvent), event.mouseWheel.x, event.mouseWheel.y, event.mouseWheel.delta);
 
 		case sf::Event::JoystickButtonPressed:
 		case sf::Event::JoystickButtonReleased:
-			return env->NewObject(EVENT_PARAMS(JoystickButtonEvent), event.JoystickButton.JoystickId, event.JoystickButton.Button);
+			return env->NewObject(EVENT_PARAMS(JoystickButtonEvent), event.joystickButton.joystickId, event.joystickButton.button);
 
 		case sf::Event::JoystickMoved:
-			return env->NewObject(EVENT_PARAMS(JoystickMoveEvent), event.JoystickMove.JoystickId, event.JoystickMove.Axis, event.JoystickMove.Position);
+			return env->NewObject(EVENT_PARAMS(JoystickMoveEvent), event.joystickMove.joystickId, event.joystickMove.axis, event.joystickMove.position);
 
 		case sf::Event::JoystickConnected:
 		case sf::Event::JoystickDisconnected:
-			return env->NewObject(EVENT_PARAMS(JoystickConnectEvent), event.JoystickMove.JoystickId);
+			return env->NewObject(EVENT_PARAMS(JoystickConnectEvent), event.joystickConnect.joystickId);
 
 		default:
 			return env->NewObject(EVENT_PARAMS(GenericEvent));

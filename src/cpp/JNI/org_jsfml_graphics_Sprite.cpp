@@ -33,7 +33,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDelete (JNIEnv *env,
  * Signature: (Lorg/jsfml/graphics/Texture;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture (JNIEnv *env, jobject obj, jobject texture) {
-    THIS(sf::Sprite)->SetTexture(*JSFML::NativeObject::GetPointer<sf::Texture>(env, texture));
+    THIS(sf::Sprite)->setTexture(*JSFML::NativeObject::GetPointer<sf::Texture>(env, texture));
 }
 
 /*
@@ -42,7 +42,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture (JNIEnv *
  * Signature: (Lorg/jsfml/graphics/IntRect;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTextureRect (JNIEnv *env, jobject obj, jobject rect) {
-    THIS(sf::Sprite)->SetTextureRect(JSFML::IntRect::ToSFML(env, rect));
+    THIS(sf::Sprite)->setTextureRect(JSFML::IntRect::ToSFML(env, rect));
 }
 
 /*
@@ -51,7 +51,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTextureRect (JNIE
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetColor (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::Sprite)->SetColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::Sprite)->setColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetColor (JNIEnv *en
  * Signature: ()Lorg/jsfml/graphics/IntRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTextureRect (JNIEnv *env, jobject obj) {
-    return JSFML::IntRect::FromSFML(env, THIS(sf::Sprite)->GetTextureRect());
+    return JSFML::IntRect::FromSFML(env, THIS(sf::Sprite)->getTextureRect());
 }
 
 /*
@@ -69,7 +69,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTextureRect (JNIEnv 
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::Sprite)->GetColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::Sprite)->getColor());
 }
 
 /*
@@ -78,7 +78,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getColor (JNIEnv *env, 
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Sprite)->GetLocalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::Sprite)->getLocalBounds());
 }
 
 /*
@@ -87,7 +87,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getLocalBounds (JNIEnv 
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Sprite)->GetGlobalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::Sprite)->getGlobalBounds());
 }
 
 /*
@@ -96,7 +96,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getGlobalBounds (JNIEnv
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->SetPosition(x, y);
+    THIS(sf::Sprite)->setPosition(x, y);
 }
 
 /*
@@ -105,7 +105,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setPosition (JNIEnv *env, 
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::Sprite)->SetRotation(angle);
+    THIS(sf::Sprite)->setRotation(angle);
 }
 
 /*
@@ -114,7 +114,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setRotation (JNIEnv *env, 
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->SetScale(x, y);
+    THIS(sf::Sprite)->setScale(x, y);
 }
 
 /*
@@ -123,7 +123,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setScale (JNIEnv *env, job
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->SetOrigin(x, y);
+    THIS(sf::Sprite)->setOrigin(x, y);
 }
 
 /*
@@ -132,7 +132,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setOrigin (JNIEnv *env, jo
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->GetPosition());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getPosition());
 }
 
 /*
@@ -141,7 +141,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getPosition (JNIEnv *en
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Sprite_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::Sprite)->GetRotation();
+    return THIS(sf::Sprite)->getRotation();
 }
 
 /*
@@ -150,7 +150,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Sprite_getRotation (JNIEnv *env
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->GetScale());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getScale());
 }
 
 /*
@@ -159,7 +159,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getScale (JNIEnv *env, 
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->GetOrigin());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getOrigin());
 }
 
 /*
@@ -168,7 +168,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getOrigin (JNIEnv *env,
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->Move(x, y);
+    THIS(sf::Sprite)->move(x, y);
 }
 
 /*
@@ -177,7 +177,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_move (JNIEnv *env, jobject
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::Sprite)->Rotate(angle);
+   THIS(sf::Sprite)->rotate(angle);
 }
 
 /*
@@ -186,7 +186,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_rotate (JNIEnv *env, jobje
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->Scale(x, y);
+    THIS(sf::Sprite)->scale(x, y);
 }
 
 /*
@@ -195,7 +195,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_scale (JNIEnv *env, jobjec
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->GetTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->getTransform());
 }
 
 /*
@@ -204,7 +204,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTransform (JNIEnv *e
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->GetInverseTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->getInverseTransform());
 }
 
 

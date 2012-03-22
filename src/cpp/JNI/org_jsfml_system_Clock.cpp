@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_system_Clock_nativeDelete (JNIEnv *env , j
  * Signature: ()Lorg/jsfml/system/Time;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_system_Clock_getElapsedTime (JNIEnv *env , jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::Clock)->GetElapsedTime());
+    return JSFML::Time::FromSFML(env, THIS(sf::Clock)->getElapsedTime());
 }
 
 /*
@@ -38,5 +38,5 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_system_Clock_getElapsedTime (JNIEnv *en
  * Signature: ()Lorg/jsfml/system/Time;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_system_Clock_restart (JNIEnv *env , jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::Clock)->Restart());
+    return JSFML::Time::FromSFML(env, THIS(sf::Clock)->restart());
 }

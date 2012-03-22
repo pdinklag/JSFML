@@ -3,6 +3,7 @@ package org.jsfml.graphics;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
@@ -184,10 +185,16 @@ public class RenderWindow extends Window implements RenderTarget {
     public native boolean isOpen();
 
     @Override
-    public native int getWidth();
+    public native Vector2i getPosition();
 
     @Override
-    public native int getHeight();
+    protected native void nativeSetPosition(Vector2i position);
+    
+    @Override
+    public native Vector2i getSize();
+
+    @Override
+    protected native void nativeSetSize(Vector2i size);
 
     @Override
     public native ContextSettings getSettings();
@@ -199,25 +206,19 @@ public class RenderWindow extends Window implements RenderTarget {
     public native Event waitEvent();
 
     @Override
-    public native void enableVerticalSync(boolean enable);
+    public native void setVerticalSyncEnabled(boolean enable);
 
     @Override
-    public native void showMouseCursor(boolean show);
-
-    @Override
-    public native void setPosition(int x, int y);
-
-    @Override
-    public native void setSize(int width, int height);
+    public native void setMouseCursorVisible(boolean show);
 
     @Override
     protected native void nativeSetTitle(String title);
 
     @Override
-    public native void show(boolean show);
+    public native void setVisible(boolean show);
 
     @Override
-    public native void enableKeyRepeat(boolean enable);
+    public native void setKeyRepeatEnabled(boolean enable);
 
     @Override
     protected native void nativeSetIcon(Image image);

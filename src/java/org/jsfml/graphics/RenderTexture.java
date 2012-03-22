@@ -3,6 +3,7 @@ package org.jsfml.graphics;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 /**
  * Target for off-screen 2D rendering into a texture.
@@ -77,10 +78,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public native int getWidth();
-
-    @Override
-    public native int getHeight();
+    public native Vector2i getSize();
 
     private native void nativeClear(Color color);
 

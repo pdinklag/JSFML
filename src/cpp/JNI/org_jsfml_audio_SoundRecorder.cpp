@@ -8,5 +8,5 @@
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundRecorder_isAvailable (JNIEnv *env, jclass cls) {
-    return sf::SoundRecorder::IsAvailable();
+    return sf::SoundRecorder::isAvailable();
 }

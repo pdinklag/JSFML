@@ -35,7 +35,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeDelete (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
     (JNIEnv *env, jobject obj, jstring str) {
 
-    THIS(sf::Text)->SetString(sf::String(JavaString::getUnicode(env, str)));
+    THIS(sf::Text)->setString(sf::String(JavaString::getUnicode(env, str)));
 }
 
 /*
@@ -46,7 +46,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetFont
     (JNIEnv *env, jobject obj, jobject font) {
 
-    THIS(sf::Text)->SetFont(*JSFML::NativeObject::GetPointer<sf::Font>(env, font));
+    THIS(sf::Text)->setFont(*JSFML::NativeObject::GetPointer<sf::Font>(env, font));
 }
 
 /*
@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetFont
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setCharacterSize
     (JNIEnv *env, jobject obj, jint size) {
 
-    THIS(sf::Text)->SetCharacterSize(size);
+    THIS(sf::Text)->setCharacterSize(size);
 }
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setCharacterSize
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setStyle
     (JNIEnv *env, jobject obj, jint style) {
 
-    THIS(sf::Text)->SetStyle(style);
+    THIS(sf::Text)->setStyle(style);
 }
 
 /*
@@ -77,7 +77,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setStyle
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::Text)->SetColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::Text)->setColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -86,7 +86,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor (JNIEnv *env,
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getCharacterSize (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->GetCharacterSize();
+    return THIS(sf::Text)->getCharacterSize();
 }
 
 /*
@@ -95,7 +95,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getCharacterSize (JNIEnv *en
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getStyle (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->GetStyle();
+    return THIS(sf::Text)->getStyle();
 }
 
 /*
@@ -104,7 +104,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getStyle (JNIEnv *env, jobje
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::Text)->GetColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::Text)->getColor());
 }
 
 /*
@@ -113,7 +113,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getColor (JNIEnv *env, jo
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->GetLocalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->getLocalBounds());
 }
 
 /*
@@ -122,7 +122,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getLocalBounds (JNIEnv *e
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->GetGlobalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->getGlobalBounds());
 }
 
 /*
@@ -131,7 +131,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getGlobalBounds (JNIEnv *
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->SetPosition(x, y);
+    THIS(sf::Text)->setPosition(x, y);
 }
 
 /*
@@ -140,7 +140,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setPosition (JNIEnv *env, jo
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::Text)->SetRotation(angle);
+    THIS(sf::Text)->setRotation(angle);
 }
 
 /*
@@ -149,7 +149,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setRotation (JNIEnv *env, jo
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->SetScale(x, y);
+    THIS(sf::Text)->setScale(x, y);
 }
 
 /*
@@ -158,7 +158,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setScale (JNIEnv *env, jobje
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->SetOrigin(x, y);
+    THIS(sf::Text)->setOrigin(x, y);
 }
 
 /*
@@ -167,7 +167,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setOrigin (JNIEnv *env, jobj
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->GetPosition());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getPosition());
 }
 
 /*
@@ -176,7 +176,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getPosition (JNIEnv *env,
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Text_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->GetRotation();
+    return THIS(sf::Text)->getRotation();
 }
 
 /*
@@ -185,7 +185,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Text_getRotation (JNIEnv *env, 
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->GetScale());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getScale());
 }
 
 /*
@@ -194,7 +194,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getScale (JNIEnv *env, jo
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->GetOrigin());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getOrigin());
 }
 
 /*
@@ -203,7 +203,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getOrigin (JNIEnv *env, j
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->Move(x, y);
+    THIS(sf::Text)->move(x, y);
 }
 
 /*
@@ -212,7 +212,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_move (JNIEnv *env, jobject o
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::Text)->Rotate(angle);
+   THIS(sf::Text)->rotate(angle);
 }
 
 /*
@@ -221,7 +221,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_rotate (JNIEnv *env, jobject
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->Scale(x, y);
+    THIS(sf::Text)->scale(x, y);
 }
 
 /*
@@ -230,7 +230,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_scale (JNIEnv *env, jobject 
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->GetTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->getTransform());
 }
 
 /*
@@ -239,5 +239,5 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getTransform (JNIEnv *env
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->GetInverseTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->getInverseTransform());
 }

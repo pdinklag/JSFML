@@ -35,7 +35,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeDelete (JNIEnv 
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPoint
     (JNIEnv *env, jobject obj, jint i, jobject v) {
 
-    THIS(sf::ConvexShape)->SetPoint(i, JSFML::Vector2f::ToSFML(env, v));
+    THIS(sf::ConvexShape)->setPoint(i, JSFML::Vector2f::ToSFML(env, v));
 }
 
 /*
@@ -46,7 +46,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPoint
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPointCount
     (JNIEnv *env, jobject obj, jint count) {
 
-    THIS(sf::ConvexShape)->SetPointCount(count);
+    THIS(sf::ConvexShape)->setPointCount(count);
 }
 
 /*
@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPointCount
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetTexture
     (JNIEnv *env, jobject obj, jobject texture, jboolean resetRect) {
 
-     THIS(sf::ConvexShape)->SetTexture(JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
+     THIS(sf::ConvexShape)->setTexture(JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
 }
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetTexture
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetTextureRect
     (JNIEnv *env, jobject obj, jobject rect) {
 
-    THIS(sf::ConvexShape)->SetTextureRect(JSFML::IntRect::ToSFML(env, rect));
+    THIS(sf::ConvexShape)->setTextureRect(JSFML::IntRect::ToSFML(env, rect));
 }
 
 /*
@@ -79,7 +79,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetTextureRect
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetFillColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::ConvexShape)->SetFillColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::ConvexShape)->setFillColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -90,7 +90,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetFillColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetOutlineColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::ConvexShape)->SetOutlineColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::ConvexShape)->setOutlineColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -101,7 +101,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetOutlineColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setOutlineThickness
     (JNIEnv *env, jobject obj, jfloat thickness) {
 
-    THIS(sf::ConvexShape)->SetOutlineThickness(thickness);
+    THIS(sf::ConvexShape)->setOutlineThickness(thickness);
 }
 
 /*
@@ -110,7 +110,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setOutlineThickness
  * Signature: ()Lorg/jsfml/graphics/IntRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getTextureRect (JNIEnv *env, jobject obj) {
-    return JSFML::IntRect::FromSFML(env, THIS(sf::ConvexShape)->GetTextureRect());
+    return JSFML::IntRect::FromSFML(env, THIS(sf::ConvexShape)->getTextureRect());
 }
 
 /*
@@ -119,7 +119,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getTextureRect (JN
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getFillColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::ConvexShape)->GetFillColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::ConvexShape)->getFillColor());
 }
 
 /*
@@ -128,7 +128,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getFillColor (JNIE
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getOutlineColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::ConvexShape)->GetOutlineColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::ConvexShape)->getOutlineColor());
 }
 
 /*
@@ -137,7 +137,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getOutlineColor (J
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_ConvexShape_getOutlineThickness (JNIEnv *env, jobject obj) {
-    return THIS(sf::ConvexShape)->GetOutlineThickness();
+    return THIS(sf::ConvexShape)->getOutlineThickness();
 }
 
 /*
@@ -146,7 +146,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_ConvexShape_getOutlineThickness
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_ConvexShape_getPointCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::ConvexShape)->GetPointCount();
+    return THIS(sf::ConvexShape)->getPointCount();
 }
 
 /*
@@ -157,7 +157,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_ConvexShape_getPointCount (JNIEnv
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_nativeGetPoint
     (JNIEnv * env, jobject obj, jint i) {
 
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->GetPoint(i));
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->getPoint(i));
 }
 
 /*
@@ -166,7 +166,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_nativeGetPoint
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::ConvexShape)->GetLocalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::ConvexShape)->getLocalBounds());
 }
 
 /*
@@ -175,7 +175,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getLocalBounds (JN
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::ConvexShape)->GetGlobalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::ConvexShape)->getGlobalBounds());
 }
 
 /*
@@ -184,7 +184,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getGlobalBounds (J
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::ConvexShape)->SetPosition(x, y);
+    THIS(sf::ConvexShape)->setPosition(x, y);
 }
 
 /*
@@ -193,7 +193,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPosition (JNIEnv *
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::ConvexShape)->SetRotation(angle);
+    THIS(sf::ConvexShape)->setRotation(angle);
 }
 
 /*
@@ -202,7 +202,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setRotation (JNIEnv *
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::ConvexShape)->SetScale(x, y);
+    THIS(sf::ConvexShape)->setScale(x, y);
 }
 
 /*
@@ -211,7 +211,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setScale (JNIEnv *env
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::ConvexShape)->SetOrigin(x, y);
+    THIS(sf::ConvexShape)->setOrigin(x, y);
 }
 
 /*
@@ -220,7 +220,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setOrigin (JNIEnv *en
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->GetPosition());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->getPosition());
 }
 
 /*
@@ -229,7 +229,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getPosition (JNIEn
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_ConvexShape_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::ConvexShape)->GetRotation();
+    return THIS(sf::ConvexShape)->getRotation();
 }
 
 /*
@@ -238,7 +238,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_ConvexShape_getRotation (JNIEnv
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->GetScale());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->getScale());
 }
 
 /*
@@ -247,7 +247,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getScale (JNIEnv *
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->GetOrigin());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::ConvexShape)->getOrigin());
 }
 
 /*
@@ -256,7 +256,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getOrigin (JNIEnv 
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::ConvexShape)->Move(x, y);
+    THIS(sf::ConvexShape)->move(x, y);
 }
 
 /*
@@ -265,7 +265,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_move (JNIEnv *env, jo
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::ConvexShape)->Rotate(angle);
+   THIS(sf::ConvexShape)->rotate(angle);
 }
 
 /*
@@ -274,7 +274,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_rotate (JNIEnv *env, 
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::ConvexShape)->Scale(x, y);
+    THIS(sf::ConvexShape)->scale(x, y);
 }
 
 /*
@@ -283,7 +283,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_scale (JNIEnv *env, j
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::ConvexShape)->GetTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::ConvexShape)->getTransform());
 }
 
 /*
@@ -292,5 +292,5 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getTransform (JNIE
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::ConvexShape)->GetInverseTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::ConvexShape)->getInverseTransform());
 }

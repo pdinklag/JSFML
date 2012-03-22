@@ -30,5 +30,5 @@ sf::FloatRect JSFML::FloatRect::ToSFML(JNIEnv* env, jobject rect) {
 }
 
 jobject JSFML::FloatRect::FromSFML(JNIEnv* env, const sf::FloatRect& rect) {
-    return env->NewObject(cls, ctor, rect.Left, rect.Top, rect.Width, rect.Height);
+    return env->NewObject(cls, ctor, rect.left, rect.top, rect.width, rect.height);
 }

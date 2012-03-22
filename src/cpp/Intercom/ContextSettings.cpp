@@ -34,9 +34,9 @@ sf::ContextSettings JSFML::ContextSettings::ToSFML(JNIEnv* env, jobject contextS
 
 jobject JSFML::ContextSettings::FromSFML(JNIEnv* env, const sf::ContextSettings& context) {
 	return env->NewObject(cls, ctor,
-        context.DepthBits,
-        context.StencilBits,
-        context.AntialiasingLevel,
-        context.MajorVersion,
-        context.MinorVersion);
+        context.depthBits,
+        context.stencilBits,
+        context.antialiasingLevel,
+        context.majorVersion,
+        context.minorVersion);
 }

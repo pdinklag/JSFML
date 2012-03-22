@@ -10,7 +10,7 @@
  * Signature: (Lorg/jsfml/window/Mouse$Button;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_isButtonPressed (JNIEnv* env, jclass cls, jobject button) {
-	return sf::Mouse::IsButtonPressed((sf::Mouse::Button)JavaEnum::ordinal(env, button));
+	return sf::Mouse::isButtonPressed((sf::Mouse::Button)JavaEnum::ordinal(env, button));
 }
 
 /*
@@ -19,7 +19,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_isButtonPressed (JNIEnv* 
  * Signature: ()Lorg/jsfml/system/Vector2i;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__ (JNIEnv* env, jclass cls) {
-	return JSFML::Vector2i::FromSFML(env, sf::Mouse::GetPosition());
+	return JSFML::Vector2i::FromSFML(env, sf::Mouse::getPosition());
 }
 
 /*
@@ -28,7 +28,8 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__ (JNIEnv* env
  * Signature: (Lorg/jsfml/window/Window;)Lorg/jsfml/system/Vector2i;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__Lorg_jsfml_window_Window_2 (JNIEnv* env, jclass cls, jobject relativeTo) {
-	return JSFML::Vector2i::FromSFML(env, sf::Mouse::GetPosition(*JSFML::NativeObject::GetPointer<sf::Window>(env, relativeTo)));
+	return JSFML::Vector2i::FromSFML(env,
+	    sf::Mouse::getPosition(*JSFML::NativeObject::GetPointer<sf::Window>(env, relativeTo)));
 }
 
 /*
@@ -37,7 +38,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__Lorg_jsfml_wi
  * Signature: (Lorg/jsfml/system/Vector2i;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_setPosition__Lorg_jsfml_system_Vector2i_2 (JNIEnv* env, jclass cls, jobject position) {
-	sf::Mouse::SetPosition(JSFML::Vector2i::ToSFML(env, position));
+	sf::Mouse::setPosition(JSFML::Vector2i::ToSFML(env, position));
 }
 
 /*
@@ -46,5 +47,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_setPosition__Lorg_jsfml_syste
  * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/window/Window;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_setPosition__Lorg_jsfml_system_Vector2i_2Lorg_jsfml_window_Window_2 (JNIEnv* env, jclass cls, jobject position, jobject relativeTo) {
-	sf::Mouse::SetPosition(JSFML::Vector2i::ToSFML(env, position), *JSFML::NativeObject::GetPointer<sf::Window>(env, relativeTo));
+	sf::Mouse::setPosition(
+	    JSFML::Vector2i::ToSFML(env, position),
+	    *JSFML::NativeObject::GetPointer<sf::Window>(env, relativeTo));
 }

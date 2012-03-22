@@ -42,7 +42,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromMemory
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
 
-    jboolean result = THIS(sf::SoundBuffer)->LoadFromMemory(mem, n);
+    jboolean result = THIS(sf::SoundBuffer)->loadFromMemory(mem, n);
 
     env->ReleaseByteArrayElements(arr, mem, 0);
     return result;
@@ -59,7 +59,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSample
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jshort* samples = env->GetShortArrayElements(arr, 0);
 
-    jboolean result = THIS(sf::SoundBuffer)->LoadFromSamples(
+    jboolean result = THIS(sf::SoundBuffer)->loadFromSamples(
         (sf::Int16*)samples, n, channelCount, sampleRate);
 
     env->ReleaseShortArrayElements(arr, samples, 0);
@@ -72,7 +72,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSample
  * Signature: (Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeSaveToFile (JNIEnv *env, jobject obj, jstring fileName) {
-    return THIS(sf::SoundBuffer)->SaveToFile(std::string(JavaString::getUTF8(env, fileName)));
+    return THIS(sf::SoundBuffer)->saveToFile(std::string(JavaString::getUTF8(env, fileName)));
 }
 
 /*
@@ -83,8 +83,8 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeSaveToFile (JN
 JNIEXPORT jshortArray JNICALL Java_org_jsfml_audio_SoundBuffer_getSamples (JNIEnv *env, jobject obj) {
     sf::SoundBuffer* soundBuffer = THIS(sf::SoundBuffer);
 
-    std::size_t n = soundBuffer->GetSampleCount();
-    const sf::Int16* samples = soundBuffer->GetSamples();
+    std::size_t n = soundBuffer->getSampleCount();
+    const sf::Int16* samples = soundBuffer->getSamples();
 
     jshortArray arr = env->NewShortArray(n);
     env->SetShortArrayRegion(arr, 0, n, (jshort*)samples);
@@ -99,7 +99,7 @@ JNIEXPORT jshortArray JNICALL Java_org_jsfml_audio_SoundBuffer_getSamples (JNIEn
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::SoundBuffer)->GetSampleCount();
+    return THIS(sf::SoundBuffer)->getSampleCount();
 }
 
 /*
@@ -108,7 +108,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleCount (JNIEnv *
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleRate (JNIEnv *env, jobject obj) {
-    return THIS(sf::SoundBuffer)->GetSampleRate();
+    return THIS(sf::SoundBuffer)->getSampleRate();
 }
 
 /*
@@ -117,7 +117,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleRate (JNIEnv *e
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount (JNIEnv *env, jobject obj) {
-   return THIS(sf::SoundBuffer)->GetChannelCount();
+   return THIS(sf::SoundBuffer)->getChannelCount();
 }
 
 /*
@@ -126,5 +126,5 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount (JNIEnv 
  * Signature: ()Lorg.jsfml.system.Time
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration (JNIEnv *env, jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::SoundBuffer)->GetDuration());
+    return JSFML::Time::FromSFML(env, THIS(sf::SoundBuffer)->getDuration());
 }

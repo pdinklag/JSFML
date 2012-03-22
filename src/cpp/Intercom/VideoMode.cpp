@@ -1,7 +1,5 @@
 #include <JSFML/Intercom/VideoMode.hpp>
 
-std::vector<sf::VideoMode> JSFML::VideoMode::videoModes = sf::VideoMode::GetFullscreenModes();
-
 jclass JSFML::VideoMode::cls = 0;
 jmethodID JSFML::VideoMode::ctor = 0;
 
@@ -22,18 +20,18 @@ void JSFML::VideoMode::Init(JNIEnv* env) {
 }
 
 jobject JSFML::VideoMode::GetDesktopMode(JNIEnv* env) {
-	sf::VideoMode mode = sf::VideoMode::GetDesktopMode();
-	return env->NewObject(JSFML::VideoMode::cls, JSFML::VideoMode::ctor, mode.Width, mode.Height, mode.BitsPerPixel);
+	sf::VideoMode mode = sf::VideoMode::getDesktopMode();
+	return env->NewObject(JSFML::VideoMode::cls, JSFML::VideoMode::ctor, mode.width, mode.height, mode.bitsPerPixel);
 }
 
 jobjectArray JSFML::VideoMode::GetFullscreenModes(JNIEnv* env) {
-	std::vector<sf::VideoMode> modes = sf::VideoMode::GetFullscreenModes();
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 	jobjectArray array = env->NewObjectArray(modes.size(), JSFML::VideoMode::cls, NULL);
 
 	for(int i = 0; i < modes.size(); i++) {
 		sf::VideoMode mode = modes[i];
 		env->SetObjectArrayElement(array, i,
-		    env->NewObject(JSFML::VideoMode::cls, JSFML::VideoMode::ctor, mode.Width, mode.Height, mode.BitsPerPixel));
+		    env->NewObject(JSFML::VideoMode::cls, JSFML::VideoMode::ctor, mode.width, mode.height, mode.bitsPerPixel));
 	}
 	return array;
 }

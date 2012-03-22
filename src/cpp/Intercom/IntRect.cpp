@@ -30,5 +30,5 @@ sf::IntRect JSFML::IntRect::ToSFML(JNIEnv* env, jobject rect) {
 }
 
 jobject JSFML::IntRect::FromSFML(JNIEnv* env, const sf::IntRect& rect) {
-    return env->NewObject(cls, ctor, rect.Left, rect.Top, rect.Width, rect.Height);
+    return env->NewObject(cls, ctor, rect.left, rect.top, rect.width, rect.height);
 }

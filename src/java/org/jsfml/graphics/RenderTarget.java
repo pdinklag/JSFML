@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 /**
  * Interface for render targets.
@@ -94,18 +95,11 @@ public interface RenderTarget {
     public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states);
 
     /**
-     * Gets the width of the render region.
+     * Gets the size of the render region.
      *
-     * @return The width of the render region.
+     * @return The size of the render region.
      */
-    public int getWidth();
-
-    /**
-     * Gets the height of the render region.
-     *
-     * @return The height of the render region.
-     */
-    public int getHeight();
+    public Vector2i getSize();
 
     /**
      * Pushes the current OpenGL states and matrices to the stack.

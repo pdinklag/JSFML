@@ -6,6 +6,7 @@
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
+#include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -39,7 +40,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete (JNIEn
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_create
     (JNIEnv *env, jobject obj, jint width, jint height, jboolean depthBuffer) {
 
-    return THIS(sf::RenderTexture)->Create(width, height, depthBuffer);
+    return THIS(sf::RenderTexture)->create(width, height, depthBuffer);
 }
 
 /*
@@ -48,7 +49,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_create
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setSmooth (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderTexture)->SetSmooth(b);
+    THIS(sf::RenderTexture)->setSmooth(b);
 }
 
 /*
@@ -57,7 +58,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setSmooth (JNIEnv *
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_isSmooth (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderTexture)->IsSmooth();
+    return THIS(sf::RenderTexture)->isSmooth();
 }
 
 /*
@@ -66,7 +67,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_isSmooth (JNIEn
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setActive (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderTexture)->SetActive(b);
+    THIS(sf::RenderTexture)->setActive(b);
 }
 
 /*
@@ -75,7 +76,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setActive (JNIEnv *
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_display (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderTexture)->Display();
+    THIS(sf::RenderTexture)->display();
 }
 
 /*
@@ -84,25 +85,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_display (JNIEnv *en
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetTexture (JNIEnv *env, jobject obj) {
-    return (jlong)&THIS(sf::RenderTexture)->GetTexture();
+    return (jlong)&THIS(sf::RenderTexture)->getTexture();
 }
+
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderTexture_getWidth (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderTexture)->GetWidth();
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderTexture_getHeight (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderTexture)->GetHeight();
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_getSize (JNIEnv *env, jobject obj) {
+	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
+	return JSFML::Vector2u::FromSFML(env, THIS(sf::RenderTexture)->getSize());
 }
 
 /*
@@ -111,7 +105,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderTexture_getHeight (JNIEnv *
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeClear (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::RenderTexture)->Clear(JSFML::Color::ToSFML(env, color));
+    THIS(sf::RenderTexture)->clear(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -120,7 +114,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeClear (JNIEnv
  * Signature: (Lorg/jsfml/graphics/View;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetView (JNIEnv *env, jobject obj, jobject view) {
-    THIS(sf::RenderTexture)->SetView(*JSFML::NativeObject::GetPointer<sf::View>(env, view));
+    THIS(sf::RenderTexture)->setView(*JSFML::NativeObject::GetPointer<sf::View>(env, view));
 }
 
 /*
@@ -129,7 +123,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetView (JNIE
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetDefaultView (JNIEnv *env, jobject obj) {
-    return (jlong)&THIS(sf::RenderTexture)->GetDefaultView();
+    return (jlong)&THIS(sf::RenderTexture)->getDefaultView();
 }
 
 /*
@@ -140,7 +134,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetDefaultVi
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewport (JNIEnv *env, jobject obj, jobject view) {
     return JSFML::IntRect::FromSFML(
         env,
-        THIS(sf::RenderTexture)->GetViewport(*JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+        THIS(sf::RenderTexture)->getViewport(*JSFML::NativeObject::GetPointer<sf::View>(env, view)));
 }
 
 /*
@@ -151,7 +145,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewpor
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_convertCoords
     (JNIEnv * env, jobject obj, jfloat x, jfloat y) {
 
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderTexture)->ConvertCoords(x, y));
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderTexture)->convertCoords(x, y));
 }
 
 /*
@@ -163,7 +157,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoo
     (JNIEnv *env, jobject obj, jfloat x, jfloat y, jobject view) {
 
     return JSFML::Vector2f::FromSFML(env,
-        THIS(sf::RenderTexture)->ConvertCoords(x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+        THIS(sf::RenderTexture)->convertCoords(x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
  }
 
 /*
@@ -174,7 +168,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoo
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw__Lorg_jsfml_graphics_Drawable_2Lorg_jsfml_graphics_RenderStates_2
     (JNIEnv *env, jobject obj, jobject drawable, jobject renderStates) {
 
-    THIS(sf::RenderTexture)->Draw(
+    THIS(sf::RenderTexture)->draw(
         *JSFML::NativeObject::GetPointer<sf::Drawable>(env, drawable),
         JSFML::RenderStates::ToSFML(env, renderStates));
 }
@@ -192,7 +186,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw___3Lorg_
         for(jint i = 0; i < num; i++)
             sfVertexBuffer_RenderTexture[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
 
-        THIS(sf::RenderTexture)->Draw(
+        THIS(sf::RenderTexture)->draw(
             sfVertexBuffer_RenderTexture,
             num,
             (sf::PrimitiveType)JavaEnum::ordinal(env, type),
@@ -206,7 +200,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw___3Lorg_
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_pushGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderTexture)->PushGLStates();
+    THIS(sf::RenderTexture)->pushGLStates();
 }
 
 /*
@@ -215,7 +209,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_pushGLStates (JNIEn
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_popGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderTexture)->PopGLStates();
+    THIS(sf::RenderTexture)->popGLStates();
 }
 
 /*
@@ -224,5 +218,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_popGLStates (JNIEnv
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_resetGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderTexture)->ResetGLStates();
+    THIS(sf::RenderTexture)->resetGLStates();
 }

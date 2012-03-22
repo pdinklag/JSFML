@@ -128,19 +128,35 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderWindow_isOpen
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getPosition
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderWindow_getWidth
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getPosition
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getHeight
- * Signature: ()I
+ * Method:    nativeSetPosition
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderWindow_getHeight
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetPosition
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getSize
   (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeSetSize
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetSize
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -168,35 +184,19 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_waitEvent
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    enableVerticalSync
+ * Method:    setVerticalSyncEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableVerticalSync
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setVerticalSyncEnabled
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    showMouseCursor
+ * Method:    setMouseCursorVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_showMouseCursor
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setMouseCursorVisible
   (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    setPosition
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setPosition
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    setSize
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setSize
-  (JNIEnv *, jobject, jint, jint);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -208,18 +208,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetTitle
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    show
+ * Method:    setVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_show
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setVisible
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    enableKeyRepeat
+ * Method:    setKeyRepeatEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setKeyRepeatEnabled
   (JNIEnv *, jobject, jboolean);
 
 /*

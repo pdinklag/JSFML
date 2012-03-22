@@ -64,19 +64,35 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isOpen
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getPosition
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_window_Window_getWidth
+JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getPosition
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getHeight
- * Signature: ()I
+ * Method:    nativeSetPosition
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_window_Window_getHeight
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetPosition
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSize
   (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    nativeSetSize
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetSize
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
@@ -104,35 +120,19 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    enableVerticalSync
+ * Method:    setVerticalSyncEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_enableVerticalSync
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVerticalSyncEnabled
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    showMouseCursor
+ * Method:    setMouseCursorVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_showMouseCursor
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setMouseCursorVisible
   (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     org_jsfml_window_Window
- * Method:    setPosition
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setPosition
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     org_jsfml_window_Window
- * Method:    setSize
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setSize
-  (JNIEnv *, jobject, jint, jint);
 
 /*
  * Class:     org_jsfml_window_Window
@@ -144,18 +144,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetTitle
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    show
+ * Method:    setVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_show
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVisible
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    enableKeyRepeat
+ * Method:    setKeyRepeatEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_enableKeyRepeat
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setKeyRepeatEnabled
   (JNIEnv *, jobject, jboolean);
 
 /*

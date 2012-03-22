@@ -31,7 +31,7 @@ sf::Vertex JSFML::Vertex::ToSFML(JNIEnv* env, jobject vertex) {
 
 jobject JSFML::Vertex::FromSFML(JNIEnv* env, const sf::Vertex& vertex) {
     return env->NewObject(cls, ctor,
-		JSFML::Vector2f::FromSFML(env, vertex.Position),
-		JSFML::Color::FromSFML(env, vertex.Color),
-		JSFML::Vector2f::FromSFML(env, vertex.TexCoords));
+		JSFML::Vector2f::FromSFML(env, vertex.position),
+		JSFML::Color::FromSFML(env, vertex.color),
+		JSFML::Vector2f::FromSFML(env, vertex.texCoords));
 }

@@ -76,18 +76,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetTexture
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderTexture_getWidth
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderTexture_getHeight
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_getSize
   (JNIEnv *, jobject);
 
 /*

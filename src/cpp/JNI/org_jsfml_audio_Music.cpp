@@ -33,7 +33,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeDelete (JNIEnv *env, job
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromFile
     (JNIEnv *env, jobject obj, jstring fileName) {
 
-    return THIS(sf::Music)->OpenFromFile(std::string(JavaString::getUTF8(env, fileName)));
+    return THIS(sf::Music)->openFromFile(std::string(JavaString::getUTF8(env, fileName)));
 }
 
 /*
@@ -42,7 +42,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromFile
  * Signature: ()Lorg/jsfml/system/Time
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration (JNIEnv *env, jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::Music)->GetDuration());
+    return JSFML::Time::FromSFML(env, THIS(sf::Music)->getDuration());
 }
 
 /*
@@ -51,7 +51,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration (JNIEnv *env, j
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_play (JNIEnv *env, jobject obj) {
-	THIS(sf::Music)->Play();
+	THIS(sf::Music)->play();
 }
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_play (JNIEnv *env, jobject obj
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_pause (JNIEnv *env, jobject obj) {
-	THIS(sf::Music)->Pause();
+	THIS(sf::Music)->pause();
 }
 
 /*
@@ -69,16 +69,16 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_pause (JNIEnv *env, jobject ob
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_stop (JNIEnv *env, jobject obj) {
-	THIS(sf::Music)->Stop();
+	THIS(sf::Music)->stop();
 }
 
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    getSampleRate
- * Signature: ()I
+ * Signature: ()Ig
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_getSampleRate (JNIEnv *env, jobject obj) {
-    return THIS(sf::Music)->GetSampleRate();
+    return THIS(sf::Music)->getSampleRate();
 }
 
 /*
@@ -87,7 +87,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_getSampleRate (JNIEnv *env, jo
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_getChannelCount (JNIEnv *env, jobject obj) {
-   return THIS(sf::Music)->GetChannelCount();
+   return THIS(sf::Music)->getChannelCount();
 }
 
 /*
@@ -96,7 +96,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_getChannelCount (JNIEnv *env, 
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setLoop (JNIEnv *env, jobject obj, jboolean b) {
-	THIS(sf::Music)->SetLoop(b);
+	THIS(sf::Music)->setLoop(b);
 }
 
 /*
@@ -107,7 +107,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setLoop (JNIEnv *env, jobject 
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeSetPlayingOffset
     (JNIEnv *env, jobject obj, jobject offset) {
 
-	THIS(sf::Music)->SetPlayingOffset(JSFML::Time::ToSFML(env, offset));
+	THIS(sf::Music)->setPlayingOffset(JSFML::Time::ToSFML(env, offset));
 }
 
 /*
@@ -116,7 +116,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeSetPlayingOffset
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_isLoop (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetLoop();
+	return THIS(sf::Music)->getLoop();
 }
 
 /*
@@ -125,7 +125,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_isLoop (JNIEnv *env, jobje
  * Signature: ()Lorg/jsfml/system/Time;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPlayingOffset (JNIEnv *env, jobject obj) {
-	return JSFML::Time::FromSFML(env, THIS(sf::Music)->GetPlayingOffset());
+	return JSFML::Time::FromSFML(env, THIS(sf::Music)->getPlayingOffset());
 }
 
 /*
@@ -134,7 +134,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPlayingOffset (JNIEnv *e
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_nativeGetStatus (JNIEnv *env, jobject obj) {
-	return (jint)THIS(sf::Music)->GetStatus();
+	return (jint)THIS(sf::Music)->getStatus();
 }
 
 /*
@@ -143,7 +143,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_Music_nativeGetStatus (JNIEnv *env, 
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getPitch (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetPitch();
+	return THIS(sf::Music)->getPitch();
 }
 
 /*
@@ -152,7 +152,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getPitch (JNIEnv *env, jobje
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPitch (JNIEnv *env, jobject obj, jfloat f) {
-	THIS(sf::Music)->SetPitch(f);
+	THIS(sf::Music)->setPitch(f);
 }
 
 /*
@@ -161,7 +161,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPitch (JNIEnv *env, jobject
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getVolume (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetVolume();
+	return THIS(sf::Music)->getVolume();
 }
 
 /*
@@ -170,7 +170,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getVolume (JNIEnv *env, jobj
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setVolume (JNIEnv *env, jobject obj, jfloat f) {
-	THIS(sf::Music)->SetVolume(f);
+	THIS(sf::Music)->setVolume(f);
 }
 
 /*
@@ -179,7 +179,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setVolume (JNIEnv *env, jobjec
  * Signature: ()Lorg/jsfml/system/Vector3f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPosition (JNIEnv *env, jobject obj) {
-	return JSFML::Vector3f::FromSFML(env, THIS(sf::Music)->GetPosition());
+	return JSFML::Vector3f::FromSFML(env, THIS(sf::Music)->getPosition());
 }
 
 /*
@@ -190,7 +190,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getPosition (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPosition
     (JNIEnv *env, jobject obj, jfloat x, jfloat y, jfloat z) {
 
-	THIS(sf::Music)->SetPosition(x, y, z);
+	THIS(sf::Music)->setPosition(x, y, z);
 }
 
 /*
@@ -199,7 +199,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setPosition
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_isRelativeToListener (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->IsRelativeToListener();
+	return THIS(sf::Music)->isRelativeToListener();
 }
 
 /*
@@ -210,7 +210,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_isRelativeToListener (JNIE
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setRelativeToListener
     (JNIEnv *env, jobject obj, jboolean b) {
 
-	THIS(sf::Music)->SetRelativeToListener(b);
+	THIS(sf::Music)->setRelativeToListener(b);
 }
 
 /*
@@ -219,7 +219,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setRelativeToListener
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getMinDistance (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetMinDistance();
+	return THIS(sf::Music)->getMinDistance();
 }
 
 /*
@@ -228,7 +228,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getMinDistance (JNIEnv *env,
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setMinDistance (JNIEnv *env, jobject obj, jfloat f) {
-	THIS(sf::Music)->SetMinDistance(f);
+	THIS(sf::Music)->setMinDistance(f);
 }
 
 /*
@@ -237,7 +237,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setMinDistance (JNIEnv *env, j
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getAttenuation (JNIEnv *env, jobject obj) {
-	return THIS(sf::Music)->GetAttenuation();
+	return THIS(sf::Music)->getAttenuation();
 }
 
 /*
@@ -246,5 +246,5 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Music_getAttenuation (JNIEnv *env,
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_setAttenuation (JNIEnv *env, jobject obj, jfloat f) {
-	THIS(sf::Music)->SetAttenuation(f);
+	THIS(sf::Music)->setAttenuation(f);
 }

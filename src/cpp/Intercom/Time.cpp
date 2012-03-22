@@ -16,9 +16,9 @@ void JSFML::Time::Init(JNIEnv* env) {
 }
 
 sf::Time JSFML::Time::ToSFML(JNIEnv* env, jobject time) {
-    return sf::Microseconds(env->GetLongField(time, f_microseconds));
+    return sf::microseconds(env->GetLongField(time, f_microseconds));
 }
 
 jobject JSFML::Time::FromSFML(JNIEnv* env, const sf::Time& time) {
-    return env->NewObject(cls, ctor, (jlong)time.AsMicroseconds());
+    return env->NewObject(cls, ctor, (jlong)time.asMicroseconds());
 }

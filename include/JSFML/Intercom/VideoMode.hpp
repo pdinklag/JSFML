@@ -15,8 +15,6 @@ namespace JSFML {
             static jfieldID f_height;
             static jfieldID f_bpp;
 
-            static std::vector<sf::VideoMode> videoModes;
-
         public:
             static void Init(JNIEnv* env);
 

@@ -11,7 +11,7 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetDefaultFont (JNIEnv *env, jclass cls) {
-    return (jlong)&sf::Font::GetDefaultFont();
+    return (jlong)&sf::Font::getDefaultFont();
 }
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
 
-    if(THIS(sf::Font)->LoadFromMemory(mem, n)) {
+    if(THIS(sf::Font)->loadFromMemory(mem, n)) {
         return (jlong)mem;
     } else {
         env->ReleaseByteArrayElements(arr, mem, 0);
@@ -79,7 +79,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Font_getGlyph
     (JNIEnv *env, jobject obj, jint unicode, jint size, jboolean bold) {
 
-    return JSFML::Glyph::FromSFML(env, THIS(sf::Font)->GetGlyph((sf::Uint32)unicode, size, bold));
+    return JSFML::Glyph::FromSFML(env, THIS(sf::Font)->getGlyph((sf::Uint32)unicode, size, bold));
 }
 
 /*
@@ -90,7 +90,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Font_getGlyph
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getKerning
     (JNIEnv *env, jobject obj, jint first, jint second, jint size) {
 
-    return THIS(sf::Font)->GetKerning((sf::Uint32)first, (sf::Uint32)second, size);
+    return THIS(sf::Font)->getKerning((sf::Uint32)first, (sf::Uint32)second, size);
 }
 
 /*
@@ -101,7 +101,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getKerning
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getLineSpacing
     (JNIEnv *env, jobject obj, jint size) {
 
-    return THIS(sf::Font)->GetLineSpacing(size);
+    return THIS(sf::Font)->getLineSpacing(size);
 }
 
 /*
@@ -112,5 +112,5 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getLineSpacing
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetTexture
     (JNIEnv *env, jobject obj, jint size) {
 
-    return (jlong)&THIS(sf::Font)->GetTexture(size);
+    return (jlong)&THIS(sf::Font)->getTexture(size);
 }

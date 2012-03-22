@@ -5,6 +5,7 @@ import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.graphics.Image;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
 import java.lang.management.ManagementFactory;
@@ -173,18 +174,46 @@ public class Window extends SFMLNativeObject {
     public native boolean isOpen();
 
     /**
-     * Retrieves the width of the rendering region within the window.
+     * Gets the position of the window on the screen.
      *
-     * @return The width of the rendering region within the window.
+     * @return The position of the window on the screen.
      */
-    public native int getWidth();
+    public native Vector2i getPosition();
+
+    protected native void nativeSetPosition(Vector2i v);
 
     /**
-     * Retrieves the height of the rendering region within the window.
+     * Sets the position of the window on the screen.
      *
-     * @return The height of the rendering region within the window.
+     * @param position The position on the screen.
      */
-    public native int getHeight();
+    public void setPosition(@NotNull Vector2i position) {
+        if (position == null)
+            throw new IllegalArgumentException("position must not be null.");
+
+        nativeSetPosition(position);
+    }
+
+    /**
+     * Gets the size of the window.
+     *
+     * @return The size of the window.
+     */
+    public native Vector2i getSize();
+
+    protected native void nativeSetSize(Vector2i v);
+
+    /**
+     * Sets the size of the window.
+     *
+     * @param size The new size of the window.
+     */
+    public void setSize(@NotNull Vector2i size) {
+        if (size == null)
+            throw new IllegalArgumentException("size must not be null.");
+
+        nativeSetPosition(size);
+    }
 
     /**
      * Retrieves the context settings of the window's rendering context.
@@ -217,30 +246,14 @@ public class Window extends SFMLNativeObject {
      *
      * @param enable <tt>true</tt> to enable, <tt>false</tt> to disable.
      */
-    public native void enableVerticalSync(boolean enable);
+    public native void setVerticalSyncEnabled(boolean enable);
 
     /**
      * Determines whether the mouse cursor, if moved over the window, is visible or not.
      *
      * @param show <tt>true</tt> to make the cursor visible, <tt>false</tt> to hide it.
      */
-    public native void showMouseCursor(boolean show);
-
-    /**
-     * Sets the position of the window on the screen.
-     *
-     * @param x The X position on the screen.
-     * @param y The Y position on the screen.
-     */
-    public native void setPosition(int x, int y);
-
-    /**
-     * Sets the size of the rendering region within the window.
-     *
-     * @param width  The width of the rendering region.
-     * @param height The height of the rendering region.
-     */
-    public native void setSize(int width, int height);
+    public native void setMouseCursorVisible(boolean show);
 
     protected native void nativeSetTitle(String title);
 
@@ -261,7 +274,7 @@ public class Window extends SFMLNativeObject {
      *
      * @param show <tt>true</tt> to show the window, <tt>false</tt> to hide it.
      */
-    public native void show(boolean show);
+    public native void setVisible(boolean show);
 
     /**
      * Determines whether automatic key repeat is enabled.
@@ -271,7 +284,7 @@ public class Window extends SFMLNativeObject {
      *
      * @param enable <tt>true</tt> to enable, <tt>false</tt> to disabled.
      */
-    public native void enableKeyRepeat(boolean enable);
+    public native void setKeyRepeatEnabled(boolean enable);
 
     protected native void nativeSetIcon(Image image);
 

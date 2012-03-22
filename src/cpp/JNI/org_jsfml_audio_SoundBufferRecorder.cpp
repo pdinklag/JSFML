@@ -28,7 +28,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeDelete (JN
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeGetBuffer (JNIEnv *env, jobject obj) {
-    return (jlong)&THIS(sf::SoundBufferRecorder)->GetBuffer();
+    return (jlong)&THIS(sf::SoundBufferRecorder)->getBuffer();
 }
 
 /*
@@ -39,7 +39,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeGetBuffer
 JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_start
     (JNIEnv *env, jobject obj, jint sampleRate) {
 
-    THIS(sf::SoundBufferRecorder)->Start(sampleRate);
+    THIS(sf::SoundBufferRecorder)->start(sampleRate);
 }
 
 /*
@@ -48,7 +48,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_start
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_stop (JNIEnv *env, jobject obj) {
-    THIS(sf::SoundBufferRecorder)->Stop();
+    THIS(sf::SoundBufferRecorder)->stop();
 }
 
 /*
@@ -57,5 +57,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_stop (JNIEnv *en
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBufferRecorder_getSampleRate (JNIEnv *env, jobject obj) {
-    return THIS(sf::SoundBufferRecorder)->GetSampleRate();
+    return THIS(sf::SoundBufferRecorder)->getSampleRate();
 }

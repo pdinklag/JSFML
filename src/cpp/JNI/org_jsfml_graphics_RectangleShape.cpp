@@ -35,7 +35,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeDelete (JNIE
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetSize
     (JNIEnv *env, jobject obj, jobject size) {
 
-    THIS(sf::RectangleShape)->SetSize(JSFML::Vector2f::ToSFML(env, size));
+    THIS(sf::RectangleShape)->setSize(JSFML::Vector2f::ToSFML(env, size));
 }
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetSize
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getSize (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->GetSize());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getSize());
 }
 
 /*
@@ -55,7 +55,8 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getSize (JNIEnv
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetTexture
     (JNIEnv *env, jobject obj, jobject texture, jboolean resetRect) {
 
-     THIS(sf::RectangleShape)->SetTexture(JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
+     THIS(sf::RectangleShape)->setTexture(
+        JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
 }
 
 /*
@@ -66,7 +67,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetTexture
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetTextureRect
     (JNIEnv *env, jobject obj, jobject rect) {
 
-    THIS(sf::RectangleShape)->SetTextureRect(JSFML::IntRect::ToSFML(env, rect));
+    THIS(sf::RectangleShape)->setTextureRect(JSFML::IntRect::ToSFML(env, rect));
 }
 
 /*
@@ -77,7 +78,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetTextureRe
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetFillColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::RectangleShape)->SetFillColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::RectangleShape)->setFillColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -88,7 +89,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetFillColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetOutlineColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::RectangleShape)->SetOutlineColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::RectangleShape)->setOutlineColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -99,7 +100,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetOutlineCo
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setOutlineThickness
     (JNIEnv *env, jobject obj, jfloat thickness) {
 
-    THIS(sf::RectangleShape)->SetOutlineThickness(thickness);
+    THIS(sf::RectangleShape)->setOutlineThickness(thickness);
 }
 
 /*
@@ -108,7 +109,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setOutlineThicknes
  * Signature: ()Lorg/jsfml/graphics/IntRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTextureRect (JNIEnv *env, jobject obj) {
-    return JSFML::IntRect::FromSFML(env, THIS(sf::RectangleShape)->GetTextureRect());
+    return JSFML::IntRect::FromSFML(env, THIS(sf::RectangleShape)->getTextureRect());
 }
 
 /*
@@ -117,7 +118,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTextureRect 
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getFillColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::RectangleShape)->GetFillColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::RectangleShape)->getFillColor());
 }
 
 /*
@@ -126,7 +127,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getFillColor (J
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getOutlineColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::RectangleShape)->GetOutlineColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::RectangleShape)->getOutlineColor());
 }
 
 /*
@@ -135,7 +136,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getOutlineColor
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_RectangleShape_getOutlineThickness (JNIEnv *env, jobject obj) {
-    return THIS(sf::RectangleShape)->GetOutlineThickness();
+    return THIS(sf::RectangleShape)->getOutlineThickness();
 }
 
 /*
@@ -144,7 +145,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_RectangleShape_getOutlineThickn
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RectangleShape_getPointCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::RectangleShape)->GetPointCount();
+    return THIS(sf::RectangleShape)->getPointCount();
 }
 
 /*
@@ -155,7 +156,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RectangleShape_getPointCount (JNI
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_nativeGetPoint
     (JNIEnv * env, jobject obj, jint i) {
 
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->GetPoint(i));
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getPoint(i));
 }
 
 /*
@@ -164,7 +165,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_nativeGetPoint
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::RectangleShape)->GetLocalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::RectangleShape)->getLocalBounds());
 }
 
 /*
@@ -173,7 +174,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getLocalBounds 
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::RectangleShape)->GetGlobalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::RectangleShape)->getGlobalBounds());
 }
 
 /*
@@ -182,7 +183,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getGlobalBounds
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::RectangleShape)->SetPosition(x, y);
+    THIS(sf::RectangleShape)->setPosition(x, y);
 }
 
 /*
@@ -191,7 +192,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setPosition (JNIEn
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::RectangleShape)->SetRotation(angle);
+    THIS(sf::RectangleShape)->setRotation(angle);
 }
 
 /*
@@ -200,7 +201,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setRotation (JNIEn
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::RectangleShape)->SetScale(x, y);
+    THIS(sf::RectangleShape)->setScale(x, y);
 }
 
 /*
@@ -209,7 +210,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setScale (JNIEnv *
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::RectangleShape)->SetOrigin(x, y);
+    THIS(sf::RectangleShape)->setOrigin(x, y);
 }
 
 /*
@@ -218,7 +219,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_setOrigin (JNIEnv 
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->GetPosition());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getPosition());
 }
 
 /*
@@ -227,7 +228,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getPosition (JN
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_RectangleShape_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::RectangleShape)->GetRotation();
+    return THIS(sf::RectangleShape)->getRotation();
 }
 
 /*
@@ -236,7 +237,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_RectangleShape_getRotation (JNI
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->GetScale());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getScale());
 }
 
 /*
@@ -245,7 +246,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getScale (JNIEn
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->GetOrigin());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getOrigin());
 }
 
 /*
@@ -254,7 +255,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getOrigin (JNIE
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::RectangleShape)->Move(x, y);
+    THIS(sf::RectangleShape)->move(x, y);
 }
 
 /*
@@ -263,7 +264,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_move (JNIEnv *env,
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::RectangleShape)->Rotate(angle);
+   THIS(sf::RectangleShape)->rotate(angle);
 }
 
 /*
@@ -272,7 +273,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_rotate (JNIEnv *en
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::RectangleShape)->Scale(x, y);
+    THIS(sf::RectangleShape)->scale(x, y);
 }
 
 /*
@@ -281,7 +282,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_scale (JNIEnv *env
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::RectangleShape)->GetTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::RectangleShape)->getTransform());
 }
 
 /*
@@ -290,5 +291,5 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTransform (J
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::RectangleShape)->GetInverseTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::RectangleShape)->getInverseTransform());
 }

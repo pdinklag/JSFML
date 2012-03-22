@@ -33,7 +33,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeDelete (JNIEnv *env, 
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCreate__IILorg_jsfml_graphics_Color_2
     (JNIEnv *env, jobject obj, jint width, jint height, jobject color) {
 
-    THIS(sf::Image)->Create(width, height, JSFML::Color::ToSFML(env, color));
+    THIS(sf::Image)->create(width, height, JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -45,7 +45,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeLoadFromMemory (J
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
 
-    jboolean result = THIS(sf::Image)->LoadFromMemory(mem, n);
+    jboolean result = THIS(sf::Image)->loadFromMemory(mem, n);
 
     env->ReleaseByteArrayElements(arr, mem, 0);
     return result;
@@ -57,7 +57,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeLoadFromMemory (J
  * Signature: (Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile (JNIEnv *env, jobject obj, jstring fileName) {
-    return THIS(sf::Image)->SaveToFile(std::string(JavaString::getUTF8(env, fileName)));
+    return THIS(sf::Image)->saveToFile(std::string(JavaString::getUTF8(env, fileName)));
 }
 
 /*
@@ -66,7 +66,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile (JNIEn
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getWidth (JNIEnv *env, jobject obj) {
-    return THIS(sf::Image)->GetWidth();
+    return THIS(sf::Image)->getWidth();
 }
 
 /*
@@ -75,7 +75,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getWidth (JNIEnv *env, jobj
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getHeight (JNIEnv *env, jobject obj) {
-  return THIS(sf::Image)->GetHeight();
+  return THIS(sf::Image)->getHeight();
 }
 
 /*
@@ -86,7 +86,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getHeight (JNIEnv *env, job
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCreateMaskFromColor
     (JNIEnv *env, jobject obj, jobject color, jint alpha) {
 
-    THIS(sf::Image)->CreateMaskFromColor(JSFML::Color::ToSFML(env, color), alpha & 0xFF);
+    THIS(sf::Image)->createMaskFromColor(JSFML::Color::ToSFML(env, color), alpha & 0xFF);
 }
 
 /*
@@ -97,7 +97,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCreateMaskFromColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCopy
     (JNIEnv *env, jobject obj, jobject source, jint destX, jint destY, jobject sourceRect, jboolean applyAlpha) {
 
-    THIS(sf::Image)->Copy(
+    THIS(sf::Image)->copy(
         *JSFML::NativeObject::GetPointer<sf::Image>(env, source),
         destX, destY, JSFML::IntRect::ToSFML(env, sourceRect), applyAlpha);
 }
@@ -110,7 +110,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCopy
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSetPixel
     (JNIEnv *env, jobject obj, jint x, jint y, jobject color) {
 
-    THIS(sf::Image)->SetPixel(x, y, JSFML::Color::ToSFML(env, color));
+    THIS(sf::Image)->setPixel(x, y, JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -121,7 +121,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSetPixel
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getPixel
     (JNIEnv *env, jobject obj, jint x, jint y) {
 
-    return JSFML::Color::FromSFML(env, THIS(sf::Image)->GetPixel(x, y));
+    return JSFML::Color::FromSFML(env, THIS(sf::Image)->getPixel(x, y));
 }
 
 /*
@@ -130,7 +130,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getPixel
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_flipHorizontally (JNIEnv *env, jobject obj) {
-    THIS(sf::Image)->FlipHorizontally();
+    THIS(sf::Image)->flipHorizontally();
 }
 
 /*
@@ -139,5 +139,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_flipHorizontally (JNIEnv *e
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_flipVertically(JNIEnv *env, jobject obj) {
-    THIS(sf::Image)->FlipVertically();
+    THIS(sf::Image)->flipVertically();
 }

@@ -10,6 +10,8 @@
 #include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
+#include <JSFML/Intercom/Vector2i.hpp>
+#include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
 
@@ -43,7 +45,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete (JNIEnv
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeClear (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::RenderWindow)->Clear(JSFML::Color::ToSFML(env, color));
+    THIS(sf::RenderWindow)->clear(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -52,7 +54,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeClear (JNIEnv 
  * Signature: (Lorg/jsfml/graphics/View;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetView (JNIEnv *env, jobject obj, jobject view) {
-    THIS(sf::RenderWindow)->SetView(*JSFML::NativeObject::GetPointer<sf::View>(env, view));
+    THIS(sf::RenderWindow)->setView(*JSFML::NativeObject::GetPointer<sf::View>(env, view));
 }
 
 /*
@@ -61,7 +63,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetView (JNIEn
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetDefaultView (JNIEnv *env, jobject obj) {
-    return (jlong)&THIS(sf::RenderWindow)->GetDefaultView();
+    return (jlong)&THIS(sf::RenderWindow)->getDefaultView();
 }
 
 /*
@@ -72,7 +74,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetDefaultVie
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport (JNIEnv *env, jobject obj, jobject view) {
     return JSFML::IntRect::FromSFML(
         env,
-        THIS(sf::RenderWindow)->GetViewport(*JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+        THIS(sf::RenderWindow)->getViewport(*JSFML::NativeObject::GetPointer<sf::View>(env, view)));
 }
 
 /*
@@ -83,7 +85,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_convertCoords
     (JNIEnv * env, jobject obj, jfloat x, jfloat y) {
 
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderWindow)->ConvertCoords(x, y));
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderWindow)->convertCoords(x, y));
 }
 
 /*
@@ -95,7 +97,8 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoor
     (JNIEnv *env, jobject obj, jfloat x, jfloat y, jobject view) {
 
     return JSFML::Vector2f::FromSFML(env,
-        THIS(sf::RenderWindow)->ConvertCoords(x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+        THIS(sf::RenderWindow)->convertCoords(
+            x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
  }
 
 /*
@@ -106,7 +109,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw__Lorg_jsfml_graphics_Drawable_2Lorg_jsfml_graphics_RenderStates_2
     (JNIEnv *env, jobject obj, jobject drawable, jobject renderStates) {
 
-    THIS(sf::RenderWindow)->Draw(
+    THIS(sf::RenderWindow)->draw(
         *JSFML::NativeObject::GetPointer<sf::Drawable>(env, drawable),
         JSFML::RenderStates::ToSFML(env, renderStates));
 }
@@ -124,7 +127,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw___3Lorg_j
         for(jint i = 0; i < num; i++)
             sfVertexBuffer_RenderWindow[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
 
-        THIS(sf::RenderWindow)->Draw(
+        THIS(sf::RenderWindow)->draw(
             sfVertexBuffer_RenderWindow,
             num,
             (sf::PrimitiveType)JavaEnum::ordinal(env, type),
@@ -140,7 +143,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw___3Lorg_j
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate__Lorg_jsfml_window_VideoMode_2Ljava_lang_String_2ILorg_jsfml_window_ContextSettings_2
     (JNIEnv *env, jobject obj, jobject videoMode, jstring title, jint style, jobject settings) {
 
-    THIS(sf::RenderWindow)->Create(
+    THIS(sf::RenderWindow)->create(
         JSFML::VideoMode::ToSFML(env, videoMode),
         std::string(JavaString::getUTF8(env, title)),
         (sf::Uint32)style,
@@ -153,7 +156,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate__Lorg_j
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_close (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderWindow)->Close();
+    THIS(sf::RenderWindow)->close();
 }
 
 /*
@@ -162,25 +165,49 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_close (JNIEnv *env, 
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderWindow_isOpen (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderWindow)->IsOpen();
+    return THIS(sf::RenderWindow)->isOpen();
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getPosition
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderWindow_getWidth (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderWindow)->GetWidth();
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getPosition (JNIEnv *env, jobject obj) {
+    return JSFML::Vector2i::FromSFML(env, THIS(sf::RenderWindow)->getPosition());
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    getHeight
- * Signature: ()I
+ * Method:    nativeSetPosition
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderWindow_getHeight (JNIEnv *env, jobject obj) {
-    return THIS(sf::RenderWindow)->GetHeight();
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetPosition
+    (JNIEnv *env, jobject obj, jobject position) {
+
+    THIS(sf::RenderWindow)->setPosition(JSFML::Vector2i::ToSFML(env, position));
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getSize (JNIEnv *env, jobject obj) {
+	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
+	return JSFML::Vector2u::FromSFML(env, THIS(sf::RenderWindow)->getSize());
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeSetSize
+ * Signature: (Lorg/jsfml/system/Vector2i;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetSize
+    (JNIEnv *env, jobject obj, jobject size) {
+
+	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
+    THIS(sf::RenderWindow)->setSize(JSFML::Vector2u::ToSFML(env, size));
 }
 
 /*
@@ -189,7 +216,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_RenderWindow_getHeight (JNIEnv *e
  * Signature: ()Lorg/jsfml/window/ContextSettings;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getSettings (JNIEnv *env, jobject obj) {
-    return JSFML::ContextSettings::FromSFML(env, THIS(sf::RenderWindow)->GetSettings());
+    return JSFML::ContextSettings::FromSFML(env, THIS(sf::RenderWindow)->getSettings());
 }
 
 /*
@@ -200,7 +227,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_getSettings (JNIE
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_pollEvent (JNIEnv *env, jobject obj) {
     sf::Event event;
 
-    if(THIS(sf::RenderWindow)->PollEvent(event))
+    if(THIS(sf::RenderWindow)->pollEvent(event))
         return JSFML::Event::FromSFML(env, event);
     else
         return NULL;
@@ -214,7 +241,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_pollEvent (JNIEnv
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_waitEvent (JNIEnv *env, jobject obj) {
     sf::Event event;
 
-    if(THIS(sf::RenderWindow)->WaitEvent(event))
+    if(THIS(sf::RenderWindow)->waitEvent(event))
         return JSFML::Event::FromSFML(env, event);
     else
         return NULL;
@@ -222,38 +249,20 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_waitEvent (JNIEnv
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    enableVerticalSync
+ * Method:    setVerticalSyncEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableVerticalSync (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderWindow)->EnableVerticalSync(b);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setVerticalSyncEnabled (JNIEnv *env, jobject obj, jboolean b) {
+    THIS(sf::RenderWindow)->setVerticalSyncEnabled(b);
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    showMouseCursor
+ * Method:    setMouseCursorVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_showMouseCursor (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderWindow)->ShowMouseCursor(b);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    setPosition
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setPosition (JNIEnv *env, jobject obj, jint x, jint y) {
-    THIS(sf::RenderWindow)->SetPosition(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    setSize
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setSize (JNIEnv *env, jobject obj, jint width, jint height) {
-   THIS(sf::RenderWindow)->SetSize(width, height);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setMouseCursorVisible (JNIEnv *env, jobject obj, jboolean b) {
+    THIS(sf::RenderWindow)->setMouseCursorVisible(b);
 }
 
 /*
@@ -262,25 +271,25 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setSize (JNIEnv *env
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetTitle (JNIEnv *env, jobject obj, jstring title) {
-    THIS(sf::RenderWindow)->SetTitle(std::string(JavaString::getUTF8(env, title)));
+    THIS(sf::RenderWindow)->setTitle(std::string(JavaString::getUTF8(env, title)));
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    show
+ * Method:    setVisible
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_show (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderWindow)->Show(b);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setVisible (JNIEnv *env, jobject obj, jboolean b) {
+    THIS(sf::RenderWindow)->setVisible(b);
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    enableKeyRepeat
+ * Method:    setKeyRepeatEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_enableKeyRepeat (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderWindow)->EnableKeyRepeat(b);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setKeyRepeatEnabled (JNIEnv *env, jobject obj, jboolean b) {
+    THIS(sf::RenderWindow)->setKeyRepeatEnabled(b);
 }
 
 /*
@@ -292,10 +301,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
     (JNIEnv * env, jobject obj, jobject jicon) {
 
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
-    THIS(sf::RenderWindow)->SetIcon(
-        icon->GetWidth(),
-        icon->GetHeight(),
-        icon->GetPixelsPtr());
+    THIS(sf::RenderWindow)->setIcon(
+        icon->getWidth(),
+        icon->getHeight(),
+        icon->getPixelsPtr());
 }
 
 /*
@@ -304,7 +313,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setActive (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderWindow)->SetActive(b);
+    THIS(sf::RenderWindow)->setActive(b);
 }
 
 /*
@@ -313,7 +322,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setActive (JNIEnv *e
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_display (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderWindow)->Display();
+    THIS(sf::RenderWindow)->display();
 }
 
 /*
@@ -322,7 +331,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_display (JNIEnv *env
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setFramerateLimit (JNIEnv *env, jobject obj, jint fps) {
-    THIS(sf::RenderWindow)->SetFramerateLimit(fps);
+    THIS(sf::RenderWindow)->setFramerateLimit(fps);
 }
 
 /*
@@ -331,7 +340,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setFramerateLimit (J
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setJoystickTreshold (JNIEnv *env, jobject obj, jfloat t) {
-    THIS(sf::RenderWindow)->SetJoystickThreshold(t);
+    THIS(sf::RenderWindow)->setJoystickThreshold(t);
 }
 
 /*
@@ -340,7 +349,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_setJoystickTreshold 
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_pushGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderWindow)->PushGLStates();
+    THIS(sf::RenderWindow)->pushGLStates();
 }
 
 /*
@@ -349,7 +358,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_pushGLStates (JNIEnv
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_popGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderWindow)->PopGLStates();
+    THIS(sf::RenderWindow)->popGLStates();
 }
 
 /*
@@ -358,5 +367,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_popGLStates (JNIEnv 
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_resetGLStates (JNIEnv *env, jobject obj) {
-    THIS(sf::RenderWindow)->ResetGLStates();
+    THIS(sf::RenderWindow)->resetGLStates();
 }

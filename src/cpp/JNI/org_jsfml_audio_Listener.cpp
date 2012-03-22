@@ -12,7 +12,7 @@
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setGlobalVolume
     (JNIEnv *env, jclass cls, jfloat vol) {
 
-    sf::Listener::SetGlobalVolume(vol);
+    sf::Listener::setGlobalVolume(vol);
 }
 
 /*
@@ -21,7 +21,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setGlobalVolume
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Listener_getGlobalVolume (JNIEnv *env, jclass cls) {
-    return sf::Listener::GetGlobalVolume();
+    return sf::Listener::getGlobalVolume();
 }
 
 /*
@@ -32,7 +32,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Listener_getGlobalVolume (JNIEnv *
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setPosition
     (JNIEnv *env , jclass cls, jfloat x, jfloat y, jfloat z) {
 
-    sf::Listener::SetPosition(x, y, z);
+    sf::Listener::setPosition(x, y, z);
 }
 
 /*
@@ -41,7 +41,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setPosition
  * Signature: ()Lorg/jsfml/system/Vector3f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getPosition (JNIEnv *env, jclass cls) {
-    return JSFML::Vector3f::FromSFML(env, sf::Listener::GetPosition());
+    return JSFML::Vector3f::FromSFML(env, sf::Listener::getPosition());
 }
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getPosition (JNIEnv *env
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setDirection
     (JNIEnv *env , jclass cls, jfloat x, jfloat y, jfloat z) {
 
-    sf::Listener::SetDirection(x, y, z);
+    sf::Listener::setDirection(x, y, z);
 }
 
 /*
@@ -61,5 +61,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setDirection
  * Signature: ()Lorg/jsfml/system/Vector3f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getDirection (JNIEnv *env, jclass cls) {
-    return JSFML::Vector3f::FromSFML(env, sf::Listener::GetDirection());
+    return JSFML::Vector3f::FromSFML(env, sf::Listener::getDirection());
 }

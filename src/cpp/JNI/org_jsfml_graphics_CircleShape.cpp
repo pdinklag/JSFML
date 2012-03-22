@@ -35,7 +35,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeDelete (JNIEnv 
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setRadius
     (JNIEnv *env, jobject obj, jfloat radius) {
 
-    THIS(sf::CircleShape)->SetRadius(radius);
+    THIS(sf::CircleShape)->setRadius(radius);
 }
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setRadius
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getRadius (JNIEnv *env, jobject obj) {
-    return THIS(sf::CircleShape)->GetRadius();
+    return THIS(sf::CircleShape)->getRadius();
 }
 
 /*
@@ -55,7 +55,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getRadius (JNIEnv *
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setPointCount
     (JNIEnv *env, jobject obj, jint count) {
 
-    THIS(sf::CircleShape)->SetPointCount(count);
+    THIS(sf::CircleShape)->setPointCount(count);
 }
 
 /*
@@ -66,7 +66,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setPointCount
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetTexture
     (JNIEnv *env, jobject obj, jobject texture, jboolean resetRect) {
 
-     THIS(sf::CircleShape)->SetTexture(JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
+     THIS(sf::CircleShape)->setTexture(JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), resetRect);
 }
 
 /*
@@ -77,7 +77,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetTexture
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetTextureRect
     (JNIEnv *env, jobject obj, jobject rect) {
 
-    THIS(sf::CircleShape)->SetTextureRect(JSFML::IntRect::ToSFML(env, rect));
+    THIS(sf::CircleShape)->setTextureRect(JSFML::IntRect::ToSFML(env, rect));
 }
 
 /*
@@ -88,7 +88,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetTextureRect
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetFillColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::CircleShape)->SetFillColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::CircleShape)->setFillColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -99,7 +99,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetFillColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetOutlineColor
     (JNIEnv *env, jobject obj, jobject color) {
 
-    THIS(sf::CircleShape)->SetOutlineColor(JSFML::Color::ToSFML(env, color));
+    THIS(sf::CircleShape)->setOutlineColor(JSFML::Color::ToSFML(env, color));
 }
 
 /*
@@ -110,7 +110,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetOutlineColor
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setOutlineThickness
     (JNIEnv *env, jobject obj, jfloat thickness) {
 
-    THIS(sf::CircleShape)->SetOutlineThickness(thickness);
+    THIS(sf::CircleShape)->setOutlineThickness(thickness);
 }
 
 /*
@@ -119,7 +119,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setOutlineThickness
  * Signature: ()Lorg/jsfml/graphics/IntRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getTextureRect (JNIEnv *env, jobject obj) {
-    return JSFML::IntRect::FromSFML(env, THIS(sf::CircleShape)->GetTextureRect());
+    return JSFML::IntRect::FromSFML(env, THIS(sf::CircleShape)->getTextureRect());
 }
 
 /*
@@ -128,7 +128,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getTextureRect (JN
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getFillColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::CircleShape)->GetFillColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::CircleShape)->getFillColor());
 }
 
 /*
@@ -137,7 +137,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getFillColor (JNIE
  * Signature: ()Lorg/jsfml/graphics/Color;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getOutlineColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::CircleShape)->GetOutlineColor());
+    return JSFML::Color::FromSFML(env, THIS(sf::CircleShape)->getOutlineColor());
 }
 
 /*
@@ -146,7 +146,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getOutlineColor (J
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getOutlineThickness (JNIEnv *env, jobject obj) {
-    return THIS(sf::CircleShape)->GetOutlineThickness();
+    return THIS(sf::CircleShape)->getOutlineThickness();
 }
 
 /*
@@ -155,7 +155,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getOutlineThickness
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_graphics_CircleShape_getPointCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::CircleShape)->GetPointCount();
+    return THIS(sf::CircleShape)->getPointCount();
 }
 
 /*
@@ -166,7 +166,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_CircleShape_getPointCount (JNIEnv
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_nativeGetPoint
     (JNIEnv * env, jobject obj, jint i) {
 
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->GetPoint(i));
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->getPoint(i));
 }
 
 /*
@@ -175,7 +175,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_nativeGetPoint
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::CircleShape)->GetLocalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::CircleShape)->getLocalBounds());
 }
 
 /*
@@ -184,7 +184,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getLocalBounds (JN
  * Signature: ()Lorg/jsfml/graphics/FloatRect;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::CircleShape)->GetGlobalBounds());
+    return JSFML::FloatRect::FromSFML(env, THIS(sf::CircleShape)->getGlobalBounds());
 }
 
 /*
@@ -193,7 +193,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getGlobalBounds (J
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::CircleShape)->SetPosition(x, y);
+    THIS(sf::CircleShape)->setPosition(x, y);
 }
 
 /*
@@ -202,7 +202,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setPosition (JNIEnv *
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::CircleShape)->SetRotation(angle);
+    THIS(sf::CircleShape)->setRotation(angle);
 }
 
 /*
@@ -211,7 +211,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setRotation (JNIEnv *
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::CircleShape)->SetScale(x, y);
+    THIS(sf::CircleShape)->setScale(x, y);
 }
 
 /*
@@ -220,7 +220,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setScale (JNIEnv *env
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::CircleShape)->SetOrigin(x, y);
+    THIS(sf::CircleShape)->setOrigin(x, y);
 }
 
 /*
@@ -229,7 +229,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setOrigin (JNIEnv *en
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->GetPosition());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->getPosition());
 }
 
 /*
@@ -238,7 +238,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getPosition (JNIEn
  * Signature: ()F
  */
 JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::CircleShape)->GetRotation();
+    return THIS(sf::CircleShape)->getRotation();
 }
 
 /*
@@ -247,7 +247,7 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getRotation (JNIEnv
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->GetScale());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->getScale());
 }
 
 /*
@@ -256,7 +256,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getScale (JNIEnv *
  * Signature: ()Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->GetOrigin());
+    return JSFML::Vector2f::FromSFML(env, THIS(sf::CircleShape)->getOrigin());
 }
 
 /*
@@ -265,7 +265,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getOrigin (JNIEnv 
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::CircleShape)->Move(x, y);
+    THIS(sf::CircleShape)->move(x, y);
 }
 
 /*
@@ -274,7 +274,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_move (JNIEnv *env, jo
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::CircleShape)->Rotate(angle);
+   THIS(sf::CircleShape)->rotate(angle);
 }
 
 /*
@@ -283,7 +283,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_rotate (JNIEnv *env, 
  * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::CircleShape)->Scale(x, y);
+    THIS(sf::CircleShape)->scale(x, y);
 }
 
 /*
@@ -292,7 +292,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_scale (JNIEnv *env, j
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::CircleShape)->GetTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::CircleShape)->getTransform());
 }
 
 /*
@@ -301,5 +301,5 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getTransform (JNIE
  * Signature: ()Lorg/jsfml/graphics/Transform;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_CircleShape_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::CircleShape)->GetInverseTransform());
+    return JSFML::Transform::FromSFML(env, THIS(sf::CircleShape)->getInverseTransform());
 }
