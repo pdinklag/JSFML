@@ -100,6 +100,6 @@ Additional Credits
 ------------------
 * [Laurent Gomila][3] - Author of SFML (http://www.sfml-dev.org/)
 
-[1]: https://github.com/mantognini
-[2]: https://github.com/pdinklag
+[1]: https://github.com/pdinklag
+[2]: https://github.com/mantognini
 [3]: https://github.com/LaurentGomila
