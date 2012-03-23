@@ -1,5 +1,6 @@
-JSFML - The Java binding to the Simple and Fast Multimedia Library
-==================================================================
+
+JSFML - Simple Fast Multimedia Library for Java
+===============================================
 
 "SFML is a free multimedia C++ API that provides you low and high level access to graphics, input, audio, etc." (Source: http://www.sfml-dev.org/)
 
@@ -86,6 +87,7 @@ Some things done in C++ are not possible in Java. This includes const references
  * Overloaded operators for SFML objects are represented by appropriately named static methods within the class in question.
  * Objects passed to JSFML methods are never modified by those.
  * Objects retrieved from SFML that should not be altered, such as the default font or a render texture's texture object, are of an invisible immutable subtype and reject any change attempts silently.
+ * Unsigned value types (e.g. `unsigned int`) will be mapped to the corresponding signed type in Java, since there are no unsigned types in Java. In cases where this conversion can cause trouble, a longer Java type might be used instead (e.g. `int` for `unsigned char`).
 
 #Credits
 
