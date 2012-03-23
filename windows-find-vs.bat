@@ -1,7 +1,7 @@
 @echo off
 REM This batch file is used by the Windows build targets to automatically find the location of the MS Visual Studio.
 
-set NOTFOUND="?"
+set UNKNOWN="?"
 set RESULT=%UNKNOWN%
 
 REM MSVC++ 2010 (10.0)
