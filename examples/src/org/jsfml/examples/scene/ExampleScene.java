@@ -74,14 +74,14 @@ public class ExampleScene implements Scene {
 
     @Override
     public void initialize(RenderTarget target) throws Exception {
-        screenWidth = target.getWidth();
-        screenHeight = target.getHeight();
+        screenWidth = target.getSize().x;
+        screenHeight = target.getSize().y;
 
         //Create background
         background.append(new Vertex(new Vector2f(0, 0), Color.RED));
-        background.append(new Vertex(new Vector2f(target.getWidth(), 0), Color.BLUE));
-        background.append(new Vertex(new Vector2f(target.getWidth(), target.getHeight()), Color.GREEN));
-        background.append(new Vertex(new Vector2f(0, target.getHeight()), Color.YELLOW));
+        background.append(new Vertex(new Vector2f(target.getSize().x, 0), Color.BLUE));
+        background.append(new Vertex(new Vector2f(target.getSize().x, target.getSize().y), Color.GREEN));
+        background.append(new Vertex(new Vector2f(0, target.getSize().y), Color.YELLOW));
 
         //Load logo
         jsfmlLogoTexture.loadFromStream(getClass().getResourceAsStream("/resources/jsfml-y_ex.png"));
@@ -90,7 +90,7 @@ public class ExampleScene implements Scene {
         //Setup logo sprite
         jsfmlLogo.setTexture(jsfmlLogoTexture);
         jsfmlLogo.setOrigin(jsfmlLogoTexture.getWidth() / 2, jsfmlLogoTexture.getHeight() / 2);
-        jsfmlLogo.setPosition(target.getWidth() / 2, target.getHeight() / 2);
+        jsfmlLogo.setPosition(target.getSize().x / 2, target.getSize().y / 2);
 
         //Load font
         terminatorFont.loadFromStream(
@@ -120,8 +120,8 @@ public class ExampleScene implements Scene {
         updateEntityText();
 
         FloatRect infoTextBounds = infoText.getGlobalBounds();
-        infoText.setPosition(5, target.getHeight() - infoTextBounds.height - 10);
-        infoTextShadow.setPosition(7, target.getHeight() - infoTextBounds.height - 8);
+        infoText.setPosition(5, target.getSize().y - infoTextBounds.height - 10);
+        infoTextShadow.setPosition(7, target.getSize().y - infoTextBounds.height - 8);
 
         //Setup FPS text
         fpsText.setFont(terminatorFont);
@@ -158,10 +158,10 @@ public class ExampleScene implements Scene {
         textBackground.setOutlineThickness(3.0f);
         textBackground.setFillColor(new Color(0, 0, 0, 128));
         textBackground.setSize(new Vector2f(
-                target.getWidth(),
+                target.getSize().x,
                 infoTextBounds.height + fpsTextBounds.height + eventTextBounds.height + 18.0f));
         textBackground.setOrigin(0, textBackground.getSize().y);
-        textBackground.setPosition(0, target.getHeight());
+        textBackground.setPosition(0, target.getSize().y);
 
         //Load and setup wave shader
         if (Shader.isAvailable()) {
@@ -185,8 +185,8 @@ public class ExampleScene implements Scene {
             noShadersText.setStyle(Text.ITALIC);
             FloatRect b = noShadersText.getGlobalBounds();
             noShadersText.setPosition(
-                    target.getWidth() - b.width - 5,
-                    target.getHeight() - b.height - 5);
+                    target.getSize().x - b.width - 5,
+                    target.getSize().y - b.height - 5);
         }
     }
 
