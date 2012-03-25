@@ -8,7 +8,7 @@ JSFML is the official Java library that provides Java applications with access t
 
 #Building
 
-Please check out this forum thread about building JSFML: http://www.sfml-dev.org/forum/viewtopic.php?p=45568
+Please check out this forum thread about building JSFML: http://en.sfml-dev.org/forums/index.php?topic=6906.msg45568#msg45568
 
 Note : to build JSFML on Mac OS X you need to install the "java for developer" tools. Moreover, you can use `java_home` utility to set JAVA_HOME variable like this : `export JAVA_HOME=`/usr/libexec/java_home` `
 
@@ -49,6 +49,8 @@ If you want to use your custom sndfile library you must have it as a dylib and r
 
     install_name_tool -id libsndfile.dylib libsndfile.dylib
 
+
+You can use sfml/bin/macosx_universal/updateBinaires.sh script to do most of this job automatically. See comment at the beginning of the script.
 
 
 #Philosophy
