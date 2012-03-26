@@ -10,47 +10,6 @@ JSFML is the official Java library that provides Java applications with access t
 
 Please check out this forum thread about building JSFML: http://www.sfml-dev.org/forum/viewtopic.php?p=45568
 
-Note : to build JSFML on Mac OS X you need to install the "java for developer" tools. Moreover, you can use `java_home` utility to set JAVA_HOME variable like this : `export JAVA_HOME=`/usr/libexec/java_home` `
-
-#Mac OS X
-
-## Known Issue
-
-JSFML currently needs a little trick to work on Mac OS X. You have to add `-XstartOnFirstThread` to the JVM launch option. For example, to run the example you would use the command `java -XstartOnFirstThread -jar jsfml-examples.jar`.
-
-## How to build SFML for JSFML
-
-If you want to use your custom version of SFML with JSFML you need to build SFML the usual way. However, when everything is built, you have to run some shell commands to make everything work as expected.
-
-For each custom SFML module rename the `libsfml-MODULE.2.0.dylib` into `libsfml-MODULE.dylib` and do :
-
-    install_name_tool -id libsfml-MODULE.dylib libsfml-MODULE.dylib \
-                      -change @executable_path/../Frameworks/libsfml-MODULE_REFERENCE_X.2.dylib @loader_path/libsfml-MODULE_REFERENCE_X.dylib \
-                     [-change @executable_path/../Frameworks/libsfml-MODULE_REFERENCE_Y.2.dylib @loader_path/libsfml-MODULE_REFERENCE_Y.dylib \ ]
-                      ...
-                      libsfml-MODULE.dylib
-
-
-e.g. if you want to use your custom graphics module you need to run :
-
-    install_name_tool -id libsfml-graphics.dylib \
-                      -change @executable_path/../Frameworks/libsfml-window.2.dylib @loader_path/libsfml-window.dylib \
-                      -change @executable_path/../Frameworks/libsfml-system.2.dylib @loader_path/libsfml-system.dylib \
-                      libsfml-graphics.dylib
-
-
-For the audio module you have to run this command in addition to the previous ones :
-
-    install_name_tool -change @executable_path/../Frameworks/sndfile.framework/Versions/A/sndfile @loader_path/libsndfile.dylib \
-                      libsfml-audio.dylib
-
-
-If you want to use your custom sndfile library you must have it as a dylib and run :
-
-    install_name_tool -id libsndfile.dylib libsndfile.dylib
-
-
-
 #Philosophy
 
 What JSFML is and is not
