@@ -48,6 +48,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_win
 
 /*
  * Class:     org_jsfml_window_Window
+ * Method:    isLegalWindowThread
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isLegalWindowThread
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_window_Window
  * Method:    close
  * Signature: ()V
  */

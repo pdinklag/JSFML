@@ -2,14 +2,10 @@ package org.jsfml.window;
 
 import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
-import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.graphics.Image;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
-
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 
 /**
  * Basic window that serves as an OpenGL target.
@@ -101,6 +97,18 @@ public class Window extends SFMLNativeObject {
     protected native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
 
     /**
+     * Checks whether the current native thread is eligibile for spawning a window.
+     * <p/>
+     * This will always be the case on Windows or Linux, but on Mac OS X, it will check whether
+     * the JVM was started in the main thread using the <tt>-XstartOnFirstThread</tt> command
+     * line parameter.
+     *
+     * @return <tt>true</tt> if the current native thread may create a window, <tt>false</tt>
+     *         otherwise.
+     */
+    private static native boolean isLegalWindowThread();
+
+    /**
      * Creates a window or re-creates it if it was already opened.
      *
      * @param mode     The video mode to use for the OpenGL context. This must be a valid video mode in case
@@ -123,13 +131,10 @@ public class Window extends SFMLNativeObject {
         if (settings == null)
             throw new IllegalArgumentException("settings must not be null.");
 
-        //On MacOSX, Java needs to be running in the main thread. Check this here.
-        if (System.getProperty("os.name").contains(SFMLNative.OS_NAME_MACOSX)) {
-            RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
-            if (!runtime.getInputArguments().contains("-XstartOnFirstThread")) {
-                throw new JSFMLError("In order to create a window on Mac OS X, you MUST run your" +
+        if (!isLegalWindowThread()) {
+                throw new JSFMLError("This thread is not allowed to create a window on this system. " +
+                        "If you are running on Mac OS X, you MUST run your" +
                         "application with the -XstartOnFirstThread command line argument!");
-            }
         }
 
         nativeCreate(mode, title, style, settings);

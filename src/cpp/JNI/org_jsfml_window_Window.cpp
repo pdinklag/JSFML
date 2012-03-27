@@ -14,6 +14,13 @@
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/Image.hpp>
 
+//used to find out the operating system
+#include <SFML/Config.hpp>
+
+#if defined(SFML_SYSTEM_MACOS)
+    #include <pthread.h>
+#endif
+
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeCreate
@@ -45,6 +52,21 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_win
         std::string(JavaString::getUTF8(env, title)),
         (sf::Uint32)style,
         JSFML::ContextSettings::ToSFML(env, settings));
+}
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    isLegalWindowThread
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isLegalWindowThread (JNIEnv *env, jclass cls) {
+
+#if defined(SFML_SYSTEM_MACOS)
+    return (pthread_main_np() != 0);
+#else
+    return true;
+#endif
+
 }
 
 /*
