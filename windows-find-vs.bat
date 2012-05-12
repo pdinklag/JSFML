@@ -26,5 +26,5 @@ echo %RESULT%
 goto:eof
 
 :regQuery
-for /F "tokens=2* delims=	 " %%A in ('reg query %~1 /v %~2') do set RESULT=%%B
+for /F "tokens=2* delims=	 " %%A in ('reg query "%~1" /v %~2') do set RESULT=%%B
 goto:eof

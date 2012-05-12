@@ -205,7 +205,10 @@
 	<!-- Phony target to determine the Microsoft Visual Studio and Windows SDK paths on Windows systems. -->
 	<target name="windows.find.paths">
 		<exec executable="windows-find-vs.bat" outputproperty="path.vs" />
+		<echo message="Located Microsoft Visual Studio at: ${path.vs}" />
+		
 		<exec executable="windows-find-winsdk.bat" outputproperty="path.winsdk" />
+		<echo message="Located Microsoft Visual Studio at: ${path.winsdk}" />
 	</target>
 	
 	<!-- Compile C++ for Windows - not to be used directly, use either win32 or win64 -->
