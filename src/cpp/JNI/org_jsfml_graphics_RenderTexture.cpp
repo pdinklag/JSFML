@@ -6,6 +6,7 @@
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
+#include <JSFML/Intercom/Vector2i.hpp>
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
@@ -139,26 +140,23 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewpor
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    convertCoords
- * Signature: (FF)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_convertCoords
-    (JNIEnv * env, jobject obj, jfloat x, jfloat y) {
-
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderTexture)->convertCoords(x, y));
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeConvertCoords
- * Signature: (FFLorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoords
-    (JNIEnv *env, jobject obj, jfloat x, jfloat y, jobject view) {
+    (JNIEnv *env, jobject obj, jobject point, jobject view) {
 
-    return JSFML::Vector2f::FromSFML(env,
-        THIS(sf::RenderTexture)->convertCoords(x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
- }
+    if(view == NULL) {
+        return JSFML::Vector2f::FromSFML(env,
+            THIS(sf::RenderTexture)->convertCoords(
+                JSFML::Vector2i::ToSFML(env, point)));
+    } else {
+        return JSFML::Vector2f::FromSFML(env,
+            THIS(sf::RenderTexture)->convertCoords(
+                JSFML::Vector2i::ToSFML(env, point),
+                *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+    }
+}
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture

@@ -79,27 +79,23 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    convertCoords
- * Signature: (FF)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_convertCoords
-    (JNIEnv * env, jobject obj, jfloat x, jfloat y) {
-
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RenderWindow)->convertCoords(x, y));
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeConvertCoords
- * Signature: (FFLorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoords
-    (JNIEnv *env, jobject obj, jfloat x, jfloat y, jobject view) {
+    (JNIEnv *env, jobject obj, jobject point, jobject view) {
 
-    return JSFML::Vector2f::FromSFML(env,
-        THIS(sf::RenderWindow)->convertCoords(
-            x, y, *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
- }
+    if(view == NULL) {
+        return JSFML::Vector2f::FromSFML(env,
+            THIS(sf::RenderWindow)->convertCoords(
+                JSFML::Vector2i::ToSFML(env, point)));
+    } else {
+        return JSFML::Vector2f::FromSFML(env,
+            THIS(sf::RenderWindow)->convertCoords(
+                JSFML::Vector2i::ToSFML(env, point),
+                *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+    }
+}
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -301,9 +297,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetIcon
     (JNIEnv * env, jobject obj, jobject jicon) {
 
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
+	sf::Vector2u iconSize = icon->getSize();
+	
     THIS(sf::RenderWindow)->setIcon(
-        icon->getWidth(),
-        icon->getHeight(),
+        iconSize.x,
+        iconSize.y,
         icon->getPixelsPtr());
 }
 

@@ -46,21 +46,19 @@ public interface RenderTarget {
     /**
      * Converts view coordinates to world space coordinates using the target's current view.
      *
-     * @param x The view X coordinate.
-     * @param y The view Y coordinate.
+     * @param point The view coordinates.
      * @return The world coordinates.
      */
-    public Vector2f convertCoords(float x, float y);
+    public Vector2f convertCoords(Vector2i point);
 
     /**
      * Converts view coordinates to world space coordinates using the given view.
      *
-     * @param x    The view X coordinate.
-     * @param y    The view Y coordinate.
+     * @param point The view coordinates.
      * @param view The view to use for conversion.
      * @return The world coordinates.
      */
-    public Vector2f convertCoords(float x, float y, View view);
+    public Vector2f convertCoords(Vector2i point, View view);
 
     /**
      * Draws a drawable object to the render target using the default render states.

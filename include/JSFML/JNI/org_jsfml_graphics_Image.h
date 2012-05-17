@@ -52,18 +52,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getWidth
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getHeight
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getSize
   (JNIEnv *, jobject);
 
 /*

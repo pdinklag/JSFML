@@ -60,18 +60,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getWidth
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getHeight
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Texture_getSize
   (JNIEnv *, jobject);
 
 /*

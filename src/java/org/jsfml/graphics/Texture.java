@@ -4,6 +4,7 @@ import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.UnsafeOperations;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Window;
 
 import java.io.File;
@@ -151,23 +152,17 @@ public class Texture extends SFMLNativeObject {
     }
 
     /**
-     * Gets the width of the texture.
+     * Gets the dimensions of the texture.
      *
-     * @return The width of the texture.
+     * @return The dimensions of the texture.
      */
-    public native int getWidth();
-
-    /**
-     * Gets the height of the texture.
-     *
-     * @return The width of the texture.
-     */
-    public native int getHeight();
+    public native Vector2i getSize();
 
     private native long nativeCopyToImage();
 
     /**
      * Copies this texture to an editable {@link Image}.
+     *
      * @return The image that contains a coyp of the texure's contents.
      */
     public Image copyToImage() {

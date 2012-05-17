@@ -116,19 +116,11 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewpor
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    convertCoords
- * Signature: (FF)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_convertCoords
-  (JNIEnv *, jobject, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeConvertCoords
- * Signature: (FFLorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoords
-  (JNIEnv *, jobject, jfloat, jfloat, jobject);
+  (JNIEnv *, jobject, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture

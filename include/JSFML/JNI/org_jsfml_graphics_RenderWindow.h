@@ -72,19 +72,11 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    convertCoords
- * Signature: (FF)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_convertCoords
-  (JNIEnv *, jobject, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeConvertCoords
- * Signature: (FFLorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoords
-  (JNIEnv *, jobject, jfloat, jfloat, jobject);
+  (JNIEnv *, jobject, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow

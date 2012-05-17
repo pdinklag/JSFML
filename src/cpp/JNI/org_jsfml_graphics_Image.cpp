@@ -4,6 +4,7 @@
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/Vector2u.hpp>
 
 #include <SFML/Graphics/Image.hpp>
 
@@ -62,20 +63,11 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile (JNIEn
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getWidth (JNIEnv *env, jobject obj) {
-    return THIS(sf::Image)->getWidth();
-}
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Image_getHeight (JNIEnv *env, jobject obj) {
-  return THIS(sf::Image)->getHeight();
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getSize (JNIEnv *env, jobject obj) {
+   return JSFML::Vector2u::FromSFML(env, THIS(sf::Image)->getSize());
 }
 
 /*

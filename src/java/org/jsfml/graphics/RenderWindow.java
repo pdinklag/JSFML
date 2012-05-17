@@ -120,17 +120,25 @@ public class RenderWindow extends Window implements RenderTarget {
         return nativeGetViewport(view);
     }
 
-    @Override
-    public native Vector2f convertCoords(float x, float y);
-
-    private native Vector2f nativeConvertCoords(float x, float y, View view);
+    private native Vector2f nativeConvertCoords(Vector2i point, View view);
 
     @Override
-    public Vector2f convertCoords(float x, float y, @NotNull View view) {
+    public Vector2f convertCoords(@NotNull Vector2i point) {
+        if (point == null)
+            throw new IllegalArgumentException("point must not be null.");
+
+        return nativeConvertCoords(point, null); //null is handled in C code
+    }
+
+    @Override
+    public Vector2f convertCoords(@NotNull Vector2i point, @NotNull View view) {
+        if (point == null)
+            throw new IllegalArgumentException("point must not be null.");
+
         if (view == null)
             throw new IllegalArgumentException("view must not be null.");
 
-        return nativeConvertCoords(x, y, view);
+        return nativeConvertCoords(point, view);
     }
 
     @Override
@@ -189,7 +197,7 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     protected native void nativeSetPosition(Vector2i position);
-    
+
     @Override
     public native Vector2i getSize();
 

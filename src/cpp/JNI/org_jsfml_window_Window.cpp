@@ -220,9 +220,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetIcon
     (JNIEnv * env, jobject obj, jobject jicon) {
 
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
+	sf::Vector2u iconSize = icon->getSize();
+	
     THIS(sf::Window)->setIcon(
-        icon->getWidth(),
-        icon->getHeight(),
+        iconSize.x,
+        iconSize.y,
         icon->getPixelsPtr());
 }
 

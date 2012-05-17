@@ -3,6 +3,7 @@ package org.jsfml.graphics;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
+import org.jsfml.system.Vector2i;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,18 +97,11 @@ public class Image extends SFMLNativeObject {
     }
 
     /**
-     * Gets the width of the image.
+     * Gets the size of the image.
      *
-     * @return The width of the image.
+     * @return The size of the image.
      */
-    public native int getWidth();
-
-    /**
-     * Gets the height of the image.
-     *
-     * @return The height of the image.
-     */
-    public native int getHeight();
+    public native Vector2i getSize();
 
     private native void nativeCreateMaskFromColor(Color color, int alpha);
 

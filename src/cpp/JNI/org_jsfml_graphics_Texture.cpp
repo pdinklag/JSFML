@@ -3,6 +3,7 @@
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/Vector2u.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
 
@@ -74,21 +75,12 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getWidth
- * Signature: ()I
+ * Method:    getSize
+ * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getWidth (JNIEnv *env, jobject obj) {
-    return THIS(sf::Texture)->getWidth();
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Texture_getSize (JNIEnv *env, jobject obj) {
+    return JSFML::Vector2u::FromSFML(env, THIS(sf::Texture)->getSize());
 }
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    getHeight
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getHeight (JNIEnv *env, jobject obj) {
-     return THIS(sf::Texture)->getHeight();
- }
 
 /*
  * Class:     org_jsfml_graphics_Texture
@@ -98,8 +90,9 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getHeight (JNIEnv *env, j
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage (JNIEnv *env, jobject obj) {
     sf::Image* image = new sf::Image();
     sf::Image copy = THIS(sf::Texture)->copyToImage();
+	sf::Vector2u copySize = copy.getSize();
 
-    image->create(copy.getWidth(), copy.getHeight(), copy.getPixelsPtr());
+    image->create(copySize.x, copySize.y, copy.getPixelsPtr());
     return (jlong)image;
 }
 
