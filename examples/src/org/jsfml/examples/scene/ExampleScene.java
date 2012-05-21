@@ -89,7 +89,7 @@ public class ExampleScene implements Scene {
 
         //Setup logo sprite
         jsfmlLogo.setTexture(jsfmlLogoTexture);
-        jsfmlLogo.setOrigin(jsfmlLogoTexture.getWidth() / 2, jsfmlLogoTexture.getHeight() / 2);
+        jsfmlLogo.setOrigin(jsfmlLogoTexture.getSize().x / 2, jsfmlLogoTexture.getSize().y / 2);
         jsfmlLogo.setPosition(target.getSize().x / 2, target.getSize().y / 2);
 
         //Load font
