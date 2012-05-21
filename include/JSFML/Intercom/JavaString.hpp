@@ -3,7 +3,7 @@
 
 #include <jni.h>
 
-#define JSTRING_MAX_LEN 1024
+#define JSTRING_MAX_LEN 65536
 
 class JavaString {
     public:
