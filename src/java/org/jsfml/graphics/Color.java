@@ -15,36 +15,36 @@ public class Color implements Cloneable, Serializable {
     /**
      * Black <tt>(RGB:0,0,0)</tt>
      */
-    public final static Color BLACK = new Color(0, 0, 0);
+    public final static Color BLACK = new ImmutableColor(0, 0, 0);
 
     /**
      * White <tt>(RGB:255,255,255)</tt>
      */
-    public final static Color WHITE = new Color(255, 255, 255);
+    public final static Color WHITE = new ImmutableColor(255, 255, 255);
     /**
      * Red <tt>(RGB:255,0,0)</tt>
      */
-    public final static Color RED = new Color(255, 0, 0);
+    public final static Color RED = new ImmutableColor(255, 0, 0);
     /**
      * Green <tt>(RGB:0,255,0)</tt>
      */
-    public final static Color GREEN = new Color(0, 255, 0);
+    public final static Color GREEN = new ImmutableColor(0, 255, 0);
     /**
      * Blue <tt>(RGB:0,0,255)</tt>
      */
-    public final static Color BLUE = new Color(0, 0, 255);
+    public final static Color BLUE = new ImmutableColor(0, 0, 255);
     /**
      * Yellow <tt>(RGB:255,255,0)</tt>
      */
-    public final static Color YELLOW = new Color(255, 255, 0);
+    public final static Color YELLOW = new ImmutableColor(255, 255, 0);
     /**
      * Magenta <tt>(RGB:255,255,0)</tt>
      */
-    public final static Color MAGENTA = new Color(255, 0, 255);
+    public final static Color MAGENTA = new ImmutableColor(255, 0, 255);
     /**
      * Cyan <tt>(RGB:0,255,255)</tt>
      */
-    public final static Color CYAN = new Color(0, 255, 255);
+    public final static Color CYAN = new ImmutableColor(0, 255, 255);
 
     /**
      * Modulates two colors by adding them to one another.
