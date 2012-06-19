@@ -45,6 +45,10 @@ public class Color implements Cloneable, Serializable {
      * Cyan <tt>(RGB:0,255,255)</tt>
      */
     public final static Color CYAN = new ImmutableColor(0, 255, 255);
+    /**
+     * Transparent <tt>(RGBA:0,0,0,0)</tt>
+     */
+    public final static Color TRANSPARENT = new ImmutableColor(0, 0, 0, 0);
 
     /**
      * Modulates two colors by adding them to one another.
