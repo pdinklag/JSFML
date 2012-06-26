@@ -119,7 +119,8 @@ public class Window extends SFMLNativeObject {
      *                 {@link Window#FULLSCREEN}, or {@link Window#NONE} for no style. {@link Window#DEFAULT}
      *                 provides a default combination of style flags.
      * @param settings The context settings to be applied to the context.
-     * @see {@link org.jsfml.window.VideoMode#isValid()}, {@link ContextSettings}
+     * @see org.jsfml.window.VideoMode#isValid()
+     * @see ContextSettings
      */
     public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
         if (mode == null)
@@ -132,9 +133,9 @@ public class Window extends SFMLNativeObject {
             throw new IllegalArgumentException("settings must not be null.");
 
         if (!isLegalWindowThread()) {
-                throw new JSFMLError("This thread is not allowed to create a window on this system. " +
-                        "If you are running on Mac OS X, you MUST run your" +
-                        "application with the -XstartOnFirstThread command line argument!");
+            throw new JSFMLError("This thread is not allowed to create a window on this system. " +
+                    "If you are running on Mac OS X, you MUST run your" +
+                    "application with the -XstartOnFirstThread command line argument!");
         }
 
         nativeCreate(mode, title, style, settings);
@@ -147,7 +148,7 @@ public class Window extends SFMLNativeObject {
      *              {@link Window#FULLSCREEN} is set.
      * @param title The window title.
      * @param style The style of the window.
-     * @see {@link org.jsfml.window.VideoMode#isValid()}
+     * @see org.jsfml.window.VideoMode#isValid()
      */
     public void create(@NotNull VideoMode mode, @NotNull String title, int style) {
         create(mode, title, style, new ContextSettings());
@@ -231,7 +232,7 @@ public class Window extends SFMLNativeObject {
      * Pops the event on top of the event stack, if any, and returns it.
      *
      * @return The event currently on top of the event stack, or <tt>null</tt> if there is none.
-     * @see {@link Window#waitEvent()} ()}
+     * @see #waitEvent()
      */
     public native Event pollEvent();
 
@@ -242,7 +243,7 @@ public class Window extends SFMLNativeObject {
      * Note that this method will block the program flow until an event is returned.
      *
      * @return The event currently on top of the event stack, or the next event that will occur.
-     * @see {@link Window#pollEvent()} ()}
+     * @see #pollEvent()
      */
     public native Event waitEvent();
 

@@ -7,7 +7,7 @@ import org.jsfml.SFMLNative;
 /**
  * Base class for events.
  *
- * @see {@link org.jsfml.window.Window#pollEvent()}
+ * @see org.jsfml.window.Window#pollEvent()
  */
 @Intercom
 public class Event {

@@ -144,7 +144,6 @@ public class Shader extends SFMLNativeObject {
      *
      * @param file       The file to load.
      * @param shaderType The shader type.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
     public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
@@ -159,7 +158,6 @@ public class Shader extends SFMLNativeObject {
      *
      * @param vertexShaderFile   The file to read the vertex shader from.
      * @param fragmentShaderFile The file to read the fragment shader from.
-     * @return <tt>true</tt> if the shader was successfully loaded, <tt>false</tt> otherwise.
      * @throws IOException In case an I/O error occurs.
      */
     public void loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
