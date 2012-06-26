@@ -7,6 +7,8 @@ import org.jsfml.graphics.Image;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
+import java.util.LinkedList;
+
 /**
  * Basic window that serves as an OpenGL target.
  */
@@ -235,6 +237,22 @@ public class Window extends SFMLNativeObject {
      * @see #waitEvent()
      */
     public native Event pollEvent();
+
+    /**
+     * Polls all events from the current event stack and returns an iterable list containing
+     * these events..
+     *
+     * @return An iterable list of the received events.
+     * @see #pollEvent()
+     */
+    public Iterable<Event> pollEvents() {
+        final LinkedList<Event> events = new LinkedList<Event>();
+
+        for (Event event = pollEvent(); event != null; event = pollEvent())
+            events.add(event);
+
+        return events;
+    }
 
     /**
      * Pops the event on top of the event stack and returns it, or waits until an event occurs and then
