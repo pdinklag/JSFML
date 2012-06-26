@@ -1,4 +1,4 @@
-<project name="JSFML">
+<project name="JSFML" default="help">
 	<description>
 		JSFML build file for Apache Ant.
 	</description>
@@ -326,5 +326,23 @@
 		<delete dir="${jsfml.out}" />
 		<delete dir="${examples.out}" />
 		<delete dir="${javadoc.out}" />
+	</target>
+	
+	<!-- Help -->
+	<target name="help" description="Display instructions on how to use this buildfile.">
+		<echo>JSFML Build Script
+==================
+
+compile -- Compiles the Java sources to out/classes
+headers -- Generates JNI headers in include/JSFML/JNI.
+javadoc -- Generates the Javadoc in javadoc.
+win32   -- Compiles and links the C++ sources for Windows 32 bit.
+win64   -- Compiles and links the C++ sources for Windows 64 bit.
+linux32 -- Compiles and links the C++ sources for Linux 32 bit.
+linux64 -- Compiles and links the C++ sources for Linux 64 bit.
+macosx  -- Compiles and links the C++ sources for Mac OS X.
+jar     -- Generates the JSFML jar file in out.
+signjar -- Signs the generated JAR file.
+clean   -- Deletes the out and javadoc directories entirely.</echo>
 	</target>
 </project>
