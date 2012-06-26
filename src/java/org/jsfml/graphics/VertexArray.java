@@ -7,8 +7,6 @@ import org.jsfml.SFMLNativeObject;
  * Defines a drawable set of one or multiple 2D primitives.
  */
 public class VertexArray extends SFMLNativeObject implements Drawable {
-    private int numVertices = 0;
-
     /**
      * Creates a new empty vertex array.
      */
@@ -59,10 +57,25 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      * @return The vertex at the given index.
      */
     public Vertex getVertex(int i) {
-        if (i < 0 || i >= numVertices)
+        if (i < 0 || i >= getVertexCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
         return nativeGetVertex(i);
+    }
+
+    /**
+     * Gets all vertices from the vertex array.
+     *
+     * @return An array containing all the vertices in the vertex array.
+     */
+    public Vertex[] getVertices() {
+        int n = getVertexCount();
+        Vertex[] vertices = new Vertex[n];
+
+        for (int i = 0; i < n; i++)
+            vertices[i] = nativeGetVertex(i);
+
+        return vertices;
     }
 
     private native void nativeSetVertex(int i, Vertex v);
@@ -77,7 +90,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
         if (vertex == null)
             throw new IllegalArgumentException("vertex must not be null.");
 
-        if (i < 0 || i >= numVertices)
+        if (i < 0 || i >= getVertexCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
         nativeSetVertex(i, vertex);
@@ -86,11 +99,10 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
     private native void nativeClear();
 
     /**
-     * Clears the vertex array.
+     * Clears the vertex array, removing all vertices from it.
      */
     public void clear() {
-        nativeClear();
-        numVertices = 0;
+        nativeClear(); //TODO simplify
     }
 
     private native void nativeResize(int n);
@@ -101,25 +113,29 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      * @param size The new size of the vertex array.
      */
     public void resize(int size) {
-        if (size <= 0)
-            throw new IllegalArgumentException("size must be greater than zero.");
+        if (size < 0)
+            throw new IllegalArgumentException("size must be non-negative.");
 
         nativeResize(size);
-        numVertices = size;
     }
 
     private native void nativeAppend(Vertex v);
 
     /**
-     * Appends a vertex to the end of the vertex array.
+     * Appends a set of vertices to the end of the vertex array.
      *
-     * @param v The vertex to append.
+     * @param vertices The vertices to add to the array.
      */
-    public void append(@NotNull Vertex v) {
-        if (v == null)
-            throw new IllegalArgumentException("vertex must not be null.");
+    public void append(@NotNull Vertex... vertices) {
+        if (vertices == null)
+            throw new IllegalArgumentException("vertices must not be null.");
 
-        nativeAppend(v);
+        for (Vertex v : vertices) {
+            if (v == null)
+                throw new IllegalArgumentException("None of the vertices may not be null.");
+
+            nativeAppend(v);
+        }
     }
 
     private native void nativeSetPrimitiveType(PrimitiveType type);
