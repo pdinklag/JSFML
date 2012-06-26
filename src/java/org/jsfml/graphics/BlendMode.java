@@ -1,7 +1,7 @@
 package org.jsfml.graphics;
 
 /**
- * Supported blending modes for drawing.
+ * Enumeration of supported blending modes for drawing.
  */
 public enum BlendMode {
     /**

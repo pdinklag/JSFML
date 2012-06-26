@@ -4,7 +4,7 @@ import org.jsfml.Intercom;
 import org.jsfml.NotNull;
 
 /**
- * Defines the states used for drawing to a {@link RenderTarget}
+ * Defines drawing properties when drawing to a {@link RenderTarget}.
  */
 @Intercom
 public class RenderStates {
@@ -28,23 +28,26 @@ public class RenderStates {
 
     /**
      * Creates a new set of render states.
-     * @param blendMode The blending mode.
+     *
+     * @param blendMode The blending mode used for drawing.
      */
-    public RenderStates(BlendMode blendMode) {
+    public RenderStates(@NotNull BlendMode blendMode) {
         setBlendMode(blendMode);
     }
 
     /**
      * Creates a new set of render states.
-     * @param transform The transform.
+     *
+     * @param transform The transformation matrix used for drawing.
      */
-    public RenderStates(Transform transform) {
+    public RenderStates(@NotNull Transform transform) {
         setTransform(transform);
     }
 
     /**
      * Creates a new set of render states.
-     * @param texture The texture.
+     *
+     * @param texture The texture used for drawing.
      */
     public RenderStates(Texture texture) {
         setTexture(texture);
@@ -52,7 +55,8 @@ public class RenderStates {
 
     /**
      * Creates a new set of render states.
-     * @param shader The shader.
+     *
+     * @param shader The shader applied to whatever is drawn using these states.
      */
     public RenderStates(Shader shader) {
         setShader(shader);
@@ -60,10 +64,11 @@ public class RenderStates {
 
     /**
      * Creates a new set of render states.
-     * @param blendMode The blending mode.
-     * @param transform The transform.
-     * @param texture The texture.
-     * @param shader The shader.
+     *
+     * @param blendMode The blending mode used for drawing.
+     * @param transform The transformation matrix used for drawing.
+     * @param texture   The texture used for drawing.
+     * @param shader    The shader applied to whatever is drawn using these states.
      */
     public RenderStates(BlendMode blendMode, Transform transform, Texture texture, Shader shader) {
         setBlendMode(blendMode);
@@ -72,40 +77,80 @@ public class RenderStates {
         setShader(shader);
     }
 
+    /**
+     * Gets the blending mode used for drawing.
+     *
+     * @return The blending mode used for drawing.
+     */
     public BlendMode getBlendMode() {
         return blendMode;
     }
 
+    /**
+     * Sets the blending mode used for drawing using these states.
+     *
+     * @param blendMode The blending mode used for drawing.
+     */
     public void setBlendMode(@NotNull BlendMode blendMode) {
-        if(blendMode == null)
+        if (blendMode == null)
             throw new IllegalArgumentException("blendMode must not be null.");
 
         this.blendMode = blendMode;
     }
 
+    /**
+     * Gets the transformation matrix used for drawing.
+     *
+     * @return The transformation matrix used for drawing.
+     */
     public Transform getTransform() {
         return transform;
     }
 
+    /**
+     * Sets the transformation matrix used for drawing using these states.
+     *
+     * @param transform The transformation matrix used for drawing.
+     */
     public void setTransform(@NotNull Transform transform) {
-        if(transform == null)
+        if (transform == null)
             throw new IllegalArgumentException("transform must not be null.");
 
         this.transform = transform;
     }
 
+    /**
+     * Gets the texture used for drawing using these states.
+     */
     public Texture getTexture() {
         return texture;
     }
 
+    /**
+     * Sets the texture used for drawing using these states.
+     *
+     * @param texture The texture used for drawing. This may be <tt>null</tt> to indicate
+     *                that no texture shall be used.
+     */
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
+    /**
+     * Gets the shader used for drawing.
+     *
+     * @return The shader used for drawing.
+     */
     public Shader getShader() {
         return shader;
     }
 
+    /**
+     * Sets the shader applied to whatever is drawn using these states.
+     *
+     * @param shader The shader used for drawing.This may be <tt>null</tt> to indicate
+     *               that no shader shall be used.
+     */
     public void setShader(Shader shader) {
         this.shader = shader;
     }
