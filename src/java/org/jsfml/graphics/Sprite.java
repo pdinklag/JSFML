@@ -73,6 +73,10 @@ public class Sprite extends Transformable implements Drawable {
 
     /**
      * Sets the portion of the texture that will be used for drawing.
+     * <p/>
+     * The width and / or height of the rectangle may be negative to indicate that the
+     * respective axis should be flipped. For example, a width of <tt>-32</tt> will
+     * result in a sprite that is 32 pixels wide and flipped horizontally.
      *
      * @param rect The texture portion.
      */
