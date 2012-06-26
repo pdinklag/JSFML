@@ -51,13 +51,8 @@ public class RectangleShape extends Shape {
      */
     public native Vector2f getSize();
 
-    private native void nativeSetTexture(Texture texture, boolean resetRect);
-
     @Override
-    public void setTexture(Texture texture, boolean resetRect) {
-        nativeSetTexture(texture, resetRect);
-        super.setTexture(texture, resetRect);
-    }
+    native void nativeSetTexture(Texture texture, boolean resetRect);
 
     @Override
     native void nativeSetTextureRect(IntRect rect);

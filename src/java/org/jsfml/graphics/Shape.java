@@ -16,6 +16,8 @@ public abstract class Shape extends Transformable implements Drawable {
         super();
     }
 
+    abstract void nativeSetTexture(Texture texture, boolean resetRect);
+
     /**
      * Sets the texture of the shape.
      * <p/>
@@ -26,6 +28,7 @@ public abstract class Shape extends Transformable implements Drawable {
      */
     public void setTexture(Texture texture, boolean resetRect) {
         this.texture = texture;
+        nativeSetTexture(texture, resetRect);
     }
 
     /**
@@ -145,6 +148,21 @@ public abstract class Shape extends Transformable implements Drawable {
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
         return nativeGetPoint(i);
+    }
+
+    /**
+     * Gets all the points of the shape.
+     *
+     * @return An array containing the points of the shape.
+     */
+    public Vector2f[] getPoints() {
+        int n = getPointCount();
+        Vector2f[] points = new Vector2f[n];
+
+        for (int i = 0; i < n; i++)
+            points[i] = nativeGetPoint(i);
+
+        return points;
     }
 
     /**
