@@ -100,7 +100,7 @@ jobject JSFML::Event::FromSFML(JNIEnv* env, const sf::Event& event) {
 			return env->NewObject(EVENT_PARAMS(KeyEvent), event.key.code, event.key.alt, event.key.shift, event.key.control, event.key.system);
 
 		case sf::Event::MouseMoved:
-			return env->NewObject(EVENT_PARAMS(MouseMoveEvent), event.mouseMove.x, event.mouseMove.x);
+			return env->NewObject(EVENT_PARAMS(MouseMoveEvent), event.mouseMove.x, event.mouseMove.y);
 
 		case sf::Event::MouseButtonPressed:
 		case sf::Event::MouseButtonReleased:
