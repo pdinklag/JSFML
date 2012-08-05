@@ -208,7 +208,7 @@
 		<echo message="Located Microsoft Visual Studio at: ${path.vs}" />
 		
 		<exec executable="windows-find-winsdk.bat" outputproperty="path.winsdk" />
-		<echo message="Located Microsoft Visual Studio at: ${path.winsdk}" />
+		<echo message="Located Windows SDK at: ${path.winsdk}" />
 	</target>
 	
 	<!-- Compile C++ for Windows - not to be used directly, use either win32 or win64 -->
