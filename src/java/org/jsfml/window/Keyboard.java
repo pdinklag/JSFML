@@ -79,7 +79,7 @@ public class Keyboard {
         DASH,
         SPACE,
         RETURN,
-        BACK,
+        BACKSPACE,
         TAB,
         PAGEUP,
         PAGEDOWN,
