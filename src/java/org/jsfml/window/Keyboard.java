@@ -19,6 +19,7 @@ public class Keyboard {
      * Key codes.
      */
     public static enum Key {
+        UNKNOWN,
         A,
         B,
         C,

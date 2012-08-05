@@ -27,7 +27,7 @@ public class KeyEvent extends Event {
      * @return The code of the key that was pressed or released.
      */
     public Keyboard.Key getKeyCode() {
-        return Keyboard.Key.values()[keyCode];
+        return Keyboard.Key.values()[keyCode + 1];
     }
 
     /**
