@@ -137,6 +137,16 @@ public class Vector2f implements Cloneable, Serializable {
     }
 
     /**
+     * Creates a new 2D vector from an integer vector.
+     * The fractions of the x and y components will be zero.
+     *
+     * @param v The vector to convert.
+     */
+    public Vector2f(Vector2i v) {
+        this((float) v.x, (float) v.y);
+    }
+
+    /**
      * Creates a new 2D vector with the given coordinates.
      *
      * @param x The X coordinate.

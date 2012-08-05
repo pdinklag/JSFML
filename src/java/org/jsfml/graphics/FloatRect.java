@@ -100,6 +100,28 @@ public class FloatRect implements Serializable {
     }
 
     /**
+     * Creates a new rectangle as a copy of another rectangle.
+     *
+     * @param rect The rectangle to copy.
+     */
+    public FloatRect(FloatRect rect) {
+        this.left = rect.left;
+        this.top = rect.top;
+        this.width = rect.width;
+        this.height = rect.height;
+    }
+
+    /**
+     * Creates a new rectangle from an integer rectangle.
+     * The fractions of the components will be set to zero.
+     *
+     * @param rect The rectangle to convert.
+     */
+    public FloatRect(IntRect rect) {
+        this((float) rect.left, (float) rect.top, (float) rect.width, (float) rect.height);
+    }
+
+    /**
      * Tests whether a point is inside the rectangle's area, including its edges.
      *
      * @param x The X coordinate of the tested point.

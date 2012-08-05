@@ -35,6 +35,7 @@ public class Vector2i implements Cloneable, Serializable {
 
     /**
      * Computes the negative of a vector.
+     *
      * @param v The vector.
      * @return A new vector, representing the negative of the given vector.
      */
@@ -68,6 +69,16 @@ public class Vector2i implements Cloneable, Serializable {
     public Vector2i(Vector2i v) {
         this.x = v.x;
         this.y = v.y;
+    }
+
+    /**
+     * Creates a new 2D vector from a floating point vector.
+     * The fractions of the x and y components will be removed in the process.
+     *
+     * @param v The vector to convert.
+     */
+    public Vector2i(Vector2f v) {
+        this((int) v.x, (int) v.y);
     }
 
     /**

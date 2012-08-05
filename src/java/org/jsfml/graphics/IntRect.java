@@ -99,6 +99,28 @@ public class IntRect implements Serializable {
     }
 
     /**
+     * Creates a new rectangle as a copy of another rectangle.
+     *
+     * @param rect The rectangle to copy.
+     */
+    public IntRect(IntRect rect) {
+        this.left = rect.left;
+        this.top = rect.top;
+        this.width = rect.width;
+        this.height = rect.height;
+    }
+
+    /**
+     * Creates a new rectangle from a floating point rectangle.
+     * The fractions of the components will be removed.
+     *
+     * @param rect The rectangle to convert.
+     */
+    public IntRect(FloatRect rect) {
+        this((int) rect.left, (int) rect.top, (int) rect.width, (int) rect.height);
+    }
+
+    /**
      * Tests whether a point is inside the rectangle's area, including its edges.
      *
      * @param x The X coordinate of the tested point.
