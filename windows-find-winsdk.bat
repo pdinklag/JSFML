@@ -1,5 +1,5 @@
 @echo off
-REM This batch file is used by the Windows build targets to automatically find the location of the MS Visual Studio.
+REM This batch file is used by the Windows build targets to automatically find the location of the Windows SDK.
 
 set UNKNOWN="?"
 set RESULT=%UNKNOWN%
