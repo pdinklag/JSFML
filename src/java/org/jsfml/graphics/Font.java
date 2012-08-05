@@ -13,22 +13,6 @@ import java.util.HashMap;
  * Class for loading character fonts.
  */
 public class Font extends SFMLNativeObject {
-    private static ImmutableFont defaultFont = null;
-
-    private static native long nativeGetDefaultFont();
-
-    /**
-     * Gets the in-built default font.
-     *
-     * @return The in-built default font.
-     */
-    public static Font getDefaultFont() {
-        if (defaultFont == null)
-            defaultFont = new ImmutableFont(nativeGetDefaultFont());
-
-        return defaultFont;
-    }
-
     private final HashMap<Integer, ImmutableTexture> textureMap = new HashMap<Integer, ImmutableTexture>();
 
     /**

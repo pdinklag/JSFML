@@ -27,7 +27,7 @@ public class Text extends Transformable implements Drawable {
      */
     public static final int UNDERLINED = 0x04;
 
-    private Font font = Font.getDefaultFont();
+    private Font font = null;
     private String string = "";
 
     /**
@@ -53,7 +53,7 @@ public class Text extends Transformable implements Drawable {
      * @param string The text string.
      * @param font   The font to use.
      */
-    public Text(String string, Font font) {
+    public Text(String string, @NotNull Font font) {
         this(string);
         setFont(font);
     }
@@ -148,7 +148,7 @@ public class Text extends Transformable implements Drawable {
     /**
      * Gets the text's current font.
      *
-     * @return The text's current font.
+     * @return The text's current font. This may be <tt>null</tt> if no font has been set yet.
      */
     public Font getFont() {
         return font;

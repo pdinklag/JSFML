@@ -7,15 +7,6 @@
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    nativeGetDefaultFont
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetDefaultFont (JNIEnv *env, jclass cls) {
-    return (jlong)&sf::Font::getDefaultFont();
-}
-
-/*
- * Class:     org_jsfml_graphics_Font
  * Method:    nativeDelete
  * Signature: ()V
  */
