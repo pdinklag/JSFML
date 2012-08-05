@@ -10,15 +10,6 @@ extern "C" {
 /* Inaccessible static: debug */
 /* Inaccessible static: numManaged */
 /* Inaccessible static: numWrapped */
-/* Inaccessible static: defaultFont */
-/*
- * Class:     org_jsfml_graphics_Font
- * Method:    nativeGetDefaultFont
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetDefaultFont
-  (JNIEnv *, jclass);
-
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeCreate
