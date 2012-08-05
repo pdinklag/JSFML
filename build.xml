@@ -177,8 +177,8 @@
 			<arg value="-shared" />
 			<arg value="-fPIC" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
-			<arg value="-Wl,-no-undefined,-L${sfml.bin}/${arch},-lstdc++,-lsfml-system,-lsfml-window,-lsfml-graphics,-lsfml-audio" />
 			<arg line="${cpp.src.files}" />
+			<arg value="-Wl,-no-undefined,-L${sfml.bin}/${arch},-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system" />
 		</exec>
 		
 		<copy todir="${cpp.out}/${arch}">
