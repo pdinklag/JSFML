@@ -9,7 +9,7 @@ Current Version
 ---------------
 The currently checked in version of SFML includes and binaries is:
 
-`Pre-2.0 as of June 28, 2012`.
+`Pre-2.0 as of August 05, 2012`.
 
 License
 -------
