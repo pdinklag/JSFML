@@ -41,16 +41,6 @@ public class Text extends Transformable implements Drawable {
      * Creates a new text.
      *
      * @param string The text string.
-     */
-    public Text(String string) {
-        this();
-        setString(string);
-    }
-
-    /**
-     * Creates a new text.
-     *
-     * @param string The text string.
      * @param font   The font to use.
      */
     public Text(String string, @NotNull Font font) {
