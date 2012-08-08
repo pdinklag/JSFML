@@ -25,8 +25,8 @@ public class ExampleScene implements Scene {
                     "Mouse wheel to scale logo\n\n" +
                     "Press A to add an entity\n" +
                     "Press D to delete an entity\n" +
-                    "Press Escape to quit");
-    private final Text instructionsTextShadow = new Text(instructionsText.getString());
+                    "Press Escape to quit", terminatorFont);
+    private final Text instructionsTextShadow = new Text(instructionsText.getString(), terminatorFont);
 
     private final Text infoText = new Text();
     private final Text infoTextShadow = new Text();
@@ -176,9 +176,9 @@ public class ExampleScene implements Scene {
             jsfmlLogoStates.setShader(waveXShader);
         } else {
             noShadersText = new Text(
-                    "Your graphics card\ndoes not support shaders,\nthe wave effect won't work!");
+                    "Your graphics card\ndoes not support shaders,\nthe wave effect won't work!",
+                    terminatorFont);
 
-            noShadersText.setFont(terminatorFont);
             noShadersText.setColor(Color.WHITE);
             noShadersText.setCharacterSize(14);
             noShadersText.setScale(0.9f, 1.0f);
