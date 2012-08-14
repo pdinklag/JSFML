@@ -43,7 +43,7 @@ public class Text extends Transformable implements Drawable {
      * @param string The text string.
      * @param font   The font to use.
      */
-    public Text(String string, @NotNull Font font) {
+    public Text(@NotNull String string, @NotNull Font font) {
         setString(string);
         setFont(font);
     }
@@ -55,7 +55,7 @@ public class Text extends Transformable implements Drawable {
      * @param font          The font to use.
      * @param characterSize The font size.
      */
-    public Text(String string, Font font, int characterSize) {
+    public Text(@NotNull String string, @NotNull Font font, int characterSize) {
         this(string, font);
         setCharacterSize(characterSize);
     }
