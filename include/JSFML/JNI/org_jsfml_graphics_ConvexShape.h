@@ -250,6 +250,14 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getTransform
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_ConvexShape_getInverseTransform
   (JNIEnv *, jobject);
 
+/*
+ * Class:     org_jsfml_graphics_ConvexShape
+ * Method:    nativeDraw
+ * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeDraw
+  (JNIEnv *, jobject, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

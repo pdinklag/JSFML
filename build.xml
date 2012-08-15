@@ -66,6 +66,7 @@
 			<class name="${jsfml.package}.graphics.Font" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RectangleShape" />
+			<class name="${jsfml.package}.graphics.RenderTarget" />
 			<class name="${jsfml.package}.graphics.RenderTexture" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
 			<class name="${jsfml.package}.graphics.Shader" />

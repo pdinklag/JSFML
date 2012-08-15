@@ -96,14 +96,10 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
         nativeSetVertex(i, vertex);
     }
 
-    private native void nativeClear();
-
     /**
      * Clears the vertex array, removing all vertices from it.
      */
-    public void clear() {
-        nativeClear(); //TODO simplify
-    }
+    public native void clear();
 
     private native void nativeResize(int n);
 
@@ -169,4 +165,17 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      * @return The axis-aligned bounding box of the shape represented by this vertex array.
      */
     public native FloatRect getBounds();
+
+    private native void nativeDraw(RenderTarget target, RenderStates states);
+
+    @Override
+    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+        if(target == null)
+            throw new IllegalArgumentException("target must not be null");
+
+        if(states == null)
+            throw new IllegalArgumentException("states must not be null");
+
+        nativeDraw(target, states);
+    }
 }

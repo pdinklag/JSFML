@@ -8,6 +8,12 @@ import org.jsfml.system.Vector2i;
  */
 public interface RenderTarget {
     /**
+     * The index of the extra pointer that will point to the <tt>sf::RenderTarget</tt>
+     * vtable offset of the underlying SFML object.
+     */
+    public static final int EXPTR_RENDER_TARGET = 0;
+
+    /**
      * Clears the render target and fills it with a constant color.
      *
      * @param color The color to fill the target with.
@@ -55,7 +61,7 @@ public interface RenderTarget {
      * Converts view coordinates to world space coordinates using the given view.
      *
      * @param point The view coordinates.
-     * @param view The view to use for conversion.
+     * @param view  The view to use for conversion.
      * @return The world coordinates.
      */
     public Vector2f convertCoords(Vector2i point, View view);

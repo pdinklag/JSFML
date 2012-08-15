@@ -35,6 +35,15 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete (JNIEn
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    nativeGetRenderTargetPtr
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetRenderTargetPtr (JNIEnv *env, jobject obj) {
+    return (jlong)dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderTexture));
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
  * Method:    create
  * Signature: (IIZ)Z
  */
@@ -156,19 +165,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoo
                 JSFML::Vector2i::ToSFML(env, point),
                 *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
     }
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw__Lorg_jsfml_graphics_Drawable_2Lorg_jsfml_graphics_RenderStates_2
-    (JNIEnv *env, jobject obj, jobject drawable, jobject renderStates) {
-
-    THIS(sf::RenderTexture)->draw(
-        *JSFML::NativeObject::GetPointer<sf::Drawable>(env, drawable),
-        JSFML::RenderStates::ToSFML(env, renderStates));
 }
 
 /*

@@ -4,9 +4,13 @@
 #include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
+#include <JSFML/JNI/org_jsfml_graphics_RenderTarget.h>
+
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 /*
@@ -207,4 +211,16 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getInverseTransform (JN
     return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->getInverseTransform());
 }
 
+/*
+ * Class:     org_jsfml_graphics_Sprite
+ * Method:    nativeDraw
+ * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDraw
+    (JNIEnv *env, jobject obj, jobject target, jobject states) {
 
+    sf::RenderTarget *sfTarget = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
+        env, target, org_jsfml_graphics_RenderTarget_EXPTR_RENDER_TARGET);
+
+    sfTarget->draw(*THIS(sf::Sprite), JSFML::RenderStates::ToSFML(env, states));
+}

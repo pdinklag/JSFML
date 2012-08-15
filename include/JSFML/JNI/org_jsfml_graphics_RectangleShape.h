@@ -250,6 +250,14 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTransform
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getInverseTransform
   (JNIEnv *, jobject);
 
+/*
+ * Class:     org_jsfml_graphics_RectangleShape
+ * Method:    nativeDraw
+ * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeDraw
+  (JNIEnv *, jobject, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

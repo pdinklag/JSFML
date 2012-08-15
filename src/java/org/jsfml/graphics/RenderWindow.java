@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
@@ -69,6 +68,13 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     protected native void nativeDelete();
+
+    private native long nativeGetRenderTargetPtr();
+
+    @Override
+    protected long[] getExtraPointers() {
+        return new long[]{nativeGetRenderTargetPtr()};
+    }
 
     private native void nativeClear(Color color);
 
@@ -146,20 +152,9 @@ public class RenderWindow extends Window implements RenderTarget {
         draw(drawable, new RenderStates());
     }
 
-    private native void nativeDraw(Drawable drawable, RenderStates states);
-
     @Override
     public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
-        if (drawable == null)
-            throw new IllegalArgumentException("drawable must not be null.");
-
-        if (!(drawable instanceof SFMLNativeObject))
-            throw new IllegalArgumentException("drawable must be a native SFML object.");
-
-        if (renderStates == null)
-            throw new IllegalArgumentException("renderStates must not be null.");
-
-        nativeDraw(drawable, renderStates);
+        drawable.draw(this, renderStates);
     }
 
     @Override

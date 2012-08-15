@@ -41,6 +41,15 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete (JNIEnv
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeGetRenderTargetPtr
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetRenderTargetPtr (JNIEnv *env, jobject obj) {
+    return (jlong)dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderWindow));
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
@@ -95,19 +104,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoor
                 JSFML::Vector2i::ToSFML(env, point),
                 *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
     }
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw__Lorg_jsfml_graphics_Drawable_2Lorg_jsfml_graphics_RenderStates_2
-    (JNIEnv *env, jobject obj, jobject drawable, jobject renderStates) {
-
-    THIS(sf::RenderWindow)->draw(
-        *JSFML::NativeObject::GetPointer<sf::Drawable>(env, drawable),
-        JSFML::RenderStates::ToSFML(env, renderStates));
 }
 
 /*

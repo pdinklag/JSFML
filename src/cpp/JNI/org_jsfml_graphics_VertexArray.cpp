@@ -3,8 +3,12 @@
 #include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
+#include <JSFML/JNI/org_jsfml_graphics_RenderTarget.h>
+
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
 /*
@@ -58,10 +62,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeSetVertex
 
 /*
  * Class:     org_jsfml_graphics_VertexArray
- * Method:    nativeClear
+ * Method:    clear
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeClear (JNIEnv *env, jobject obj) {
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_clear (JNIEnv *env, jobject obj) {
     THIS(sf::VertexArray)->clear();
 }
 
@@ -114,4 +118,18 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_nativeGetPrimitiveTyp
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_VertexArray_getBounds (JNIEnv *env, jobject obj) {
     return JSFML::FloatRect::FromSFML(env, THIS(sf::VertexArray)->getBounds());
+}
+
+/*
+ * Class:     org_jsfml_graphics_VertexArray
+ * Method:    nativeDraw
+ * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDraw
+    (JNIEnv *env, jobject obj, jobject target, jobject states) {
+
+    sf::RenderTarget *sfTarget = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
+        env, target, org_jsfml_graphics_RenderTarget_EXPTR_RENDER_TARGET);
+
+    sfTarget->draw(*THIS(sf::VertexArray), JSFML::RenderStates::ToSFML(env, states));
 }

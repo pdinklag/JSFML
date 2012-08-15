@@ -40,6 +40,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeGetRenderTargetPtr
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetRenderTargetPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */
@@ -81,17 +89,9 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoor
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw__Lorg_jsfml_graphics_Drawable_2Lorg_jsfml_graphics_RenderStates_2
-  (JNIEnv *, jobject, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
  * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw___3Lorg_jsfml_graphics_Vertex_2Lorg_jsfml_graphics_PrimitiveType_2Lorg_jsfml_graphics_RenderStates_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw
   (JNIEnv *, jobject, jobjectArray, jobject, jobject);
 
 /*

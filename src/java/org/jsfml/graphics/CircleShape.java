@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -141,4 +142,17 @@ public class CircleShape extends Shape {
 
     @Override
     public native Transform getInverseTransform();
+
+    private native void nativeDraw(RenderTarget target, RenderStates states);
+
+    @Override
+    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+        if(target == null)
+            throw new IllegalArgumentException("target must not be null");
+
+        if(states == null)
+            throw new IllegalArgumentException("states must not be null");
+
+        nativeDraw(target, states);
+    }
 }
