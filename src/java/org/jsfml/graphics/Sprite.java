@@ -54,7 +54,7 @@ public class Sprite extends Transformable implements Drawable {
      */
     public void setTexture(@NotNull Texture texture, boolean resetRect) {
         if (texture == null)
-            throw new IllegalArgumentException("texture must not be null.");
+            throw new NullPointerException("texture must not be null.");
 
         nativeSetTexture(texture);
         this.texture = texture;
@@ -82,7 +82,7 @@ public class Sprite extends Transformable implements Drawable {
      */
     public void setTextureRect(@NotNull IntRect rect) {
         if (rect == null)
-            throw new IllegalArgumentException("rect must not be null.");
+            throw new NullPointerException("rect must not be null.");
 
         nativeSetTextureRect(rect);
     }
@@ -96,7 +96,7 @@ public class Sprite extends Transformable implements Drawable {
      */
     public void setColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeSetColor(color);
     }
@@ -184,10 +184,10 @@ public class Sprite extends Transformable implements Drawable {
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
-            throw new IllegalArgumentException("target must not be null");
+            throw new NullPointerException("target must not be null");
 
         if(states == null)
-            throw new IllegalArgumentException("states must not be null");
+            throw new NullPointerException("states must not be null");
 
         nativeDraw(target, states);
     }

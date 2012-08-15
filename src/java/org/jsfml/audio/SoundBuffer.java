@@ -88,7 +88,7 @@ public class SoundBuffer extends SFMLNativeObject {
     public void loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate)
             throws IOException {
         if (samples == null)
-            throw new IllegalArgumentException("samples must not be null");
+            throw new NullPointerException("samples must not be null");
 
         if (!nativeLoadFromSamples(samples, channelCount, sampleRate))
             throw new IOException("Failed to load sound buffer from samples.");
@@ -104,7 +104,7 @@ public class SoundBuffer extends SFMLNativeObject {
      */
     public boolean saveToFile(@NotNull File file) {
         if (file == null)
-            throw new IllegalArgumentException("file must not be null");
+            throw new NullPointerException("file must not be null");
 
         return nativeSaveToFile(file.getAbsolutePath());
     }

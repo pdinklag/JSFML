@@ -39,7 +39,7 @@ public class RectangleShape extends Shape {
      */
     public void setSize(@NotNull Vector2f size) {
         if (size == null)
-            throw new IllegalArgumentException("size must not be null.");
+            throw new NullPointerException("size must not be null.");
 
         nativeSetSize(size);
     }
@@ -134,10 +134,10 @@ public class RectangleShape extends Shape {
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
-            throw new IllegalArgumentException("target must not be null");
+            throw new NullPointerException("target must not be null");
 
         if(states == null)
-            throw new IllegalArgumentException("states must not be null");
+            throw new NullPointerException("states must not be null");
 
         nativeDraw(target, states);
     }

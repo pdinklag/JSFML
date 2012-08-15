@@ -83,10 +83,10 @@ public class Shader extends SFMLNativeObject {
             throws IOException {
 
         if (source == null)
-            throw new IllegalArgumentException("source must not be null.");
+            throw new NullPointerException("source must not be null.");
 
         if (shaderType == null)
-            throw new IllegalArgumentException("shaderType must not be null.");
+            throw new NullPointerException("shaderType must not be null.");
 
         if (!nativeLoadFromSource(source, shaderType))
             throw new IOException("Failed to load shader from source.");
@@ -103,10 +103,10 @@ public class Shader extends SFMLNativeObject {
             throws IOException {
 
         if (vertexShaderSource == null)
-            throw new IllegalArgumentException("vertexShaderSource must not be null.");
+            throw new NullPointerException("vertexShaderSource must not be null.");
 
         if (fragmentShaderSource == null)
-            throw new IllegalArgumentException("fragmentShaderSource must not be null.");
+            throw new NullPointerException("fragmentShaderSource must not be null.");
 
         if (!nativeLoadFromSource(vertexShaderSource, fragmentShaderSource))
             throw new IOException("Failed to load shader from source.");
@@ -121,7 +121,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
-            throw new IllegalArgumentException("shaderType must not be null.");
+            throw new NullPointerException("shaderType must not be null.");
 
         loadFromSource(new String(StreamUtil.readStream(in)), shaderType);
     }
@@ -148,7 +148,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
-            throw new IllegalArgumentException("shaderType must not be null.");
+            throw new NullPointerException("shaderType must not be null.");
 
         loadFromSource(new String(StreamUtil.readFile(file)), shaderType);
     }
@@ -176,7 +176,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, float x) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         nativeSetParameter(name, x);
     }
@@ -192,7 +192,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, float x, float y) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         nativeSetParameter(name, x, y);
     }
@@ -219,7 +219,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, float x, float y, float z) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         nativeSetParameter(name, x, y, z);
     }
@@ -247,7 +247,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, float x, float y, float z, float w) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         nativeSetParameter(name, x, y, z, w);
     }
@@ -276,10 +276,10 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, @NotNull Transform xform) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         if (xform == null)
-            throw new IllegalArgumentException("xform must not be null.");
+            throw new NullPointerException("xform must not be null.");
 
         nativeSetParameter(name, xform);
     }
@@ -294,10 +294,10 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, @NotNull Texture texture) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         if (texture == null)
-            throw new IllegalArgumentException("texture must not be null.");
+            throw new NullPointerException("texture must not be null.");
 
         nativeSetParameter(name, texture);
     }
@@ -316,7 +316,7 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(@NotNull String name, CurrentTextureType currentTexture) {
         if (name == null)
-            throw new IllegalArgumentException("name must not be null.");
+            throw new NullPointerException("name must not be null.");
 
         nativeSetParameterCurrentTexture(name);
     }

@@ -88,7 +88,7 @@ public class Vertex implements Serializable {
      */
     public void setPosition(@NotNull Vector2f position) {
         if (position == null)
-            throw new IllegalArgumentException("position must not be null.");
+            throw new NullPointerException("position must not be null.");
 
         this.position = position;
     }
@@ -109,7 +109,7 @@ public class Vertex implements Serializable {
      */
     public void setColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         this.color = color;
     }
@@ -130,7 +130,7 @@ public class Vertex implements Serializable {
      */
     public void setTexCoords(@NotNull Vector2f texCoords) {
         if (texCoords == null)
-            throw new IllegalArgumentException("texCoords must not be null.");
+            throw new NullPointerException("texCoords must not be null.");
 
         this.texCoords = texCoords;
     }

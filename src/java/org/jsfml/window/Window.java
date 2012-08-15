@@ -126,13 +126,13 @@ public class Window extends SFMLNativeObject {
      */
     public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
         if (mode == null)
-            throw new IllegalArgumentException("mode must not be null.");
+            throw new NullPointerException("mode must not be null.");
 
         if (title == null)
-            throw new IllegalArgumentException("title must not be null.");
+            throw new NullPointerException("title must not be null.");
 
         if (settings == null)
-            throw new IllegalArgumentException("settings must not be null.");
+            throw new NullPointerException("settings must not be null.");
 
         if (!isLegalWindowThread()) {
             throw new JSFMLError("This thread is not allowed to create a window on this system. " +
@@ -197,7 +197,7 @@ public class Window extends SFMLNativeObject {
      */
     public void setPosition(@NotNull Vector2i position) {
         if (position == null)
-            throw new IllegalArgumentException("position must not be null.");
+            throw new NullPointerException("position must not be null.");
 
         nativeSetPosition(position);
     }
@@ -218,7 +218,7 @@ public class Window extends SFMLNativeObject {
      */
     public void setSize(@NotNull Vector2i size) {
         if (size == null)
-            throw new IllegalArgumentException("size must not be null.");
+            throw new NullPointerException("size must not be null.");
 
         nativeSetPosition(size);
     }
@@ -288,7 +288,7 @@ public class Window extends SFMLNativeObject {
      */
     public void setTitle(@NotNull String title) {
         if (title == null)
-            throw new IllegalArgumentException("title must not be null.");
+            throw new NullPointerException("title must not be null.");
 
         nativeSetTitle(title);
     }
@@ -319,7 +319,7 @@ public class Window extends SFMLNativeObject {
      */
     public void setIcon(@NotNull Image icon) {
         if (icon == null)
-            throw new IllegalArgumentException("icon must not be null.");
+            throw new NullPointerException("icon must not be null.");
 
         this.icon = icon; //keep a local reference
         nativeSetIcon(icon);

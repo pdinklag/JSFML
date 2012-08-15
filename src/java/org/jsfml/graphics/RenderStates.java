@@ -93,7 +93,7 @@ public class RenderStates {
      */
     public void setBlendMode(@NotNull BlendMode blendMode) {
         if (blendMode == null)
-            throw new IllegalArgumentException("blendMode must not be null.");
+            throw new NullPointerException("blendMode must not be null.");
 
         this.blendMode = blendMode;
     }
@@ -114,7 +114,7 @@ public class RenderStates {
      */
     public void setTransform(@NotNull Transform transform) {
         if (transform == null)
-            throw new IllegalArgumentException("transform must not be null.");
+            throw new NullPointerException("transform must not be null.");
 
         this.transform = transform;
     }

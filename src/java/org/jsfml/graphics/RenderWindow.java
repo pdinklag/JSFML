@@ -81,7 +81,7 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public void clear(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeClear(color);
     }
@@ -98,7 +98,7 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public void setView(@NotNull View view) {
         if (view == null)
-            throw new IllegalArgumentException("view must not be null.");
+            throw new NullPointerException("view must not be null.");
 
         this.view = view;
         nativeSetView(view);
@@ -121,7 +121,7 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public IntRect getViewport(@NotNull View view) {
         if (view == null)
-            throw new IllegalArgumentException("view must not be null.");
+            throw new NullPointerException("view must not be null.");
 
         return nativeGetViewport(view);
     }
@@ -131,7 +131,7 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public Vector2f convertCoords(@NotNull Vector2i point) {
         if (point == null)
-            throw new IllegalArgumentException("point must not be null.");
+            throw new NullPointerException("point must not be null.");
 
         return nativeConvertCoords(point, null); //null is handled in C code
     }
@@ -139,10 +139,10 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public Vector2f convertCoords(@NotNull Vector2i point, @NotNull View view) {
         if (point == null)
-            throw new IllegalArgumentException("point must not be null.");
+            throw new NullPointerException("point must not be null.");
 
         if (view == null)
-            throw new IllegalArgumentException("view must not be null.");
+            throw new NullPointerException("view must not be null.");
 
         return nativeConvertCoords(point, view);
     }
@@ -167,13 +167,13 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
         if (vertices == null)
-            throw new IllegalArgumentException("vertices must not be null.");
+            throw new NullPointerException("vertices must not be null.");
 
         if (type == null)
-            throw new IllegalArgumentException("type must not be null.");
+            throw new NullPointerException("type must not be null.");
 
         if (states == null)
-            throw new IllegalArgumentException("states must not be null.");
+            throw new NullPointerException("states must not be null.");
 
         nativeDraw(vertices, type, states);
     }

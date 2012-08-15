@@ -81,7 +81,7 @@ public class Texture extends SFMLNativeObject {
      */
     public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
         if (area == null)
-            throw new IllegalArgumentException("area must not be null.");
+            throw new NullPointerException("area must not be null.");
 
         if (!nativeLoadFromMemory(StreamUtil.readStream(in), area))
             throw new IOException("Failed to load texture from stream.");
@@ -106,7 +106,7 @@ public class Texture extends SFMLNativeObject {
      */
     public void loadFromFile(File file, @NotNull IntRect area) throws IOException {
         if (area == null)
-            throw new IllegalArgumentException("area must not be null.");
+            throw new NullPointerException("area must not be null.");
 
         if (!nativeLoadFromMemory(StreamUtil.readFile(file), area))
             throw new IOException("Failed to load texture from file: " + file);
@@ -133,10 +133,10 @@ public class Texture extends SFMLNativeObject {
      */
     public boolean loadFromImage(@NotNull Image image, @NotNull IntRect area) {
         if (image == null)
-            throw new IllegalArgumentException("image must not be null.");
+            throw new NullPointerException("image must not be null.");
 
         if (area == null)
-            throw new IllegalArgumentException("area must not be null.");
+            throw new NullPointerException("area must not be null.");
 
         return nativeLoadFromImage(image, area);
     }
@@ -183,7 +183,7 @@ public class Texture extends SFMLNativeObject {
      */
     public void update(@NotNull Image image, int x, int y) {
         if (image == null)
-            throw new IllegalArgumentException("image must not be null.");
+            throw new NullPointerException("image must not be null.");
 
         nativeUpdate(image, x, y);
     }
@@ -199,7 +199,7 @@ public class Texture extends SFMLNativeObject {
      */
     public void update(@NotNull Window window, int x, int y) {
         if (window == null)
-            throw new IllegalArgumentException("window must not be null.");
+            throw new NullPointerException("window must not be null.");
 
         nativeUpdate(window, x, y);
     }
@@ -222,7 +222,7 @@ public class Texture extends SFMLNativeObject {
      */
     public void bind(@NotNull CoordinateType coordinateType) {
         if (coordinateType == null)
-            throw new IllegalArgumentException("coordinateType must not be null.");
+            throw new NullPointerException("coordinateType must not be null.");
 
         nativeBind(coordinateType);
     }

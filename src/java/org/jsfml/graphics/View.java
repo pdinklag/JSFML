@@ -76,7 +76,7 @@ public class View extends SFMLNativeObject {
      */
     public void setViewport(@NotNull FloatRect rect) {
         if (rect == null)
-            throw new IllegalArgumentException("rect must not be null.");
+            throw new NullPointerException("rect must not be null.");
 
         nativeSetViewport(rect);
     }
@@ -90,7 +90,7 @@ public class View extends SFMLNativeObject {
      */
     public void reset(@NotNull FloatRect rect) {
         if (rect == null)
-            throw new IllegalArgumentException("rect must not be null.");
+            throw new NullPointerException("rect must not be null.");
 
         nativeReset(rect);
     }

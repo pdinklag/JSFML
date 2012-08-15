@@ -75,7 +75,7 @@ public class Text extends Transformable implements Drawable {
      */
     public void setString(@NotNull String string) {
         if (string == null)
-            throw new IllegalArgumentException("string must not be null");
+            throw new NullPointerException("string must not be null");
 
         this.string = string;
         nativeSetString(string);
@@ -90,7 +90,7 @@ public class Text extends Transformable implements Drawable {
      */
     public void setFont(@NotNull Font font) {
         if (font == null)
-            throw new IllegalArgumentException("font must not be null");
+            throw new NullPointerException("font must not be null");
 
         this.font = font;
         nativeSetFont(font);
@@ -121,7 +121,7 @@ public class Text extends Transformable implements Drawable {
      */
     public void setColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null");
+            throw new NullPointerException("color must not be null");
 
         nativeSetColor(color);
     }
@@ -241,10 +241,10 @@ public class Text extends Transformable implements Drawable {
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
-            throw new IllegalArgumentException("target must not be null");
+            throw new NullPointerException("target must not be null");
 
         if(states == null)
-            throw new IllegalArgumentException("states must not be null");
+            throw new NullPointerException("states must not be null");
 
         nativeDraw(target, states);
     }

@@ -88,7 +88,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      */
     public void setVertex(int i, @NotNull Vertex vertex) {
         if (vertex == null)
-            throw new IllegalArgumentException("vertex must not be null.");
+            throw new NullPointerException("vertex must not be null.");
 
         if (i < 0 || i >= getVertexCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
@@ -110,7 +110,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      */
     public void resize(int size) {
         if (size < 0)
-            throw new IllegalArgumentException("size must be non-negative.");
+            throw new NullPointerException("size must be non-negative.");
 
         nativeResize(size);
     }
@@ -124,11 +124,11 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      */
     public void append(@NotNull Vertex... vertices) {
         if (vertices == null)
-            throw new IllegalArgumentException("vertices must not be null.");
+            throw new NullPointerException("vertices must not be null.");
 
         for (Vertex v : vertices) {
             if (v == null)
-                throw new IllegalArgumentException("None of the vertices may not be null.");
+                throw new NullPointerException("None of the vertices must be null.");
 
             nativeAppend(v);
         }
@@ -143,7 +143,7 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
      */
     public void setPrimitiveType(@NotNull PrimitiveType type) {
         if (type == null)
-            throw new IllegalArgumentException("type must not be null.");
+            throw new NullPointerException("type must not be null.");
 
         nativeSetPrimitiveType(type);
     }
@@ -171,10 +171,10 @@ public class VertexArray extends SFMLNativeObject implements Drawable {
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
-            throw new IllegalArgumentException("target must not be null");
+            throw new NullPointerException("target must not be null");
 
         if(states == null)
-            throw new IllegalArgumentException("states must not be null");
+            throw new NullPointerException("states must not be null");
 
         nativeDraw(target, states);
     }

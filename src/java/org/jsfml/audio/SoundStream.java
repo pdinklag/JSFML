@@ -59,7 +59,7 @@ public abstract class SoundStream extends SoundSource {
      */
     public void setPlayingOffset(@NotNull Time offset) {
         if(offset == null)
-            throw new IllegalArgumentException("offset must not be null.");
+            throw new NullPointerException("offset must not be null.");
 
         nativeSetPlayingOffset(offset);
     }

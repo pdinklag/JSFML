@@ -58,7 +58,7 @@ public class ConvexShape extends Shape {
      */
     public void setPoint(int i, @NotNull Vector2f v) {
         if (v == null)
-            throw new IllegalArgumentException("point must not be null.");
+            throw new NullPointerException("point must not be null.");
 
         if (i < 0 || i >= getPointCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
@@ -84,14 +84,14 @@ public class ConvexShape extends Shape {
      */
     public void setPoints(@NotNull Vector2f... points) {
         if (points == null)
-            throw new IllegalArgumentException("points must not be null.");
+            throw new NullPointerException("points must not be null.");
 
         setPointCount(points.length);
 
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) {
                 setPointCount(0);
-                throw new IllegalArgumentException("point " + i + " is null.");
+                throw new NullPointerException("point " + i + " is null.");
             }
 
             nativeSetPoint(i, points[i]);
@@ -181,10 +181,10 @@ public class ConvexShape extends Shape {
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
-            throw new IllegalArgumentException("target must not be null");
+            throw new NullPointerException("target must not be null");
 
         if(states == null)
-            throw new IllegalArgumentException("states must not be null");
+            throw new NullPointerException("states must not be null");
 
         nativeDraw(target, states);
     }

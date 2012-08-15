@@ -70,7 +70,7 @@ public class Sound extends SoundSource {
      */
     public void setBuffer(@NotNull SoundBuffer soundBuffer) {
         if (soundBuffer == null)
-            throw new IllegalArgumentException("soundBuffer must not be null.");
+            throw new NullPointerException("soundBuffer must not be null.");
 
         this.soundBuffer = soundBuffer;
         nativeSetBuffer(soundBuffer);
@@ -92,7 +92,7 @@ public class Sound extends SoundSource {
      */
     public void setPlayingOffset(@NotNull Time offset) {
         if (offset == null)
-            throw new IllegalArgumentException("offset must not be null.");
+            throw new NullPointerException("offset must not be null.");
 
         nativeSetPlayingOffset(offset);
     }

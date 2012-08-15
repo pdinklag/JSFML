@@ -51,7 +51,7 @@ public abstract class Shape extends Transformable implements Drawable {
      */
     public void setTextureRect(@NotNull IntRect rect) {
         if (rect == null)
-            throw new IllegalArgumentException("rect must not be null.");
+            throw new NullPointerException("rect must not be null.");
 
         nativeSetTextureRect(rect);
     }
@@ -65,7 +65,7 @@ public abstract class Shape extends Transformable implements Drawable {
      */
     public void setFillColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeSetFillColor(color);
     }
@@ -79,7 +79,7 @@ public abstract class Shape extends Transformable implements Drawable {
      */
     public void setOutlineColor(@NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeSetOutlineColor(color);
     }

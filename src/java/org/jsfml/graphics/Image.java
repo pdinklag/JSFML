@@ -42,7 +42,7 @@ public class Image extends SFMLNativeObject {
      */
     public void create(int width, int height, @NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeCreate(width, height, color);
     }
@@ -90,7 +90,7 @@ public class Image extends SFMLNativeObject {
      */
     public void saveToFile(@NotNull File file) throws IOException {
         if (file == null)
-            throw new IllegalArgumentException("file must not be null");
+            throw new NullPointerException("file must not be null");
 
         if (!nativeSaveToFile(file.getAbsolutePath()))
             throw new IOException("Failed to save image to file: " + file);
@@ -113,7 +113,7 @@ public class Image extends SFMLNativeObject {
      */
     public void createMaskFromColor(@NotNull Color color, int alpha) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeCreateMaskFromColor(color, alpha);
     }
@@ -141,10 +141,10 @@ public class Image extends SFMLNativeObject {
      */
     public void copy(@NotNull Image source, int destX, int destY, @NotNull IntRect sourceRect, boolean applyAlpha) {
         if (source == null)
-            throw new IllegalArgumentException("source must not be null.");
+            throw new NullPointerException("source must not be null.");
 
         if (sourceRect == null)
-            throw new IllegalArgumentException("sourceRect must not be null.");
+            throw new NullPointerException("sourceRect must not be null.");
 
         nativeCopy(source, destX, destY, sourceRect, applyAlpha);
     }
@@ -183,7 +183,7 @@ public class Image extends SFMLNativeObject {
      */
     public void setPixel(int x, int y, @NotNull Color color) {
         if (color == null)
-            throw new IllegalArgumentException("color must not be null.");
+            throw new NullPointerException("color must not be null.");
 
         nativeSetPixel(x, y, color);
     }
