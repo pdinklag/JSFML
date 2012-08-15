@@ -7,6 +7,7 @@ package org.jsfml;
  * representations. There should be no reason whatsoever to use this class outside of
  * JSFML itself.
  */
+@Intercom
 public abstract class SFMLNativeObject {
     private static boolean debug = false;
     private static int numManaged = 0, numWrapped = 0;
@@ -32,7 +33,12 @@ public abstract class SFMLNativeObject {
         }
     }
 
+    @Intercom
     private long ptr = 0;
+
+    @Intercom
+    private long[] exPtr = new long[0];
+
     private boolean wrapped;
 
     /**
@@ -45,6 +51,10 @@ public abstract class SFMLNativeObject {
 
         if (ptr == 0)
             throw new JSFMLError("nativeCreate() yielded a NULL pointer: " + this);
+
+        exPtr = getExtraPointers();
+        if (exPtr == null)
+            exPtr = new long[0];
 
         wrapped = false;
 
@@ -106,6 +116,17 @@ public abstract class SFMLNativeObject {
      */
     protected abstract void nativeDelete();
 
+    /**
+     * Gets an array of additional pointers that will be stored in this bject.
+     * <p/>
+     * This method is called after the construction of the native object.
+     *
+     * @return An array of pointers to store in this object.
+     */
+    protected long[] getExtraPointers() {
+        return null;
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     protected void finalize() throws Throwable {
@@ -123,6 +144,7 @@ public abstract class SFMLNativeObject {
         }
 
         ptr = 0;
+        exPtr = new long[0];
 
         super.finalize();
     }
