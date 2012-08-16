@@ -24,6 +24,9 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Sprite_nativeCreate (JNIEnv *env
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
         dynamic_cast<sf::Drawable*>(sprite));
 
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
+        dynamic_cast<sf::Transformable*>(sprite));
+
     return (jlong)sprite;
 }
 
@@ -97,121 +100,4 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getLocalBounds (JNIEnv 
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getGlobalBounds (JNIEnv *env, jobject obj) {
     return JSFML::FloatRect::FromSFML(env, THIS(sf::Sprite)->getGlobalBounds());
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    setPosition
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->setPosition(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    setRotation
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::Sprite)->setRotation(angle);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    setScale
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->setScale(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    setOrigin
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->setOrigin(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getPosition());
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getRotation
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Sprite_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::Sprite)->getRotation();
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getScale
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getScale());
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getOrigin
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Sprite)->getOrigin());
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    move
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->move(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    rotate
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::Sprite)->rotate(angle);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    scale
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Sprite)->scale(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->getTransform());
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    getInverseTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Sprite)->getInverseTransform());
 }

@@ -24,6 +24,9 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Text_nativeCreate (JNIEnv *env, 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
         dynamic_cast<sf::Drawable*>(text));
 
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
+        dynamic_cast<sf::Transformable*>(text));
+
     return (jlong)text;
 }
 
@@ -132,121 +135,4 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getLocalBounds (JNIEnv *e
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getGlobalBounds (JNIEnv *env, jobject obj) {
     return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->getGlobalBounds());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    setPosition
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setPosition (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->setPosition(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    setRotation
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setRotation (JNIEnv *env, jobject obj, jfloat angle) {
-    THIS(sf::Text)->setRotation(angle);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    setScale
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setScale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->setScale(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    setOrigin
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setOrigin (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->setOrigin(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getPosition());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getRotation
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Text_getRotation (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->getRotation();
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getScale
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getScale (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getScale());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getOrigin
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getOrigin (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::Text)->getOrigin());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    move
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_move (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->move(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    rotate
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_rotate (JNIEnv *env, jobject obj, jfloat angle) {
-   THIS(sf::Text)->rotate(angle);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    scale
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_scale (JNIEnv *env, jobject obj, jfloat x, jfloat y) {
-    THIS(sf::Text)->scale(x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->getTransform());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getInverseTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getInverseTransform (JNIEnv *env, jobject obj) {
-    return JSFML::Transform::FromSFML(env, THIS(sf::Text)->getInverseTransform());
 }

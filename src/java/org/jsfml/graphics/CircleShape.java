@@ -95,6 +95,7 @@ public class CircleShape extends Shape {
 
     @Override
     public native int getPointCount();
+
     @Override
     native Vector2f nativeGetPoint(int i);
 
@@ -103,45 +104,6 @@ public class CircleShape extends Shape {
 
     @Override
     public native FloatRect getGlobalBounds();
-
-    @Override
-    public native void setPosition(float x, float y);
-
-    @Override
-    public native void setRotation(float angle);
-
-    @Override
-    public native void setScale(float x, float y);
-
-    @Override
-    public native void setOrigin(float x, float y);
-
-    @Override
-    public native Vector2f getPosition();
-
-    @Override
-    public native float getRotation();
-
-    @Override
-    public native Vector2f getScale();
-
-    @Override
-    public native Vector2f getOrigin();
-
-    @Override
-    public native void move(float x, float y);
-
-    @Override
-    public native void rotate(float angle);
-
-    @Override
-    public native void scale(float x, float y);
-
-    @Override
-    public native Transform getTransform();
-
-    @Override
-    public native Transform getInverseTransform();
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {

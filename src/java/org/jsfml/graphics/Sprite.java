@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
-import org.jsfml.system.Vector2f;
 
 /**
  * Drawable representation, or instance, of a texture or a texture portion.
@@ -139,45 +138,6 @@ public class Sprite extends Transformable implements Drawable {
      * @see org.jsfml.graphics.Sprite#getLocalBounds()
      */
     public native FloatRect getGlobalBounds();
-
-    @Override
-    public native void setPosition(float x, float y);
-
-    @Override
-    public native void setRotation(float angle);
-
-    @Override
-    public native void setScale(float x, float y);
-
-    @Override
-    public native void setOrigin(float x, float y);
-
-    @Override
-    public native Vector2f getPosition();
-
-    @Override
-    public native float getRotation();
-
-    @Override
-    public native Vector2f getScale();
-
-    @Override
-    public native Vector2f getOrigin();
-
-    @Override
-    public native void move(float x, float y);
-
-    @Override
-    public native void rotate(float angle);
-
-    @Override
-    public native void scale(float x, float y);
-
-    @Override
-    public native Transform getTransform();
-
-    @Override
-    public native Transform getInverseTransform();
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
