@@ -8,7 +8,7 @@
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
-#include <JSFML/JNI/org_jsfml_graphics_RenderTarget.h>
+#include <JSFML/JNI/org_jsfml_ExPtr.h>
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -317,7 +317,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeDraw
     (JNIEnv *env, jobject obj, jobject target, jobject states) {
 
     sf::RenderTarget *sfTarget = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
-        env, target, org_jsfml_graphics_RenderTarget_EXPTR_RENDER_TARGET);
+        env, target, org_jsfml_ExPtr_RENDER_TARGET);
 
     sfTarget->draw(*THIS(sf::CircleShape), JSFML::RenderStates::ToSFML(env, states));
 }

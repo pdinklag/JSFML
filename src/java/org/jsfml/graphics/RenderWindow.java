@@ -69,13 +69,6 @@ public class RenderWindow extends Window implements RenderTarget {
     @Override
     protected native void nativeDelete();
 
-    private native long nativeGetRenderTargetPtr();
-
-    @Override
-    protected long[] getExtraPointers() {
-        return new long[]{nativeGetRenderTargetPtr()};
-    }
-
     private native void nativeClear(Color color);
 
     @Override

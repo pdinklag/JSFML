@@ -28,14 +28,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeGetRenderTargetPtr
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetRenderTargetPtr
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    create
  * Signature: (IIZ)Z
  */

@@ -10,6 +10,8 @@
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
+#include <JSFML/JNI/org_jsfml_ExPtr.h>
+
 #include <SFML/Graphics/RenderTexture.hpp>
 
 #define VERTEX_BUFSIZE_RTEXTURE 0x400
@@ -21,7 +23,12 @@ sf::Vertex sfVertexBuffer_RenderTexture[VERTEX_BUFSIZE_RTEXTURE];
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::RenderTexture();
+    sf::RenderTexture* renderTexture = new sf::RenderTexture();
+
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
+        dynamic_cast<sf::RenderTarget*>(renderTexture));
+
+    return (jlong)renderTexture;
 }
 
 /*
@@ -31,15 +38,6 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate (JNIE
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete (JNIEnv *env, jobject obj) {
     delete THIS(sf::RenderTexture);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeGetRenderTargetPtr
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetRenderTargetPtr (JNIEnv *env, jobject obj) {
-    return (jlong)dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderTexture));
 }
 
 /*

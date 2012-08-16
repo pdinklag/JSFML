@@ -30,13 +30,6 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     @Override
     protected native void nativeDelete();
 
-    private native long nativeGetRenderTargetPtr();
-
-    @Override
-    protected long[] getExtraPointers() {
-        return new long[]{nativeGetRenderTargetPtr()};
-    }
-
     /**
      * Sets up the render texture.
      *

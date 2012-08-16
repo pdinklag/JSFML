@@ -48,6 +48,7 @@
 		<mkdir dir="${cpp.include}/JSFML/JNI" />
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
 			<!-- base -->
+			<class name="${jsfml.package}.ExPtr" />
 			<class name="${jsfml.package}.SFMLNative" />
 			
 			<!-- system -->
@@ -66,7 +67,6 @@
 			<class name="${jsfml.package}.graphics.Font" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RectangleShape" />
-			<class name="${jsfml.package}.graphics.RenderTarget" />
 			<class name="${jsfml.package}.graphics.RenderTexture" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
 			<class name="${jsfml.package}.graphics.Shader" />

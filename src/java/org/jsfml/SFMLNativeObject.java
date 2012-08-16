@@ -37,7 +37,7 @@ public abstract class SFMLNativeObject {
     private long ptr = 0;
 
     @Intercom
-    private long[] exPtr = new long[0];
+    private final long[] exPtr = new long[ExPtr.NUM];
 
     private boolean wrapped;
 
@@ -51,10 +51,6 @@ public abstract class SFMLNativeObject {
 
         if (ptr == 0)
             throw new JSFMLError("nativeCreate() yielded a NULL pointer: " + this);
-
-        exPtr = getExtraPointers();
-        if (exPtr == null)
-            exPtr = new long[0];
 
         wrapped = false;
 
@@ -101,6 +97,8 @@ public abstract class SFMLNativeObject {
     /**
      * Creates a new native SFML object of the represented SFML class in the JNI memory heap.
      * <p/>
+     * This method is also expected to fill the extra pointers array, if any.
+     * <p/>
      * NOTE: This method is intended for internal use <i>only</i>.
      * Using this from outside may cause memory leaks.
      *
@@ -115,17 +113,6 @@ public abstract class SFMLNativeObject {
      * Using this from outside may cause undefined behaviour and crashes.
      */
     protected abstract void nativeDelete();
-
-    /**
-     * Gets an array of additional pointers that will be stored in this bject.
-     * <p/>
-     * This method is called after the construction of the native object.
-     *
-     * @return An array of pointers to store in this object.
-     */
-    protected long[] getExtraPointers() {
-        return null;
-    }
 
     @Override
     @SuppressWarnings("deprecation")
@@ -144,7 +131,8 @@ public abstract class SFMLNativeObject {
         }
 
         ptr = 0;
-        exPtr = new long[0];
+        for (int i = 0; i < exPtr.length; i++)
+            exPtr[i] = 0;
 
         super.finalize();
     }
