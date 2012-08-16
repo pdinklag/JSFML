@@ -27,7 +27,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param v The new position.
      */
-    public void setPosition(Vector2f v) {
+    public final void setPosition(Vector2f v) {
         setPosition(v.x, v.y);
     }
 
@@ -51,7 +51,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param factors The new scaling factors.
      */
-    public void setScale(Vector2f factors) {
+    public final void setScale(Vector2f factors) {
         setScale(factors.x, factors.y);
     }
 
@@ -68,7 +68,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param v The new origin.
      */
-    public void setOrigin(Vector2f v) {
+    public final void setOrigin(Vector2f v) {
         setOrigin(v.x, v.y);
     }
 
@@ -113,7 +113,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param v The offset vector.
      */
-    public void move(Vector2f v) {
+    public final void move(Vector2f v) {
         move(v.x, v.y);
     }
 
@@ -137,7 +137,7 @@ public abstract class Transformable extends SFMLNativeObject {
      *
      * @param factors The scaling factors.
      */
-    public void scale(Vector2f factors) {
+    public final void scale(Vector2f factors) {
         scale(factors.x, factors.y);
     }
 

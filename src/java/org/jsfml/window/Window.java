@@ -152,7 +152,7 @@ public class Window extends SFMLNativeObject {
      * @param style The style of the window.
      * @see org.jsfml.window.VideoMode#isValid()
      */
-    public void create(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public final void create(@NotNull VideoMode mode, @NotNull String title, int style) {
         create(mode, title, style, new ContextSettings());
     }
 
@@ -163,7 +163,7 @@ public class Window extends SFMLNativeObject {
      * @param mode  The video mode to use for the OpenGL context.
      * @param title The window title.
      */
-    public void create(@NotNull VideoMode mode, @NotNull String title) {
+    public final void create(@NotNull VideoMode mode, @NotNull String title) {
         create(mode, title, DEFAULT, new ContextSettings());
     }
 

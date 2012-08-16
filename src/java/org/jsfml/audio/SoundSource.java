@@ -73,7 +73,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @param v The new position.
      */
-    public void setPosition(Vector3f v) {
+    public final void setPosition(Vector3f v) {
         setPosition(v.x, v.y, v.z);
     }
 
