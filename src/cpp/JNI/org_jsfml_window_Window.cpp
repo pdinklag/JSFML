@@ -11,6 +11,8 @@
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
 
+#include <JSFML/JNI/org_jsfml_ExPtr.h>
+
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/Image.hpp>
 
@@ -21,13 +23,17 @@
     #include <pthread.h>
 #endif
 
+#define SF_WINDOW JSFML::NativeObject::GetExPointer<sf::Window>(env, obj, org_jsfml_ExPtr_WINDOW)
+
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeCreate
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__ (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::Window();
+    sf::Window* window = new sf::Window();
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW, window);
+    return (jlong)window;
 }
 
 /*
@@ -47,7 +53,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeDelete (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_window_VideoMode_2Ljava_lang_String_2ILorg_jsfml_window_ContextSettings_2
     (JNIEnv *env, jobject obj, jobject videoMode, jstring title, jint style, jobject settings) {
 
-    THIS(sf::Window)->create(
+    SF_WINDOW->create(
         JSFML::VideoMode::ToSFML(env, videoMode),
         std::string(JavaString::getUTF8(env, title)),
         (sf::Uint32)style,
@@ -75,7 +81,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isLegalWindowThread (JNI
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_close (JNIEnv *env, jobject obj) {
-    THIS(sf::Window)->close();
+    SF_WINDOW->close();
 }
 
 /*
@@ -84,7 +90,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_close (JNIEnv *env, jobject 
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isOpen (JNIEnv *env, jobject obj) {
-    return THIS(sf::Window)->isOpen();
+    return SF_WINDOW->isOpen();
 }
 
 /*
@@ -93,7 +99,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isOpen (JNIEnv *env, job
  * Signature: ()Lorg/jsfml/system/Vector2i;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2i::FromSFML(env, THIS(sf::Window)->getPosition());
+    return JSFML::Vector2i::FromSFML(env, SF_WINDOW->getPosition());
 }
 
 /*
@@ -104,7 +110,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getPosition (JNIEnv *env,
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetPosition
     (JNIEnv *env, jobject obj, jobject position) {
 
-    THIS(sf::Window)->setPosition(JSFML::Vector2i::ToSFML(env, position));
+    SF_WINDOW->setPosition(JSFML::Vector2i::ToSFML(env, position));
 }
 
 /*
@@ -114,7 +120,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetPosition
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSize (JNIEnv *env, jobject obj) {
 	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
-	return JSFML::Vector2u::FromSFML(env, THIS(sf::Window)->getSize());
+	return JSFML::Vector2u::FromSFML(env, SF_WINDOW->getSize());
 }
 
 /*
@@ -126,7 +132,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetSize
     (JNIEnv *env, jobject obj, jobject size) {
 
 	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
-    THIS(sf::Window)->setSize(JSFML::Vector2u::ToSFML(env, size));
+    SF_WINDOW->setSize(JSFML::Vector2u::ToSFML(env, size));
 }
 
 /*
@@ -135,7 +141,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetSize
  * Signature: ()Lorg/jsfml/window/ContextSettings;
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSettings (JNIEnv *env, jobject obj) {
-    return JSFML::ContextSettings::FromSFML(env, THIS(sf::Window)->getSettings());
+    return JSFML::ContextSettings::FromSFML(env, SF_WINDOW->getSettings());
 }
 
 /*
@@ -146,7 +152,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSettings (JNIEnv *env,
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_pollEvent (JNIEnv *env, jobject obj) {
     sf::Event event;
 
-    if(THIS(sf::Window)->pollEvent(event))
+    if(SF_WINDOW->pollEvent(event))
         return JSFML::Event::FromSFML(env, event);
     else
         return NULL;
@@ -160,7 +166,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_pollEvent (JNIEnv *env, j
 JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent (JNIEnv *env, jobject obj) {
     sf::Event event;
 
-    if(THIS(sf::Window)->waitEvent(event))
+    if(SF_WINDOW->waitEvent(event))
         return JSFML::Event::FromSFML(env, event);
     else
         return NULL;
@@ -172,7 +178,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent (JNIEnv *env, j
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVerticalSyncEnabled (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Window)->setVerticalSyncEnabled(b);
+    SF_WINDOW->setVerticalSyncEnabled(b);
 }
 
 /*
@@ -181,7 +187,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVerticalSyncEnabled (JNIE
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setMouseCursorVisible (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Window)->setMouseCursorVisible(b);
+    SF_WINDOW->setMouseCursorVisible(b);
 }
 
 /*
@@ -190,7 +196,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setMouseCursorVisible (JNIEn
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetTitle (JNIEnv *env, jobject obj, jstring title) {
-    THIS(sf::Window)->setTitle(std::string(JavaString::getUTF8(env, title)));
+    SF_WINDOW->setTitle(std::string(JavaString::getUTF8(env, title)));
 }
 
 /*
@@ -199,7 +205,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetTitle (JNIEnv *env,
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVisible (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Window)->setVisible(b);
+    SF_WINDOW->setVisible(b);
 }
 
 /*
@@ -208,7 +214,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setVisible (JNIEnv *env, job
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setKeyRepeatEnabled (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Window)->setKeyRepeatEnabled(b);
+    SF_WINDOW->setKeyRepeatEnabled(b);
 }
 
 /*
@@ -222,7 +228,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetIcon
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
 	sf::Vector2u iconSize = icon->getSize();
 	
-    THIS(sf::Window)->setIcon(
+    SF_WINDOW->setIcon(
         iconSize.x,
         iconSize.y,
         icon->getPixelsPtr());
@@ -234,7 +240,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetIcon
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setActive (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Window)->setActive(b);
+    SF_WINDOW->setActive(b);
 }
 
 /*
@@ -243,7 +249,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setActive (JNIEnv *env, jobj
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_display (JNIEnv *env, jobject obj) {
-    THIS(sf::Window)->display();
+    SF_WINDOW->display();
 }
 
 /*
@@ -252,7 +258,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_display (JNIEnv *env, jobjec
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setFramerateLimit (JNIEnv *env, jobject obj, jint fps) {
-    THIS(sf::Window)->setFramerateLimit(fps);
+    SF_WINDOW->setFramerateLimit(fps);
 }
 
 /*
@@ -261,5 +267,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setFramerateLimit (JNIEnv *e
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setJoystickTreshold (JNIEnv *env, jobject obj, jfloat t) {
-    THIS(sf::Window)->setJoystickThreshold(t);
+    SF_WINDOW->setJoystickThreshold(t);
 }

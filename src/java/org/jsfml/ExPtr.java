@@ -5,7 +5,7 @@ package org.jsfml;
  */
 final class ExPtr {
     //Total amount of exPtr fields.
-    static final int NUM = 4;
+    static final int NUM = 5;
 
     //Pointer to sf::Drawable.
     static final int DRAWABLE = 0;
@@ -18,4 +18,7 @@ final class ExPtr {
 
     //Pointer to sf::Shape.
     static final int SHAPE = 3;
+
+    //Pointer to sf::Window.
+    static final int WINDOW = 4;
 }

@@ -6,7 +6,6 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
-import org.jsfml.window.event.Event;
 
 /**
  * Window that can serve as a target for 2D drawing.
@@ -170,66 +169,6 @@ public class RenderWindow extends Window implements RenderTarget {
 
         nativeDraw(vertices, type, states);
     }
-
-    @Override
-    protected native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
-
-    @Override
-    public native void close();
-
-    @Override
-    public native boolean isOpen();
-
-    @Override
-    public native Vector2i getPosition();
-
-    @Override
-    protected native void nativeSetPosition(Vector2i position);
-
-    @Override
-    public native Vector2i getSize();
-
-    @Override
-    protected native void nativeSetSize(Vector2i size);
-
-    @Override
-    public native ContextSettings getSettings();
-
-    @Override
-    public native Event pollEvent();
-
-    @Override
-    public native Event waitEvent();
-
-    @Override
-    public native void setVerticalSyncEnabled(boolean enable);
-
-    @Override
-    public native void setMouseCursorVisible(boolean show);
-
-    @Override
-    protected native void nativeSetTitle(String title);
-
-    @Override
-    public native void setVisible(boolean show);
-
-    @Override
-    public native void setKeyRepeatEnabled(boolean enable);
-
-    @Override
-    protected native void nativeSetIcon(Image image);
-
-    @Override
-    public native void setActive(boolean active);
-
-    @Override
-    public native void display();
-
-    @Override
-    public native void setFramerateLimit(int flimit);
-
-    @Override
-    public native void setJoystickTreshold(float treshold);
 
     @Override
     public native void pushGLStates();
