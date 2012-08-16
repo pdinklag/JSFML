@@ -205,6 +205,6 @@ public class Text extends Transformable implements Drawable {
         if(states == null)
             throw new NullPointerException("states must not be null");
 
-        DrawableNativeImpl.nativeDraw(this, target, states);
+        DrawableNativeImpl.draw(this, target, states);
     }
 }

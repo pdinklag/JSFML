@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_graphics_DrawableNativeImpl
- * Method:    nativeDraw
+ * Method:    draw
  * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_DrawableNativeImpl_nativeDraw
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_DrawableNativeImpl_draw
   (JNIEnv *, jclass, jobject, jobject, jobject);
 
 #ifdef __cplusplus

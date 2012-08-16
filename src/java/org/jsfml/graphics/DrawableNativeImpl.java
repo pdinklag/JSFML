@@ -5,5 +5,5 @@ package org.jsfml.graphics;
  * method for native SFML drawables.
  */
 final class DrawableNativeImpl {
-    static native void nativeDraw(Drawable drawable, RenderTarget target, RenderStates states);
+    static native void draw(Drawable drawable, RenderTarget target, RenderStates states);
 }

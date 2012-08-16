@@ -10,10 +10,10 @@
 
 /*
  * Class:     org_jsfml_graphics_DrawableNativeImpl
- * Method:    nativeDraw
+ * Method:    draw
  * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_DrawableNativeImpl_nativeDraw
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_DrawableNativeImpl_draw
     (JNIEnv *env, jclass cls, jobject drawable, jobject target, jobject states) {
 
     JSFML::NativeObject::GetExPointer<sf::RenderTarget>(env, target, org_jsfml_ExPtr_RENDER_TARGET)->draw(
