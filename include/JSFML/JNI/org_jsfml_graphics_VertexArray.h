@@ -98,14 +98,6 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_nativeGetPrimitiveTyp
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_VertexArray_getBounds
   (JNIEnv *, jobject);
 
-/*
- * Class:     org_jsfml_graphics_VertexArray
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDraw
-  (JNIEnv *, jobject, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif

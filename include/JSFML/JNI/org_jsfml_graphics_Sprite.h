@@ -186,14 +186,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getTransform
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Sprite_getInverseTransform
   (JNIEnv *, jobject);
 
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDraw
-  (JNIEnv *, jobject, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif

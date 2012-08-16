@@ -179,8 +179,6 @@ public class Sprite extends Transformable implements Drawable {
     @Override
     public native Transform getInverseTransform();
 
-    private native void nativeDraw(RenderTarget target, RenderStates states);
-
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
@@ -189,6 +187,6 @@ public class Sprite extends Transformable implements Drawable {
         if(states == null)
             throw new NullPointerException("states must not be null");
 
-        nativeDraw(target, states);
+        DrawableNativeImpl.nativeDraw(this, target, states);
     }
 }

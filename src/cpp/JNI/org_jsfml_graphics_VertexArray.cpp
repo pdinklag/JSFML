@@ -17,7 +17,12 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_VertexArray_nativeCreate (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::VertexArray();
+    sf::VertexArray *vertexArray = new sf::VertexArray();
+
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
+        dynamic_cast<sf::Drawable*>(vertexArray));
+
+    return (jlong)vertexArray;
 }
 
 /*
@@ -118,18 +123,4 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_VertexArray_nativeGetPrimitiveTyp
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_VertexArray_getBounds (JNIEnv *env, jobject obj) {
     return JSFML::FloatRect::FromSFML(env, THIS(sf::VertexArray)->getBounds());
-}
-
-/*
- * Class:     org_jsfml_graphics_VertexArray
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_VertexArray_nativeDraw
-    (JNIEnv *env, jobject obj, jobject target, jobject states) {
-
-    sf::RenderTarget *sfTarget = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
-        env, target, org_jsfml_ExPtr_RENDER_TARGET);
-
-    sfTarget->draw(*THIS(sf::VertexArray), JSFML::RenderStates::ToSFML(env, states));
 }

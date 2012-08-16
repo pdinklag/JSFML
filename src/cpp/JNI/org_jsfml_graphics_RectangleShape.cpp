@@ -19,7 +19,12 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RectangleShape_nativeCreate (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::RectangleShape();
+    sf::RectangleShape *rectangleShape = new sf::RectangleShape();
+
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
+        dynamic_cast<sf::Drawable*>(rectangleShape));
+
+    return (jlong)rectangleShape;
 }
 
 /*
@@ -296,18 +301,4 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getTransform (J
  */
 JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getInverseTransform (JNIEnv *env, jobject obj) {
     return JSFML::Transform::FromSFML(env, THIS(sf::RectangleShape)->getInverseTransform());
-}
-
-/*
- * Class:     org_jsfml_graphics_RectangleShape
- * Method:    nativeDraw
- * Signature: (Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeDraw
-    (JNIEnv *env, jobject obj, jobject target, jobject states) {
-
-    sf::RenderTarget *sfTarget = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
-        env, target, org_jsfml_ExPtr_RENDER_TARGET);
-
-    sfTarget->draw(*THIS(sf::RectangleShape), JSFML::RenderStates::ToSFML(env, states));
 }

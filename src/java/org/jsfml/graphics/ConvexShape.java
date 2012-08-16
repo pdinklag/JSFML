@@ -176,8 +176,6 @@ public class ConvexShape extends Shape {
     @Override
     public native Transform getInverseTransform();
 
-    private native void nativeDraw(RenderTarget target, RenderStates states);
-
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
         if(target == null)
@@ -186,6 +184,6 @@ public class ConvexShape extends Shape {
         if(states == null)
             throw new NullPointerException("states must not be null");
 
-        nativeDraw(target, states);
+        DrawableNativeImpl.nativeDraw(this, target, states);
     }
 }
