@@ -133,26 +133,20 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     private native Vector2f nativeConvertCoords(Vector2i point, View view);
 
     @Override
-    public Vector2f convertCoords(@NotNull Vector2i point) {
-        if (point == null)
-            throw new NullPointerException("point must not be null.");
-
-        return nativeConvertCoords(point, null); //null is handled in C code
+    public final Vector2f convertCoords(@NotNull Vector2i point) {
+        return convertCoords(point, null); //null is handled in C code
     }
 
     @Override
-    public Vector2f convertCoords(@NotNull Vector2i point, @NotNull View view) {
+    public Vector2f convertCoords(@NotNull Vector2i point, View view) {
         if (point == null)
             throw new NullPointerException("point must not be null.");
-
-        if (view == null)
-            throw new NullPointerException("view must not be null.");
 
         return nativeConvertCoords(point, view);
     }
 
     @Override
-    public void draw(Drawable drawable) {
+    public final void draw(Drawable drawable) {
         draw(drawable, new RenderStates());
     }
 
@@ -162,7 +156,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public void draw(Vertex[] vertices, PrimitiveType type) {
+    public final void draw(Vertex[] vertices, PrimitiveType type) {
         draw(vertices, type, new RenderStates());
     }
 
