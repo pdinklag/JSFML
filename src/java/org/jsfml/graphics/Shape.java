@@ -16,7 +16,7 @@ public abstract class Shape extends Transformable implements Drawable {
         super();
     }
 
-    abstract void nativeSetTexture(Texture texture, boolean resetRect);
+    private native void nativeSetTexture(Texture texture, boolean resetRect);
 
     /**
      * Sets the texture of the shape.
@@ -42,7 +42,7 @@ public abstract class Shape extends Transformable implements Drawable {
         setTexture(texture, false);
     }
 
-    abstract void nativeSetTextureRect(IntRect rect);
+    private native void nativeSetTextureRect(IntRect rect);
 
     /**
      * Sets the texture portion to use for drawing.
@@ -56,7 +56,7 @@ public abstract class Shape extends Transformable implements Drawable {
         nativeSetTextureRect(rect);
     }
 
-    abstract void nativeSetFillColor(Color color);
+    private native void nativeSetFillColor(Color color);
 
     /**
      * Sets the fill color of the shape.
@@ -70,7 +70,7 @@ public abstract class Shape extends Transformable implements Drawable {
         nativeSetFillColor(color);
     }
 
-    abstract void nativeSetOutlineColor(Color color);
+    private native void nativeSetOutlineColor(Color color);
 
     /**
      * Sets the outline color of the shape.
@@ -89,7 +89,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @param thickness The thickness of the shape's outline.
      */
-    public abstract void setOutlineThickness(float thickness);
+    public native void setOutlineThickness(float thickness);
 
     /**
      * Gets the shape's current texture.
@@ -105,37 +105,37 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @return The shape's current texture portion.
      */
-    public abstract IntRect getTextureRect();
+    public native IntRect getTextureRect();
 
     /**
      * Gets the shape's current fill color.
      *
      * @return The shape's current fill color.
      */
-    public abstract Color getFillColor();
+    public native Color getFillColor();
 
     /**
      * Gets the shape's current outline color.
      *
      * @return The shape's current outline color.
      */
-    public abstract Color getOutlineColor();
+    public native Color getOutlineColor();
 
     /**
      * Gets the shape's current outline thickness.
      *
      * @return The shape's current outline thickness.
      */
-    public abstract float getOutlineThickness();
+    public native float getOutlineThickness();
 
     /**
      * Gets the amount of points that defines this shape.
      *
      * @return The amount of points that defines this shape.
      */
-    public abstract int getPointCount();
+    public native int getPointCount();
 
-    abstract Vector2f nativeGetPoint(int i);
+    private native Vector2f nativeGetPoint(int i);
 
     /**
      * Gets a point of the shape.
@@ -171,7 +171,7 @@ public abstract class Shape extends Transformable implements Drawable {
      * @return The shape's local bounding rectangle.
      * @see org.jsfml.graphics.Shape#getGlobalBounds()
      */
-    public abstract FloatRect getLocalBounds();
+    public native FloatRect getLocalBounds();
 
     /**
      * Gets the shape's global bounding rectangle, taking the shape's transformation into account.
@@ -179,5 +179,16 @@ public abstract class Shape extends Transformable implements Drawable {
      * @return The shape's global bounding rectangle.
      * @see org.jsfml.graphics.Shape#getLocalBounds()
      */
-    public abstract FloatRect getGlobalBounds();
+    public native FloatRect getGlobalBounds();
+
+    @Override
+    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+        if (target == null)
+            throw new NullPointerException("target must not be null");
+
+        if (states == null)
+            throw new NullPointerException("states must not be null");
+
+        DrawableNativeImpl.nativeDraw(this, target, states);
+    }
 }

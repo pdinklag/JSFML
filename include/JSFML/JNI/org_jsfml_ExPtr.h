@@ -8,13 +8,15 @@
 extern "C" {
 #endif
 #undef org_jsfml_ExPtr_NUM
-#define org_jsfml_ExPtr_NUM 3L
+#define org_jsfml_ExPtr_NUM 4L
 #undef org_jsfml_ExPtr_DRAWABLE
 #define org_jsfml_ExPtr_DRAWABLE 0L
 #undef org_jsfml_ExPtr_TRANSFORMABLE
 #define org_jsfml_ExPtr_TRANSFORMABLE 1L
 #undef org_jsfml_ExPtr_RENDER_TARGET
 #define org_jsfml_ExPtr_RENDER_TARGET 2L
+#undef org_jsfml_ExPtr_SHAPE
+#define org_jsfml_ExPtr_SHAPE 3L
 #ifdef __cplusplus
 }
 #endif
