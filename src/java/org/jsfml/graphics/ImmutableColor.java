@@ -1,6 +1,11 @@
 package org.jsfml.graphics;
 
+/**
+ * Immutable color that cannot be altered.
+ */
 class ImmutableColor extends Color {
+    private static final long serialVersionUID = 8700468200193026947L;
+
     ImmutableColor(int r, int g, int b) {
         super(r, g, b);
     }
