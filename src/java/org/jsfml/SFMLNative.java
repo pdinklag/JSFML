@@ -220,10 +220,10 @@ public final class SFMLNative {
                 } else {
                     throw new JSFMLError("Native library file does not exist: " + libFile.getAbsolutePath());
                 }
-
-                //Initialize native library
-                nativeInit();
             }
+
+            //Initialize native library
+            nativeInit();
         }
     }
 }
