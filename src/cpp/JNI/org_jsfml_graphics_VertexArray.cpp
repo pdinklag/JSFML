@@ -3,7 +3,6 @@
 #include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
 #include <JSFML/JNI/org_jsfml_ExPtr.h>

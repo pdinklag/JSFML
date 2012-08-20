@@ -1,12 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_CircleShape.h>
 
-#include <JSFML/Intercom/Color.hpp>
-#include <JSFML/Intercom/FloatRect.hpp>
-#include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/RenderStates.hpp>
-#include <JSFML/Intercom/Transform.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_ExPtr.h>
 
