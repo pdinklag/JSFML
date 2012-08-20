@@ -20,7 +20,6 @@
 	<property name="java.src" location="./src/java" />
 	<property name="java.out" location="${jsfml.out}/classes" />
 	<property name="java.classpath" value="${java.out}" />
-	<property name="java.target" value="1.6" />
 	
 	<!-- Javadoc properties -->
 	<property name="javadoc.out" location="./javadoc" />
@@ -40,7 +39,7 @@
 	<!-- Compile Java -->
 	<target name="compile" description="Compile the Java sources.">
 		<mkdir dir="${java.out}" />
-		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" target="${java.target}" />
+		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" />
 	</target>
 	
 	<!-- Generate headers -->
@@ -110,7 +109,8 @@
 		<exec executable="g++" dir="${cpp.obj}" failonerror="true">
 			<arg value="-I${cpp.include}" />
 			<arg value="-I${sfml.include}" />
-			<arg value="-I${env.JAVA_HOME}/include" />
+            <arg value="-I${env.JAVA_HOME}/include" />
+            <arg value="-I${env.JAVA_HOME}/include/darwin" />
 			<arg value="-dynamiclib" />
 			<arg value="-arch" />
 			<arg value="i386" />

@@ -11,7 +11,6 @@
 	<property name="java.src" location="./src" />
 	<property name="java.out" location="./classes" />
 	<property name="java.classpath" value=".;${java.out};${jsfml.out};${jsfml.classes}" />
-	<property name="java.target" value="1.6" />
 	
 	<!-- Jar properties -->
 	<property name="jar.file" value="${jsfml.out}/jsfml-examples.jar" />
@@ -22,7 +21,7 @@
 	<!-- Compile Java -->
 	<target name="compile" description="Compile the JSFML examples.">
 		<mkdir dir="${java.out}" />
-		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" target="${java.target}" />
+		<javac includeAntRuntime="false" srcdir="${java.src}" destdir="${java.out}" classpath="${java.classpath}" />
 	</target>
 	
 	<!-- Jar -->
