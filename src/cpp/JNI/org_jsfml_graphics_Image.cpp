@@ -48,7 +48,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeLoadFromMemory (J
 
     jboolean result = THIS(sf::Image)->loadFromMemory(mem, n);
 
-    env->ReleaseByteArrayElements(arr, mem, 0);
+    env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
     return result;
 }
 

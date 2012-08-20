@@ -56,7 +56,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
 
     jboolean result = THIS(sf::Texture)->loadFromMemory(mem, n, JSFML::IntRect::ToSFML(env, area));
 
-    env->ReleaseByteArrayElements(arr, mem, 0);
+    env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
     return result;
 }
 

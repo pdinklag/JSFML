@@ -46,7 +46,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
     if(THIS(sf::Font)->loadFromMemory(mem, n)) {
         return (jlong)mem;
     } else {
-        env->ReleaseByteArrayElements(arr, mem, 0);
+        env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
         return 0;
     }
 }
@@ -59,7 +59,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeLoadFromMemory
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
     (JNIEnv *env, jobject obj, jbyteArray arr, jlong memPtr) {
 
-    env->ReleaseByteArrayElements(arr, (jbyte*)memPtr, 0);
+    env->ReleaseByteArrayElements(arr, (jbyte*)memPtr, JNI_ABORT);
 }
 
 /*

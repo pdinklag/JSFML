@@ -44,7 +44,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromMemory
 
     jboolean result = THIS(sf::SoundBuffer)->loadFromMemory(mem, n);
 
-    env->ReleaseByteArrayElements(arr, mem, 0);
+    env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
     return result;
 }
 
@@ -62,7 +62,7 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSample
     jboolean result = THIS(sf::SoundBuffer)->loadFromSamples(
         (sf::Int16*)samples, n, channelCount, sampleRate);
 
-    env->ReleaseShortArrayElements(arr, samples, 0);
+    env->ReleaseShortArrayElements(arr, samples, JNI_ABORT);
     return result;
 }
 

@@ -24,7 +24,7 @@ sf::Transform JSFML::Transform::ToSFML(JNIEnv* env, jobject transform) {
         data[1], data[5], data[13],
         data[3], data[7], data[15]);
 
-    env->ReleaseFloatArrayElements(floatArray, data, 0);
+    env->ReleaseFloatArrayElements(floatArray, data, JNI_ABORT);
 
     return sfmlTransform;
 }
