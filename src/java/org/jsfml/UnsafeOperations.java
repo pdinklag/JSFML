@@ -1,14 +1,22 @@
 package org.jsfml;
 
 /**
- * Provides operations on native SFML objects.
+ * Provides inherently unsafe operations on native SFML objects.
  * <p/>
- * Use these methods at your own risk, they <i>will</i> break stuff if you do not know exactly what you are doing.
+ * These need to be public in order to maintain JSFML's package structure, but should by no means
+ * used outside of JSFML.
  */
 public final class UnsafeOperations {
     /**
      * Flags an SFML object as Java managed or unmanaged. Java managed objects will be destroyed using the
      * <code>nativeDelete</code> method when this object gets finalized.
+     * <p/>
+     * This is used for JSFML to differentiate between explicitly self-constructed SFML objects
+     * (using <tt>new</tt>) and SFML objects that are managed by other SFML objects, but require
+     * a Java representation.
+     * <p/>
+     * Wrong use of this method will make the application prone to crashes and memory leaks,
+     * so handle with extreme care.
      *
      * @param object  The SFML object wrapper.
      * @param managed Whether or not this object is managed by JSFML.

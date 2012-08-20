@@ -35,4 +35,9 @@ public class JoystickMoveEvent extends JoystickEvent {
     public float getPosition() {
         return position;
     }
+
+    @Override
+    public JoystickMoveEvent asJoystickMoveEvent() {
+        return this;
+    }
 }

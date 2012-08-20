@@ -4,7 +4,11 @@ import java.io.*;
 import java.util.LinkedList;
 
 /**
- * JSFML native library handler.
+ * JSFML native library loader.
+ * <p/>
+ * This class contains the "self-containedness" functionality of JSFML.
+ *
+ * @see #loadNativeLibraries() For more information.
  */
 public final class SFMLNative {
     private static final File JSFML_USER_HOME = new File(System.getProperty("user.home"), ".jsfml");
@@ -14,8 +18,19 @@ public final class SFMLNative {
     private static final String MD5_EXT = ".MD5";
     private static final int MD5_LENGTH = 32;
 
+    /**
+     * The substring of the <tt>os.name</tt> system property to look for to detect Windows.
+     */
     public static final String OS_NAME_WINDOWS = "Windows";
+
+    /**
+     * The substring of the <tt>os.name</tt> system property to look for to detect Linux.
+     */
     public static final String OS_NAME_LINUX = "Linux";
+
+    /**
+     * The substring of the <tt>os.name</tt> system property to look for to detect Mac OS X.
+     */
     public static final String OS_NAME_MACOSX = "Mac OS X";
 
     private static native void nativeInit();
@@ -38,14 +53,53 @@ public final class SFMLNative {
     }
 
     /**
-     * Forced loading of the JSFML native libraries.
+     * Tests whether the current platform is supported by JSFML.
      * <p/>
-     * This must be done before any SFML class representations can be used. All affected classes will call this
-     * method when they are loaded, so usually this does not have to be done automatically.
+     * This method can be used before any JSFML call to make sure that JSFML is supported on the current
+     * platform. If this is not the case, {@link #loadNativeLibraries()} will raise an error attempting
+     * to load the native library.
      *
-     * @throws JSFMLException If an error occured.
+     * @return <tt>true</tt> if this platform is supported by JSFML, <tt>false</tt> otherwise.
      */
-    public static void loadNativeLibraries() throws JSFMLException {
+    public static boolean isPlatformSupported() {
+        String osName = System.getProperty("os.name");
+        String osArch = System.getProperty("os.arch");
+
+        /**
+         * TODO In all probability, a more detailed OS version check should happen in here.
+         */
+
+        if (osName.contains(OS_NAME_WINDOWS)) {
+            return osArch.equals("x86") || osArch.equals("amd64");
+        } else if (osName.contains(OS_NAME_LINUX)) {
+            return osArch.equals("x86") || osArch.equals("i386") || osArch.equals("amd64");
+        } else if (osName.contains(OS_NAME_MACOSX)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Loads the native JSFML libraries if it has not been done yet.
+     * <p/>
+     * This must be done before any SFML class representations can be used. All affected classes
+     * will call this method when they are loaded, so this does not have to be done manually.
+     * <p/>
+     * This method will scan the <tt>os.name</tt> and <tt>os.arch</tt> system properties and
+     * compile a list of libraries to load if the platform is supported. The libraries will
+     * then be looked for in the classpath, extracted to the user directory and loaded.
+     * <p/>
+     * The libraries will be extracted to <tt>~/.jsfml</tt>. If the files already exist, their MD5
+     * hashes (which are provided in separate files) will be tested against the ones in the
+     * classpath. If the MD5 hashes differ, the existing file in the user directory will
+     * be overridden.
+     * <p/>
+     * If the current platform is not supported, a {@link JSFMLError} will be raised. To avoid
+     * this situation, make sure that {@link #isPlatformSupported} returns <tt>true</tt> before
+     * using any other JSFML class.
+     */
+    public static void loadNativeLibraries() {
         if (!loaded) {
             loaded = true;
 
@@ -97,9 +151,9 @@ public final class SFMLNative {
                 nativeLibs.add("macosx_universal/libjsfml.jnilib");
             }
 
-            //Check if operating system is supported
+            //Check if the current operating system is supported
             if (nativeLibs.size() == 0) {
-                throw new JSFMLException("Unsupported operating system: " + osName + " " + osArch);
+                throw new UnsupportedOperationException("Unsupported operating system: " + osName + " " + osArch);
             }
 
             //Locate native libraries
@@ -146,11 +200,11 @@ public final class SFMLNative {
                         try {
                             StreamUtil.streamToFile(inputStream, libFile);
                         } catch (IOException ex) {
-                            throw new JSFMLException(
+                            throw new JSFMLError(
                                     "Failed to extract native library: " + libFile.getAbsolutePath());
                         }
                     } else {
-                        throw new JSFMLException(
+                        throw new JSFMLError(
                                 "Could not find native library in the classpath: " + lib);
                     }
                 } else {
@@ -158,21 +212,18 @@ public final class SFMLNative {
                 }
             }
 
-            String nativeLibPath = JSFML_USER_HOME.getAbsolutePath();
-
             //Load JSFML libraries
             for (String lib : nativeLibs) {
-                File libFile = new File(nativeLibPath, lib);
-
-                try {
+                final File libFile = new File(JSFML_USER_HOME, lib);
+                if (libFile.isFile()) {
                     System.load(libFile.getAbsolutePath());
-                } catch (UnsatisfiedLinkError error) {
-                    throw new JSFMLException(error.getMessage(), error);
+                } else {
+                    throw new JSFMLError("Native library file does not exist: " + libFile.getAbsolutePath());
                 }
-            }
 
-            //Initialize native library
-            nativeInit();
+                //Initialize native library
+                nativeInit();
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ package org.jsfml;
 import java.io.*;
 
 /**
- * Provides stream utility functions.
+ * Provides stream utility functions used by JSFML-internal file reading and writing methods.
  */
 public class StreamUtil {
     private final static String TEMPFILE_PREFIX = "jsfml";
@@ -21,15 +21,15 @@ public class StreamUtil {
     public static byte[] readStream(InputStream inputStream) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
-        
-        for(int n = inputStream.read(buffer); n > 0; n = inputStream.read(buffer))
+
+        for (int n = inputStream.read(buffer); n > 0; n = inputStream.read(buffer))
             out.write(buffer, 0, n);
-        
+
         return out.toByteArray();
     }
 
     /**
-     * Fully reads an input stream into a byte array.
+     * Fully reads a file into a byte array.
      *
      * @param file The file to read.
      * @return The bytes read from the file.
@@ -56,7 +56,7 @@ public class StreamUtil {
     }
 
     /**
-     * Fully reads an input stream and writes it into a file.
+     * Fully streams an input stream into a file.
      * <p/>
      * When the operation is finished, the input stream will be closed.
      *
@@ -80,7 +80,7 @@ public class StreamUtil {
     }
 
     /**
-     * Fully reads an input stream and writes it into a temporary file.
+     * Fully streams an input stream into a temporary file.
      * <p/>
      * When the operation is finished, the input stream will be closed.
      *

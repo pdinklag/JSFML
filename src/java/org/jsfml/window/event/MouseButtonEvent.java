@@ -22,8 +22,12 @@ public class MouseButtonEvent extends MouseEvent {
      *
      * @return The mouse button that was pressed or released.
      */
-
     public Mouse.Button getButton() {
         return Mouse.Button.values()[button];
+    }
+
+    @Override
+    public MouseButtonEvent asMouseButtonEvent() {
+        return this;
     }
 }

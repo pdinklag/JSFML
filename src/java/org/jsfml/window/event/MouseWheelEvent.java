@@ -23,4 +23,9 @@ public class MouseWheelEvent extends MouseEvent {
     public int getDelta() {
         return delta;
     }
+
+    @Override
+    public MouseWheelEvent asMouseWheelEvent() {
+        return this;
+    }
 }

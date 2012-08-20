@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Immutable texture that cannot be altered.
+ * Immutable texture.
  */
 class ImmutableTexture extends Texture {
     ImmutableTexture(long wrap) {

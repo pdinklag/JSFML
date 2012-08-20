@@ -23,4 +23,9 @@ public abstract class JoystickEvent extends Event {
     public int getJoystickId() {
         return joystickId;
     }
+
+    @Override
+    public JoystickEvent asJoystickEvent() {
+        return this;
+    }
 }

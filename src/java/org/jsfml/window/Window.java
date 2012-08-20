@@ -43,6 +43,12 @@ public class Window extends SFMLNativeObject {
      */
     public static final int DEFAULT = TITLEBAR | RESIZE | CLOSE;
 
+    /**
+     * The current window icon image.
+     * <p/>
+     * A reference to it must be maintained in order to assure that the image will not be
+     * garbage-collected.
+     */
     private Image icon = null;
 
     /**
@@ -108,10 +114,14 @@ public class Window extends SFMLNativeObject {
      * @return <tt>true</tt> if the current native thread may create a window, <tt>false</tt>
      *         otherwise.
      */
-    private static native boolean isLegalWindowThread();
+    public static native boolean isLegalWindowThread();
 
     /**
      * Creates a window or re-creates it if it was already opened.
+     * <p/>
+     * Note that this method may raise a {@link JSFMLError} on Mac OS X systems if the thread
+     * this method was invoked in is not allowed to open a window. See {@link #isLegalWindowThread()}
+     * for more information.
      *
      * @param mode     The video mode to use for the OpenGL context. This must be a valid video mode in case
      *                 {@link Window#FULLSCREEN} is set.
@@ -139,6 +149,9 @@ public class Window extends SFMLNativeObject {
                     "If you are running on Mac OS X, you MUST run your" +
                     "application with the -XstartOnFirstThread command line argument!");
         }
+
+        if ((style & FULLSCREEN) != 0 && !mode.isValid())
+            throw new IllegalArgumentException("Invalid video mode for fullscreen window.");
 
         nativeCreate(mode, title, style, settings);
     }

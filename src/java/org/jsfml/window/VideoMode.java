@@ -1,7 +1,6 @@
 package org.jsfml.window;
 
 import org.jsfml.Intercom;
-import org.jsfml.JSFMLException;
 import org.jsfml.SFMLNative;
 
 import java.io.Serializable;
@@ -14,11 +13,7 @@ public class VideoMode implements Serializable {
     private static final long serialVersionUID = 8608938390916786270L;
 
     static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
+        SFMLNative.loadNativeLibraries();
     }
 
     @Intercom

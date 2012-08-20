@@ -1,6 +1,5 @@
 package org.jsfml.audio;
 
-import org.jsfml.JSFMLException;
 import org.jsfml.SFMLNative;
 import org.jsfml.system.Vector3f;
 
@@ -9,12 +8,7 @@ import org.jsfml.system.Vector3f;
  */
 public class Listener {
     static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
-
+        SFMLNative.loadNativeLibraries();
         //TODO add audio device shutdown hook
     }
 

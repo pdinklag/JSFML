@@ -1,6 +1,5 @@
 package org.jsfml.window;
 
-import org.jsfml.JSFMLException;
 import org.jsfml.SFMLNative;
 import org.jsfml.system.Vector2i;
 
@@ -9,15 +8,11 @@ import org.jsfml.system.Vector2i;
  */
 public class Mouse {
     static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
+        SFMLNative.loadNativeLibraries();
     }
 
     /**
-     * Mouse Buttons.
+     * Enumeration of supported mouse buttons.
      */
     public static enum Button {
         LEFT,

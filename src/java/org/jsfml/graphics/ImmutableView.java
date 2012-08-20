@@ -1,7 +1,7 @@
 package org.jsfml.graphics;
 
 /**
- * Immutable view that cannot be altered.
+ * Immutable view.
  */
 class ImmutableView extends View {
     ImmutableView(long wrap) {

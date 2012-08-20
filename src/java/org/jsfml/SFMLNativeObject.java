@@ -12,6 +12,10 @@ public abstract class SFMLNativeObject {
     private static boolean debug = false;
     private static int numManaged = 0, numWrapped = 0;
 
+    static {
+        SFMLNative.loadNativeLibraries();
+    }
+
     /**
      * Enables or disables SFMLNativeObject debug output to the standard output stream.
      * When enabled, the creation, wrapping and deletion of all SFML native objects will be logged to the
@@ -23,14 +27,6 @@ public abstract class SFMLNativeObject {
     public static void setDebug(boolean b) {
         debug = b;
         Runtime.runFinalizersOnExit(b);
-    }
-
-    static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
     }
 
     @Intercom

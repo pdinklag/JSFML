@@ -2,6 +2,9 @@ package org.jsfml;
 
 /**
  * Error class for severe JSFML faults.
+ * <p/>
+ * An error of this type is raised either if JSFML tried to load its native libraries on an unsupported
+ * platform, or if a platform-specific requirement is violated.
  */
 public class JSFMLError extends Error {
     private static final long serialVersionUID = -8281004117329430845L;

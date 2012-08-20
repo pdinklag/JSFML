@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Immutable sound buffer that cannot be altered.
+ * Immutable sound buffer.
  */
 class ImmutableSoundBuffer extends SoundBuffer {
     ImmutableSoundBuffer(long wrap) {

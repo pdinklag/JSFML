@@ -1,6 +1,5 @@
 package org.jsfml.window;
 
-import org.jsfml.JSFMLException;
 import org.jsfml.SFMLNative;
 
 /**
@@ -8,15 +7,11 @@ import org.jsfml.SFMLNative;
  */
 public class Joystick {
     static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
+        SFMLNative.loadNativeLibraries();
     }
 
     /**
-     * Axes supported by joysticks.
+     * Enumeration of supported joystick axes.
      */
     public static enum Axis {
         X,
@@ -73,7 +68,10 @@ public class Joystick {
     public static native float getAxisPosition(int joystick, Axis axis);
 
     /**
-     * Updates the state of all joysticks.
+     * Forces an updates of the states of all joysticks.
+     * <p/>
+     * This method is only required if the joystick state needs to be known before a window has been
+     * created. Once there is a window, the states will be automatically updated in regular periods.
      */
     public static native void update();
 }

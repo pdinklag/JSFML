@@ -12,4 +12,9 @@ public class JoystickConnectEvent extends JoystickEvent {
     public JoystickConnectEvent(int type, int joystickId) {
         super(type, joystickId);
     }
+
+    @Override
+    public JoystickConnectEvent asJoystickConnectEvent() {
+        return this;
+    }
 }

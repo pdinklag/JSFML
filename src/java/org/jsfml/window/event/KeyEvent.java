@@ -65,4 +65,9 @@ public class KeyEvent extends Event {
     public boolean isSystemPressed() {
         return system;
     }
+
+    @Override
+    public KeyEvent asKeyEvent() {
+        return this;
+    }
 }

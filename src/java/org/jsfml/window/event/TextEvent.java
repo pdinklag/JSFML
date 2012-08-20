@@ -32,4 +32,9 @@ public class TextEvent extends Event {
     public char getChar() {
         return (char) (unicode & 0xFFFF);
     }
+
+    @Override
+    public TextEvent asTextEvent() {
+        return this;
+    }
 }

@@ -15,7 +15,7 @@ public class Standalone {
     public static void main(String[] args) {
         //Set OpenGL 3.0 to be the desired version
         ContextSettings settings = new ContextSettings();
-        settings.majorVersion = 3;
+        settings.setMajorVersion(3);
 
         //Create a render window
         RenderWindow window = new RenderWindow(

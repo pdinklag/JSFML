@@ -1,6 +1,5 @@
 package org.jsfml.window;
 
-import org.jsfml.JSFMLException;
 import org.jsfml.SFMLNative;
 
 /**
@@ -8,15 +7,14 @@ import org.jsfml.SFMLNative;
  */
 public class Keyboard {
     static {
-        try {
-            SFMLNative.loadNativeLibraries();
-        } catch (JSFMLException ex) {
-            throw new UnsatisfiedLinkError(ex.getMessage());
-        }
+        SFMLNative.loadNativeLibraries();
     }
 
     /**
-     * Key codes.
+     * Enumeration of keys known to SFML.
+     * <p/>
+     * There may be some non-standard keys on certain keyboards that are mapped to unknown scan codes.
+     * Those special keys will be represented by {@link Key#UNKNOWN}.
      */
     public static enum Key {
         UNKNOWN,

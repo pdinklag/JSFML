@@ -8,7 +8,6 @@ import org.jsfml.system.Vector2i;
  */
 @Intercom
 public class MouseEvent extends Event {
-
     private int x, y;
 
     @Intercom
@@ -43,5 +42,10 @@ public class MouseEvent extends Event {
      */
     public Vector2i getPosition() {
         return new Vector2i(x, y);
+    }
+
+    @Override
+    public MouseEvent asMouseEvent() {
+        return this;
     }
 }

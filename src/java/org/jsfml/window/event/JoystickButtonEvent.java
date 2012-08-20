@@ -24,4 +24,9 @@ public class JoystickButtonEvent extends JoystickEvent {
     public int getButton() {
         return button;
     }
+
+    @Override
+    public JoystickButtonEvent asJoystickButtonEvent() {
+        return this;
+    }
 }

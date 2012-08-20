@@ -33,4 +33,9 @@ public class SizeEvent extends Event {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public SizeEvent asSizeEvent() {
+        return this;
+    }
 }
