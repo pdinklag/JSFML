@@ -89,6 +89,7 @@ public final class SFMLNative {
                     nativeLibs.add("linux_x64/libjsfml.so");
                 }
             } else if (osName.contains(OS_NAME_MACOSX)) {
+                nativeLibs.add("macosx_universal/libfreetype.dylib");
                 nativeLibs.add("macosx_universal/libsndfile.dylib");
                 nativeLibs.add("macosx_universal/libsfml-system.dylib");
                 nativeLibs.add("macosx_universal/libsfml-window.dylib");
