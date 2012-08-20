@@ -1,2 +1,12 @@
+#Output
 examples/classes
 out
+
+#IntelliJ IDEA project files
+*.iml
+*.ipr
+*.iws
+
+#Personal mojo
+jsfml-build-all
+jsfml-old
