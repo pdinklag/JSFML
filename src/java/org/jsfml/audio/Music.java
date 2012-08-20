@@ -2,7 +2,6 @@ package org.jsfml.audio;
 
 import org.jsfml.StreamUtil;
 import org.jsfml.system.Time;
-import org.jsfml.system.Vector3f;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,74 +64,4 @@ public class Music extends SoundStream {
      * @return The total duration of the music in milliseconds.
      */
     public native Time getDuration();
-
-    @Override
-    public native void play();
-
-    @Override
-    public native void pause();
-
-    @Override
-    public native void stop();
-
-    @Override
-    public native int getChannelCount();
-
-    @Override
-    public native int getSampleRate();
-
-    private native int nativeGetStatus();
-
-    @Override
-    public Status getStatus() {
-        return Status.values()[nativeGetStatus()];
-    }
-
-    @Override
-    native void nativeSetPlayingOffset(Time offset);
-
-    @Override
-    public native Time getPlayingOffset();
-
-    @Override
-    public native void setLoop(boolean loop);
-
-    @Override
-    public native boolean isLoop();
-
-    @Override
-    public native void setPitch(float pitch);
-
-    @Override
-    public native void setVolume(float volume);
-
-    @Override
-    public native void setPosition(float x, float y, float z);
-
-    @Override
-    public native void setRelativeToListener(boolean relative);
-
-    @Override
-    public native void setMinDistance(float distance);
-
-    @Override
-    public native void setAttenuation(float att);
-
-    @Override
-    public native float getPitch();
-
-    @Override
-    public native float getVolume();
-
-    @Override
-    public native Vector3f getPosition();
-
-    @Override
-    public native boolean isRelativeToListener();
-
-    @Override
-    public native float getMinDistance();
-
-    @Override
-    public native float getAttenuation();
 }

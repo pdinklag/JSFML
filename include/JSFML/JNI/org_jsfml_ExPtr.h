@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 #undef org_jsfml_ExPtr_NUM
-#define org_jsfml_ExPtr_NUM 5L
+#define org_jsfml_ExPtr_NUM 7L
 #undef org_jsfml_ExPtr_DRAWABLE
 #define org_jsfml_ExPtr_DRAWABLE 0L
 #undef org_jsfml_ExPtr_TRANSFORMABLE
@@ -19,6 +19,10 @@ extern "C" {
 #define org_jsfml_ExPtr_SHAPE 3L
 #undef org_jsfml_ExPtr_WINDOW
 #define org_jsfml_ExPtr_WINDOW 4L
+#undef org_jsfml_ExPtr_SOUND_SOURCE
+#define org_jsfml_ExPtr_SOUND_SOURCE 5L
+#undef org_jsfml_ExPtr_SOUND_STREAM
+#define org_jsfml_ExPtr_SOUND_STREAM 6L
 #ifdef __cplusplus
 }
 #endif

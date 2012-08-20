@@ -5,7 +5,7 @@ package org.jsfml;
  */
 final class ExPtr {
     //Total amount of exPtr fields.
-    static final int NUM = 5;
+    static final int NUM = 7;
 
     //Pointer to sf::Drawable.
     static final int DRAWABLE = 0;
@@ -21,4 +21,10 @@ final class ExPtr {
 
     //Pointer to sf::Window.
     static final int WINDOW = 4;
+
+    //Pointer to sf::SoundSource.
+    static final int SOUND_SOURCE = 5;
+
+    //Pointer to sf::SoundStream.
+    static final int SOUND_STREAM = 6;
 }

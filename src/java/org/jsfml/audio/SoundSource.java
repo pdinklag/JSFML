@@ -48,7 +48,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @param pitch The pitch factor of the sound, where 1 is the default pitch.
      */
-    public abstract void setPitch(float pitch);
+    public native void setPitch(float pitch);
 
     /**
      * Sets the volume of the sound.
@@ -57,7 +57,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @param volume The volume of the sound, ranging between 0 and 100.
      */
-    public abstract void setVolume(float volume);
+    public native void setVolume(float volume);
 
     /**
      * Sets the position of the sound in the scene.
@@ -66,7 +66,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param y The Y coordinate.
      * @param z The Z coordinate.
      */
-    public abstract void setPosition(float x, float y, float z);
+    public native void setPosition(float x, float y, float z);
 
     /**
      * Sets the position of the sound in the scene.
@@ -87,7 +87,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *                 to make it absolute.
      * @see SoundSource#setPosition(float, float, float)
      */
-    public abstract void setRelativeToListener(boolean relative);
+    public native void setRelativeToListener(boolean relative);
 
     /**
      * The minimum distance of the sound before attenuation kicks in.
@@ -98,7 +98,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param distance The distance in world units.
      * @see SoundSource#setAttenuation(float)
      */
-    public abstract void setMinDistance(float distance);
+    public native void setMinDistance(float distance);
 
     /**
      * Sets the sound's attenuation factor.
@@ -109,28 +109,28 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param att The attenuation factor, ranging between 0 (no attenuation) and 100 (instant attenuation).
      * @see SoundSource#setMinDistance(float)
      */
-    public abstract void setAttenuation(float att);
+    public native void setAttenuation(float att);
 
     /**
      * Gets the sound's current pitch factor.
      *
      * @return The sound's current pitch factor.
      */
-    public abstract float getPitch();
+    public native float getPitch();
 
     /**
      * Gets the sound's current volume.
      *
      * @return The sound's current volume.
      */
-    public abstract float getVolume();
+    public native float getVolume();
 
     /**
      * Gets the sound's current position in the scene.
      *
      * @return The sound's current position in the scene.
      */
-    public abstract Vector3f getPosition();
+    public native Vector3f getPosition();
 
     /**
      * Returns whether the sound's position is relative to the {@link Listener}.
@@ -139,7 +139,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *         it is absolute.
      * @see SoundSource#setRelativeToListener(boolean)
      */
-    public abstract boolean isRelativeToListener();
+    public native boolean isRelativeToListener();
 
     /**
      * Gets the sound's minimum distance before attenuation sets in.
@@ -147,7 +147,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @return The sound's minimum distance before attenuation sets in.
      * @see SoundSource#setMinDistance(float)
      */
-    public abstract float getMinDistance();
+    public native float getMinDistance();
 
     /**
      * Gets the sound's attenuation factor.
@@ -155,5 +155,16 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @return The sound's attenuation factor.
      * @see SoundSource#setAttenuation(float)
      */
-    public abstract float getAttenuation();
+    public native float getAttenuation();
+
+    abstract int nativeGetStatus();
+
+    /**
+     * Gets the current state of the sound stream.
+     *
+     * @return The current state of the sound stream.
+     */
+    public Status getStatus() {
+        return Status.values()[nativeGetStatus()];
+    }
 }

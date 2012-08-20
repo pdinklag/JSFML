@@ -86,6 +86,8 @@
 			<class name="${jsfml.package}.audio.SoundBuffer" />
 			<class name="${jsfml.package}.audio.SoundBufferRecorder" />
 			<class name="${jsfml.package}.audio.SoundRecorder" />
+			<class name="${jsfml.package}.audio.SoundSource" />
+			<class name="${jsfml.package}.audio.SoundStream" />
 		</javah>
 	</target>
 	
