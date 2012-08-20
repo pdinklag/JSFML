@@ -2,7 +2,6 @@
 
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Time.hpp>
-#include <JSFML/Intercom/Vector3f.hpp>
 
 #include <JSFML/JNI/org_jsfml_ExPtr.h>
 
@@ -92,7 +91,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_setLoop (JNIEnv *env, jobject 
  * Method:    nativeSetPlayingOffset
  * Signature: (Lorg/jsfml/system/Time;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_c
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetPlayingOffset
     (JNIEnv *env, jobject obj, jobject time) {
 
 	THIS(sf::Sound)->setPlayingOffset(JSFML::Time::ToSFML(env, time));
