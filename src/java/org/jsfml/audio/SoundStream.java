@@ -1,5 +1,6 @@
 package org.jsfml.audio;
 
+import org.jsfml.Intercom;
 import org.jsfml.NotNull;
 import org.jsfml.system.Time;
 
@@ -7,6 +8,66 @@ import org.jsfml.system.Time;
  * Abstract base class for streamed audio sources.
  */
 public abstract class SoundStream extends SoundSource {
+    /**
+     * Represents a chunk of audio data provided by a {@link SoundStream} when
+     * new data is requested.
+     */
+    @Intercom
+    public static class Chunk {
+        @Intercom
+        private final short[] data;
+
+        @Intercom
+        private boolean last = false;
+
+        /**
+         * Constructs a new chunk containing the given data.
+         *
+         * @param data An array of 16-bit samples representing the chunk's audio data.
+         */
+        public Chunk(@NotNull short[] data) {
+            if (data == null)
+                throw new NullPointerException("data must not be null.");
+
+            this.data = data;
+        }
+
+        /**
+         * Gets the audio sample data in this chunk.
+         *
+         * @return The audio sample data in this chunk.
+         */
+        public short[] getData() {
+            return data;
+        }
+
+        /**
+         * Tests whether this chunk is the last chunk of data in the stream.
+         *
+         * @return <tt>true</tt> if the chunk is marked as the last one, <tt>false</tt>
+         *         otherwise
+         * @see #setLast(boolean)
+         */
+        public boolean isLast() {
+            return last;
+        }
+
+        /**
+         * Determines whether this chunk is the last chunk of data in the stream.
+         * <p/>
+         * If set to <tt>true</tt>, the {@link SoundStream} will stop playing after
+         * the audio samples contained in this chunk have been played.
+         * <p/>
+         * This property is set to <tt>false</tt> by default.
+         *
+         * @param last <tt>true</tt> to flag this chunk as the last chunk in the stream,
+         *             <tt>false</tt> otherwise.
+         */
+        public void setLast(boolean last) {
+            this.last = last;
+        }
+    }
+
     /**
      * Default constructor.
      */
@@ -51,7 +112,7 @@ public abstract class SoundStream extends SoundSource {
      * @param offset The playing offset, in milliseconds, at which to play from the stream.
      */
     public final void setPlayingOffset(@NotNull Time offset) {
-        if(offset == null)
+        if (offset == null)
             throw new NullPointerException("offset must not be null.");
 
         nativeSetPlayingOffset(offset);

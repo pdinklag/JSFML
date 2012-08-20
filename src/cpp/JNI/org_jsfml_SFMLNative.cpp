@@ -21,6 +21,8 @@
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
+#include <JSFML/Intercom/Chunk.hpp>
+
 /*
  * Class:     org_jsfml_SFMLNative
  * Method:    nativeInit
@@ -47,4 +49,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::RenderStates::Init(env);
     JSFML::Transform::Init(env);
     JSFML::Vertex::Init(env);
+
+    JSFML::Chunk::Init(env);
 }
