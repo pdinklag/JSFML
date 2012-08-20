@@ -8,7 +8,7 @@
 #  - libsfml-system.2.0.dylib   => libsfml-system.dylib
 #  - libsfml-window.2.0.dylib   => libsfml-window.dylib
 #
-# libsndfile is not handled by this script!
+# libsndfile and libfreetype are NOT handled by this script!
 #
 
 
@@ -53,6 +53,8 @@ install_name_tool -id "$audio" \
                   "$audio"
 
 install_name_tool -id "$graphics" \
+                  -change /usr/local/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
+                  -change /usr/X11/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
                   -change @executable_path/../Frameworks/libsfml-window.2.dylib @loader_path/"$window" \
                   -change @executable_path/../Frameworks/libsfml-system.2.dylib @loader_path/"$system" \
                   "$graphics"
