@@ -17,7 +17,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_nativeCreate (JNIEnv *env, jo
 	sf::Music *music = new sf::Music();
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
-        dynamic_cast<sf::Music*>(music));
+        dynamic_cast<sf::SoundSource*>(music));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_STREAM,
         dynamic_cast<sf::SoundStream*>(music));
