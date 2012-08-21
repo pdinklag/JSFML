@@ -19,18 +19,22 @@ public abstract class SoundStream extends SoundSource {
         private final short[] data;
 
         @Intercom
-        private boolean last = false;
+        private final boolean last;
 
         /**
          * Constructs a new chunk containing the given data.
          *
          * @param data An array of 16-bit samples representing the chunk's audio data.
+         * @param last Determines whether this audio chunk is the last in the stream. If
+         *             <tt>true</tt>, the stream will stop playing once this chunk has been
+         *             played.
          */
-        public Chunk(@NotNull short[] data) {
+        public Chunk(@NotNull short[] data, boolean last) {
             if (data == null)
                 throw new NullPointerException("data must not be null.");
 
             this.data = data;
+            this.last = last;
         }
 
         /**
@@ -44,28 +48,14 @@ public abstract class SoundStream extends SoundSource {
 
         /**
          * Tests whether this chunk is the last chunk of data in the stream.
+         * <p/>
+         * If this is <tt>true</tt>, the audio stream will stop playing after this chunk.
          *
          * @return <tt>true</tt> if the chunk is marked as the last one, <tt>false</tt>
          *         otherwise
-         * @see #setLast(boolean)
          */
         public boolean isLast() {
             return last;
-        }
-
-        /**
-         * Determines whether this chunk is the last chunk of data in the stream.
-         * <p/>
-         * If set to <tt>true</tt>, the {@link SoundStream} will stop playing after
-         * the audio samples contained in this chunk have been played.
-         * <p/>
-         * This property is set to <tt>false</tt> by default.
-         *
-         * @param last <tt>true</tt> to flag this chunk as the last chunk in the stream,
-         *             <tt>false</tt> otherwise.
-         */
-        public void setLast(boolean last) {
-            this.last = last;
         }
     }
 
@@ -165,8 +155,8 @@ public abstract class SoundStream extends SoundSource {
      * This method is called when the audio stream has played all buffered samples and needs
      * new samples to continue playing.
      *
-     * @return The next chunk of audio data. If the chunk is marked as the last chunk (see
-     *         {@link Chunk#setLast(boolean)}, the stream will stop playing after playing this chunk.
+     * @return The next chunk of audio data. If the chunk is marked as the last chunk,
+     *         the stream will stop playing after playing this chunk.
      *         To stop playback immediately, <tt>null</tt> may be returned as well.
      * @see Chunk
      */
