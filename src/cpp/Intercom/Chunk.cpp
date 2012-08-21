@@ -1,5 +1,7 @@
 #include <JSFML/Intercom/Chunk.hpp>
 
+#include <JSFML/Intercom/JVM.hpp>
+
 jclass JSFML::Chunk::cls = 0;
 
 jfieldID JSFML::Chunk::f_data = 0;
@@ -15,24 +17,29 @@ void JSFML::Chunk::Init(JNIEnv* env) {
     }
 }
 
-bool JSFML::Chunk::GetData(JNIEnv* env, jobject chunk, sf::SoundStream::Chunk &data) {
-    jshortArray arr = (jshortArray)env->GetObjectField(chunk, f_data);
-    data.sampleCount = (size_t)env->GetArrayLength(arr);
+JSFML::Chunk::Chunk(jobject chunk) {
+    JNIEnv *env = JVM::GetJNIEnv();
 
-    if(data.sampleCount > 0) {
-        jshort *samples = env->GetShortArrayElements(arr, 0);
-        if(samples) {
-            //make a copy of the data - MUST BE FREED BY WHATEVER USES IT!
-            sf::Int16 *copy = new sf::Int16[data.sampleCount];
-            for(size_t i = 0; i < data.sampleCount; i++)
-                copy[i] = (sf::Int16)samples[i];
+    this->last = (bool)env->GetBooleanField(chunk, f_last);
+    this->dataArray = (jshortArray)env->NewGlobalRef(env->GetObjectField(chunk, f_data));
+    this->sampleCount = (size_t)env->GetArrayLength(this->dataArray);
+    this->data = env->GetShortArrayElements(dataArray, 0);
+}
 
-            data.samples = copy;
-            env->ReleaseShortArrayElements(arr, samples, JNI_ABORT);
-        } else {
-            data.sampleCount = 0;
-        }
+JSFML::Chunk::~Chunk() {
+    JNIEnv *env = JVM::GetJNIEnv();
+
+    if(data) {
+        env->ReleaseShortArrayElements(dataArray, data, JNI_ABORT);
+        env->DeleteGlobalRef(this->dataArray);
+
+        data = NULL;
+        dataArray = NULL;
     }
+}
 
-    return (bool)env->GetBooleanField(chunk, f_last);
+bool JSFML::Chunk::GetData(sf::SoundStream::Chunk &chunk) {
+    chunk.sampleCount = sampleCount;
+    chunk.samples = (const sf::Int16 *)data;
+    return !last;
 }

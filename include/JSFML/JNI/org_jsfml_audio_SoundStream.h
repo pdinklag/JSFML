@@ -12,6 +12,22 @@ extern "C" {
 /* Inaccessible static: numWrapped */
 /*
  * Class:     org_jsfml_audio_SoundStream
+ * Method:    nativeCreate
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeCreate
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundStream
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundStream
  * Method:    play
  * Signature: ()V
  */
@@ -89,6 +105,14 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundStream_isLoop
  */
 JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_nativeGetStatus
   (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundStream
+ * Method:    initialize
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_initialize
+  (JNIEnv *, jobject, jint, jint);
 
 #ifdef __cplusplus
 }

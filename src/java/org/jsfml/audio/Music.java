@@ -64,4 +64,20 @@ public class Music extends SoundStream {
      * @return The total duration of the music in milliseconds.
      */
     public native Time getDuration();
+
+    @Override
+    protected final void initialize(int channelCount, int sampleRate) {
+        //Music is implemented natively, so this is not used.
+    }
+
+    @Override
+    protected final Chunk onGetData() {
+        //Music is implemented natively, so this is not used.
+        return null;
+    }
+
+    @Override
+    protected final void onSeek(Time time) {
+        //Music is implemented natively, so this is not used.
+    }
 }

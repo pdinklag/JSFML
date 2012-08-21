@@ -7,6 +7,7 @@ import org.jsfml.system.Time;
 /**
  * Abstract base class for streamed audio sources.
  */
+@Intercom
 public abstract class SoundStream extends SoundSource {
     /**
      * Represents a chunk of audio data provided by a {@link SoundStream} when
@@ -75,6 +76,12 @@ public abstract class SoundStream extends SoundSource {
         super();
     }
 
+    @Override
+    protected native long nativeCreate();
+
+    @Override
+    protected native void nativeDelete();
+
     /**
      * Starts playing the stream or resumes it if it is currently paused.
      */
@@ -141,4 +148,39 @@ public abstract class SoundStream extends SoundSource {
 
     @Override
     native int nativeGetStatus();
+
+    /**
+     * Defines the audio stream parameters.
+     * <p/>
+     * Before the stream can be played, the implementing class must call this method.
+     *
+     * @param channelCount The amount of audio channels (e.g. 1 for mono, 2 for stereo).
+     * @param sampleRate   The sample rate in samples per second.
+     */
+    protected native void initialize(int channelCount, int sampleRate);
+
+    /**
+     * Requests a new chunk of audio data.
+     * <p/>
+     * This method is called when the audio stream has played all buffered samples and needs
+     * new samples to continue playing.
+     *
+     * @return The next chunk of audio data. If the chunk is marked as the last chunk (see
+     *         {@link Chunk#setLast(boolean)}, the stream will stop playing after playing this chunk.
+     *         To stop playback immediately, <tt>null</tt> may be returned as well.
+     * @see Chunk
+     */
+    @Intercom
+    protected abstract Chunk onGetData();
+
+    /**
+     * Re-positions the stream's current playing offset.
+     * <p/>
+     * This method is called when the stream is reset or a re-positioning has been requested
+     * via {@link #setPlayingOffset(org.jsfml.system.Time)}.
+     *
+     * @param time The time offset to jump to.
+     */
+    @Intercom
+    protected abstract void onSeek(Time time);
 }

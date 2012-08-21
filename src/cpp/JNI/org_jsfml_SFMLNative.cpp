@@ -1,5 +1,6 @@
 #include <JSFML/JNI/org_jsfml_SFMLNative.h>
 
+#include <JSFML/Intercom/JVM.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 
 #include <JSFML/Intercom/NativeObject.hpp>
@@ -22,6 +23,7 @@
 #include <JSFML/Intercom/Vertex.hpp>
 
 #include <JSFML/Intercom/Chunk.hpp>
+#include <JSFML/Intercom/SoundStream.hpp>
 
 /*
  * Class:     org_jsfml_SFMLNative
@@ -29,6 +31,7 @@
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass cls) {
+    JVM::Init(env);
     JavaEnum::Init(env);
 
     JSFML::NativeObject::Init(env);
@@ -51,4 +54,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass
     JSFML::Vertex::Init(env);
 
     JSFML::Chunk::Init(env);
+    JSFML::SoundStream::Init(env);
 }

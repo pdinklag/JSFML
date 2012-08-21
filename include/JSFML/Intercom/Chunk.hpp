@@ -12,10 +12,19 @@ namespace JSFML {
             static jfieldID f_data;
             static jfieldID f_last;
 
+            bool last;
+            size_t sampleCount;
+
+            jshortArray dataArray;
+            jshort *data;
+
         public:
             static void Init(JNIEnv* env);
 
-            static bool GetData(JNIEnv* env, jobject chunk, sf::SoundStream::Chunk &data);
+            Chunk(jobject chunk);
+            ~Chunk();
+
+            bool GetData(sf::SoundStream::Chunk &chunk);
     };
 }
 
