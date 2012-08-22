@@ -3,28 +3,37 @@ package org.jsfml;
 /**
  * Holds index definitions for the {@link SFMLNativeObject#exPtr} array.
  */
+@Intercom
 final class ExPtr {
     //Total amount of exPtr fields.
-    static final int NUM = 7;
+    @Intercom
+    static final int NUM = 3;
 
     //Pointer to sf::Drawable.
+    @Intercom
     static final int DRAWABLE = 0;
 
     //Pointer to sf::Transformable.
+    @Intercom
     static final int TRANSFORMABLE = 1;
 
-    //Pointer to sf::RenderTarget.
-    static final int RENDER_TARGET = 2;
-
     //Pointer to sf::Shape.
-    static final int SHAPE = 3;
+    @Intercom
+    static final int SHAPE = 2;
+
+    //Pointer to sf::RenderTarget.
+    @Intercom
+    static final int RENDER_TARGET = 0;
 
     //Pointer to sf::Window.
-    static final int WINDOW = 4;
+    @Intercom
+    static final int WINDOW = 1;
 
     //Pointer to sf::SoundSource.
-    static final int SOUND_SOURCE = 5;
+    @Intercom
+    static final int SOUND_SOURCE = 0;
 
     //Pointer to sf::SoundStream.
-    static final int SOUND_STREAM = 6;
+    @Intercom
+    static final int SOUND_STREAM = 1;
 }

@@ -8,21 +8,21 @@
 extern "C" {
 #endif
 #undef org_jsfml_ExPtr_NUM
-#define org_jsfml_ExPtr_NUM 7L
+#define org_jsfml_ExPtr_NUM 3L
 #undef org_jsfml_ExPtr_DRAWABLE
 #define org_jsfml_ExPtr_DRAWABLE 0L
 #undef org_jsfml_ExPtr_TRANSFORMABLE
 #define org_jsfml_ExPtr_TRANSFORMABLE 1L
-#undef org_jsfml_ExPtr_RENDER_TARGET
-#define org_jsfml_ExPtr_RENDER_TARGET 2L
 #undef org_jsfml_ExPtr_SHAPE
-#define org_jsfml_ExPtr_SHAPE 3L
+#define org_jsfml_ExPtr_SHAPE 2L
+#undef org_jsfml_ExPtr_RENDER_TARGET
+#define org_jsfml_ExPtr_RENDER_TARGET 0L
 #undef org_jsfml_ExPtr_WINDOW
-#define org_jsfml_ExPtr_WINDOW 4L
+#define org_jsfml_ExPtr_WINDOW 1L
 #undef org_jsfml_ExPtr_SOUND_SOURCE
-#define org_jsfml_ExPtr_SOUND_SOURCE 5L
+#define org_jsfml_ExPtr_SOUND_SOURCE 0L
 #undef org_jsfml_ExPtr_SOUND_STREAM
-#define org_jsfml_ExPtr_SOUND_STREAM 6L
+#define org_jsfml_ExPtr_SOUND_STREAM 1L
 #ifdef __cplusplus
 }
 #endif
