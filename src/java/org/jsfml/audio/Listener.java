@@ -9,7 +9,6 @@ import org.jsfml.system.Vector3f;
 public class Listener {
     static {
         SFMLNative.loadNativeLibraries();
-        //TODO add audio device shutdown hook
     }
 
     /**

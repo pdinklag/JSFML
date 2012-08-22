@@ -15,10 +15,6 @@ import java.io.InputStream;
  * Storage for audio samples defining a sound.
  */
 public class SoundBuffer extends SFMLNativeObject {
-    static {
-        //TODO add audio device shutdown hook
-    }
-
     /**
      * Creates a sound buffer.
      */
