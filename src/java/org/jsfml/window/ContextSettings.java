@@ -176,18 +176,16 @@ public class ContextSettings implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContextSettings that = (ContextSettings) o;
-
-        if (antialiasingLevel != that.antialiasingLevel) return false;
-        if (depthBits != that.depthBits) return false;
-        if (majorVersion != that.majorVersion) return false;
-        if (minorVersion != that.minorVersion) return false;
-        if (stencilBits != that.stencilBits) return false;
-
-        return true;
+        if (o instanceof ContextSettings) {
+            ContextSettings c = (ContextSettings) o;
+            return (c.antialiasingLevel == antialiasingLevel &&
+                    c.depthBits == depthBits &&
+                    c.majorVersion == majorVersion &&
+                    c.minorVersion == minorVersion &&
+                    c.stencilBits == stencilBits);
+        } else {
+            return false;
+        }
     }
 
     @Override

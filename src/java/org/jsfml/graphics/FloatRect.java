@@ -186,17 +186,15 @@ public class FloatRect implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FloatRect)) return false;
-
-        FloatRect floatRect = (FloatRect) o;
-
-        if (Float.compare(floatRect.height, height) != 0) return false;
-        if (Float.compare(floatRect.left, left) != 0) return false;
-        if (Float.compare(floatRect.top, top) != 0) return false;
-        if (Float.compare(floatRect.width, width) != 0) return false;
-
-        return true;
+        if (o instanceof FloatRect) {
+            FloatRect r = (FloatRect) o;
+            return (left == r.left &&
+                    top == r.top &&
+                    width == r.width &&
+                    height == r.height);
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Base class for the representation of time values.
  */
 @Intercom
-public class Time implements Cloneable, Comparable, Serializable {
+public class Time implements Comparable<Time>, Serializable {
     private static final long serialVersionUID = 7038088548302750096L;
 
     /**
@@ -153,34 +153,13 @@ public class Time implements Cloneable, Comparable, Serializable {
     }
 
     @Override
-    protected Time clone() throws CloneNotSupportedException {
-        return (Time) super.clone();
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        if (o instanceof Time) {
-            if (microseconds < ((Time) o).microseconds)
-                return -1;
-            else if (microseconds > ((Time) o).microseconds)
-                return 1;
-            else
-                return 0;
-        } else {
-            return 0;
-        }
+    public int compareTo(Time t) {
+        return ((Long) microseconds).compareTo(t.microseconds);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Time time = (Time) o;
-
-        if (microseconds != time.microseconds) return false;
-
-        return true;
+        return (o instanceof Time && ((Time) o).microseconds == microseconds);
     }
 
     @Override

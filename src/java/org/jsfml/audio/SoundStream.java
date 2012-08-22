@@ -154,6 +154,8 @@ public abstract class SoundStream extends SoundSource {
      * <p/>
      * This method is called when the audio stream has played all buffered samples and needs
      * new samples to continue playing.
+     * <p/>
+     * Note that this method will be called within a separate playback thread.
      *
      * @return The next chunk of audio data. If the chunk is marked as the last chunk,
      *         the stream will stop playing after playing this chunk.
@@ -168,6 +170,8 @@ public abstract class SoundStream extends SoundSource {
      * <p/>
      * This method is called when the stream is reset or a re-positioning has been requested
      * via {@link #setPlayingOffset(org.jsfml.system.Time)}.
+     * <p/>
+     * Note that this method will be called within a separate playback thread.
      *
      * @param time The time offset to jump to.
      */

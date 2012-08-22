@@ -185,17 +185,15 @@ public class IntRect implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof IntRect)) return false;
-
-        IntRect intRect = (IntRect) o;
-
-        if (height != intRect.height) return false;
-        if (left != intRect.left) return false;
-        if (top != intRect.top) return false;
-        if (width != intRect.width) return false;
-
-        return true;
+        if (o instanceof IntRect) {
+            IntRect r = (IntRect) o;
+            return (left == r.left &&
+                    top == r.top &&
+                    width == r.width &&
+                    height == r.height);
+        } else {
+            return false;
+        }
     }
 
     @Override

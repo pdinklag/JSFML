@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Utility class for manipulating 3-dimensional vectors.
  */
 @Intercom
-public class Vector3f implements Cloneable, Serializable {
+public class Vector3f implements Serializable {
     private static final long serialVersionUID = -2176250005619169432L;
 
     /**
@@ -302,22 +302,9 @@ public class Vector3f implements Cloneable, Serializable {
     }
 
     @Override
-    protected Vector3f clone() throws CloneNotSupportedException {
-        return (Vector3f) super.clone();
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Vector3f)) return false;
-
-        Vector3f vector3f = (Vector3f) o;
-
-        if (Float.compare(vector3f.x, x) != 0) return false;
-        if (Float.compare(vector3f.y, y) != 0) return false;
-        if (Float.compare(vector3f.z, z) != 0) return false;
-
-        return true;
+        return (o instanceof Vector3f &&
+                ((Vector3f) o).x == x && ((Vector3f) o).y == y && ((Vector3f) o).z == z);
     }
 
     @Override

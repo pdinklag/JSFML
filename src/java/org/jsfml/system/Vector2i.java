@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Utility class for manipulating 2-dimensional vectors.
  */
 @Intercom
-public class Vector2i implements Cloneable, Serializable {
+public class Vector2i implements Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
     /**
@@ -129,21 +129,8 @@ public class Vector2i implements Cloneable, Serializable {
     }
 
     @Override
-    protected Vector2f clone() throws CloneNotSupportedException {
-        return (Vector2f) super.clone();
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Vector2i)) return false;
-
-        Vector2i vector2i = (Vector2i) o;
-
-        if (vector2i.x != x) return false;
-        if (vector2i.y != y) return false;
-
-        return true;
+        return (o instanceof Vector2i && ((Vector2i) o).x == x && ((Vector2i) o).y == y);
     }
 
     @Override

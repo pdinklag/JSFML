@@ -38,7 +38,7 @@ import java.util.Arrays;
  * Defines a 3x3 transformation matrix for 2D transformations.
  */
 @Intercom
-public class Transform implements Cloneable, Serializable {
+public class Transform implements Serializable {
     private static final long serialVersionUID = 3796964163848107663L;
     private static final float DEG_TO_RAD = 3.141592654f / 180.f;
 
@@ -358,11 +358,6 @@ public class Transform implements Cloneable, Serializable {
      */
     public Transform scale(Vector2f factors, Vector2f center) {
         return scale(factors.x, factors.y, center.x, center.y);
-    }
-
-    @Override
-    protected Transform clone() throws CloneNotSupportedException {
-        return (Transform) super.clone();
     }
 
     @Override

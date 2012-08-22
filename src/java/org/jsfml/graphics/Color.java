@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Utility class for manipulating RGBA colors.
  */
 @Intercom
-public class Color implements Cloneable, Serializable {
+public class Color implements Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
     /**
@@ -305,11 +305,6 @@ public class Color implements Cloneable, Serializable {
         this.b = clamp((int) (this.b * f));
         this.a = clamp((int) (this.a * f));
         return this;
-    }
-
-    @Override
-    protected Color clone() throws CloneNotSupportedException {
-        return (Color) super.clone();
     }
 
     @Override

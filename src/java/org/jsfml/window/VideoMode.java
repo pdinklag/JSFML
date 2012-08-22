@@ -108,16 +108,14 @@ public class VideoMode implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof VideoMode)) return false;
-
-        VideoMode videoMode = (VideoMode) o;
-
-        if (bpp != videoMode.bpp) return false;
-        if (height != videoMode.height) return false;
-        if (width != videoMode.width) return false;
-
-        return true;
+        if (o instanceof VideoMode) {
+            VideoMode v = (VideoMode) o;
+            return (v.width == width &&
+                    v.height == height &&
+                    v.bpp == bpp);
+        } else {
+            return false;
+        }
     }
 
     @Override
