@@ -17,9 +17,7 @@ void JSFML::Chunk::Init(JNIEnv* env) {
     }
 }
 
-JSFML::Chunk::Chunk(jobject chunk) {
-    JNIEnv *env = JVM::GetJNIEnv();
-
+JSFML::Chunk::Chunk(JNIEnv *env, jobject chunk) {
     this->last = (bool)env->GetBooleanField(chunk, f_last);
     this->dataArray = (jshortArray)env->NewGlobalRef(env->GetObjectField(chunk, f_data));
     this->sampleCount = (size_t)env->GetArrayLength(this->dataArray);
@@ -27,11 +25,12 @@ JSFML::Chunk::Chunk(jobject chunk) {
 }
 
 JSFML::Chunk::~Chunk() {
-    JNIEnv *env = JVM::GetJNIEnv();
+    JNIEnv *env;
 
-    if(data) {
+    if(data && JVM::Attach(&env)) {
         env->ReleaseShortArrayElements(dataArray, data, JNI_ABORT);
         env->DeleteGlobalRef(this->dataArray);
+        JVM::Detach(&env);
 
         data = NULL;
         dataArray = NULL;

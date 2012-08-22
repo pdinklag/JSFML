@@ -17,7 +17,7 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeCreate (JNIEnv *env, jobject obj) {
-	JSFML::SoundStream *stream = new JSFML::SoundStream(obj);
+	JSFML::SoundStream *stream = new JSFML::SoundStream(env, obj);
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
         dynamic_cast<sf::SoundSource*>(stream));

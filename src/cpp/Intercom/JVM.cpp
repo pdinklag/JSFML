@@ -6,13 +6,19 @@ void JVM::Init(JNIEnv *env) {
     env->GetJavaVM(&jvm);
 }
 
-JNIEnv* JVM::GetJNIEnv() {
+bool JVM::Attach(JNIEnv **penv) {
    if(jvm) {
-       JNIEnv *env = NULL;
-       jvm->AttachCurrentThread((void **)&env, NULL);
-
-       return env;
+       return (jvm->AttachCurrentThread((void **)penv, NULL) == 0);
    } else {
-       return NULL;
+       return false;
    }
+}
+
+bool JVM::Detach(JNIEnv **penv) {
+    if(jvm) {
+        *penv = NULL;
+        return (jvm->DetachCurrentThread() == 0);
+    } else {
+        return false;
+    }
 }

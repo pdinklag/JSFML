@@ -21,7 +21,7 @@ namespace JSFML {
         public:
             static void Init(JNIEnv* env);
 
-            Chunk(jobject chunk);
+            Chunk(JNIEnv* env, jobject chunk);
             ~Chunk();
 
             bool GetData(sf::SoundStream::Chunk &chunk);

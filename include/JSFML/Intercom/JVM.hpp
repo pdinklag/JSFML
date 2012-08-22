@@ -9,7 +9,9 @@ class JVM {
 
     public:
         static void Init(JNIEnv *env);
-        static JNIEnv *GetJNIEnv();
+
+        static bool Attach(JNIEnv **env);
+        static bool Detach(JNIEnv **env);
 };
 
 #endif

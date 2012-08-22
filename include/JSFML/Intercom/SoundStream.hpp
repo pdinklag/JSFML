@@ -28,7 +28,7 @@ namespace JSFML {
 
             void initialize(unsigned int channelCount, unsigned int sampleRate);
 
-            SoundStream(jobject obj);
+            SoundStream(JNIEnv* env, jobject obj);
             ~SoundStream();
     };
 }
