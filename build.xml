@@ -324,7 +324,11 @@
 	<!-- Javadoc -->
 	<target name="javadoc" description="Generate the Javadoc.">
 		<mkdir dir="${javadoc.out}" />
-		<javadoc sourcepath="${java.src}" destdir="${javadoc.out}" />
+		<javadoc
+			sourcepath="${java.src}"
+			destdir="${javadoc.out}"
+			windowtitle="JSFML API"
+			/>
 	</target>
 	
 	<!-- Clean everything -->
