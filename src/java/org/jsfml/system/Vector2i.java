@@ -33,6 +33,57 @@ public final class Vector2i implements Serializable {
         return new Vector2i(a.x - b.x, a.y - b.y);
     }
 
+
+    /**
+     * Performs a component-wise multiplication of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "product" of the two vectors.
+     */
+    public static Vector2i componentwiseMul(Vector2i a, Vector2i b) {
+        return new Vector2i(a.x * b.x, a.y * b.y);
+    }
+
+    /**
+     * Performs a component-wise division of two vectors.
+     *
+     * @param a The left vector.
+     * @param b The right vector.
+     * @return A new vector, representing the "quotient" of the two vectors.
+     */
+    public static Vector2i componentwiseDiv(Vector2i a, Vector2i b) {
+        if (b.x == 0 || b.y == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + b);
+
+        return new Vector2i(a.x / b.x, a.y / b.y);
+    }
+
+    /**
+     * Multiplies a vector by a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector2i mul(Vector2i a, int s) {
+        return new Vector2i(a.x * s, a.y * s);
+    }
+
+    /**
+     * Multiplies a vector by the inverse of a scalar.
+     *
+     * @param a The vector.
+     * @param s The scalar.
+     * @return A new vector, representing the scaled vector.
+     */
+    public static Vector2i div(Vector2i a, int  s) {
+        if (s == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + s);
+
+        return new Vector2i(a.x / s, a.y / s);
+    }
+
     /**
      * Computes the negative of a vector.
      *

@@ -102,44 +102,6 @@ public final class Vector3f implements Serializable {
     }
 
     /**
-     * Performs a vector multiplication of two vectors.
-     *
-     * @param a The left vector.
-     * @param b The right vector.
-     * @return The vector product, or dot product, of the two vectors.
-     */
-    public static float dot(Vector3f a, Vector3f b) {
-        return a.x * b.x +
-                a.y * b.y +
-                a.z * b.z;
-    }
-
-    /**
-     * Computes the cross product between two vectors.
-     *
-     * @param a The left vector.
-     * @param b The right vector.
-     * @return A new vector, representing the cross product of the two vectors.
-     */
-    public static Vector3f cross(Vector3f a, Vector3f b) {
-        return new Vector3f(
-                a.y * b.z - a.z * b.y,
-                a.z * b.x - a.x * b.z,
-                a.x * b.y - a.y * b.x
-        );
-    }
-
-    /**
-     * Computes the normal of a vector.
-     *
-     * @param v The vector.
-     * @return A new vector, representing the normal of the given vector.
-     */
-    public static Vector3f normal(Vector3f v) {
-        return div(v, v.length());
-    }
-
-    /**
      * Computes the negative of a vector.
      *
      * @param v The vector.
@@ -197,24 +159,6 @@ public final class Vector3f implements Serializable {
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-
-    /**
-     * Computes the squared length of this vector.
-     *
-     * @return The squared length of this vector.
-     */
-    public float lengthSquared() {
-        return this.x * this.x + this.y * this.y + this.z * this.z;
-    }
-
-    /**
-     * Returns the length of this vector.
-     *
-     * @return The length of this vector.
-     */
-    public float length() {
-        return (float) Math.sqrt(this.lengthSquared());
     }
 
     @Override

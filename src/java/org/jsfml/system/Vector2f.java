@@ -84,27 +84,6 @@ public final class Vector2f implements Serializable {
     }
 
     /**
-     * Performs a vector multiplication of two vectors.
-     *
-     * @param a The left vector.
-     * @param b The right vector.
-     * @return The vector product, or dot product, of the two vectors.
-     */
-    public static float dot(Vector2f a, Vector2f b) {
-        return a.x * b.x + a.y * b.y;
-    }
-
-    /**
-     * Computes the normal of a vector.
-     *
-     * @param v The vector.
-     * @return A new vector, representing the normal of the given vector.
-     */
-    public static Vector2f normal(Vector2f v) {
-        return div(v, v.length());
-    }
-
-    /**
      * Computes the negative of a vector.
      *
      * @param v The vector.
@@ -166,24 +145,6 @@ public final class Vector2f implements Serializable {
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
-    }
-
-    /**
-     * Computes the squared length of this vector.
-     *
-     * @return The squared length of this vector.
-     */
-    public float lengthSquared() {
-        return this.x * this.x + this.y * this.y;
-    }
-
-    /**
-     * Returns the length of this vector.
-     *
-     * @return The length of this vector.
-     */
-    public float length() {
-        return (float) Math.sqrt(this.lengthSquared());
     }
 
     @Override
