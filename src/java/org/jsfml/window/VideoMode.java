@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Data structure for video modes (width, height, pixel depth).
  */
 @Intercom
-public class VideoMode implements Serializable {
+public final class VideoMode implements Serializable {
     private static final long serialVersionUID = 8608938390916786270L;
 
     static {

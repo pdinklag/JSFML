@@ -30,7 +30,7 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     /**
      * Starts capturing audio data with a sample rate of 44,100 Hz.
      */
-    public void start() {
+    public final void start() {
         start(44100);
     }
 

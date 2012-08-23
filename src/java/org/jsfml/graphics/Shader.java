@@ -260,10 +260,10 @@ public class Shader extends SFMLNativeObject {
      */
     public void setParameter(String name, Color color) {
         setParameter(name,
-                (float) color.getRed() / 255.0f,
-                (float) color.getGreen() / 255.0f,
-                (float) color.getBlue() / 255.0f,
-                (float) color.getAlpha() / 255.0f);
+                (float) color.r / 255.0f,
+                (float) color.g / 255.0f,
+                (float) color.b / 255.0f,
+                (float) color.a / 255.0f);
     }
 
     private native void nativeSetParameter(String name, Transform xform);

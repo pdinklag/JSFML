@@ -121,4 +121,9 @@ public class Sound extends SoundSource {
 
     @Override
     native int nativeGetStatus();
+
+    @Override
+    public Status getStatus() {
+        return super.getStatus();
+    }
 }

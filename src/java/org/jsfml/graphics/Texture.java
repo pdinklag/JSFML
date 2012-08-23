@@ -118,7 +118,7 @@ public class Texture extends SFMLNativeObject {
      * @param file The file to load the texture from.
      * @throws IOException In case an I/O error occurs.
      */
-    public void loadFromFile(File file) throws IOException {
+    public final void loadFromFile(File file) throws IOException {
         loadFromFile(file, new IntRect());
     }
 
@@ -147,7 +147,7 @@ public class Texture extends SFMLNativeObject {
      * @param image The source image.
      * @return <tt>true</tt> if the texture was successfully loaded, <tt>false</tt> otherwise.
      */
-    public boolean loadFromImage(Image image) {
+    public final boolean loadFromImage(Image image) {
         return loadFromImage(image, new IntRect());
     }
 
@@ -209,7 +209,7 @@ public class Texture extends SFMLNativeObject {
      *
      * @param window The window to update from.
      */
-    public void update(Window window) {
+    public final void update(Window window) {
         update(window, 0, 0);
     }
 
@@ -230,7 +230,7 @@ public class Texture extends SFMLNativeObject {
     /**
      * Activates the texture for rendering.
      */
-    public void bind() {
+    public final void bind() {
         bind(CoordinateType.NORMALIZED);
     }
 

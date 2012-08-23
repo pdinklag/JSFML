@@ -53,7 +53,7 @@ public class Image extends SFMLNativeObject {
      * @param width  The image's width.
      * @param height The image's height.
      */
-    public void create(int width, int height) {
+    public final void create(int width, int height) {
         create(width, height, new Color(0, 0, 0));
     }
 
@@ -124,7 +124,7 @@ public class Image extends SFMLNativeObject {
      *
      * @param color The color to be made transparent.
      */
-    public void createMaskFromColor(Color color) {
+    public final void createMaskFromColor(Color color) {
         createMaskFromColor(color, 0);
     }
 
@@ -157,7 +157,7 @@ public class Image extends SFMLNativeObject {
      * @param destY      The destination X coordinate.
      * @param sourceRect The source rectangle. An empty rectangle means the full image.
      */
-    public void copy(Image source, int destX, int destY, IntRect sourceRect) {
+    public final void copy(Image source, int destX, int destY, IntRect sourceRect) {
         copy(source, destX, destY, sourceRect, false);
     }
 
@@ -168,7 +168,7 @@ public class Image extends SFMLNativeObject {
      * @param destX  The destination X coordinate.
      * @param destY  The destination X coordinate.
      */
-    public void copy(Image source, int destX, int destY) {
+    public final void copy(Image source, int destX, int destY) {
         copy(source, destX, destY, new IntRect(), false);
     }
 

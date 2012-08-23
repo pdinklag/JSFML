@@ -7,10 +7,10 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public class SizeEvent extends Event {
-    int width, height;
+    private final int width, height;
 
     @Intercom
-    public SizeEvent(int type, int width, int height) {
+    protected SizeEvent(int type, int width, int height) {
         super(type);
         this.width = width;
         this.height = height;

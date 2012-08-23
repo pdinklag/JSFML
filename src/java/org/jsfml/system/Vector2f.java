@@ -5,10 +5,10 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating 2-dimensional vectors.
+ * Utility class for 2-dimensional floating point vectors.
  */
 @Intercom
-public class Vector2f implements Serializable {
+public final class Vector2f implements Serializable {
     private static final long serialVersionUID = -2082611034304583379L;
 
     /**
@@ -19,7 +19,7 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the sum of the two vectors.
      */
     public static Vector2f add(Vector2f a, Vector2f b) {
-        return new Vector2f(a).add(b);
+        return new Vector2f(a.x + b.x, a.y + b.y);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the difference between the two vectors.
      */
     public static Vector2f sub(Vector2f a, Vector2f b) {
-        return new Vector2f(a).sub(b);
+        return new Vector2f(a.x - b.x, a.y - b.y);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the "product" of the two vectors.
      */
     public static Vector2f componentwiseMul(Vector2f a, Vector2f b) {
-        return new Vector2f(a).componentwiseMul(b);
+        return new Vector2f(a.x * b.x, a.y * b.y);
     }
 
     /**
@@ -52,7 +52,10 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the "quotient" of the two vectors.
      */
     public static Vector2f componentwiseDiv(Vector2f a, Vector2f b) {
-        return new Vector2f(a).componentwiseDiv(b);
+        if (b.x == 0 || b.y == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + b);
+
+        return new Vector2f(a.x / b.x, a.y / b.y);
     }
 
     /**
@@ -63,7 +66,7 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector2f mul(Vector2f a, float s) {
-        return new Vector2f(a).mul(s);
+        return new Vector2f(a.x * s, a.y * s);
     }
 
     /**
@@ -74,7 +77,10 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector2f div(Vector2f a, float s) {
-        return new Vector2f(a).div(s);
+        if (s == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + s);
+
+        return new Vector2f(a.x / s, a.y / s);
     }
 
     /**
@@ -85,7 +91,7 @@ public class Vector2f implements Serializable {
      * @return The vector product, or dot product, of the two vectors.
      */
     public static float dot(Vector2f a, Vector2f b) {
-        return a.x * b.x + a.y + b.y;
+        return a.x * b.x + a.y * b.y;
     }
 
     /**
@@ -95,7 +101,7 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the normal of the given vector.
      */
     public static Vector2f normal(Vector2f v) {
-        return new Vector2f(v).normalize();
+        return div(v, v.length());
     }
 
     /**
@@ -105,25 +111,28 @@ public class Vector2f implements Serializable {
      * @return A new vector, representing the negative of the given vector.
      */
     public static Vector2f neg(Vector2f v) {
-        return new Vector2f(v).negate();
+        return new Vector2f(-v.x, -v.y);
     }
 
     /**
      * The vector's X coordinate.
      */
     @Intercom
-    public float x = 0;
+    public final float x;
 
     /**
      * The vector's Y coordinate.
      */
     @Intercom
-    public float y = 0;
+    public final float y;
 
     /**
      * Creates a new 2D vector.
+     * <p/>
+     * The x and y components of this vector will be zero.
      */
     public Vector2f() {
+        this(0, 0);
     }
 
     /**
@@ -138,6 +147,7 @@ public class Vector2f implements Serializable {
 
     /**
      * Creates a new 2D vector from an integer vector.
+     * <p/>
      * The fractions of the x and y components will be zero.
      *
      * @param v The vector to convert.
@@ -156,109 +166,6 @@ public class Vector2f implements Serializable {
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
-    }
-
-    /**
-     * Adds another vector to this vector.
-     *
-     * @param v The vector to add.
-     * @return This vector after the addition.
-     */
-    public Vector2f add(Vector2f v) {
-        this.x += v.x;
-        this.y += v.y;
-        return this;
-    }
-
-    /**
-     * Subtracts another vector from this vector.
-     *
-     * @param v The vector to subtract.
-     * @return This vector after the subtraction.
-     */
-    public Vector2f sub(Vector2f v) {
-        this.x -= v.x;
-        this.y -= v.y;
-        return this;
-    }
-
-    /**
-     * Multiplies this vector by another vector component-wise.
-     *
-     * @param v The vector to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector2f componentwiseMul(Vector2f v) {
-        this.x *= v.x;
-        this.y *= v.y;
-        return this;
-    }
-
-    /**
-     * Divides this vector by another vector component-wise.
-     *
-     * @param v The vector to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector2f componentwiseDiv(Vector2f v) {
-        if (v.x == 0 || v.y == 0)
-            throw new IllegalArgumentException("Division by zero.");
-
-        this.x /= v.x;
-        this.y /= v.y;
-        return this;
-    }
-
-    /**
-     * Multiplies each component of this vector by a scalar.
-     *
-     * @param s The scalar to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector2f mul(float s) {
-        this.x *= s;
-        this.y *= s;
-        return this;
-    }
-
-    /**
-     * Multiplies each component of this vector by the inverse of a scalar.
-     *
-     * @param s The scalar to divide by.
-     * @return This vector after the division.
-     */
-    public Vector2f div(float s) {
-        if (s == 0)
-            throw new IllegalArgumentException("Division by zero.");
-
-        this.x /= s;
-        this.y /= s;
-        return this;
-    }
-
-    /**
-     * Normalizes this vector.
-     *
-     * @return This vector after the normalization.
-     */
-    public Vector2f normalize() {
-        float l = length();
-        if (l != 0.0f) {
-            this.x /= l;
-            this.y /= l;
-        }
-        return this;
-    }
-
-    /**
-     * Negates this vector.
-     *
-     * @return This vector after the negation.
-     */
-    public Vector2f negate() {
-        this.x = -this.x;
-        this.y = -this.y;
-        return this;
     }
 
     /**

@@ -9,10 +9,10 @@ import org.jsfml.window.Mouse;
  */
 @Intercom
 public class MouseButtonEvent extends MouseEvent {
-    private int button;
+    private final int button;
 
     @Intercom
-    public MouseButtonEvent(int type, int x, int y, int button) {
+    protected MouseButtonEvent(int type, int x, int y, int button) {
         super(type, x, y);
         this.button = button;
     }

@@ -7,10 +7,10 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public class TextEvent extends Event {
-    private long unicode;
+    private final long unicode;
 
     @Intercom
-    public TextEvent(int type, long unicode) {
+    protected TextEvent(int type, long unicode) {
         super(type);
         this.unicode = unicode;
     }
@@ -30,7 +30,7 @@ public class TextEvent extends Event {
      * @return The UTF-16 character that was entered.
      */
     public char getChar() {
-        return (char) (unicode & 0xFFFF);
+        return (char) unicode;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class View extends SFMLNativeObject {
      *
      * @param v The center of the view.
      */
-    public void setCenter(Vector2f v) {
+    public final void setCenter(Vector2f v) {
         setCenter(v.x, v.y);
     }
 
@@ -56,7 +56,7 @@ public class View extends SFMLNativeObject {
      *
      * @param v The new size of the view in pixels.
      */
-    public void setSize(Vector2f v) {
+    public final void setSize(Vector2f v) {
         setSize(v.x, v.y);
     }
 
@@ -143,7 +143,7 @@ public class View extends SFMLNativeObject {
      *
      * @param v The offset vector to move the view's center by.
      */
-    public void move(Vector2f v) {
+    public final void move(Vector2f v) {
         move(v.x, v.y);
     }
 

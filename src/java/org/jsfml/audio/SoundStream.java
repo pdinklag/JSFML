@@ -139,6 +139,11 @@ public abstract class SoundStream extends SoundSource {
     @Override
     native int nativeGetStatus();
 
+    @Override
+    public Status getStatus() {
+        return super.getStatus();
+    }
+
     /**
      * Defines the audio stream parameters.
      * <p/>

@@ -160,7 +160,7 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @return The current state of the sound stream.
      */
-    public Status getStatus() {
+    protected Status getStatus() {
         return Status.values()[nativeGetStatus()];
     }
 }

@@ -7,10 +7,10 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public class MouseWheelEvent extends MouseEvent {
-    private int delta;
+    private final int delta;
 
     @Intercom
-    public MouseWheelEvent(int type, int x, int y, int delta) {
+    protected MouseWheelEvent(int type, int x, int y, int delta) {
         super(type, x, y);
         this.delta = delta;
     }

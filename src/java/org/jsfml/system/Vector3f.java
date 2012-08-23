@@ -5,10 +5,10 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating 3-dimensional vectors.
+ * Utility class for 3-dimensional floating point vectors.
  */
 @Intercom
-public class Vector3f implements Serializable {
+public final class Vector3f implements Serializable {
     private static final long serialVersionUID = -2176250005619169432L;
 
     /**
@@ -19,7 +19,10 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the sum of the two vectors.
      */
     public static Vector3f add(Vector3f a, Vector3f b) {
-        return new Vector3f(a).add(b);
+        return new Vector3f(
+                a.x + b.x,
+                a.y + b.y,
+                a.z + b.z);
     }
 
     /**
@@ -30,7 +33,10 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the difference between the two vectors.
      */
     public static Vector3f sub(Vector3f a, Vector3f b) {
-        return new Vector3f(a).sub(b);
+        return new Vector3f(
+                a.x - b.x,
+                a.y - b.y,
+                a.z - b.z);
     }
 
     /**
@@ -41,7 +47,10 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the "product" of the two vectors.
      */
     public static Vector3f componentwiseMul(Vector3f a, Vector3f b) {
-        return new Vector3f(a).componentwiseMul(b);
+        return new Vector3f(
+                a.x * b.x,
+                a.y * b.y,
+                a.z * b.z);
     }
 
     /**
@@ -52,7 +61,13 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the "quotient" of the two vectors.
      */
     public static Vector3f componentwiseDiv(Vector3f a, Vector3f b) {
-        return new Vector3f(a).componentwiseDiv(b);
+        if (b.x == 0 || b.y == 0 || b.z == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + b);
+
+        return new Vector3f(
+                a.x / b.x,
+                a.y / b.y,
+                a.z / b.z);
     }
 
     /**
@@ -63,7 +78,10 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector3f mul(Vector3f a, float s) {
-        return new Vector3f(a).mul(s);
+        return new Vector3f(
+                a.x * s,
+                a.y * s,
+                a.z * s);
     }
 
     /**
@@ -74,7 +92,13 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector3f div(Vector3f a, float s) {
-        return new Vector3f(a).div(s);
+        if (s == 0)
+            throw new IllegalArgumentException("Division by zero: " + a + " / " + s);
+
+        return new Vector3f(
+                a.x / s,
+                a.y / s,
+                a.z / s);
     }
 
     /**
@@ -85,7 +109,9 @@ public class Vector3f implements Serializable {
      * @return The vector product, or dot product, of the two vectors.
      */
     public static float dot(Vector3f a, Vector3f b) {
-        return a.x * b.x + a.y + b.y;
+        return a.x * b.x +
+                a.y * b.y +
+                a.z * b.z;
     }
 
     /**
@@ -110,7 +136,7 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the normal of the given vector.
      */
     public static Vector3f normal(Vector3f v) {
-        return new Vector3f(v).normalize();
+        return div(v, v.length());
     }
 
     /**
@@ -120,31 +146,32 @@ public class Vector3f implements Serializable {
      * @return A new vector, representing the negative of the given vector.
      */
     public static Vector3f neg(Vector3f v) {
-        return new Vector3f(v).negate();
+        return new Vector3f(-v.x, -v.y, -v.z);
     }
 
     /**
      * The vector's X coordinate.
      */
     @Intercom
-    public float x = 0;
+    public final float x;
 
     /**
      * The vector's Y coordinate.
      */
     @Intercom
-    public float y = 0;
+    public final float y;
 
     /**
      * The vector's Z coordinate.
      */
     @Intercom
-    public float z = 0;
+    public final float z;
 
     /**
      * Creates a new 3D vector.
      */
     public Vector3f() {
+        this(0, 0, 0);
     }
 
     /**
@@ -170,117 +197,6 @@ public class Vector3f implements Serializable {
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-
-    /**
-     * Adds another vector to this vector.
-     *
-     * @param v The vector to add.
-     * @return This vector after the addition.
-     */
-    public Vector3f add(Vector3f v) {
-        this.x += v.x;
-        this.y += v.y;
-        this.z += v.z;
-        return this;
-    }
-
-    /**
-     * Subtracts another vector from this vector.
-     *
-     * @param v The vector to subtract.
-     * @return This vector after the subtraction.
-     */
-    public Vector3f sub(Vector3f v) {
-        this.x -= v.x;
-        this.y -= v.y;
-        this.z -= v.z;
-        return this;
-    }
-
-    /**
-     * Multiplies this vector by another vector component-wise.
-     *
-     * @param v The vector to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector3f componentwiseMul(Vector3f v) {
-        this.x *= v.x;
-        this.y *= v.y;
-        this.z *= v.z;
-        return this;
-    }
-
-    /**
-     * Divides this vector by another vector component-wise.
-     *
-     * @param v The vector to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector3f componentwiseDiv(Vector3f v) {
-        if (v.x == 0 || v.y == 0 || v.z == 0)
-            throw new IllegalArgumentException("Division by zero.");
-
-        this.x /= v.x;
-        this.y /= v.y;
-        this.z /= v.z;
-        return this;
-    }
-
-    /**
-     * Multiplies each component of this vector by a scalar.
-     *
-     * @param s The scalar to multiply.
-     * @return This vector after the multiplication.
-     */
-    public Vector3f mul(float s) {
-        this.x *= s;
-        this.y *= s;
-        this.z *= s;
-        return this;
-    }
-
-    /**
-     * Multiplies each component of this vector by the inverse of a scalar.
-     *
-     * @param s The scalar to divide by.
-     * @return This vector after the division.
-     */
-    public Vector3f div(float s) {
-        if (s == 0)
-            throw new IllegalArgumentException("Division by zero.");
-
-        this.x /= s;
-        this.y /= s;
-        this.z /= s;
-        return this;
-    }
-
-    /**
-     * Normalizes this vector.
-     *
-     * @return This vector after the normalization.
-     */
-    public Vector3f normalize() {
-        float l = length();
-        if (l != 0.0f) {
-            this.x /= l;
-            this.y /= l;
-            this.z /= l;
-        }
-        return this;
-    }
-
-    /**
-     * Negates this vector.
-     *
-     * @return This vector after the negation.
-     */
-    public Vector3f negate() {
-        this.x = -this.x;
-        this.y = -this.y;
-        this.z = -this.z;
-        return this;
     }
 
     /**

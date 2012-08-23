@@ -5,9 +5,9 @@ import org.jsfml.SFMLNativeObject;
 /**
  * Utility class for measuring time.
  */
-public class Clock extends SFMLNativeObject {
+public final class Clock extends SFMLNativeObject {
     /**
-     * Creates a new clock.
+     * Creates and starts a new clock.
      */
     public Clock() {
         super();

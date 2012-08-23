@@ -37,37 +37,38 @@ import java.io.Serializable;
  * Utility class for manipulating 2D axis aligned rectangles.
  */
 @Intercom
-public class IntRect implements Serializable {
+public final class IntRect implements Serializable {
     private static final long serialVersionUID = -4430448425788537785L;
 
     /**
      * Left (X) coordinate of the rectangle.
      */
     @Intercom
-    public int left;
+    public final int left;
 
     /**
      * Top (Y) coordinate of the rectangle.
      */
     @Intercom
-    public int top;
+    public final int top;
 
     /**
      * The width of the rectangle.
      */
     @Intercom
-    public int width;
+    public final int width;
 
     /**
      * The height of the rectangle.
      */
     @Intercom
-    public int height;
+    public final int height;
 
     /**
      * Creates a new rectangle with no dimensions.
      */
     public IntRect() {
+        this(0, 0, 0, 0);
     }
 
     /**
@@ -142,45 +143,23 @@ public class IntRect implements Serializable {
     }
 
     /**
-     * Tests whether two rectangles intersect.
+     * Tests whether this rectangle intersects with another one and
+     * calculates the rectangle of intersection.
      *
-     * @param rect         The rectangle to test intersection against.
-     * @param intersection If not <tt>null</tt>, the overlapping area will be written into this object.
-     * @return <tt>true</tt> if the two rectangles overlap, <tt>false</tt> otherwise.
+     * @param rect The rectangle to test intersection against.
+     * @return The intersection rectangle, or <tt>null</tt> if the rectangles do not intersect.
      */
-    public boolean intersects(IntRect rect, IntRect intersection) {
+    public IntRect intersection(IntRect rect) {
         int left = Math.max(this.left, rect.left);
         int top = Math.max(this.top, rect.top);
         int right = Math.min(this.left + this.width, rect.left + rect.width);
         int bottom = Math.min(this.top + this.height, rect.top + rect.height);
 
         if (left < right && top < bottom) {
-            if (intersection != null) {
-                intersection.left = left;
-                intersection.top = top;
-                intersection.width = right - left;
-                intersection.height = bottom - top;
-            }
-            return true;
+            return new IntRect(left, top, right - left, bottom - top);
         } else {
-            if (intersection != null) {
-                intersection.left = 0;
-                intersection.top = 0;
-                intersection.width = 0;
-                intersection.height = 0;
-            }
-            return false;
+            return null;
         }
-    }
-
-    /**
-     * Tests whether two rectangles intersect.
-     *
-     * @param rect The rectangle to test intersection against.
-     * @return <tt>true</tt> if the two rectangles overlap, <tt>false</tt> otherwise.
-     */
-    public boolean intersects(IntRect rect) {
-        return intersects(rect, null);
     }
 
     @Override

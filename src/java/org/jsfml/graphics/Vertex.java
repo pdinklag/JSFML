@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.Intercom;
-import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -10,22 +9,23 @@ import java.io.Serializable;
  * Defines a shape point with position, color and texture coordinates information.
  */
 @Intercom
-public class Vertex implements Serializable {
+public final class Vertex implements Serializable {
     private static final long serialVersionUID = -5749297453247575018L;
 
     @Intercom
-    private Vector2f position = new Vector2f();
+    private final Vector2f position;
 
     @Intercom
-    private Color color = new Color();
+    private final Color color;
 
     @Intercom
-    private Vector2f texCoords = new Vector2f();
+    private final Vector2f texCoords;
 
     /**
      * Creates a new vertex.
      */
     public Vertex() {
+        this(new Vector2f(), new Color(), new Vector2f());
     }
 
     /**
@@ -34,7 +34,7 @@ public class Vertex implements Serializable {
      * @param position The vertex' position.
      */
     public Vertex(Vector2f position) {
-        setPosition(position);
+        this(position, new Color(), new Vector2f());
     }
 
     /**
@@ -44,8 +44,7 @@ public class Vertex implements Serializable {
      * @param color    The vertex' color.
      */
     public Vertex(Vector2f position, Color color) {
-        setPosition(position);
-        setColor(color);
+        this(position, color, new Vector2f());
     }
 
     /**
@@ -55,8 +54,7 @@ public class Vertex implements Serializable {
      * @param texCoords The vertex' texture coordinates.
      */
     public Vertex(Vector2f position, Vector2f texCoords) {
-        setPosition(position);
-        setTexCoords(texCoords);
+        this(position, new Color(), texCoords);
     }
 
     /**
@@ -67,9 +65,9 @@ public class Vertex implements Serializable {
      * @param texCoords The vertex' texture coordinates.
      */
     public Vertex(Vector2f position, Color color, Vector2f texCoords) {
-        setPosition(position);
-        setColor(color);
-        setTexCoords(texCoords);
+        this.position = position;
+        this.color = color;
+        this.texCoords = texCoords;
     }
 
     /**
@@ -82,18 +80,6 @@ public class Vertex implements Serializable {
     }
 
     /**
-     * Sets the vertex' position.
-     *
-     * @param position The vertex' new position.
-     */
-    public void setPosition(@NotNull Vector2f position) {
-        if (position == null)
-            throw new NullPointerException("position must not be null.");
-
-        this.position = position;
-    }
-
-    /**
      * Gets the vertex' color.
      *
      * @return The vertex' color.
@@ -103,35 +89,11 @@ public class Vertex implements Serializable {
     }
 
     /**
-     * Sets the vertex' color.
-     *
-     * @param color The vertex' new color.
-     */
-    public void setColor(@NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        this.color = color;
-    }
-
-    /**
      * Gets the vertex' texture coordinates.
      *
      * @return The vertex' texture coordinates.
      */
     public Vector2f getTexCoords() {
         return texCoords;
-    }
-
-    /**
-     * Sets the vertex' texture coordinates.
-     *
-     * @param texCoords The vertex' new texture coordinates.
-     */
-    public void setTexCoords(@NotNull Vector2f texCoords) {
-        if (texCoords == null)
-            throw new NullPointerException("texCoords must not be null.");
-
-        this.texCoords = texCoords;
     }
 }

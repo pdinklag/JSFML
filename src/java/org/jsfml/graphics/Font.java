@@ -133,6 +133,8 @@ public class Font extends SFMLNativeObject {
 
     /**
      * Retrieves the texture containing the font's glyphs.
+     * <p/>
+     * The texture returned is immutable.
      *
      * @param characterSize The character size in question.
      * @return The texture containing the font's glyphs of the character given size.

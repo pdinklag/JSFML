@@ -8,11 +8,11 @@ import org.jsfml.window.Keyboard;
  */
 @Intercom
 public class KeyEvent extends Event {
-    private int keyCode;
-    private boolean alt, shift, control, system;
+    private final int keyCode;
+    private final boolean alt, shift, control, system;
 
     @Intercom
-    public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
+    protected KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
         super(type);
         this.keyCode = keyCode;
         this.alt = alt;

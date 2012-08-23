@@ -197,7 +197,7 @@ public class ExampleScene implements Scene {
         fpsText.setString("FPS: " + fpsFrames);
         fpsTextShadow.setString(fpsText.getString());
     }
-    
+
     private void updateEntityText() {
         infoText.setString("Entities: " + entities.size());
         infoTextShadow.setString(infoText.getString());
@@ -302,19 +302,17 @@ public class ExampleScene implements Scene {
 
             fpsFrames = 0;
             events = 0;
-            
+
             timer += 1.0f;
         }
 
         //Update entities
-        Vector2f v = new Vector2f();
         FloatRect bounds;
 
         for (Entity e : entities) {
-            //Move the entity's shape
-            v.x = dt * e.velocity.x;
-            v.y = dt * e.velocity.y;
+            Vector2f v = Vector2f.mul(e.velocity, dt);
 
+            //Move the entity's shape
             e.shape.move(v);
 
             //Rotate the entity's shape
@@ -326,13 +324,13 @@ public class ExampleScene implements Scene {
             if ((v.x < 0 && bounds.left <= 0) ||
                     (v.x > 0 && bounds.left + bounds.width >= screenWidth)) {
 
-                e.velocity.x = -e.velocity.x;
+                e.velocity = new Vector2f(-e.velocity.x, e.velocity.y);
             }
 
             if ((v.y < 0 && bounds.top <= 0) ||
                     (v.y > 0 && bounds.top + bounds.height >= screenHeight)) {
 
-                e.velocity.y = -e.velocity.y;
+                e.velocity = new Vector2f(e.velocity.x, -e.velocity.y);
             }
         }
     }
@@ -413,8 +411,7 @@ public class ExampleScene implements Scene {
             shape.setOutlineColor(Color.BLACK);
             shape.setOutlineThickness(2);
 
-            Color color = colors[random.nextInt(colors.length)];
-            color.setAlpha(96);
+            Color color = new Color(colors[random.nextInt(colors.length)], 96);
             shape.setFillColor(color);
 
             velocity = new Vector2f(
@@ -423,8 +420,8 @@ public class ExampleScene implements Scene {
 
             rotSpeed = ROTS_MIN + random.nextFloat() * (ROTS_MAX - ROTS_MIN);
 
-            if (random.nextFloat() < 0.5f) velocity.x = -velocity.x;
-            if (random.nextFloat() < 0.5f) velocity.y = -velocity.y;
+            if (random.nextFloat() < 0.5f) velocity = new Vector2f(-velocity.x, velocity.y);
+            if (random.nextFloat() < 0.5f) velocity = new Vector2f(velocity.x, -velocity.y);
             if (random.nextFloat() < 0.5f) rotSpeed = -rotSpeed;
         }
     }

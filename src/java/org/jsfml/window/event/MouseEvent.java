@@ -8,10 +8,10 @@ import org.jsfml.system.Vector2i;
  */
 @Intercom
 public class MouseEvent extends Event {
-    private int x, y;
+    private final int x, y;
 
     @Intercom
-    public MouseEvent(int type, int x, int y) {
+    protected MouseEvent(int type, int x, int y) {
         super(type);
         this.x = x;
         this.y = y;

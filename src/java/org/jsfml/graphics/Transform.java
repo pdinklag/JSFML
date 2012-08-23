@@ -250,7 +250,7 @@ public class Transform implements Serializable {
      * @param v The translation vector.
      * @return This transformation, for convenient chain modification.
      */
-    public Transform translate(Vector2f v) {
+    public final Transform translate(Vector2f v) {
         return translate(v.x, v.y);
     }
 
@@ -301,7 +301,7 @@ public class Transform implements Serializable {
      * @param center The rotation center.
      * @return This transformation, for convenient chain modification.
      */
-    public Transform rotate(float angle, Vector2f center) {
+    public final Transform rotate(float angle, Vector2f center) {
         return rotate(angle, center.x, center.y);
     }
 
@@ -345,7 +345,7 @@ public class Transform implements Serializable {
      * @param factors The factors of the scaling operation.
      * @return This transformation, for convenient chain modification.
      */
-    public Transform scale(Vector2f factors) {
+    public final Transform scale(Vector2f factors) {
         return scale(factors.x, factors.y);
     }
 
@@ -356,7 +356,7 @@ public class Transform implements Serializable {
      * @param center  The scaling origin.
      * @return This transformation, for convenient chain modification.
      */
-    public Transform scale(Vector2f factors, Vector2f center) {
+    public final Transform scale(Vector2f factors, Vector2f center) {
         return scale(factors.x, factors.y, center.x, center.y);
     }
 

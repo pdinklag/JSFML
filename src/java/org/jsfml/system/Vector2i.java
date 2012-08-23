@@ -5,10 +5,10 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating 2-dimensional vectors.
+ * Utility class for 2-dimensional integer vectors.
  */
 @Intercom
-public class Vector2i implements Serializable {
+public final class Vector2i implements Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
     /**
@@ -19,7 +19,7 @@ public class Vector2i implements Serializable {
      * @return A new vector, representing the sum of the two vectors.
      */
     public static Vector2i add(Vector2i a, Vector2i b) {
-        return new Vector2i(a).add(b);
+        return new Vector2i(a.x + b.x, a.y + b.y);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Vector2i implements Serializable {
      * @return A new vector, representing the difference between the two vectors.
      */
     public static Vector2i sub(Vector2i a, Vector2i b) {
-        return new Vector2i(a).sub(b);
+        return new Vector2i(a.x - b.x, a.y - b.y);
     }
 
     /**
@@ -40,25 +40,26 @@ public class Vector2i implements Serializable {
      * @return A new vector, representing the negative of the given vector.
      */
     public static Vector2i neg(Vector2i v) {
-        return new Vector2i(v).negate();
+        return new Vector2i(-v.x, -v.y);
     }
 
     /**
      * The vector's X coordinate.
      */
     @Intercom
-    public int x = 0;
+    public final int x;
 
     /**
      * The vector's Y coordinate.
      */
     @Intercom
-    public int y = 0;
+    public final int y;
 
     /**
      * Creates a new 2D vector.
      */
     public Vector2i() {
+        this(0, 0);
     }
 
     /**
@@ -91,41 +92,6 @@ public class Vector2i implements Serializable {
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    /**
-     * Adds another vector to this vector.
-     *
-     * @param v The vector to add.
-     * @return This vector after the addition.
-     */
-    public Vector2i add(Vector2i v) {
-        this.x += v.x;
-        this.y += v.y;
-        return this;
-    }
-
-    /**
-     * Subtracts another vector from this vector.
-     *
-     * @param v The vector to subtract.
-     * @return This vector after the subtraction.
-     */
-    public Vector2i sub(Vector2i v) {
-        this.x -= v.x;
-        this.y -= v.y;
-        return this;
-    }
-
-    /**
-     * Negates this vector.
-     *
-     * @return This vector after the negation.
-     */
-    public Vector2i negate() {
-        this.x = -this.x;
-        this.y = -this.y;
-        return this;
     }
 
     @Override

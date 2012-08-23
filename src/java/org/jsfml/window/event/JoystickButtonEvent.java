@@ -8,10 +8,10 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public class JoystickButtonEvent extends JoystickEvent {
-    private int button;
+    private final int button;
 
     @Intercom
-    public JoystickButtonEvent(int type, int joystickId, int button) {
+    protected JoystickButtonEvent(int type, int joystickId, int button) {
         super(type, joystickId);
         this.button = button;
     }

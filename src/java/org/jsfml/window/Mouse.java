@@ -6,7 +6,7 @@ import org.jsfml.system.Vector2i;
 /**
  * Provides access to the the real-time state of the mouse.
  */
-public class Mouse {
+public final class Mouse {
     static {
         SFMLNative.loadNativeLibraries();
     }

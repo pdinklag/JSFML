@@ -1,7 +1,6 @@
 package org.jsfml.window.event;
 
 import org.jsfml.Intercom;
-import org.jsfml.SFMLNative;
 
 /**
  * Base class for events.
@@ -10,10 +9,6 @@ import org.jsfml.SFMLNative;
  */
 @Intercom
 public class Event {
-    static {
-        SFMLNative.loadNativeLibraries();
-    }
-
     /**
      * Enumerations of event types.
      */
@@ -110,7 +105,7 @@ public class Event {
         JOYSTICK_DISCONNECTED
     }
 
-    private Type type;
+    private final Type type;
 
     /**
      * Creates a new event.
@@ -118,7 +113,7 @@ public class Event {
      * @param type The event type.
      */
     @Intercom
-    public Event(int type) {
+    protected Event(int type) {
         this.type = Type.values()[type];
     }
 

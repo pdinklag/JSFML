@@ -8,15 +8,15 @@ import org.jsfml.Intercom;
  * @see Font
  */
 @Intercom
-public class Glyph {
+public final class Glyph {
     @Intercom
-    private int advance;
+    private final int advance;
 
     @Intercom
-    private IntRect bounds;
+    private final IntRect bounds;
 
     @Intercom
-    private IntRect textureRect;
+    private final IntRect textureRect;
 
     @Intercom
     private Glyph(int advance, IntRect bounds, IntRect textureRect) {

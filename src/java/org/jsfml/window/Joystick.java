@@ -5,7 +5,7 @@ import org.jsfml.SFMLNative;
 /**
  * Provides access to the the real-time states of joysticks or gamepads.
  */
-public class Joystick {
+public final class Joystick {
     static {
         SFMLNative.loadNativeLibraries();
     }

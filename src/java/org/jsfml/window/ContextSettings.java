@@ -1,7 +1,6 @@
 package org.jsfml.window;
 
 import org.jsfml.Intercom;
-import org.jsfml.SFMLNative;
 
 import java.io.Serializable;
 
@@ -17,32 +16,30 @@ import java.io.Serializable;
  * default is used instead.
  */
 @Intercom
-public class ContextSettings implements Serializable {
+public final class ContextSettings implements Serializable {
     private static final long serialVersionUID = -3658200233541780345L;
 
-    static {
-        SFMLNative.loadNativeLibraries();
-    }
+    @Intercom
+    private int depthBits;
 
     @Intercom
-    private int depthBits = 24;
+    private int stencilBits;
 
     @Intercom
-    private int stencilBits = 8;
+    private int antialiasingLevel;
 
     @Intercom
-    private int antialiasingLevel = 0;
+    private int majorVersion;
 
     @Intercom
-    private int majorVersion = 2;
-
-    @Intercom
-    private int minorVersion = 0;
+    private int minorVersion;
 
     /**
-     * Creates new context settings with default values.
+     * Creates new context settings with default values (OpenGL 2.0, 24 depth bits,
+     * 8 stencil bits, no anti-aliasing).
      */
     public ContextSettings() {
+        this(24, 8, 0, 2, 0);
     }
 
     /**

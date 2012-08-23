@@ -37,37 +37,38 @@ import java.io.Serializable;
  * Utility class for manipulating 2D axis aligned rectangles.
  */
 @Intercom
-public class FloatRect implements Serializable {
+public final class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
     /**
      * Left (X) coordinate of the rectangle.
      */
     @Intercom
-    public float left;
+    public final float left;
 
     /**
      * Top (Y) coordinate of the rectangle.
      */
     @Intercom
-    public float top;
+    public final float top;
 
     /**
      * The width of the rectangle.
      */
     @Intercom
-    public float width;
+    public final float width;
 
     /**
      * The height of the rectangle.
      */
     @Intercom
-    public float height;
+    public final float height;
 
     /**
      * Creates a new rectangle with no dimensions.
      */
     public FloatRect() {
+        this(0, 0, 0, 0);
     }
 
     /**
@@ -143,45 +144,23 @@ public class FloatRect implements Serializable {
     }
 
     /**
-     * Tests whether two rectangles intersect.
+     * Tests whether this rectangle intersects with another one and
+     * calculates the rectangle of intersection.
      *
-     * @param rect         The rectangle to test intersection against.
-     * @param intersection If not <tt>null</tt>, the overlapping area will be written into this object.
-     * @return <tt>true</tt> if the two rectangles overlap, <tt>false</tt> otherwise.
+     * @param rect The rectangle to test intersection against.
+     * @return The intersection rectangle, or <tt>null</tt> if the rectangles do not intersect.
      */
-    public boolean intersects(FloatRect rect, FloatRect intersection) {
+    public FloatRect intersection(FloatRect rect) {
         float left = Math.max(this.left, rect.left);
         float top = Math.max(this.top, rect.top);
         float right = Math.min(this.left + this.width, rect.left + rect.width);
         float bottom = Math.min(this.top + this.height, rect.top + rect.height);
 
         if (left < right && top < bottom) {
-            if (intersection != null) {
-                intersection.left = left;
-                intersection.top = top;
-                intersection.width = right - left;
-                intersection.height = bottom - top;
-            }
-            return true;
+            return new FloatRect(left, top, right - left, bottom - top);
         } else {
-            if (intersection != null) {
-                intersection.left = 0;
-                intersection.top = 0;
-                intersection.width = 0;
-                intersection.height = 0;
-            }
-            return false;
+            return null;
         }
-    }
-
-    /**
-     * Tests whether two rectangles intersect.
-     *
-     * @param rect The rectangle to test intersection against.
-     * @return <tt>true</tt> if the two rectangles overlap, <tt>false</tt> otherwise.
-     */
-    public boolean intersects(FloatRect rect) {
-        return intersects(rect, null);
     }
 
     @Override

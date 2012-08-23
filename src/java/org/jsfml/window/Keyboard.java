@@ -5,7 +5,7 @@ import org.jsfml.SFMLNative;
 /**
  * Provides access to the the real-time state of the keyboard.
  */
-public class Keyboard {
+public final class Keyboard {
     static {
         SFMLNative.loadNativeLibraries();
     }
