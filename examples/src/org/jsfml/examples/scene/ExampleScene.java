@@ -18,15 +18,17 @@ public class ExampleScene implements Scene {
     private final Sprite jsfmlLogo = new Sprite();
     private final RenderStates jsfmlLogoStates = new RenderStates();
 
-    private final Font terminatorFont = new Font();
+    private final Font nakadaiFont = new Font();
+    private final Font freeSansFont = new Font();
+
     private final Text instructionsText =
             new Text("Left mouse button and move to rotate logo\n" +
                     "Right mouse button and move to wave logo\n" +
                     "Mouse wheel to scale logo\n\n" +
                     "Press A to add an entity\n" +
                     "Press D to delete an entity\n" +
-                    "Press Escape to quit", terminatorFont);
-    private final Text instructionsTextShadow = new Text(instructionsText.getString(), terminatorFont);
+                    "Press Escape to quit", nakadaiFont);
+    private final Text instructionsTextShadow = new Text(instructionsText.getString(), nakadaiFont);
 
     private final Text infoText = new Text();
     private final Text infoTextShadow = new Text();
@@ -93,27 +95,30 @@ public class ExampleScene implements Scene {
         jsfmlLogo.setPosition(target.getSize().x / 2, target.getSize().y / 2);
 
         //Load font
-        terminatorFont.loadFromStream(
-                getClass().getResourceAsStream("/resources/terminator real nfi.ttf"));
+        nakadaiFont.loadFromStream(
+                getClass().getResourceAsStream("/resources/Nakadai.ttf"));
+
+        freeSansFont.loadFromStream(
+                getClass().getResourceAsStream("/resources/FreeSans.ttf"));
 
         //Setup istructions text
-        instructionsText.setFont(terminatorFont);
+        instructionsText.setFont(freeSansFont);
+        instructionsText.setStyle(Text.BOLD);
         instructionsText.setColor(new Color(255, 255, 255, 192));
-        instructionsText.setCharacterSize(14);
+        instructionsText.setCharacterSize(16);
         instructionsText.setPosition(5, 5);
-        instructionsText.setScale(0.9f, 1.0f);
 
-        instructionsTextShadow.setFont(terminatorFont);
+        instructionsTextShadow.setFont(freeSansFont);
+        instructionsTextShadow.setStyle(Text.BOLD);
         instructionsTextShadow.setColor(new Color(0, 0, 0, 128));
-        instructionsTextShadow.setCharacterSize(14);
+        instructionsTextShadow.setCharacterSize(16);
         instructionsTextShadow.setPosition(7, 7);
-        instructionsTextShadow.setScale(0.9f, 1.0f);
 
-        infoText.setFont(terminatorFont);
+        infoText.setFont(nakadaiFont);
         infoText.setColor(Color.YELLOW);
         infoText.setCharacterSize(24);
 
-        infoTextShadow.setFont(terminatorFont);
+        infoTextShadow.setFont(nakadaiFont);
         infoTextShadow.setColor(new Color(0, 0, 0, 96));
         infoTextShadow.setCharacterSize(24);
 
@@ -124,12 +129,12 @@ public class ExampleScene implements Scene {
         infoTextShadow.setPosition(7, target.getSize().y - infoTextBounds.height - 8);
 
         //Setup FPS text
-        fpsText.setFont(terminatorFont);
+        fpsText.setFont(nakadaiFont);
         fpsText.setColor(Color.GREEN);
         fpsText.setCharacterSize(24);
         fpsText.setString("FPS:");
 
-        fpsTextShadow.setFont(terminatorFont);
+        fpsTextShadow.setFont(nakadaiFont);
         fpsTextShadow.setColor(new Color(0, 0, 0, 96));
         fpsTextShadow.setCharacterSize(24);
         fpsTextShadow.setString(fpsText.getString());
@@ -139,12 +144,12 @@ public class ExampleScene implements Scene {
         fpsTextShadow.setPosition(7, infoText.getPosition().y - fpsTextBounds.height - 3);
 
         //Setup Events text
-        eventText.setFont(terminatorFont);
+        eventText.setFont(nakadaiFont);
         eventText.setColor(Color.CYAN);
         eventText.setCharacterSize(24);
         eventText.setString("Events:");
 
-        eventTextShadow.setFont(terminatorFont);
+        eventTextShadow.setFont(nakadaiFont);
         eventTextShadow.setColor(new Color(0, 0, 0, 96));
         eventTextShadow.setCharacterSize(24);
         eventTextShadow.setString(eventText.getString());
@@ -177,7 +182,7 @@ public class ExampleScene implements Scene {
         } else {
             noShadersText = new Text(
                     "Your graphics card\ndoes not support shaders,\nthe wave effect won't work!",
-                    terminatorFont);
+                    nakadaiFont);
 
             noShadersText.setColor(Color.WHITE);
             noShadersText.setCharacterSize(14);
