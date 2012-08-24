@@ -75,7 +75,6 @@
 			<class name="${jsfml.package}.graphics.Text" />
 			<class name="${jsfml.package}.graphics.Texture" />
 			<class name="${jsfml.package}.graphics.Transformable" />
-			<class name="${jsfml.package}.graphics.VertexArray" />
 			<class name="${jsfml.package}.graphics.View" />
 			
 			<!-- audio -->

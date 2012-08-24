@@ -13,7 +13,7 @@ import java.util.Random;
  * An example scene.
  */
 public class ExampleScene implements Scene {
-    private final VertexArray background = new VertexArray(PrimitiveType.QUADS, 4);
+    private final VertexArray background = new VertexArray(PrimitiveType.QUADS);
     private final Texture jsfmlLogoTexture = new Texture();
     private final Sprite jsfmlLogo = new Sprite();
     private final RenderStates jsfmlLogoStates = new RenderStates();
@@ -78,10 +78,10 @@ public class ExampleScene implements Scene {
         screenHeight = target.getSize().y;
 
         //Create background
-        background.append(new Vertex(new Vector2f(0, 0), Color.RED));
-        background.append(new Vertex(new Vector2f(target.getSize().x, 0), Color.BLUE));
-        background.append(new Vertex(new Vector2f(target.getSize().x, target.getSize().y), Color.GREEN));
-        background.append(new Vertex(new Vector2f(0, target.getSize().y), Color.YELLOW));
+        background.add(new Vertex(new Vector2f(0, 0), Color.RED));
+        background.add(new Vertex(new Vector2f(target.getSize().x, 0), Color.BLUE));
+        background.add(new Vertex(new Vector2f(target.getSize().x, target.getSize().y), Color.GREEN));
+        background.add(new Vertex(new Vector2f(0, target.getSize().y), Color.YELLOW));
 
         //Load logo
         jsfmlLogoTexture.loadFromStream(getClass().getResourceAsStream("/resources/jsfml-y_ex.png"));

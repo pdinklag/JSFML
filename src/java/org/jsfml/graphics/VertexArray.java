@@ -1,179 +1,91 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
+import org.jsfml.system.Vector2f;
+
+import java.util.ArrayList;
 
 /**
  * Defines a drawable set of one or multiple 2D primitives.
  */
-public class VertexArray extends SFMLNativeObject implements Drawable {
+public class VertexArray extends ArrayList<Vertex> implements Drawable {
+    private static final long serialVersionUID = 4656221909265000727L;
+
+    private PrimitiveType primitiveType;
+
     /**
      * Creates a new empty vertex array.
      */
     public VertexArray() {
-        super();
+        this(PrimitiveType.POINTS);
     }
 
     /**
      * Creates a new empty vertex array.
      *
-     * @param type The primitive type to draw.
+     * @param primitiveType The type of primitives drawn by this vertex array.
      */
-    public VertexArray(PrimitiveType type) {
-        this();
-        setPrimitiveType(type);
+    public VertexArray(PrimitiveType primitiveType) {
+        super(4);
+
+        this.primitiveType = primitiveType;
     }
 
     /**
-     * Creates a new vertex array.
+     * Gets the type of primitives drawn by this vertex array.
      *
-     * @param type        The primitive type to draw.
-     * @param vertexCount The initial vertex count.
+     * @return The type of primitives drawn by this vertex array.
      */
-    public VertexArray(PrimitiveType type, int vertexCount) {
-        this(type);
-        resize(vertexCount);
-    }
-
-    @Override
-    protected native long nativeCreate();
-
-    @Override
-    protected native void nativeDelete();
-
-    /**
-     * Gets the amount of vertices stored in this vertex array.
-     *
-     * @return The amount of vertices stored in this vertex array.
-     */
-    public native int getVertexCount();
-
-    private native Vertex nativeGetVertex(int i);
-
-    /**
-     * Gets a vertex from the array.
-     *
-     * @param i The index of the vertex to get.
-     * @return The vertex at the given index.
-     */
-    public Vertex getVertex(int i) {
-        if (i < 0 || i >= getVertexCount())
-            throw new IndexOutOfBoundsException(Integer.toString(i));
-
-        return nativeGetVertex(i);
+    public PrimitiveType getPrimitiveType() {
+        return primitiveType;
     }
 
     /**
-     * Gets all vertices from the vertex array.
+     * Sets the type of primitives drawn by this vertex array.
      *
-     * @return An array containing all the vertices in the vertex array.
+     * @param primitiveType The type of primitives drawn by this vertex array.
      */
-    public Vertex[] getVertices() {
-        int n = getVertexCount();
-        Vertex[] vertices = new Vertex[n];
-
-        for (int i = 0; i < n; i++)
-            vertices[i] = nativeGetVertex(i);
-
-        return vertices;
-    }
-
-    private native void nativeSetVertex(int i, Vertex v);
-
-    /**
-     * Sets a vertex in the array.
-     *
-     * @param i      The index at which to set.
-     * @param vertex The vertex to set at the given index.
-     */
-    public void setVertex(int i, @NotNull Vertex vertex) {
-        if (vertex == null)
-            throw new NullPointerException("vertex must not be null.");
-
-        if (i < 0 || i >= getVertexCount())
-            throw new IndexOutOfBoundsException(Integer.toString(i));
-
-        nativeSetVertex(i, vertex);
+    public void setPrimitiveType(PrimitiveType primitiveType) {
+        this.primitiveType = primitiveType;
     }
 
     /**
-     * Clears the vertex array, removing all vertices from it.
-     */
-    public native void clear();
-
-    private native void nativeResize(int n);
-
-    /**
-     * Resizes the vertex array.
+     * Computes the axis-aligned bounding box of this vertex array.
      *
-     * @param size The new size of the vertex array.
+     * @return The axis-aligned bounding box of this vertex array.
      */
-    public void resize(int size) {
-        if (size < 0)
-            throw new NullPointerException("size must be non-negative.");
+    public FloatRect getBounds() {
+        if (!isEmpty()) {
+            Vector2f v = get(0).getPosition();
+            float left = v.x;
+            float top = v.y;
+            float right = v.x;
+            float bottom = v.y;
 
-        nativeResize(size);
-    }
+            for (int i = 1; i < size(); i++) {
+                v = get(i).getPosition();
 
-    private native void nativeAppend(Vertex v);
+                if (v.x < left)
+                    left = v.x;
+                else if (v.x > right)
+                    right = v.x;
 
-    /**
-     * Appends a set of vertices to the end of the vertex array.
-     *
-     * @param vertices The vertices to add to the array.
-     */
-    public void append(@NotNull Vertex... vertices) {
-        if (vertices == null)
-            throw new NullPointerException("vertices must not be null.");
+                if (v.y < top)
+                    top = v.y;
+                else if (v.y > bottom)
+                    bottom = v.y;
+            }
 
-        for (Vertex v : vertices) {
-            if (v == null)
-                throw new NullPointerException("None of the vertices must be null.");
-
-            nativeAppend(v);
+            return new FloatRect(left, top, right - left, bottom - top);
+        } else {
+            return new FloatRect();
         }
     }
 
-    private native void nativeSetPrimitiveType(PrimitiveType type);
-
-    /**
-     * Sets the primitive type to draw.
-     *
-     * @param type The primitive type.
-     */
-    public void setPrimitiveType(@NotNull PrimitiveType type) {
-        if (type == null)
-            throw new NullPointerException("type must not be null.");
-
-        nativeSetPrimitiveType(type);
-    }
-
-    private native int nativeGetPrimitiveType();
-
-    /**
-     * Gets the current primitive type to draw.
-     *
-     * @return The current primitive type.
-     */
-    public PrimitiveType getPrimitiveType() {
-        return PrimitiveType.values()[nativeGetPrimitiveType()];
-    }
-
-    /**
-     * Gets the axis-aligned bounding box of the shape represented by this vertex array.
-     *
-     * @return The axis-aligned bounding box of the shape represented by this vertex array.
-     */
-    public native FloatRect getBounds();
-
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        if(target == null)
-            throw new NullPointerException("target must not be null");
-
-        if(states == null)
-            throw new NullPointerException("states must not be null");
-
-        DrawableNativeImpl.draw(this, target, states);
+        if (!isEmpty()) {
+            target.draw(toArray(new Vertex[size()]), primitiveType, states);
+        }
     }
 }
