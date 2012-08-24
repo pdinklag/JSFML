@@ -327,6 +327,7 @@
 			sourcepath="${java.src}"
 			destdir="${javadoc.out}"
 			windowtitle="JSFML API"
+			link="http://docs.oracle.com/javase/6/docs/api/"
 			/>
 	</target>
 	
