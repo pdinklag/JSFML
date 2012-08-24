@@ -170,7 +170,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoo
  * Method:    nativeDraw
  * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw___3Lorg_jsfml_graphics_Vertex_2Lorg_jsfml_graphics_PrimitiveType_2Lorg_jsfml_graphics_RenderStates_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw
     (JNIEnv *env, jobject obj, jobjectArray vertices, jobject type, jobject renderStates) {
 
     jint num = env->GetArrayLength(vertices);
