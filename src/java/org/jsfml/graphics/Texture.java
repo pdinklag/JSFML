@@ -16,6 +16,13 @@ import java.io.InputStream;
  */
 public class Texture extends SFMLNativeObject {
     /**
+     * Gets the maximum texture size supported by the current hardware.
+     *
+     * @return The maximum texture size supported by the current hardware.
+     */
+    public static native int getMaximumSize();
+
+    /**
      * Types of texture coordinates that can be used for rendering.
      */
     public static enum CoordinateType {

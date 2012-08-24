@@ -12,6 +12,14 @@ extern "C" {
 /* Inaccessible static: numWrapped */
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    getMaximumSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeCreate
  * Signature: ()J
  */

@@ -9,6 +9,15 @@
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    getMaximumSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize (JNIEnv *env, jclass cls) {
+    return (jint)sf::Texture::getMaximumSize();
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeCreate
  * Signature: ()J
  */
