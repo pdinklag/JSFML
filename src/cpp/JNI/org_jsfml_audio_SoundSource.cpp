@@ -1,4 +1,4 @@
-#include <JSFML/JNI/org_jsfml_audio_Sound.h>
+#include <JSFML/JNI/org_jsfml_audio_SoundSource.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
