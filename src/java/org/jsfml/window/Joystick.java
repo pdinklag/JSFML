@@ -74,4 +74,8 @@ public final class Joystick {
      * created. Once there is a window, the states will be automatically updated in regular periods.
      */
     public static native void update();
+
+    //cannot instantiate
+    private Joystick() {
+    }
 }

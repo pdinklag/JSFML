@@ -128,4 +128,8 @@ public final class Keyboard {
      * @return <tt>true</tt> if the key is currently being pressed, <tt>false</tt> otherwise.
      */
     public static native boolean isKeyPressed(Key key);
+
+    //cannot instantiate
+    private Keyboard() {
+    }
 }

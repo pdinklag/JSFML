@@ -59,4 +59,8 @@ public final class Mouse {
      * @param relativeTo The window to relate to.
      */
     public static native void setPosition(Vector2i position, Window relativeTo);
+
+    //cannot instantiate
+    private Mouse() {
+    }
 }
