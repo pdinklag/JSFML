@@ -13,7 +13,7 @@
 	<property name="java.classpath" value=".;${java.out};${jsfml.out};${jsfml.classes}" />
 	
 	<!-- Jar properties -->
-	<property name="jar.file" value="${jsfml.out}/jsfml-examples.jar" />
+	<property name="jar.file" value="${jsfml.out}/jsfml-test.jar" />
 
 	<!-- JAR signing properties -->
 	<property name="jarsigner.alias" value="pdinklag" />
@@ -30,17 +30,13 @@
 			<fileset dir="${java.out}" includes="**/*.class" />
 			<fileset dir="." includes="resources/**/*" />
 			<manifest>
-				<attribute name="Main-Class" value="org.jsfml.examples.scene.Standalone" />
+				<attribute name="Main-Class" value="org.jsfml.testapp.TestApp" />
 				<attribute name="Class-Path" value="jsfml.jar" />
-				<attribute name="Sealed" value="true" />
-				<attribute name="Specification-Title" value="JSFML" />
-				<attribute name="Specification-Version" value="0" />
-				<attribute name="Specification-Vendor" value="pdinklag" />
-				<attribute name="Implementation-Title" value="org.jsfml.examples" />
-				<attribute name="Implementation-Version" value="0" />
-				<attribute name="Implementation-Vendor" value="pdinklag" />
 			</manifest>
 		</jar>
+		<copy todir="${jsfml.out}">
+			<fileset dir="." includes="jsfml-test.*" />
+		</copy>
 	</target>
     
     <!-- Sign jar -->
