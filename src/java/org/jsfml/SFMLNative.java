@@ -1,5 +1,6 @@
 package org.jsfml;
 
+import java.awt.*;
 import java.io.*;
 import java.util.LinkedList;
 
@@ -62,6 +63,9 @@ public final class SFMLNative {
      * @return <tt>true</tt> if this platform is supported by JSFML, <tt>false</tt> otherwise.
      */
     public static boolean isPlatformSupported() {
+        if (GraphicsEnvironment.isHeadless())
+            return false;
+
         String osName = System.getProperty("os.name");
         String osArch = System.getProperty("os.arch");
 
@@ -100,6 +104,9 @@ public final class SFMLNative {
      * using any other JSFML class.
      */
     public static void loadNativeLibraries() {
+        if (GraphicsEnvironment.isHeadless())
+            throw new HeadlessException("JSFML cannot run in a headless environment");
+
         if (!loaded) {
             loaded = true;
 
