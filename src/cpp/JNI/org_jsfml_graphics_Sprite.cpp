@@ -39,10 +39,13 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDelete (JNIEnv *env,
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeSetTexture
- * Signature: (Lorg/jsfml/graphics/Texture;)V
+ * Signature: (Lorg/jsfml/graphics/Texture;Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture (JNIEnv *env, jobject obj, jobject texture) {
-    THIS(sf::Sprite)->setTexture(*JSFML::NativeObject::GetPointer<sf::Texture>(env, texture));
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture
+    (JNIEnv *env, jobject obj, jobject texture, jboolean resetRect) {
+
+    THIS(sf::Sprite)->setTexture(
+        *JSFML::NativeObject::GetPointer<sf::Texture>(env, texture), (bool)resetRect);
 }
 
 /*

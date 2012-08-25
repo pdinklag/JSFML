@@ -43,7 +43,7 @@ public class Sprite extends Transformable implements Drawable {
     @Override
     protected native void nativeDelete();
 
-    private native void nativeSetTexture(Texture texture);
+    private native void nativeSetTexture(Texture texture, boolean resetRect);
 
     /**
      * Sets the texture of this sprite.
@@ -55,7 +55,7 @@ public class Sprite extends Transformable implements Drawable {
         if (texture == null)
             throw new NullPointerException("texture must not be null.");
 
-        nativeSetTexture(texture);
+        nativeSetTexture(texture, resetRect);
         this.texture = texture;
     }
 
@@ -64,7 +64,7 @@ public class Sprite extends Transformable implements Drawable {
      *
      * @param texture The new texture.
      */
-    public void setTexture(Texture texture) {
+    public final void setTexture(Texture texture) {
         setTexture(texture, false);
     }
 

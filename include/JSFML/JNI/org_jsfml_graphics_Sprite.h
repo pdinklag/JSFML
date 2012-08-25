@@ -29,10 +29,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeDelete
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeSetTexture
- * Signature: (Lorg/jsfml/graphics/Texture;)V
+ * Signature: (Lorg/jsfml/graphics/Texture;Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_graphics_Sprite
