@@ -37,6 +37,10 @@ public class Context extends SFMLNativeObject {
         }
     }
 
+    /**
+     * Exception type that is thrown when activating or deactivating a {@link Context}
+     * using {@link Context#setActive(boolean)} fails.
+     */
     public final class ActivationException extends Exception {
         private static final long serialVersionUID = -9207950728636532244L;
 
