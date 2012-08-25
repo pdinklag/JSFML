@@ -61,9 +61,6 @@ public final class Vector3f implements Serializable {
      * @return A new vector, representing the "quotient" of the two vectors.
      */
     public static Vector3f componentwiseDiv(Vector3f a, Vector3f b) {
-        if (b.x == 0 || b.y == 0 || b.z == 0)
-            throw new IllegalArgumentException("Division by zero: " + a + " / " + b);
-
         return new Vector3f(
                 a.x / b.x,
                 a.y / b.y,
@@ -92,9 +89,6 @@ public final class Vector3f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector3f div(Vector3f a, float s) {
-        if (s == 0)
-            throw new IllegalArgumentException("Division by zero: " + a + " / " + s);
-
         return new Vector3f(
                 a.x / s,
                 a.y / s,

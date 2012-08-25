@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
+import org.jsfml.Utility;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -38,7 +39,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @param texture The texture of the shape.
      */
-    public void setTexture(Texture texture) {
+    public final void setTexture(Texture texture) {
         setTexture(texture, false);
     }
 
@@ -155,6 +156,7 @@ public abstract class Shape extends Transformable implements Drawable {
      *
      * @return An array containing the points of the shape.
      */
+    @Utility
     public Vector2f[] getPoints() {
         int n = getPointCount();
         Vector2f[] points = new Vector2f[n];

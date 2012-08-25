@@ -3,11 +3,12 @@ package org.jsfml.window;
 import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
+import org.jsfml.Utility;
 import org.jsfml.graphics.Image;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
-import java.util.LinkedList;
+import java.util.Iterator;
 
 /**
  * Basic window that serves as an OpenGL target.
@@ -252,19 +253,39 @@ public class Window extends SFMLNativeObject {
     public native Event pollEvent();
 
     /**
-     * Polls all events from the current event stack and returns an iterable list containing
-     * these events..
+     * Returns an {@link Iterable} that consecutively calls {@link #pollEvent()} and
+     * can be used to iterate over all events that occured since the last check.
      *
-     * @return An iterable list of the received events.
+     * @return An iterable over the received events.
      * @see #pollEvent()
      */
+    @Utility
     public Iterable<Event> pollEvents() {
-        final LinkedList<Event> events = new LinkedList<Event>();
+        return new Iterable<Event>() {
+            @Override
+            public Iterator<Event> iterator() {
+                return new Iterator<Event>() {
+                    private Event nextEvent = pollEvent();
 
-        for (Event event = pollEvent(); event != null; event = pollEvent())
-            events.add(event);
+                    @Override
+                    public boolean hasNext() {
+                        return (nextEvent != null);
+                    }
 
-        return events;
+                    @Override
+                    public Event next() {
+                        Event currentEvent = nextEvent;
+                        nextEvent = pollEvent();
+                        return currentEvent;
+                    }
+
+                    @Override
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+                };
+            }
+        };
     }
 
     /**

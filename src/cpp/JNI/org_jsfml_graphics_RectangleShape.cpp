@@ -1,13 +1,11 @@
 #include <JSFML/JNI/org_jsfml_graphics_RectangleShape.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_ExPtr.h>
 
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 
 /*
  * Class:     org_jsfml_graphics_RectangleShape

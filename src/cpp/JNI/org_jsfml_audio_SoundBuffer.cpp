@@ -88,7 +88,8 @@ JNIEXPORT jshortArray JNICALL Java_org_jsfml_audio_SoundBuffer_getSamples (JNIEn
 
     jshortArray arr = env->NewShortArray(n);
     env->SetShortArrayRegion(arr, 0, n, (jshort*)samples);
-    //env->ReleaseShortArrayElements(arr, (jshort*)samples, 0);
+
+    //memory leak tested, all good
 
     return arr;
 }

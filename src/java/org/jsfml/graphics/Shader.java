@@ -15,6 +15,18 @@ import java.io.InputStream;
  */
 public class Shader extends SFMLNativeObject {
     /**
+     * Special type denoting that the texture of the object being drawn
+     * should be used, which cannot be known before it is actually being drawn.
+     *
+     * @see Shader#setParameter(String, org.jsfml.graphics.Shader.CurrentTextureType)
+     */
+    public static final class CurrentTextureType {
+        private CurrentTextureType() {
+            //cannot instantiate from outside.
+        }
+    }
+
+    /**
      * Special value denoting that the texture of the object being drawn
      * should be used, which cannot be known before it is actually being drawn.
      *
@@ -28,18 +40,6 @@ public class Shader extends SFMLNativeObject {
      * @return <tt>true</tt> if shaders are available, <tt>false</tt> otherwise.
      */
     public static native boolean isAvailable();
-
-    /**
-     * Special type denoting that the texture of the object being drawn
-     * should be used, which cannot be known before it is actually being drawn.
-     *
-     * @see Shader#setParameter(String, org.jsfml.graphics.Shader.CurrentTextureType)
-     */
-    public static final class CurrentTextureType {
-        private CurrentTextureType() {
-            //cannot instantiate from outside.
-        }
-    }
 
     /**
      * Shader type enumeration.

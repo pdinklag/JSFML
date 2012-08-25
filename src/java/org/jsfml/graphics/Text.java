@@ -44,6 +44,7 @@ public class Text extends Transformable implements Drawable {
      * @param font   The font to use.
      */
     public Text(@NotNull String string, @NotNull Font font) {
+        this();
         setString(string);
         setFont(font);
     }

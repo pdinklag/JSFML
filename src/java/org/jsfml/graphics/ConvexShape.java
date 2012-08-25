@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
+import org.jsfml.Utility;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -23,7 +24,7 @@ public class ConvexShape extends Shape {
      * @param points The amount of points of the polygon.
      */
     public ConvexShape(int points) {
-        super();
+        this();
         setPointCount(points);
     }
 
@@ -35,8 +36,9 @@ public class ConvexShape extends Shape {
      *
      * @param points The points of the polygon.
      */
+    @Utility
     public ConvexShape(@NotNull Vector2f... points) {
-        super();
+        this();
         setPoints(points);
     }
 
@@ -82,6 +84,7 @@ public class ConvexShape extends Shape {
      *
      * @param points The points of the polygon.
      */
+    @Utility
     public void setPoints(@NotNull Vector2f... points) {
         if (points == null)
             throw new NullPointerException("points must not be null.");

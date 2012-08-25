@@ -69,6 +69,28 @@ public final class Time implements Comparable<Time>, Serializable {
     }
 
     /**
+     * Scales a time by multiplying it by a scalar.
+     *
+     * @param a The time to scale.
+     * @param s The scalar.
+     * @return A new time, representing the given time scaled by the given factor.
+     */
+    public static Time mul(Time a, float s) {
+        return new Time((long) (s * (float)a.microseconds));
+    }
+
+    /**
+     * Scales a time by dividing it by a scalar.
+     *
+     * @param a The time to scale.
+     * @param s The scalar.
+     * @return A new time, representing the given time scaled by the given factor.
+     */
+    public static Time div(Time a, float s) {
+        return new Time((long) ((float)a.microseconds / s));
+    }
+
+    /**
      * Computes a time's ratio of another time.
      *
      * @param a The first time.

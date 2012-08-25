@@ -7,7 +7,6 @@
 
 #include <JSFML/JNI/org_jsfml_ExPtr.h>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 /*

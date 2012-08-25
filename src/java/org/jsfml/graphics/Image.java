@@ -54,7 +54,7 @@ public class Image extends SFMLNativeObject {
      * @param height The image's height.
      */
     public final void create(int width, int height) {
-        create(width, height, new Color(0, 0, 0));
+        create(width, height, Color.BLACK);
     }
 
     private native boolean nativeLoadFromMemory(byte[] memory);
@@ -117,7 +117,6 @@ public class Image extends SFMLNativeObject {
 
         nativeCreateMaskFromColor(color, alpha);
     }
-
 
     /**
      * Creates a transparency mask from the given color.

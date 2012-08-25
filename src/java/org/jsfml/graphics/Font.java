@@ -28,11 +28,6 @@ public class Font extends SFMLNativeObject {
         super();
     }
 
-    @SuppressWarnings("deprecation")
-    Font(long wrap) {
-        super(wrap);
-    }
-
     /**
      * Creates a font from another font.
      *

@@ -52,9 +52,6 @@ public final class Vector2f implements Serializable {
      * @return A new vector, representing the "quotient" of the two vectors.
      */
     public static Vector2f componentwiseDiv(Vector2f a, Vector2f b) {
-        if (b.x == 0 || b.y == 0)
-            throw new IllegalArgumentException("Division by zero: " + a + " / " + b);
-
         return new Vector2f(a.x / b.x, a.y / b.y);
     }
 
@@ -77,9 +74,6 @@ public final class Vector2f implements Serializable {
      * @return A new vector, representing the scaled vector.
      */
     public static Vector2f div(Vector2f a, float s) {
-        if (s == 0)
-            throw new IllegalArgumentException("Division by zero: " + a + " / " + s);
-
         return new Vector2f(a.x / s, a.y / s);
     }
 

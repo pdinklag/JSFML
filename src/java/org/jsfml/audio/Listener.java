@@ -6,7 +6,7 @@ import org.jsfml.system.Vector3f;
 /**
  * The audio listener, representing the point in the scene from where all the sounds are heard.
  */
-public class Listener {
+public final class Listener {
     static {
         SFMLNative.loadNativeLibraries();
     }
@@ -76,4 +76,8 @@ public class Listener {
      * @return The listener's current orientation in the scene.
      */
     public static native Vector3f getDirection();
+
+    //cannot instantiate
+    private Listener() {
+    }
 }

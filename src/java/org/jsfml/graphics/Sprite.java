@@ -21,7 +21,7 @@ public class Sprite extends Transformable implements Drawable {
      * @param texture The texture.
      */
     public Sprite(Texture texture) {
-        super();
+        this();
         setTexture(texture);
     }
 
@@ -32,8 +32,7 @@ public class Sprite extends Transformable implements Drawable {
      * @param rect    The area of the texture to use.
      */
     public Sprite(Texture texture, IntRect rect) {
-        super();
-        setTexture(texture);
+        this(texture);
         setTextureRect(rect);
     }
 

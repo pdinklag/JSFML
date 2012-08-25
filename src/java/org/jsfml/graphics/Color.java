@@ -73,21 +73,6 @@ public final class Color implements Serializable {
     }
 
     /**
-     * Modulates two colors by subtracting one color from another.
-     *
-     * @param a The left color.
-     * @param b The right color.
-     * @return A new color, the modulation of the two given colors.
-     */
-    public static Color sub(Color a, Color b) {
-        return new Color(
-                a.r - b.r,
-                a.g - b.g,
-                a.b - b.b,
-                a.a - b.a);
-    }
-
-    /**
      * Modulates two colors by multiplying their components.
      *
      * @param a The left color.
@@ -162,10 +147,7 @@ public final class Color implements Serializable {
      * @param b The color's blue component.
      */
     public Color(int r, int g, int b) {
-        this.r = clamp(r);
-        this.g = clamp(g);
-        this.b = clamp(b);
-        this.a = 255;
+        this(r, g, b, 255);
     }
 
     /**
