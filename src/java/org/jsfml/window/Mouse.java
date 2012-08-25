@@ -1,5 +1,6 @@
 package org.jsfml.window;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 import org.jsfml.system.Vector2i;
 
@@ -37,20 +38,36 @@ public final class Mouse {
      */
     public static native Vector2i getPosition();
 
+    private static native Vector2i nativeGetPosition(Window relativeTo);
+
     /**
      * Retrieves the position of the mouse cursor relative to a window.
      *
      * @param relativeTo The window to relate to.
      * @return The position of the mouse cursor relative to the window's top left corner.
      */
-    public static native Vector2i getPosition(Window relativeTo);
+    public static Vector2i getPosition(@NotNull Window relativeTo) {
+        if (relativeTo == null)
+            throw new NullPointerException("relativeTo must not be null");
+
+        return nativeGetPosition(relativeTo);
+    }
+
+    private static native void nativeSetPosition(Vector2i position);
 
     /**
      * Sets the position of the mouse cursor on the screen.
      *
      * @param position The absolute position of the mouse cursor on the screen.
      */
-    public static native void setPosition(Vector2i position);
+    public static void setPosition(@NotNull Vector2i position) {
+        if (position == null)
+            throw new NullPointerException("position must not be null");
+
+        nativeSetPosition(position);
+    }
+
+    private static native void nativeSetPosition(Vector2i position, Window relativeTo);
 
     /**
      * Sets the position of the mouse cursor relative to a window.
@@ -58,7 +75,15 @@ public final class Mouse {
      * @param position   The position of the mouse cursor relative to the window's top left corner.
      * @param relativeTo The window to relate to.
      */
-    public static native void setPosition(Vector2i position, Window relativeTo);
+    public static void setPosition(@NotNull Vector2i position, @NotNull Window relativeTo) {
+        if (position == null)
+            throw new NullPointerException("position must not be null");
+
+        if (relativeTo == null)
+            throw new NullPointerException("relativeTo must not be null");
+
+        nativeSetPosition(position, relativeTo);
+    }
 
     //cannot instantiate
     private Mouse() {

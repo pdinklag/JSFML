@@ -20,31 +20,31 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_isButtonPressed
  * Method:    getPosition
  * Signature: ()Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__
+JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition
   (JNIEnv *, jclass);
 
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    getPosition
+ * Method:    nativeGetPosition
  * Signature: (Lorg/jsfml/window/Window;)Lorg/jsfml/system/Vector2i;
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition__Lorg_jsfml_window_Window_2
+JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition
   (JNIEnv *, jclass, jobject);
 
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (Lorg/jsfml/system/Vector2i;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_setPosition__Lorg_jsfml_system_Vector2i_2
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2
   (JNIEnv *, jclass, jobject);
 
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/window/Window;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_setPosition__Lorg_jsfml_system_Vector2i_2Lorg_jsfml_window_Window_2
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2Lorg_jsfml_window_Window_2
   (JNIEnv *, jclass, jobject, jobject);
 
 #ifdef __cplusplus
