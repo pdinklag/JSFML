@@ -1,1 +1,0 @@
--- java -XstartOnFirstThread -jar jsfml-test.jar >jsfml-test.log 2>&1-- I have no idea how AppleScript works ;)
