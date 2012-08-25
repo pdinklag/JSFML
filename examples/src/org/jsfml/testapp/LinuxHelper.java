@@ -1,7 +1,5 @@
 package org.jsfml.testapp;
 
-import java.io.IOException;
-
 /**
  * Utility class to find out what Linux distribution is currently used.
  */
@@ -21,14 +19,16 @@ class LinuxHelper {
      *
      * @return The information that was found, or <tt>null</tt> is no information
      *         could be found.
-     * @throws IOException          If something goes wrong reading the output streams.
-     * @throws InterruptedException If the process got interrupted.
      */
-    public static String geLinuxDistributionInfo() throws InterruptedException, IOException {
+    public static String geLinuxDistributionInfo() {
         for (String cmd : detectCmd) {
-            Exec exec = new Exec(cmd);
-            if (exec.getExitCode() == 0)
-                return exec.getStdout();
+            try {
+                Exec exec = new Exec(cmd);
+                if (exec.getExitCode() == 0)
+                    return exec.getStdout();
+            } catch (Throwable t) {
+                //ignore
+            }
         }
         return null;
     }
