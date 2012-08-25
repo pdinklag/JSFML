@@ -301,6 +301,9 @@ public class Window extends SFMLNativeObject {
 
     /**
      * Enables or disables vertical synchronization (VSync).
+     * <p/>
+     * Note that this should not be used in combination with {@link #setFramerateLimit(int)}
+     * as these two will conflict with each other.
      *
      * @param enable <tt>true</tt> to enable, <tt>false</tt> to disable.
      */
@@ -378,6 +381,9 @@ public class Window extends SFMLNativeObject {
 
     /**
      * Sets the maximum frame rate in frames per second.
+     * <p/>
+     * Note that this should not be used in combination with
+     * {@link #setVerticalSyncEnabled(boolean)} } as these two will conflict with each other.
      *
      * @param flimit The maximum frame rate in frames per second.
      */
