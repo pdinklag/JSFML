@@ -38,9 +38,168 @@ import java.util.Arrays;
  * Defines a 3x3 transformation matrix for 2D transformations.
  */
 @Intercom
-public class Transform implements Serializable {
+public final class Transform implements Serializable {
     private static final long serialVersionUID = 3796964163848107663L;
-    private static final float DEG_TO_RAD = 3.141592654f / 180.f;
+
+    /**
+     * The identity transformation, maps any vector to itself and therefore
+     * does nothing.
+     */
+    public final static Transform IDENTITY = new Transform();
+
+    /**
+     * Combines two transformation matrices by multiplying them.
+     *
+     * @param t1 The first transformation matrix.
+     * @param t2 The second transformation matrix.
+     * @return A new transformation matrix, the product of the two given matrices.
+     */
+    public static Transform combine(Transform t1, Transform t2) {
+        float[] a = t1.data;
+        float[] b = t2.data;
+
+        return new Transform(
+                a[0] * b[0] + a[4] * b[1] + a[12] * b[3],
+                a[0] * b[4] + a[4] * b[5] + a[12] * b[7],
+                a[0] * b[12] + a[4] * b[13] + a[12] * b[15],
+                a[1] * b[0] + a[5] * b[1] + a[13] * b[3],
+                a[1] * b[4] + a[5] * b[5] + a[13] * b[7],
+                a[1] * b[12] + a[5] * b[13] + a[13] * b[15],
+                a[3] * b[0] + a[7] * b[1] + a[15] * b[3],
+                a[3] * b[4] + a[7] * b[5] + a[15] * b[7],
+                a[3] * b[12] + a[7] * b[13] + a[15] * b[15]);
+    }
+
+    /**
+     * Adds a translation by a 2D vector to a transformation.
+     *
+     * @param t The transformation to apply the translation on.
+     * @param x The X coordinate of the translation vector.
+     * @param y The Y coordinate of the translation vector.
+     * @return A new transformation matrix with the translation applied.
+     */
+    public static Transform translate(Transform t, float x, float y) {
+        return combine(t, new Transform(
+                1, 0, x,
+                0, 1, y,
+                0, 0, 1));
+    }
+
+    /**
+     * Adds a translation by a 2D vector to a transformation.
+     *
+     * @param t The transformation to apply the translation to.
+     * @param v The  translation vector.
+     * @return A new transformation matrix with the translation applied.
+     */
+    public static Transform translate(Transform t, Vector2f v) {
+        return translate(t, v.x, v.y);
+    }
+
+    /**
+     * Adds a rotation around the origin to a transformation.
+     *
+     * @param t     The transformation to apply the rotation on.
+     * @param angle The rotation angle in degrees.
+     * @return A new transformation with the rotation applied
+     */
+    public static Transform rotate(Transform t, float angle) {
+        double rad = Math.toRadians(angle);
+        float cos = (float) Math.cos(rad);
+        float sin = (float) Math.sin(rad);
+
+        return combine(t, new Transform(
+                cos, -sin, 0,
+                sin, cos, 0,
+                0, 0, 1));
+    }
+
+    /**
+     * Adds a rotation around an arbitrary center to this transformation.
+     *
+     * @param t       The transformation to apply the rotation on.
+     * @param angle   The rotation angle in degrees.
+     * @param centerX The X coordinate of the rotation center.
+     * @param centerY The Y coordinate of the rotation center.
+     * @return A new transformation with the rotation applied.
+     */
+    public static Transform rotate(Transform t, float angle, float centerX, float centerY) {
+        double rad = Math.toRadians(angle);
+        float cos = (float) Math.cos(rad);
+        float sin = (float) Math.sin(rad);
+
+        return combine(t, new Transform(
+                cos, -sin, centerX * (1 - cos) + centerY * sin,
+                sin, cos, centerY * (1 - cos) - centerX * sin,
+                0, 0, 1));
+    }
+
+    /**
+     * Adds a rotation around an arbitrary center to this transformation.
+     *
+     * @param t      The transformation to apply the rotation on.
+     * @param angle  The rotation angle in degrees.
+     * @param center The rotation center.
+     * @return A new transformation with the rotation applied.
+     */
+    public static Transform rotate(Transform t, float angle, Vector2f center) {
+        return rotate(t, angle, center.x, center.y);
+    }
+
+    /**
+     * Adds a scaling operation from the origin to a transformation.
+     *
+     * @param t      The transform to apply the scaling on.
+     * @param scaleX The X factor of the scaling operation.
+     * @param scaleY The Y factor of the scaling operation.
+     * @return A new transformation with the scaling applied.
+     */
+    public static Transform scale(Transform t, float scaleX, float scaleY) {
+        return combine(t, new Transform(
+                scaleX, 0, 0,
+                0, scaleY, 0,
+                0, 0, 1));
+    }
+
+    /**
+     * Adds a scaling operation from the origin to a transformation.
+     *
+     * @param t       The transform to apply the scaling on.
+     * @param factors The factors of the scaling operation.
+     * @return A new transformation with the scaling applied.
+     */
+    public static Transform scale(Transform t, Vector2f factors) {
+        return scale(t, factors.x, factors.y);
+    }
+
+    /**
+     * Adds a scaling operation from an arbitrary center to a transformation.
+     *
+     * @param t       The transform to apply the scaling on.
+     * @param scaleX  The X factor of the scaling operation.
+     * @param scaleY  The Y factor of the scaling operation.
+     * @param centerX The X coordinate of the scaling origin.
+     * @param centerY The Y coordinate of the scaling origin.
+     * @return A new transformation with the scaling applied.
+     */
+    public static Transform scale(Transform t, float scaleX, float scaleY, float centerX, float centerY) {
+        return combine(t, new Transform(
+                scaleX, 0, centerX * (1 - scaleX),
+                0, scaleY, centerY * (1 - scaleY),
+                0, 0, 1));
+    }
+
+    /**
+     * Adds a scaling operation from an arbitrary center to a transformation.
+     *
+     * @param t       The transform to apply the scaling on.
+     * @param factors The factors of the scaling operation.
+     * @param center  The scaling origin.
+     * @return A new transformation with the scaling applied.
+     */
+    public static Transform scale(Transform t, Vector2f factors, Vector2f center) {
+        return scale(t, factors.x, factors.y, center.x, center.y);
+    }
 
     @Intercom
     private final float[] data = new float[16];
@@ -145,14 +304,13 @@ public class Transform implements Serializable {
                 data[1] * x + data[5] * y + data[13]);
     }
 
-
     /**
      * Transforms a 2D point using the transformation matrix.
      *
      * @param v The point to transform.
      * @return A new 2D vector, representing the transformed point.
      */
-    public Vector2f transformPoint(Vector2f v) {
+    public final Vector2f transformPoint(Vector2f v) {
         return transformPoint(v.x, v.y);
     }
 
@@ -186,190 +344,9 @@ public class Transform implements Serializable {
         return new FloatRect(left, top, right - left, bottom - top);
     }
 
-    /**
-     * Combines two transformations into a new transformation.
-     *
-     * @param t The transformation to combine this transformation with.
-     * @return The new combined transformation.
-     */
-    public Transform combine(Transform t) {
-        float[] a = data;
-        float[] b = t.data;
-
-        return new Transform(
-                a[0] * b[0] + a[4] * b[1] + a[12] * b[3],
-                a[0] * b[4] + a[4] * b[5] + a[12] * b[7],
-                a[0] * b[12] + a[4] * b[13] + a[12] * b[15],
-                a[1] * b[0] + a[5] * b[1] + a[13] * b[3],
-                a[1] * b[4] + a[5] * b[5] + a[13] * b[7],
-                a[1] * b[12] + a[5] * b[13] + a[13] * b[15],
-                a[3] * b[0] + a[7] * b[1] + a[15] * b[3],
-                a[3] * b[4] + a[7] * b[5] + a[15] * b[7],
-                a[3] * b[12] + a[7] * b[13] + a[15] * b[15]);
-    }
-
-    /**
-     * Utility method, as tricks like <tt>*this = ...</tt> are not possible in Java...
-     *
-     * @param t Transform to combine this transformation with.
-     */
-    private void combineThis(Transform t) {
-        float[] a = getMatrix();
-        float[] b = t.data;
-
-        data[0] = a[0] * b[0] + a[4] * b[1] + a[12] * b[3];
-        data[1] = a[1] * b[0] + a[5] * b[1] + a[13] * b[3];
-        data[3] = a[3] * b[0] + a[7] * b[1] + a[15] * b[3];
-        data[4] = a[0] * b[4] + a[4] * b[5] + a[12] * b[7];
-        data[5] = a[1] * b[4] + a[5] * b[5] + a[13] * b[7];
-        data[7] = a[3] * b[4] + a[7] * b[5] + a[15] * b[7];
-        data[12] = a[0] * b[12] + a[4] * b[13] + a[12] * b[15];
-        data[13] = a[1] * b[12] + a[5] * b[13] + a[13] * b[15];
-        data[15] = a[3] * b[12] + a[7] * b[13] + a[15] * b[15];
-    }
-
-    /**
-     * Adds a translation by a 2D vector to this transformation.
-     *
-     * @param x The X coordinate of the translation vector.
-     * @param y The Y coordinate of the translation vector.
-     * @return This transformation, for convenient chain modification.
-     */
-    public Transform translate(float x, float y) {
-        combineThis(new Transform(
-                1, 0, x,
-                0, 1, y,
-                0, 0, 1));
-
-        return this;
-    }
-
-    /**
-     * Adds a translation by a 2D vector to this transformation.
-     *
-     * @param v The translation vector.
-     * @return This transformation, for convenient chain modification.
-     */
-    public final Transform translate(Vector2f v) {
-        return translate(v.x, v.y);
-    }
-
-    /**
-     * Adds a rotation around the origin to this transformation.
-     *
-     * @param angle The rotation angle in degrees.
-     * @return This transformation, for convenient chain modification.
-     */
-    public Transform rotate(float angle) {
-        float rad = angle * DEG_TO_RAD;
-        float cos = (float) Math.cos(rad);
-        float sin = (float) Math.sin(rad);
-
-        combineThis(new Transform(
-                cos, -sin, 0,
-                sin, cos, 0,
-                0, 0, 1));
-
-        return this;
-    }
-
-    /**
-     * Adds a rotation around an arbitrary center to this transformation.
-     *
-     * @param angle   The rotation angle in degrees.
-     * @param centerX The X coordinate of the rotation center.
-     * @param centerY The Y coordinate of the rotation center.
-     * @return This transformation, for convenient chain modification.
-     */
-    public Transform rotate(float angle, float centerX, float centerY) {
-        float rad = angle * DEG_TO_RAD;
-        float cos = (float) Math.cos(rad);
-        float sin = (float) Math.sin(rad);
-
-        combineThis(new Transform(
-                cos, -sin, centerX * (1 - cos) + centerY * sin,
-                sin, cos, centerY * (1 - cos) - centerX * sin,
-                0, 0, 1));
-
-        return this;
-    }
-
-    /**
-     * Adds a rotation around an arbitrary center to this transformation.
-     *
-     * @param angle  The rotation angle in degrees.
-     * @param center The rotation center.
-     * @return This transformation, for convenient chain modification.
-     */
-    public final Transform rotate(float angle, Vector2f center) {
-        return rotate(angle, center.x, center.y);
-    }
-
-    /**
-     * Adds a scaling operation from the origin to this transformation.
-     *
-     * @param scaleX The X factor of the scaling operation.
-     * @param scaleY The Y factor of the scaling operation.
-     * @return This transformation, for convenient chain modification.
-     */
-    public Transform scale(float scaleX, float scaleY) {
-        combineThis(new Transform(
-                scaleX, 0, 0,
-                0, scaleY, 0,
-                0, 0, 1));
-
-        return this;
-    }
-
-    /**
-     * Adds a scaling operation from an arbitrary center to this transformation.
-     *
-     * @param scaleX  The X factor of the scaling operation.
-     * @param scaleY  The Y factor of the scaling operation.
-     * @param centerX The X coordinate of the scaling origin.
-     * @param centerY The Y coordinate of the scaling origin.
-     * @return This transformation, for convenient chain modification.
-     */
-    public Transform scale(float scaleX, float scaleY, float centerX, float centerY) {
-        combineThis(new Transform(
-                scaleX, 0, centerX * (1 - scaleX),
-                0, scaleY, centerY * (1 - scaleY),
-                0, 0, 1));
-
-        return this;
-    }
-
-    /**
-     * Adds a scaling operation from the origin to this transformation.
-     *
-     * @param factors The factors of the scaling operation.
-     * @return This transformation, for convenient chain modification.
-     */
-    public final Transform scale(Vector2f factors) {
-        return scale(factors.x, factors.y);
-    }
-
-    /**
-     * Adds a scaling operation from an arbitrary center to this transformation.
-     *
-     * @param factors The factors of the scaling operation.
-     * @param center  The scaling origin.
-     * @return This transformation, for convenient chain modification.
-     */
-    public final Transform scale(Vector2f factors, Vector2f center) {
-        return scale(factors.x, factors.y, center.x, center.y);
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Transform transform = (Transform) o;
-
-        if (!Arrays.equals(data, transform.data)) return false;
-
-        return true;
+        return (o instanceof Transform && Arrays.equals(data, ((Transform) o).data));
     }
 
     @Override
