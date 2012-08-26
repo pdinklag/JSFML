@@ -3,7 +3,7 @@ package org.jsfml.window;
 import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
-import org.jsfml.Utility;
+import org.jsfml.JSFML;
 import org.jsfml.graphics.Image;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
@@ -259,7 +259,7 @@ public class Window extends SFMLNativeObject {
      * @return An iterable over the received events.
      * @see #pollEvent()
      */
-    @Utility
+    @JSFML
     public Iterable<Event> pollEvents() {
         return new Iterable<Event>() {
             @Override
