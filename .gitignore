@@ -9,5 +9,7 @@ out
 *.iws
 
 #Personal mojo
+examples/lib
+examples/src/org/jsfml/test
 jsfml-build-all
 jsfml-old
