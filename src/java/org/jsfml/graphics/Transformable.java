@@ -1,59 +1,48 @@
 package org.jsfml.graphics;
 
-import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
 /**
- * Decomposed transform defined by a position, a rotation and a scale.
+ * Interface for transformable objects that can be positioned, rotated and scaled around an
+ * origin.
  */
-public abstract class Transformable extends SFMLNativeObject {
+public interface Transformable {
     /**
-     * Default constructor.
-     */
-    protected Transformable() {
-        super();
-    }
-
-    /**
-     * Sets the position of this object.
+     * Sets the position of this object so that its origin will be exactly on it.
      *
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
-    public native void setPosition(float x, float y);
+    public void setPosition(float x, float y);
 
     /**
-     * Sets the position of this object.
+     * Sets the position of this object so that its origin will be exactly on it.
      *
      * @param v The new position.
      */
-    public final void setPosition(Vector2f v) {
-        setPosition(v.x, v.y);
-    }
+    public void setPosition(Vector2f v);
 
     /**
-     * Sets the rotation of this object.
+     * Sets the rotation of this object around its origin.
      *
-     * @param angle The new rotation in degrees.
+     * @param angle The new rotation angle in degrees.
      */
-    public native void setRotation(float angle);
+    public void setRotation(float angle);
 
     /**
-     * Sets the scaling of this object.
+     * Sets the scaling of this object, using its origin as the scaling center.
      *
      * @param x The X scaling factor.
      * @param y The Y scaling factor.
      */
-    public native void setScale(float x, float y);
+    public void setScale(float x, float y);
 
     /**
-     * Sets the scaling of this object.
+     * Sets the scaling of this object, using its origin as the scaling center.
      *
      * @param factors The new scaling factors.
      */
-    public final void setScale(Vector2f factors) {
-        setScale(factors.x, factors.y);
-    }
+    public void setScale(Vector2f factors);
 
     /**
      * Sets the rotation, scaling and drawing origin of this object.
@@ -61,97 +50,91 @@ public abstract class Transformable extends SFMLNativeObject {
      * @param x The X coordinate.
      * @param y The Y coordinate.
      */
-    public native void setOrigin(float x, float y);
+    public void setOrigin(float x, float y);
 
     /**
      * Sets the rotation, scaling and drawing origin of this object.
      *
      * @param v The new origin.
      */
-    public final void setOrigin(Vector2f v) {
-        setOrigin(v.x, v.y);
-    }
+    public void setOrigin(Vector2f v);
 
     /**
      * Gets the position of this object.
      *
      * @return The current position.
      */
-    public native Vector2f getPosition();
+    public Vector2f getPosition();
 
     /**
      * Gets the rotation angle of this object.
      *
      * @return The current rotation angle in degrees.
      */
-    public native float getRotation();
+    public float getRotation();
 
     /**
      * Gets the scaling of this object.
      *
      * @return The current scaling factors.
      */
-    public native Vector2f getScale();
+    public Vector2f getScale();
 
     /**
      * Gets the origin of this object.
      *
      * @return The current origin.
      */
-    public native Vector2f getOrigin();
+    public Vector2f getOrigin();
 
     /**
      * Moves this object.
      *
-     * @param x The X offset.
-     * @param y The Y offset.
+     * @param x The X offset added to the current position.
+     * @param y The Y offset added to the current position.
      */
-    public native void move(float x, float y);
+    public void move(float x, float y);
 
     /**
-     * Moves this object.
+     * Moves the object.
      *
-     * @param v The offset vector.
+     * @param v The offset vector added to the current position.
      */
-    public final void move(Vector2f v) {
-        move(v.x, v.y);
-    }
+    public void move(Vector2f v);
 
     /**
-     * Rotates this object.
+     * Rotates this object around its origin.
      *
      * @param angle The rotation angle in degrees.
      */
-    public native void rotate(float angle);
+    public void rotate(float angle);
 
     /**
-     * Scales this object.
+     * Scales the object, using its origin as the scaling center.
      *
      * @param x The X scaling factor.
      * @param y The Y scaling factor.
      */
-    public native void scale(float x, float y);
+    public void scale(float x, float y);
 
     /**
-     * Scales this object.
+     * Scales the object, using its origin as the scaling center.
      *
      * @param factors The scaling factors.
      */
-    public final void scale(Vector2f factors) {
-        scale(factors.x, factors.y);
-    }
+    public void scale(Vector2f factors);
 
     /**
      * Gets the current transform matrix.
      *
      * @return The current transform.
      */
-    public native Transform getTransform();
+    public Transform getTransform();
 
     /**
      * Gets the inverse of the current transform matrix.
      *
      * @return The inverse of the current transform.
      */
-    public native Transform getInverseTransform();
+    public Transform getInverseTransform();
 }

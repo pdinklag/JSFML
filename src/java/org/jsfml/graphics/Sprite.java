@@ -5,7 +5,7 @@ import org.jsfml.NotNull;
 /**
  * Drawable representation, or instance, of a texture or a texture portion.
  */
-public class Sprite extends Transformable implements Drawable {
+public class Sprite extends SFMLNativeTransformable implements Drawable {
     private Texture texture = null;
 
     /**

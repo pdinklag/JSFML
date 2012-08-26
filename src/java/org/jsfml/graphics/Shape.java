@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
 /**
  * Base class for textured shapes with outlines.
  */
-public abstract class Shape extends Transformable implements Drawable {
+public abstract class Shape extends SFMLNativeTransformable implements Drawable {
     private Texture texture = null;
 
     /**
