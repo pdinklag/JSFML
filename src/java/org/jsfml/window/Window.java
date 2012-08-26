@@ -362,6 +362,8 @@ public class Window extends SFMLNativeObject {
         nativeSetIcon(icon);
     }
 
+    private native boolean nativeSetActive(boolean active);
+
     /**
      * Activates or deactivates the window as the current OpenGL rendering target.
      * <p/>
@@ -370,7 +372,23 @@ public class Window extends SFMLNativeObject {
      *
      * @param active <tt>true</tt> to activate, <tt>false</tt> to deactivate.
      */
-    public native void setActive(boolean active);
+    public void setActive(boolean active) throws ContextActivationException {
+        if (!nativeSetActive(active)) {
+            throw new ContextActivationException("Failed to " +
+                    (active ? "activate" : "deactivate") +
+                    " the window's context.");
+        }
+    }
+
+    /**
+     * Activates the window as the current OpenGL rendering target.
+     * <p/>
+     * Note that if a window gets activated, all other windows operating in the same thread will
+     * automatically be deactivated.
+     */
+    public final void setActive() throws ContextActivationException {
+        setActive(true);
+    }
 
     /**
      * Flushes the OpenGL pixel buffer to the screen.

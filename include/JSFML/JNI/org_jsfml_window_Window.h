@@ -176,10 +176,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetIcon
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    setActive
- * Signature: (Z)V
+ * Method:    nativeSetActive
+ * Signature: (Z)Z
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setActive
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_nativeSetActive
   (JNIEnv *, jobject, jboolean);
 
 /*
