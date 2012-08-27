@@ -7,18 +7,24 @@ set RESULT=%UNKNOWN%
 REM MSVC++ 2010 (10.0)
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VC" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\10.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\10.0\Setup\VS" "ProductDir" 2> NUL
 
 REM MSVC++ 2008 (9.0)
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\9.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\9.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\9.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\9.0\Setup\VC" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\9.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\9.0\Setup\VS" "ProductDir" 2> NUL
 
 REM MSVC++ 2005 (8.0)
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\8.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\8.0\Setup\VC" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\8.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\8.0\Setup\VS" "ProductDir" 2> NUL
 
