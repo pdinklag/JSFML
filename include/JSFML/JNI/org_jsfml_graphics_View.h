@@ -122,6 +122,22 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_move
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_zoom
   (JNIEnv *, jobject, jfloat);
 
+/*
+ * Class:     org_jsfml_graphics_View
+ * Method:    getTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getTransform
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_View
+ * Method:    getInverseTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getInverseTransform
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

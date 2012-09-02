@@ -2,6 +2,7 @@
 
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/FloatRect.hpp>
+#include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
 #include <SFML/Graphics/View.hpp>
@@ -130,4 +131,26 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_move (JNIEnv *env, jobject o
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_zoom (JNIEnv *env, jobject obj, jfloat factor) {
     THIS(sf::View)->zoom(factor);
+}
+
+/*
+ * Class:     org_jsfml_graphics_View
+ * Method:    getTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getTransform
+    (JNIEnv *env, jobject obj) {
+
+    return JSFML::Transform::FromSFML(env, THIS(sf::View)->getTransform());
+}
+
+/*
+ * Class:     org_jsfml_graphics_View
+ * Method:    getInverseTransform
+ * Signature: ()Lorg/jsfml/graphics/Transform;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getInverseTransform
+    (JNIEnv *env, jobject obj) {
+
+    return JSFML::Transform::FromSFML(env, THIS(sf::View)->getInverseTransform());
 }

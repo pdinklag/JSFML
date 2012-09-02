@@ -175,4 +175,20 @@ public class View extends SFMLNativeObject {
      * @param factor The zoom factor.
      */
     public native void zoom(float factor);
+
+    /**
+     * Gets the view's current transformation matrix as determined by its center,
+     * size and rotation angle.
+     *
+     * @return The view's current transformation matrix.
+     */
+    public native Transform getTransform();
+
+    /**
+     * Gets the inverse of the view's current transformation matrix as determined
+     * by its center, size and rotation angle.
+     *
+     * @return The inverse of the view's current transformation matrix.
+     */
+    public native Transform getInverseTransform();
 }
