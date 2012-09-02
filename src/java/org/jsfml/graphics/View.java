@@ -9,7 +9,7 @@ import org.jsfml.system.Vector2f;
  */
 public class View extends SFMLNativeObject {
     /**
-     * Creates a new View.
+     * Creates a new View for the area of <tt>(0, 0, 1000, 1000)</tt>.
      */
     public View() {
         super();
@@ -18,6 +18,28 @@ public class View extends SFMLNativeObject {
     @SuppressWarnings("deprecation")
     View(long wrap) {
         super(wrap);
+    }
+
+    /**
+     * Creates a new View for a certain area.
+     *
+     * @param rect The area visible by this view.
+     */
+    public View(@NotNull FloatRect rect) {
+        this();
+        reset(rect);
+    }
+
+    /**
+     * Creates a new View for a certain area.
+     *
+     * @param center The center of the view.
+     * @param size   The size of the view in pixels.
+     */
+    public View(Vector2f center, Vector2f size) {
+        this();
+        setCenter(center);
+        setSize(size);
     }
 
     @Override
