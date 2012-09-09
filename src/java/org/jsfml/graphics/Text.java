@@ -45,8 +45,8 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      */
     public Text(@NotNull String string, @NotNull Font font) {
         this();
-        setString(string);
         setFont(font);
+        setString(string);
     }
 
     /**
@@ -57,8 +57,10 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      * @param characterSize The font size.
      */
     public Text(@NotNull String string, @NotNull Font font, int characterSize) {
-        this(string, font);
+        this();
         setCharacterSize(characterSize);
+        setFont(font);
+        setString(string);
     }
 
     @Override
