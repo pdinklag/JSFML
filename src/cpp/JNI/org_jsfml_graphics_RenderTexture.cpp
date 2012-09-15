@@ -22,7 +22,7 @@ sf::Vertex sfVertexBuffer_RenderTexture[VERTEX_BUFSIZE_RTEXTURE];
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate (JNIEnv *env, jobject obj) {
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__ (JNIEnv *env, jobject obj) {
     sf::RenderTexture* renderTexture = new sf::RenderTexture();
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
@@ -42,10 +42,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete (JNIEn
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    create
+ * Method:    nativeCreate
  * Signature: (IIZ)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_create
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__IIZ
     (JNIEnv *env, jobject obj, jint width, jint height, jboolean depthBuffer) {
 
     return THIS(sf::RenderTexture)->create(width, height, depthBuffer);

@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
@@ -30,15 +31,30 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     @Override
     protected native void nativeDelete();
 
+    private native boolean nativeCreate(int width, int height, boolean depthBuffer);
+
     /**
      * Sets up the render texture.
      *
      * @param width       The texture's width.
      * @param height      The texture's height.
      * @param depthBuffer <tt>true</tt> to generate a depth buffer, <tt>false</tt> otherwise.
-     * @return <tt>true</tt> if the render texture was set up successfully, <tt>false</tt> otherwise.
+     *                    Use this only in case you wish to do 3D rendering to this texture.
      */
-    public native boolean create(int width, int height, boolean depthBuffer);
+    public void create(int width, int height, boolean depthBuffer) {
+        if (!nativeCreate(width, height, depthBuffer))
+            throw new JSFMLError("Failed to create render texture.");
+    }
+
+    /**
+     * Sets up the render texture without a depth buffer..
+     *
+     * @param width  The texture's width.
+     * @param height The texture's height.
+     */
+    public final void create(int width, int height) {
+        create(width, height, false);
+    }
 
     /**
      * Enables or disables textures smoothing.
