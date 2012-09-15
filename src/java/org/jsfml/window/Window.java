@@ -103,7 +103,7 @@ public class Window extends SFMLNativeObject {
     @Override
     protected native void nativeDelete();
 
-    protected native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
+    private native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
 
     /**
      * Checks whether the current native thread is eligibile for spawning a window.
