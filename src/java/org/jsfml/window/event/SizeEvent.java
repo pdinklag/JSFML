@@ -1,37 +1,28 @@
 package org.jsfml.window.event;
 
 import org.jsfml.Intercom;
+import org.jsfml.system.Vector2i;
 
 /**
  * Event class for event type {@link Event.Type#RESIZED}.
  */
 @Intercom
 public class SizeEvent extends Event {
-    private final int width, height;
+    private final Vector2i size;
 
     @Intercom
     protected SizeEvent(int type, int width, int height) {
         super(type);
-        this.width = width;
-        this.height = height;
+        this.size = new Vector2i(width, height);
     }
 
     /**
-     * Returns the new width of the window.
+     * Returns the new size of the window.
      *
-     * @return The new width of the window.
+     * @return The new size of the window.
      */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Returns the new height of the window.
-     *
-     * @return The new height of the window.
-     */
-    public int getHeight() {
-        return height;
+    public Vector2i getSize() {
+        return size;
     }
 
     @Override
