@@ -187,10 +187,6 @@
 			<arg value="-Wl,-no-undefined,-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system" />
 		</exec>
 		
-		<copy todir="${cpp.out}/${arch}">
-			<fileset dir="${sfml.bin}/${arch}" includes="*.so" />
-		</copy>
-		
 		<checksum>
 			<fileset dir="${cpp.out}/${arch}" includes="*.so" />
 		</checksum>
