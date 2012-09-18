@@ -60,9 +60,7 @@ public final class VideoMode implements Serializable {
      * @param height The height in pixels.
      */
     public VideoMode(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.bpp = 32;
+        this(width, height, 32);
     }
 
     /**

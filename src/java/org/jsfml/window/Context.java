@@ -1,5 +1,6 @@
 package org.jsfml.window;
 
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 
 /**
@@ -13,6 +14,7 @@ public final class Context extends SFMLNativeObject {
      * Creates and activates a valid OpenGL context.
      */
     public Context() {
+        SFMLNative.ensureDisplay();
     }
 
     @Override

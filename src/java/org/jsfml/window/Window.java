@@ -1,9 +1,6 @@
 package org.jsfml.window;
 
-import org.jsfml.JSFMLError;
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.JSFML;
+import org.jsfml.*;
 import org.jsfml.graphics.Image;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
@@ -59,6 +56,7 @@ public class Window extends SFMLNativeObject {
      */
     public Window() {
         super();
+        SFMLNative.ensureDisplay();
     }
 
     /**

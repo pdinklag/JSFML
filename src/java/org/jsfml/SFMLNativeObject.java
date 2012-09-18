@@ -12,10 +12,6 @@ public abstract class SFMLNativeObject {
     private static boolean debug = false;
     private static int numManaged = 0, numWrapped = 0;
 
-    static {
-        SFMLNative.loadNativeLibraries();
-    }
-
     /**
      * Enables or disables SFMLNativeObject debug output to the standard output stream.
      * When enabled, the creation, wrapping and deletion of all SFML native objects will be logged to the
@@ -43,6 +39,8 @@ public abstract class SFMLNativeObject {
      */
     @SuppressWarnings("deprecation")
     protected SFMLNativeObject() {
+        SFMLNative.loadNativeLibraries();
+
         ptr = nativeCreate();
 
         if (ptr == 0)
@@ -64,6 +62,8 @@ public abstract class SFMLNativeObject {
      */
     @Deprecated
     protected SFMLNativeObject(long wrap) {
+        SFMLNative.loadNativeLibraries();
+
         if (wrap == 0)
             throw new JSFMLError("Tried to wrap around a NULL pointer: " + this);
 

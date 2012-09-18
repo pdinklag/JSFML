@@ -2,6 +2,7 @@ package org.jsfml.graphics;
 
 import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -19,6 +20,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      */
     public RenderTexture() {
         super();
+        SFMLNative.ensureDisplay();
 
         defaultView = new ImmutableView(nativeGetDefaultView());
         view = defaultView;
