@@ -111,6 +111,8 @@ public final class SFMLNative {
             LinkedList<String> nativeLibs = new LinkedList<String>();
 
             //Determine which native libraries to load
+            boolean linux = false;
+
             if (osName.contains(OS_NAME_WINDOWS)) {
                 if (osArch.equals("x86")) {
                     nativeLibs.add("windows_x86/libsndfile-1.dll");
@@ -130,17 +132,10 @@ public final class SFMLNative {
                     nativeLibs.add("windows_x64/jsfml.dll");
                 }
             } else if (osName.contains(OS_NAME_LINUX)) {
+                linux = true;
                 if (osArch.equals("x86") || osArch.equals("i386")) {
-                    nativeLibs.add("linux_x86/libsfml-system.so");
-                    nativeLibs.add("linux_x86/libsfml-window.so");
-                    nativeLibs.add("linux_x86/libsfml-graphics.so");
-                    nativeLibs.add("linux_x86/libsfml-audio.so");
                     nativeLibs.add("linux_x86/libjsfml.so");
                 } else if (osArch.equals("amd64")) {
-                    nativeLibs.add("linux_x64/libsfml-system.so");
-                    nativeLibs.add("linux_x64/libsfml-window.so");
-                    nativeLibs.add("linux_x64/libsfml-graphics.so");
-                    nativeLibs.add("linux_x64/libsfml-audio.so");
                     nativeLibs.add("linux_x64/libjsfml.so");
                 }
             } else if (osName.contains(OS_NAME_MACOSX)) {
@@ -156,6 +151,20 @@ public final class SFMLNative {
             //Check if the current operating system is supported
             if (nativeLibs.size() == 0) {
                 throw new UnsupportedOperationException("Unsupported operating system: " + osName + " " + osArch);
+            }
+
+            //On Linux, try and load SFML first. We assume it is installed on the system.
+            if (linux) {
+                try {
+                    System.loadLibrary("sfml-system");
+                    System.loadLibrary("sfml-window");
+                    System.loadLibrary("sfml-graphics");
+                    System.loadLibrary("sfml-audio");
+                } catch (UnsatisfiedLinkError error) {
+                    throw new JSFMLError("Failed to load SFML. Please make sure" +
+                            "SFML 2.0 or higher is installed. See http://sfml-dev.org/ for" +
+                            "more information", error);
+                }
             }
 
             //Locate native libraries
