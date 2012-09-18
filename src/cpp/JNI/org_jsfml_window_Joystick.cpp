@@ -1,50 +1,49 @@
 #include <JSFML/JNI/org_jsfml_window_Joystick.h>
-#include <JSFML/Intercom/JavaEnum.hpp>
 #include <SFML/Window/Joystick.hpp>
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    isConnected
+ * Method:    nativeIsConnected
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_isConnected (JNIEnv* env, jclass cls, jint joy) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeIsConnected (JNIEnv* env, jclass cls, jint joy) {
 	return sf::Joystick::isConnected(joy);
 }
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    getButtonCount
+ * Method:    nativeGetButtonCount
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_window_Joystick_getButtonCount (JNIEnv* env, jclass cls, jint joy) {
+JNIEXPORT jint JNICALL Java_org_jsfml_window_Joystick_nativeGetButtonCount (JNIEnv* env, jclass cls, jint joy) {
 	return sf::Joystick::getButtonCount(joy);
 }
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    hasAxis
- * Signature: (ILorg/jsfml/window/Joystick$Axis;)Z
- */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_hasAxis (JNIEnv* env, jclass cls, jint joy, jobject axis) {
-	return sf::Joystick::hasAxis(joy, (sf::Joystick::Axis)JavaEnum::ordinal(env, axis));
-}
-
-/*
- * Class:     org_jsfml_window_Joystick
- * Method:    isButtonPressed
+ * Method:    nativeHasAxis
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_isButtonPressed (JNIEnv* env, jclass cls, jint joy, jint button) {
-	return sf::Joystick::isButtonPressed(joy, (sf::Joystick::Axis)button);
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeHasAxis (JNIEnv* env, jclass cls, jint joy, jint axis) {
+	return sf::Joystick::hasAxis(joy, (sf::Joystick::Axis)axis);
 }
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    getAxisPosition
- * Signature: (ILorg/jsfml/window/Joystick$Axis;)F
+ * Method:    nativeIsButtonPressed
+ * Signature: (II)Z
  */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_getAxisPosition (JNIEnv* env, jclass cls, jint joy, jobject axis) {
-	return sf::Joystick::getAxisPosition(joy, (sf::Joystick::Axis)JavaEnum::ordinal(env, axis));
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeIsButtonPressed (JNIEnv* env, jclass cls, jint joy, jint button) {
+	return sf::Joystick::isButtonPressed(joy, button);
+}
+
+/*
+ * Class:     org_jsfml_window_Joystick
+ * Method:    nativeGetAxisPosition
+ * Signature: (II)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_nativeGetAxisPosition (JNIEnv* env, jclass cls, jint joy, jint axis) {
+	return sf::Joystick::getAxisPosition(joy, (sf::Joystick::Axis)axis);
 }
 
 /*

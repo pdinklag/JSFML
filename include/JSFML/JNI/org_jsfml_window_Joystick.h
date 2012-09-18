@@ -7,45 +7,49 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#undef org_jsfml_window_Joystick_JOYSTICK_COUNT
+#define org_jsfml_window_Joystick_JOYSTICK_COUNT 8L
+#undef org_jsfml_window_Joystick_BUTTON_COUNT
+#define org_jsfml_window_Joystick_BUTTON_COUNT 32L
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    isConnected
+ * Method:    nativeIsConnected
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_isConnected
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeIsConnected
   (JNIEnv *, jclass, jint);
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    getButtonCount
+ * Method:    nativeGetButtonCount
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_window_Joystick_getButtonCount
+JNIEXPORT jint JNICALL Java_org_jsfml_window_Joystick_nativeGetButtonCount
   (JNIEnv *, jclass, jint);
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    hasAxis
- * Signature: (ILorg/jsfml/window/Joystick$Axis;)Z
- */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_hasAxis
-  (JNIEnv *, jclass, jint, jobject);
-
-/*
- * Class:     org_jsfml_window_Joystick
- * Method:    isButtonPressed
+ * Method:    nativeHasAxis
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_isButtonPressed
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeHasAxis
   (JNIEnv *, jclass, jint, jint);
 
 /*
  * Class:     org_jsfml_window_Joystick
- * Method:    getAxisPosition
- * Signature: (ILorg/jsfml/window/Joystick$Axis;)F
+ * Method:    nativeIsButtonPressed
+ * Signature: (II)Z
  */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_getAxisPosition
-  (JNIEnv *, jclass, jint, jobject);
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Joystick_nativeIsButtonPressed
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     org_jsfml_window_Joystick
+ * Method:    nativeGetAxisPosition
+ * Signature: (II)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_nativeGetAxisPosition
+  (JNIEnv *, jclass, jint, jint);
 
 /*
  * Class:     org_jsfml_window_Joystick
