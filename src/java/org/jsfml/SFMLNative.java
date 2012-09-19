@@ -161,9 +161,10 @@ public final class SFMLNative {
                     System.loadLibrary("sfml-graphics");
                     System.loadLibrary("sfml-audio");
                 } catch (UnsatisfiedLinkError error) {
-                    throw new JSFMLError("Failed to load SFML. Please make sure" +
-                            "SFML 2.0 or higher is installed. See http://sfml-dev.org/ for" +
-                            "more information", error);
+                    throw new JSFMLError("Failed to load SFML. Please make sure that " +
+                            "SFML 2.0 or higher is installed and that the LD_LIBRARY_PATH " +
+                            "variable is set correctly. See http://jsfml.org/ for more " +
+                            "information", error);
                 }
             }
 
