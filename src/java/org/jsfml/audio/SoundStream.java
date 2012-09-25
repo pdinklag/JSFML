@@ -70,6 +70,9 @@ public abstract class SoundStream extends SoundSource {
     protected native long nativeCreate();
 
     @Override
+    protected native void nativeSetExPtr();
+
+    @Override
     protected native void nativeDelete();
 
     /**

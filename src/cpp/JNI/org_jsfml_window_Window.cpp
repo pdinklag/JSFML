@@ -31,9 +31,16 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__ (JNIEnv *env, jobject obj) {
-    sf::Window* window = new sf::Window();
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW, window);
-    return (jlong)window;
+    return (jlong)new sf::Window();
+}
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetExPtr (JNIEnv *env, jobject obj) {
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW, THIS(sf::Window));
 }
 
 /*

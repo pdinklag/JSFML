@@ -17,6 +17,10 @@ public final class Clock extends SFMLNativeObject {
     protected native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+    }
+
+    @Override
     protected native void nativeDelete();
 
     /**

@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Sprite_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_Sprite
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeDelete
  * Signature: ()V
  */

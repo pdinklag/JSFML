@@ -31,6 +31,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     protected native long nativeCreate();
 
     @Override
+    protected native void nativeSetExPtr();
+
+    @Override
     protected native void nativeDelete();
 
     private native boolean nativeCreate(int width, int height, boolean depthBuffer);

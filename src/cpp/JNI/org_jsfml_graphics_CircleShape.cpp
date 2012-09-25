@@ -13,18 +13,23 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_CircleShape_nativeCreate (JNIEnv *env, jobject obj) {
-    sf::CircleShape *circleShape = new sf::CircleShape();
+    return (jlong)new sf::CircleShape();
+}
 
+/*
+ * Class:     org_jsfml_graphics_CircleShape
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
-        dynamic_cast<sf::Drawable*>(circleShape));
+        dynamic_cast<sf::Drawable*>(THIS(sf::CircleShape)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
-        dynamic_cast<sf::Transformable*>(circleShape));
+        dynamic_cast<sf::Transformable*>(THIS(sf::CircleShape)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SHAPE,
-        dynamic_cast<sf::Shape*>(circleShape));
-
-    return (jlong)circleShape;
+        dynamic_cast<sf::Shape*>(THIS(sf::CircleShape)));
 }
 
 /*

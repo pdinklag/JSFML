@@ -17,15 +17,20 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Text_nativeCreate (JNIEnv *env, jobject obj) {
-    sf::Text *text = new sf::Text();
+    return (jlong)new sf::Text();
+}
 
+/*
+ * Class:     org_jsfml_graphics_Text
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
-        dynamic_cast<sf::Drawable*>(text));
+        dynamic_cast<sf::Drawable*>(THIS(sf::Text)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
-        dynamic_cast<sf::Transformable*>(text));
-
-    return (jlong)text;
+        dynamic_cast<sf::Transformable*>(THIS(sf::Text)));
 }
 
 /*

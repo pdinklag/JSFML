@@ -29,15 +29,20 @@ sf::Vertex sfVertexBuffer_RenderWindow[VERTEX_BUFSIZE_RWINDOW];
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate (JNIEnv *env, jobject obj) {
-    sf::RenderWindow* renderWindow = new sf::RenderWindow();
+    return (jlong)new sf::RenderWindow();
+}
 
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
-        dynamic_cast<sf::RenderTarget*>(renderWindow));
+        dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderWindow)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW,
-        dynamic_cast<sf::Window*>(renderWindow));
-
-    return (jlong)renderWindow;
+        dynamic_cast<sf::Window*>(THIS(sf::RenderWindow)));
 }
 
 /*

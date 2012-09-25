@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeDelete
  * Signature: ()V
  */

@@ -15,15 +15,20 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Sprite_nativeCreate (JNIEnv *env, jobject obj) {
-    sf::Sprite *sprite = new sf::Sprite();
+    return (jlong)new sf::Sprite();
+}
 
+/*
+ * Class:     org_jsfml_graphics_Sprite
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
-        dynamic_cast<sf::Drawable*>(sprite));
+        dynamic_cast<sf::Drawable*>(THIS(sf::Sprite)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
-        dynamic_cast<sf::Transformable*>(sprite));
-
-    return (jlong)sprite;
+        dynamic_cast<sf::Transformable*>(THIS(sf::Sprite)));
 }
 
 /*

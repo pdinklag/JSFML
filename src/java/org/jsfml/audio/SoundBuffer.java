@@ -42,6 +42,10 @@ public class SoundBuffer extends SFMLNativeObject {
     protected native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+    }
+
+    @Override
     protected native void nativeDelete();
 
     private native long nativeCopy();

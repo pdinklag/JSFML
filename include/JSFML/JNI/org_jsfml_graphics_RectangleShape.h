@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RectangleShape_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_RectangleShape
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RectangleShape
  * Method:    nativeDelete
  * Signature: ()V
  */

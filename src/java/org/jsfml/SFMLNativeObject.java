@@ -46,6 +46,8 @@ public abstract class SFMLNativeObject {
         if (ptr == 0)
             throw new JSFMLError("nativeCreate() yielded a NULL pointer: " + this);
 
+        nativeSetExPtr();
+
         wrapped = false;
 
         numManaged++;
@@ -68,6 +70,8 @@ public abstract class SFMLNativeObject {
             throw new JSFMLError("Tried to wrap around a NULL pointer: " + this);
 
         ptr = wrap;
+        nativeSetExPtr();
+
         wrapped = true;
 
         numWrapped++;
@@ -97,14 +101,23 @@ public abstract class SFMLNativeObject {
     /**
      * Creates a new native SFML object of the represented SFML class in the JNI memory heap.
      * <p/>
-     * This method is also expected to fill the extra pointers array, if any.
-     * <p/>
      * NOTE: This method is intended for internal use <i>only</i>.
      * Using this from outside may cause memory leaks.
      *
      * @return The pointer to the newly created native SFML object.
      */
     protected abstract long nativeCreate();
+
+    /**
+     * This method is expected to fill the extra pointers array, if any.
+     * <p/>
+     * It is called after the object has been created or wrapped around an already
+     * existing pointer.
+     * <p/>
+     * NOTE: This method is intended for internal use <i>only</i>.
+     * Using this from outside is inherently unsafe.
+     */
+    protected abstract void nativeSetExPtr();
 
     /**
      * Deletes the underlying SFML object.

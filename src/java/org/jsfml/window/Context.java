@@ -21,6 +21,10 @@ public final class Context extends SFMLNativeObject {
     protected native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+    }
+
+    @Override
     protected native void nativeDelete();
 
     private native boolean nativeSetActive(boolean active);

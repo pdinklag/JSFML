@@ -32,6 +32,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeDelete
  * Signature: ()V
  */
