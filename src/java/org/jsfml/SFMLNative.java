@@ -131,6 +131,26 @@ public final class SFMLNative {
                     nativeLibs.add("windows_x64/sfml-graphics-2.dll");
                     nativeLibs.add("windows_x64/jsfml.dll");
                 }
+
+                if (!GraphicsEnvironment.isHeadless()) {
+                    //try and load awt.dll
+                    try {
+                        System.loadLibrary("awt");
+                    } catch (UnsatisfiedLinkError err) {
+                        //it might have already been loaded
+                        if (!err.getMessage().contains("already loaded"))
+                            throw err;
+                    }
+
+                    //try and load jawt.dll
+                    try {
+                        System.loadLibrary("jawt");
+                    } catch (UnsatisfiedLinkError err) {
+                        //it might have already been loaded
+                        if (!err.getMessage().contains("already loaded"))
+                            throw err;
+                    }
+                }
             } else if (osName.contains(OS_NAME_LINUX)) {
                 linux = true;
                 if (osArch.equals("x86") || osArch.equals("i386")) {

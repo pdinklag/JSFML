@@ -68,6 +68,7 @@
 			<class name="${jsfml.package}.graphics.Font" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RectangleShape" />
+			<class name="${jsfml.package}.graphics.RenderCanvas" />
 			<class name="${jsfml.package}.graphics.RenderTexture" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
 			<class name="${jsfml.package}.graphics.SFMLNativeTransformable" />
@@ -246,6 +247,9 @@
 			<arg value="/LIBPATH:${winsdk.lib}" />
 			<arg value="/LIBPATH:${vs.lib}" />
 			<arg value="/LIBPATH:${sfml.lib}/${arch}" />
+			<arg value="/LIBPATH:${env.JAVA_HOME}/lib" />
+			<arg value="User32.lib" />
+			<arg value="jawt.lib" />
 			<arg value="sfml-main.lib" />
 			<arg value="sfml-system.lib" />
 			<arg value="sfml-window.lib" />
