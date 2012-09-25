@@ -17,15 +17,20 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeCreate (JNIEnv *env, jobject obj) {
-	JSFML::SoundStream *stream = new JSFML::SoundStream(env, obj);
+	return (jlong)new JSFML::SoundStream(env, obj);
+}
 
+/*
+ * Class:     org_jsfml_audio_SoundStream
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
-        dynamic_cast<sf::SoundSource*>(stream));
+        dynamic_cast<sf::SoundSource*>(THIS(sf::SoundStream)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_STREAM,
-        dynamic_cast<sf::SoundStream*>(stream));
-
-	return (jlong)stream;
+        THIS(sf::SoundStream));
 }
 
 /*

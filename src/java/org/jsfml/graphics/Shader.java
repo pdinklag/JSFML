@@ -67,6 +67,10 @@ public class Shader extends SFMLNativeObject {
     protected native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+    }
+
+    @Override
     protected native void nativeDelete();
 
     private native boolean nativeLoadFromSource(String source, Type shaderType);

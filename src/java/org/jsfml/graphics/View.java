@@ -46,6 +46,10 @@ public class View extends SFMLNativeObject {
     protected final native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+    }
+
+    @Override
     protected native void nativeDelete();
 
     /**

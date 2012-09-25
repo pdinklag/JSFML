@@ -41,6 +41,9 @@ public class Sound extends SoundSource {
     protected native long nativeCreate();
 
     @Override
+    protected native void nativeSetExPtr();
+
+    @Override
     protected native void nativeDelete();
 
     private native long nativeCopy();

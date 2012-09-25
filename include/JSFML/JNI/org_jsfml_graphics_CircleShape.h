@@ -20,6 +20,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_CircleShape_nativeCreate
 
 /*
  * Class:     org_jsfml_graphics_CircleShape
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_CircleShape
  * Method:    nativeDelete
  * Signature: ()V
  */

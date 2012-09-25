@@ -21,7 +21,6 @@ public class CircleShape extends Shape {
         setRadius(radius);
     }
 
-
     /**
      * Creates a new circle shape approximated using 30 points.
      *
@@ -36,6 +35,9 @@ public class CircleShape extends Shape {
 
     @Override
     protected native long nativeCreate();
+
+    @Override
+    protected native void nativeSetExPtr();
 
     @Override
     protected native void nativeDelete();

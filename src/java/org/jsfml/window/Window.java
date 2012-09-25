@@ -59,6 +59,12 @@ public class Window extends SFMLNativeObject {
         SFMLNative.ensureDisplay();
     }
 
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected Window(long ptr) {
+        super(ptr);
+    }
+
     /**
      * Creates a new window.
      *
@@ -97,6 +103,9 @@ public class Window extends SFMLNativeObject {
 
     @Override
     protected native long nativeCreate();
+
+    @Override
+    protected native void nativeSetExPtr();
 
     @Override
     protected native void nativeDelete();

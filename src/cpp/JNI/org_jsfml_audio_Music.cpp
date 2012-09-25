@@ -14,15 +14,20 @@
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Music_nativeCreate (JNIEnv *env, jobject obj) {
-	sf::Music *music = new sf::Music();
+	return (jlong)new sf::Music();
+}
 
+/*
+ * Class:     org_jsfml_audio_Music
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
-        dynamic_cast<sf::SoundSource*>(music));
+        dynamic_cast<sf::SoundSource*>(THIS(sf::Music)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_STREAM,
-        dynamic_cast<sf::SoundStream*>(music));
-
-	return (jlong)music;
+        dynamic_cast<sf::SoundStream*>(THIS(sf::Music)));
 }
 
 /*

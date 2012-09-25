@@ -32,6 +32,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__
 
 /*
  * Class:     org_jsfml_window_Window
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_window_Window
  * Method:    nativeDelete
  * Signature: ()V
  */

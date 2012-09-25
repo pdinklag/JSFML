@@ -67,6 +67,9 @@ public class Text extends SFMLNativeTransformable implements Drawable {
     protected native long nativeCreate();
 
     @Override
+    protected native void nativeSetExPtr();
+
+    @Override
     protected native void nativeDelete();
 
     private native void nativeSetString(String string);

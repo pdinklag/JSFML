@@ -23,12 +23,17 @@ sf::Vertex sfVertexBuffer_RenderTexture[VERTEX_BUFSIZE_RTEXTURE];
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__ (JNIEnv *env, jobject obj) {
-    sf::RenderTexture* renderTexture = new sf::RenderTexture();
+    return (jlong)new sf::RenderTexture();
+}
 
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetExPtr (JNIEnv *env, jobject obj) {
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
-        dynamic_cast<sf::RenderTarget*>(renderTexture));
-
-    return (jlong)renderTexture;
+        dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderTexture)));
 }
 
 /*

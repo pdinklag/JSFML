@@ -26,6 +26,12 @@ public class RenderWindow extends Window implements RenderTarget {
         view = defaultView;
     }
 
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    RenderWindow(long ptr) {
+        super(ptr);
+    }
+
     /**
      * Creates a new render window.
      *
@@ -64,6 +70,9 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     protected native long nativeCreate();
+
+    @Override
+    protected native void nativeSetExPtr();
 
     @Override
     protected native void nativeDelete();

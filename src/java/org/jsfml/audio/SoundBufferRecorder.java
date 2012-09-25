@@ -18,6 +18,11 @@ public class SoundBufferRecorder extends SoundRecorder {
     protected native long nativeCreate();
 
     @Override
+    protected void nativeSetExPtr() {
+        //TODO Make SoundRecorder tree use the ExPtr system.
+    }
+
+    @Override
     protected native void nativeDelete();
 
     private native long nativeGetBuffer();
