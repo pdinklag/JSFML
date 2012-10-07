@@ -14,7 +14,7 @@ import java.io.InputStream;
 /**
  * Storage for audio samples defining a sound.
  */
-public class SoundBuffer extends SFMLNativeObject {
+public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     /**
      * Creates a sound buffer.
      */
@@ -96,12 +96,7 @@ public class SoundBuffer extends SFMLNativeObject {
 
     private native boolean nativeSaveToFile(String fileName);
 
-    /**
-     * Attempts to save the sound buffer to a file.
-     *
-     * @param file The file to write.
-     * @return <tt>true</tt> if the sound buffer was saved successfully, <tt>false</tt> otherwise.
-     */
+    @Override
     public boolean saveToFile(@NotNull File file) {
         if (file == null)
             throw new NullPointerException("file must not be null");
@@ -109,38 +104,18 @@ public class SoundBuffer extends SFMLNativeObject {
         return nativeSaveToFile(file.getAbsolutePath());
     }
 
-    /**
-     * Retrieves the raw audio samples stored in the buffer.
-     *
-     * @return The raw audio samples stored in the buffer.
-     */
+    @Override
     public native short[] getSamples();
 
-    /**
-     * Retrieves the amount of samples stored in the buffer.
-     *
-     * @return The amount of samples stored in the buffer.
-     */
+    @Override
     public native int getSampleCount();
 
-    /**
-     * Gets the sound buffer's sample rate.
-     *
-     * @return The sound buffer's sample rate in samples per second.
-     */
+    @Override
     public native int getSampleRate();
 
-    /**
-     * Gets the amount of audio channels in the buffer.
-     *
-     * @return The amount of audio channels in the buffer.
-     */
+    @Override
     public native int getChannelCount();
 
-    /**
-     * Gets the duration of the sound.
-     *
-     * @return The duration of the sound in milliseconds.
-     */
+    @Override
     public native Time getDuration();
 }

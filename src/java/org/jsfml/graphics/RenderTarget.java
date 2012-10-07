@@ -26,14 +26,14 @@ public interface RenderTarget {
      *
      * @return The target's current view.
      */
-    public View getView();
+    public ConstView getView();
 
     /**
      * Gets the target's default view.
      *
      * @return The target's default view.
      */
-    public View getDefaultView();
+    public ConstView getDefaultView();
 
     /**
      * Computes the viewport of the given view applied to this render target.

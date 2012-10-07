@@ -14,7 +14,7 @@ import java.io.InputStream;
 /**
  * Immutable 2D texture stored on the graphics card for rendering.
  */
-public class Texture extends SFMLNativeObject {
+public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Gets the maximum texture size supported by the current hardware.
      *
@@ -58,6 +58,15 @@ public class Texture extends SFMLNativeObject {
     public Texture(Texture other) {
         super(other.nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
+    }
+
+    /**
+     * Creates a texture from a another texture.
+     *
+     * @param other The texture to copy.
+     */
+    public Texture(ConstTexture other) {
+        this((Texture) other); //well...
     }
 
     @Override
@@ -171,11 +180,7 @@ public class Texture extends SFMLNativeObject {
 
     private native long nativeCopyToImage();
 
-    /**
-     * Copies this texture to an editable {@link Image}.
-     *
-     * @return The image that contains a coyp of the texure's contents.
-     */
+    @Override
     public Image copyToImage() {
         Image image = new Image(nativeCopyToImage());
         UnsafeOperations.manageSFMLObject(image, true);
@@ -226,11 +231,7 @@ public class Texture extends SFMLNativeObject {
 
     private native void nativeBind(CoordinateType type);
 
-    /**
-     * Activates the texture for rendering.
-     *
-     * @param coordinateType The coordinate type to use.
-     */
+    @Override
     public void bind(@NotNull CoordinateType coordinateType) {
         if (coordinateType == null)
             throw new NullPointerException("coordinateType must not be null.");
@@ -238,9 +239,7 @@ public class Texture extends SFMLNativeObject {
         nativeBind(coordinateType);
     }
 
-    /**
-     * Activates the texture for rendering.
-     */
+    @Override
     public final void bind() {
         bind(CoordinateType.NORMALIZED);
     }
@@ -254,11 +253,7 @@ public class Texture extends SFMLNativeObject {
      */
     public native void setSmooth(boolean smooth);
 
-    /**
-     * Checks whether the smooth filter is enabled.
-     *
-     * @return <tt>true</tt> if enabled, <tt>false</tt> if disabled.
-     */
+    @Override
     public native boolean isSmooth();
 
     /**
@@ -270,10 +265,6 @@ public class Texture extends SFMLNativeObject {
      */
     public native void setRepeated(boolean repeated);
 
-    /**
-     * Checks whether texture repeating is enabled.
-     *
-     * @return <tt>true</tt> if enabled, <tt>false</tt> if disabled.
-     */
+    @Override
     public native boolean isRepeated();
 }

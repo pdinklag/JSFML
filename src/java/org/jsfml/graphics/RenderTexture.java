@@ -11,9 +11,9 @@ import org.jsfml.system.Vector2i;
  * Target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-    private ImmutableView defaultView;
+    private SFMLConstView defaultView;
     private View view;
-    private ImmutableTexture texture;
+    private SFMLConstTexture texture;
 
     /**
      * Creates a new render texture.
@@ -22,9 +22,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         super();
         SFMLNative.ensureDisplay();
 
-        defaultView = new ImmutableView(nativeGetDefaultView());
+        defaultView = new SFMLConstView(nativeGetDefaultView());
         view = defaultView;
-        texture = new ImmutableTexture(nativeGetTexture());
+        texture = new SFMLConstTexture(nativeGetTexture());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      *
      * @return The target texture.
      */
-    public Texture getTexture() {
+    public ConstTexture getTexture() {
         return texture;
     }
 
@@ -130,14 +130,14 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public View getView() {
+    public ConstView getView() {
         return view;
     }
 
     private native long nativeGetDefaultView();
 
     @Override
-    public View getDefaultView() {
+    public ConstView getDefaultView() {
         return defaultView;
     }
 
