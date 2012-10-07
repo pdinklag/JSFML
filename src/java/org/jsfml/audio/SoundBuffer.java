@@ -97,11 +97,12 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     private native boolean nativeSaveToFile(String fileName);
 
     @Override
-    public boolean saveToFile(@NotNull File file) {
+    public void saveToFile(@NotNull File file) throws IOException {
         if (file == null)
             throw new NullPointerException("file must not be null");
 
-        return nativeSaveToFile(file.getAbsolutePath());
+        if(!nativeSaveToFile(file.getAbsolutePath()))
+            throw new IOException("Failed to save sound buffer to file: " + file);
     }
 
     @Override
