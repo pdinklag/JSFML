@@ -41,7 +41,7 @@ public interface ConstTexture extends Const {
 
     /**
      * Activates the texture for rendering, using the
-     * {@link Texture.CoordinateType#NORMALIZED coordinate type..
+     * {@link Texture.CoordinateType#NORMALIZED} coordinate type..
      */
     public void bind();
 
