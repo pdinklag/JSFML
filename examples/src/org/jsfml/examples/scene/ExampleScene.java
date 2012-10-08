@@ -16,7 +16,7 @@ public class ExampleScene implements Scene {
     private final VertexArray background = new VertexArray(PrimitiveType.QUADS);
     private final Texture jsfmlLogoTexture = new Texture();
     private final Sprite jsfmlLogo = new Sprite();
-    private final RenderStates jsfmlLogoStates = new RenderStates();
+    private RenderStates jsfmlLogoStates = new RenderStates();
 
     private final Font nakadaiFont = new Font();
     private final Font freeSansFont = new Font();
@@ -178,7 +178,7 @@ public class ExampleScene implements Scene {
             waveXShader.setParameter("amplitude", waveXAmp);
             waveXShader.setParameter("wavelen", waveXLen);
 
-            jsfmlLogoStates.setShader(waveXShader);
+            jsfmlLogoStates = new RenderStates(waveXShader);
         } else {
             noShadersText = new Text(
                     "Your graphics card\ndoes not support shaders,\nthe wave effect won't work!",
