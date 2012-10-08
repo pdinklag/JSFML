@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Class for loading character fonts.
  */
 public class Font extends SFMLNativeObject {
-    private final HashMap<Integer, SFMLConstTexture> textureMap = new HashMap<Integer, SFMLConstTexture>();
+    private final HashMap<Integer, Texture> textureMap = new HashMap<Integer, Texture>();
 
     /**
      * Memory reference and heap pointer that keeps alive the data input stream for freetype.
@@ -139,13 +139,13 @@ public class Font extends SFMLNativeObject {
      * @return The texture containing the font's glyphs of the character given size.
      */
     public ConstTexture getTexture(int characterSize) {
-        SFMLConstTexture texture;
+        Texture texture;
         if (textureMap.containsKey(characterSize)) {
             texture = textureMap.get(characterSize);
         } else {
             long p = nativeGetTexture(characterSize);
             if (p != 0) {
-                texture = new SFMLConstTexture(p);
+                texture = new Texture(p);
                 textureMap.put(characterSize, texture);
             } else {
                 texture = null;

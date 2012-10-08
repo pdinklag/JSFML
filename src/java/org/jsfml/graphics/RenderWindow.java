@@ -11,7 +11,7 @@ import org.jsfml.window.Window;
  * Window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
-    private SFMLConstView defaultView;
+    private View defaultView;
     private View view;
 
     /**
@@ -22,7 +22,7 @@ public class RenderWindow extends Window implements RenderTarget {
     public RenderWindow() {
         super();
 
-        defaultView = new SFMLConstView(nativeGetDefaultView());
+        defaultView = new View(nativeGetDefaultView());
         view = defaultView;
     }
 
