@@ -6,7 +6,7 @@ import org.jsfml.NotNull;
  * Drawable representation, or instance, of a texture or a texture portion.
  */
 public class Sprite extends SFMLNativeTransformable implements Drawable {
-    private Texture texture = null;
+    private ConstTexture texture = null;
 
     /**
      * Creates a new sprite without a texture set.
@@ -20,7 +20,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @param texture The texture.
      */
-    public Sprite(Texture texture) {
+    public Sprite(ConstTexture texture) {
         this();
         setTexture(texture);
     }
@@ -31,7 +31,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @param texture The texture.
      * @param rect    The area of the texture to use.
      */
-    public Sprite(Texture texture, IntRect rect) {
+    public Sprite(ConstTexture texture, IntRect rect) {
         this(texture);
         setTextureRect(rect);
     }
@@ -53,11 +53,11 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @param texture   The new texture.
      * @param resetRect <tt>true</tt> to reset the texture rectangle, <tt>false</tt> otherwise.
      */
-    public void setTexture(@NotNull Texture texture, boolean resetRect) {
+    public void setTexture(@NotNull ConstTexture texture, boolean resetRect) {
         if (texture == null)
             throw new NullPointerException("texture must not be null.");
 
-        nativeSetTexture(texture, resetRect);
+        nativeSetTexture((Texture) texture, resetRect);
         this.texture = texture;
     }
 
@@ -66,7 +66,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @param texture The new texture.
      */
-    public final void setTexture(Texture texture) {
+    public final void setTexture(@NotNull ConstTexture texture) {
         setTexture(texture, false);
     }
 
@@ -107,7 +107,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @return The sprite's current texture.
      */
-    public Texture getTexture() {
+    public ConstTexture getTexture() {
         return texture;
     }
 
@@ -143,10 +143,10 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        if(target == null)
+        if (target == null)
             throw new NullPointerException("target must not be null");
 
-        if(states == null)
+        if (states == null)
             throw new NullPointerException("states must not be null");
 
         DrawableNativeImpl.draw(this, target, states);
