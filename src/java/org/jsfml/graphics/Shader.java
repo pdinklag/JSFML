@@ -296,14 +296,14 @@ public class Shader extends SFMLNativeObject {
      * @param name    The parameter's name.
      * @param texture The parameter's value.
      */
-    public void setParameter(@NotNull String name, @NotNull Texture texture) {
+    public void setParameter(@NotNull String name, @NotNull ConstTexture texture) {
         if (name == null)
             throw new NullPointerException("name must not be null.");
 
         if (texture == null)
             throw new NullPointerException("texture must not be null.");
 
-        nativeSetParameter(name, texture);
+        nativeSetParameter(name, (Texture) texture);
     }
 
     private native void nativeSetParameterCurrentTexture(String name);
