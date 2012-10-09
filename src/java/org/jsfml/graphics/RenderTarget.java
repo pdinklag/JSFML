@@ -19,7 +19,7 @@ public interface RenderTarget {
      *
      * @param view The target's new view.
      */
-    public void setView(View view);
+    public void setView(ConstView view);
 
     /**
      * Gets the target's current view.

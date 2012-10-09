@@ -11,8 +11,8 @@ import org.jsfml.window.Window;
  * Window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
-    private View defaultView;
-    private View view;
+    private final ConstView defaultView;
+    private ConstView view;
 
     /**
      * Constructs a new window without creating it.
@@ -30,6 +30,9 @@ public class RenderWindow extends Window implements RenderTarget {
     @SuppressWarnings("deprecation")
     RenderWindow(long ptr) {
         super(ptr);
+
+        defaultView = new View(nativeGetDefaultView());
+        view = defaultView;
     }
 
     /**
@@ -97,12 +100,12 @@ public class RenderWindow extends Window implements RenderTarget {
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull View view) {
+    public void setView(@NotNull ConstView view) {
         if (view == null)
             throw new NullPointerException("view must not be null.");
 
         this.view = view;
-        nativeSetView(view);
+        nativeSetView((View) view);
     }
 
     @Override
