@@ -8,6 +8,11 @@ import org.jsfml.NotNull;
  */
 @Intercom
 public final class RenderStates {
+    /**
+     * Pre-defined instance holding default render states.
+     */
+    public static final RenderStates DEFAULT = new RenderStates();
+
     @Intercom
     public final BlendMode blendMode;
 

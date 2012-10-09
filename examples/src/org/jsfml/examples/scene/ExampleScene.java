@@ -16,7 +16,7 @@ public class ExampleScene implements Scene {
     private final VertexArray background = new VertexArray(PrimitiveType.QUADS);
     private final Texture jsfmlLogoTexture = new Texture();
     private final Sprite jsfmlLogo = new Sprite();
-    private RenderStates jsfmlLogoStates = new RenderStates();
+    private RenderStates jsfmlLogoStates = RenderStates.DEFAULT;
 
     private final Font nakadaiFont = new Font();
     private final Font freeSansFont = new Font();

@@ -144,7 +144,7 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     public final void draw(Drawable drawable) {
-        draw(drawable, new RenderStates());
+        draw(drawable, RenderStates.DEFAULT);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     public final void draw(Vertex[] vertices, PrimitiveType type) {
-        draw(vertices, type, new RenderStates());
+        draw(vertices, type, RenderStates.DEFAULT);
     }
 
     private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
