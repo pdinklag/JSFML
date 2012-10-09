@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Class for loading character fonts.
  */
-public class Font extends SFMLNativeObject {
+public class Font extends SFMLNativeObject implements ConstFont {
     private final HashMap<Integer, Texture> textureMap = new HashMap<Integer, Texture>();
 
     /**
@@ -99,45 +99,18 @@ public class Font extends SFMLNativeObject {
         }
     }
 
-    /**
-     * Gets a glyph information structure from the font.
-     *
-     * @param unicode       The unicode (UTF-32) of the character to retrieve the glyph for.
-     * @param characterSize The character size in question.
-     * @param bold          <tt>true</tt> if the bold glyph version should be returned,
-     *                      <tt>false</tt> for the regular version.
-     * @return The {@link Glyph} representing the given unicode character.
-     */
+    @Override
     public native Glyph getGlyph(int unicode, int characterSize, boolean bold);
 
-    /**
-     * Gets the kerning offset between two glyphs.
-     *
-     * @param first         The unicode (UTF-32) of the first character.
-     * @param second        The unicode (UTF-32) of the second character.
-     * @param characterSize The character size in question.
-     * @return The kerning offset between two glyphs.
-     */
+    @Override
     public native int getKerning(int first, int second, int characterSize);
 
-    /**
-     * Gets the line spacing of the font.
-     *
-     * @param characterSize The character size in question.
-     * @return The line spacing of the font.
-     */
+    @Override
     public native int getLineSpacing(int characterSize);
 
     private native long nativeGetTexture(int characterSize);
 
-    /**
-     * Retrieves the texture containing the font's glyphs.
-     * <p/>
-     * The texture returned is immutable.
-     *
-     * @param characterSize The character size in question.
-     * @return The texture containing the font's glyphs of the character given size.
-     */
+    @Override
     public ConstTexture getTexture(int characterSize) {
         Texture texture;
         if (textureMap.containsKey(characterSize)) {
