@@ -8,7 +8,7 @@ import org.jsfml.system.Time;
  * A playable sound, an "instance" of a {@link SoundBuffer}.
  */
 public class Sound extends SoundSource {
-    private SoundBuffer soundBuffer = null;
+    private ConstSoundBuffer soundBuffer = null;
 
     /**
      * Creates a new sound.
@@ -22,7 +22,7 @@ public class Sound extends SoundSource {
      *
      * @param soundBuffer The sound buffer to use.
      */
-    public Sound(SoundBuffer soundBuffer) {
+    public Sound(ConstSoundBuffer soundBuffer) {
         this();
         setBuffer(soundBuffer);
     }
@@ -70,12 +70,12 @@ public class Sound extends SoundSource {
      *
      * @param soundBuffer The sound buffer.
      */
-    public void setBuffer(@NotNull SoundBuffer soundBuffer) {
+    public void setBuffer(@NotNull ConstSoundBuffer soundBuffer) {
         if (soundBuffer == null)
             throw new NullPointerException("soundBuffer must not be null.");
 
         this.soundBuffer = soundBuffer;
-        nativeSetBuffer(soundBuffer);
+        nativeSetBuffer((SoundBuffer) soundBuffer);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Sound extends SoundSource {
      *
      * @return The underlying sound buffer that is being played from.
      */
-    public SoundBuffer getBuffer() {
+    public ConstSoundBuffer getBuffer() {
         return soundBuffer;
     }
 
