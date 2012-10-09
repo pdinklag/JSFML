@@ -13,15 +13,27 @@ public final class RenderStates {
      */
     public static final RenderStates DEFAULT = new RenderStates();
 
+    /**
+     * The blending mode used for drawing.
+     */
     @Intercom
     public final BlendMode blendMode;
 
+    /**
+     * The transformation matrix used for drawing.
+     */
     @Intercom
     public final Transform transform;
 
+    /**
+     * The texture used for drawing.
+     */
     @Intercom
     public final ConstTexture texture;
 
+    /**
+     * The shader used for drawing.
+     */
     @Intercom
     public final Shader shader;
 
