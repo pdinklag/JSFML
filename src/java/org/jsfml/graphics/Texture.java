@@ -55,18 +55,9 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param other The texture to copy.
      */
     @SuppressWarnings("deprecation")
-    public Texture(Texture other) {
-        super(other.nativeCopy());
-        UnsafeOperations.manageSFMLObject(this, true);
-    }
-
-    /**
-     * Creates a texture from a another texture.
-     *
-     * @param other The texture to copy.
-     */
     public Texture(ConstTexture other) {
-        this((Texture) other); //well...
+        super(((Texture) other).nativeCopy());
+        UnsafeOperations.manageSFMLObject(this, true);
     }
 
     @Override

@@ -34,8 +34,8 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @param other The font to copy.
      */
     @SuppressWarnings("deprecation")
-    public Font(Font other) {
-        super(other.nativeCopy());
+    public Font(ConstFont other) {
+        super(((Font) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 

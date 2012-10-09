@@ -33,8 +33,8 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      * @param other The sound buffer to copy.
      */
     @SuppressWarnings("deprecation")
-    public SoundBuffer(SoundBuffer other) {
-        super(other.nativeCopy());
+    public SoundBuffer(ConstSoundBuffer other) {
+        super(((SoundBuffer) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
@@ -101,7 +101,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
         if (file == null)
             throw new NullPointerException("file must not be null");
 
-        if(!nativeSaveToFile(file.getAbsolutePath()))
+        if (!nativeSaveToFile(file.getAbsolutePath()))
             throw new IOException("Failed to save sound buffer to file: " + file);
     }
 
