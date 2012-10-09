@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * Shader program consisting of a vertex and a fragment shader.
  */
-public class Shader extends SFMLNativeObject {
+public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Special type denoting that the texture of the object being drawn
      * should be used, which cannot be known before it is actually being drawn.
@@ -325,13 +325,9 @@ public class Shader extends SFMLNativeObject {
         nativeSetParameterCurrentTexture(name);
     }
 
-    /**
-     * Activates the shader for rendering.
-     */
+    @Override
     public native void bind();
 
-    /**
-     * Deactivates the shader for rendering.
-     */
+    @Override
     public native void unbind();
 }

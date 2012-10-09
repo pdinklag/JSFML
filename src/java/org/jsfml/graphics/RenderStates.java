@@ -35,7 +35,7 @@ public final class RenderStates {
      * The shader used for drawing.
      */
     @Intercom
-    public final Shader shader;
+    public final ConstShader shader;
 
     /**
      * Creates a new set of render states with default settings.
@@ -76,7 +76,7 @@ public final class RenderStates {
      *
      * @param shader The shader applied to whatever is drawn using these states.
      */
-    public RenderStates(Shader shader) {
+    public RenderStates(ConstShader shader) {
         this(BlendMode.ALPHA, Transform.IDENTITY, null, shader);
     }
 
@@ -88,7 +88,7 @@ public final class RenderStates {
      * @param texture   The texture used for drawing.
      * @param shader    The shader applied to whatever is drawn using these states.
      */
-    public RenderStates(BlendMode blendMode, Transform transform, ConstTexture texture, Shader shader) {
+    public RenderStates(BlendMode blendMode, Transform transform, ConstTexture texture, ConstShader shader) {
         this.blendMode = blendMode;
         this.transform = transform;
         this.texture = texture;
