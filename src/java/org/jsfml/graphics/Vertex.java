@@ -12,12 +12,25 @@ import java.io.Serializable;
 public final class Vertex implements Serializable {
     private static final long serialVersionUID = -5749297453247575018L;
 
+    /**
+     * The vertex position.
+     */
     @Intercom
     public final Vector2f position;
 
+    /**
+     * The vertex color.
+     */
     @Intercom
     public final Color color;
 
+    /**
+     * The vertex texture coordinates.
+     * <p/>
+     * The unit space this information is measured in depends on the way the respective
+     * texture will be bound. By the default, the {@link Texture.CoordinateType#NORMALIZED}
+     * coordinate type is used.
+     */
     @Intercom
     public final Vector2f texCoords;
 
