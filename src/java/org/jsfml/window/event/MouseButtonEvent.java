@@ -8,22 +8,16 @@ import org.jsfml.window.Mouse;
  * {@link Event.Type#MOUSE_BUTTON_RELEASED}.
  */
 @Intercom
-public class MouseButtonEvent extends MouseEvent {
-    private final int button;
+public final class MouseButtonEvent extends MouseEvent {
+    /**
+     * The mouse button that was pressed or released.
+     */
+    public final Mouse.Button button;
 
     @Intercom
     protected MouseButtonEvent(int type, int x, int y, int button) {
         super(type, x, y);
-        this.button = button;
-    }
-
-    /**
-     * Retrieves the mouse button that was pressed or released.
-     *
-     * @return The mouse button that was pressed or released.
-     */
-    public Mouse.Button getButton() {
-        return Mouse.Button.values()[button];
+        this.button = Mouse.Button.values()[button];
     }
 
     @Override

@@ -13,13 +13,13 @@ public final class Vertex implements Serializable {
     private static final long serialVersionUID = -5749297453247575018L;
 
     @Intercom
-    private Vector2f position;
+    public final Vector2f position;
 
     @Intercom
-    private Color color;
+    public final Color color;
 
     @Intercom
-    private Vector2f texCoords;
+    public final Vector2f texCoords;
 
     /**
      * Creates a new vertex.
@@ -67,60 +67,6 @@ public final class Vertex implements Serializable {
     public Vertex(Vector2f position, Color color, Vector2f texCoords) {
         this.position = position;
         this.color = color;
-        this.texCoords = texCoords;
-    }
-
-    /**
-     * Gets the vertex position.
-     *
-     * @return The vertex position.
-     */
-    public Vector2f getPosition() {
-        return position;
-    }
-
-    /**
-     * Gets the vertex color.
-     *
-     * @return The vertex color.
-     */
-    public Color getColor() {
-        return color;
-    }
-
-    /**
-     * Gets the vertex texture coordinates.
-     *
-     * @return The vertex texture coordinates.
-     */
-    public Vector2f getTexCoords() {
-        return texCoords;
-    }
-
-    /**
-     * Sets the vertex color.
-     *
-     * @param color The new vertex color.
-     */
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    /**
-     * Sets the vertex position.
-     *
-     * @param position The new vertex position.
-     */
-    public void setPosition(Vector2f position) {
-        this.position = position;
-    }
-
-    /**
-     * Sets the vertex texture coordinates.
-     *
-     * @param texCoords The new vertex texture coordinates.
-     */
-    public void setTexCoords(Vector2f texCoords) {
         this.texCoords = texCoords;
     }
 }

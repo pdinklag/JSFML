@@ -17,13 +17,13 @@ public final class VideoMode implements Serializable {
     }
 
     @Intercom
-    private final int width;
+    public final int width;
 
     @Intercom
-    private final int height;
+    public final int height;
 
     @Intercom
-    private final int bpp;
+    public final int bpp;
 
     /**
      * Retrieves the current desktop's video mode.
@@ -61,33 +61,6 @@ public final class VideoMode implements Serializable {
      */
     public VideoMode(int width, int height) {
         this(width, height, 32);
-    }
-
-    /**
-     * Gets the width of the video mode.
-     *
-     * @return The width in pixels.
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Gets the height of the video mode.
-     *
-     * @return The height in pixels.
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * Gets the pixel depth of the video mode.
-     *
-     * @return The pixel depth in bits per pixel.
-     */
-    public int getBpp() {
-        return bpp;
     }
 
     /**

@@ -8,40 +8,15 @@ import org.jsfml.system.Vector2i;
  */
 @Intercom
 public class MouseEvent extends Event {
-    private final int x, y;
+    /**
+     * The position of the mouse pointer on the screen when the event occured.
+     */
+    public final Vector2i position;
 
     @Intercom
     protected MouseEvent(int type, int x, int y) {
         super(type);
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Gets the X coordinate of the mouse cursor on the screen.
-     *
-     * @return The X coordinate of the mouse cursor on the screen.
-     */
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * Gets the Y coordinate of the mouse cursor on the screen.
-     *
-     * @return The Y coordinate of the mouse cursor on the screen.
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * Gets the position of the mouse cursor on the screen.
-     *
-     * @return The position of the mouse cursor on the screen.
-     */
-    public Vector2i getPosition() {
-        return new Vector2i(x, y);
+        this.position = new Vector2i(x, y);
     }
 
     @Override
