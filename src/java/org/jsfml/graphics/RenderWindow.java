@@ -35,12 +35,6 @@ public class RenderWindow extends Window implements RenderTarget {
         view = defaultView;
     }
 
-    @Deprecated
-    @SuppressWarnings("deprecation")
-    RenderWindow(long ptr) {
-        super(ptr);
-    }
-
     /**
      * Creates a new render window.
      *
