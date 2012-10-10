@@ -7,7 +7,10 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public abstract class JoystickEvent extends Event {
-    private final int joystickId;
+    /**
+     * The index of the joystick that caused this event.
+     */
+    public final int joystickId;
 
     @Intercom
     protected JoystickEvent(int type, int joystickId) {
@@ -15,11 +18,6 @@ public abstract class JoystickEvent extends Event {
         this.joystickId = joystickId;
     }
 
-    /**
-     * Gets the index of the joystick that caused this event.
-     *
-     * @return The index of the joystick that caused this event.
-     */
     public int getJoystickId() {
         return joystickId;
     }

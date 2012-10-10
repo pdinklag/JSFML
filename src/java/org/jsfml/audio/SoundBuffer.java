@@ -14,7 +14,7 @@ import java.io.InputStream;
 /**
  * Storage for audio samples defining a sound.
  */
-public class SoundBuffer extends SFMLNativeObject {
+public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     /**
      * Creates a sound buffer.
      */
@@ -33,8 +33,8 @@ public class SoundBuffer extends SFMLNativeObject {
      * @param other The sound buffer to copy.
      */
     @SuppressWarnings("deprecation")
-    public SoundBuffer(SoundBuffer other) {
-        super(other.nativeCopy());
+    public SoundBuffer(ConstSoundBuffer other) {
+        super(((SoundBuffer) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
@@ -96,51 +96,27 @@ public class SoundBuffer extends SFMLNativeObject {
 
     private native boolean nativeSaveToFile(String fileName);
 
-    /**
-     * Attempts to save the sound buffer to a file.
-     *
-     * @param file The file to write.
-     * @return <tt>true</tt> if the sound buffer was saved successfully, <tt>false</tt> otherwise.
-     */
-    public boolean saveToFile(@NotNull File file) {
+    @Override
+    public void saveToFile(@NotNull File file) throws IOException {
         if (file == null)
             throw new NullPointerException("file must not be null");
 
-        return nativeSaveToFile(file.getAbsolutePath());
+        if (!nativeSaveToFile(file.getAbsolutePath()))
+            throw new IOException("Failed to save sound buffer to file: " + file);
     }
 
-    /**
-     * Retrieves the raw audio samples stored in the buffer.
-     *
-     * @return The raw audio samples stored in the buffer.
-     */
+    @Override
     public native short[] getSamples();
 
-    /**
-     * Retrieves the amount of samples stored in the buffer.
-     *
-     * @return The amount of samples stored in the buffer.
-     */
+    @Override
     public native int getSampleCount();
 
-    /**
-     * Gets the sound buffer's sample rate.
-     *
-     * @return The sound buffer's sample rate in samples per second.
-     */
+    @Override
     public native int getSampleRate();
 
-    /**
-     * Gets the amount of audio channels in the buffer.
-     *
-     * @return The amount of audio channels in the buffer.
-     */
+    @Override
     public native int getChannelCount();
 
-    /**
-     * Gets the duration of the sound.
-     *
-     * @return The duration of the sound in milliseconds.
-     */
+    @Override
     public native Time getDuration();
 }

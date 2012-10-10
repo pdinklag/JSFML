@@ -11,8 +11,8 @@ import org.jsfml.window.Window;
  * Window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
-    private ImmutableView defaultView;
-    private View view;
+    private final ConstView defaultView;
+    private ConstView view;
 
     /**
      * Constructs a new window without creating it.
@@ -22,7 +22,16 @@ public class RenderWindow extends Window implements RenderTarget {
     public RenderWindow() {
         super();
 
-        defaultView = new ImmutableView(nativeGetDefaultView());
+        defaultView = new View(nativeGetDefaultView());
+        view = defaultView;
+    }
+
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    RenderWindow(long ptr) {
+        super(ptr);
+
+        defaultView = new View(nativeGetDefaultView());
         view = defaultView;
     }
 
@@ -97,23 +106,23 @@ public class RenderWindow extends Window implements RenderTarget {
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull View view) {
+    public void setView(@NotNull ConstView view) {
         if (view == null)
             throw new NullPointerException("view must not be null.");
 
         this.view = view;
-        nativeSetView(view);
+        nativeSetView((View) view);
     }
 
     @Override
-    public View getView() {
+    public ConstView getView() {
         return view;
     }
 
     private native long nativeGetDefaultView();
 
     @Override
-    public View getDefaultView() {
+    public ConstView getDefaultView() {
         return defaultView;
     }
 
@@ -144,7 +153,7 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     public final void draw(Drawable drawable) {
-        draw(drawable, new RenderStates());
+        draw(drawable, RenderStates.DEFAULT);
     }
 
     @Override
@@ -154,7 +163,7 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     public final void draw(Vertex[] vertices, PrimitiveType type) {
-        draw(vertices, type, new RenderStates());
+        draw(vertices, type, RenderStates.DEFAULT);
     }
 
     private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);

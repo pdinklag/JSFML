@@ -18,8 +18,8 @@ void JSFML::RenderStates::Init(JNIEnv* env) {
 
         f_blendMode = env->GetFieldID(javaClass, "blendMode", "Lorg/jsfml/graphics/BlendMode;");
         f_transform = env->GetFieldID(javaClass, "transform", "Lorg/jsfml/graphics/Transform;");
-        f_texture = env->GetFieldID(javaClass, "texture", "Lorg/jsfml/graphics/Texture;");
-        f_shader = env->GetFieldID(javaClass, "shader", "Lorg/jsfml/graphics/Shader;");
+        f_texture = env->GetFieldID(javaClass, "texture", "Lorg/jsfml/graphics/ConstTexture;");
+        f_shader = env->GetFieldID(javaClass, "shader", "Lorg/jsfml/graphics/ConstShader;");
 		env->DeleteLocalRef(javaClass);
     }
 }

@@ -11,9 +11,9 @@ import org.jsfml.system.Vector2i;
  * Target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-    private ImmutableView defaultView;
-    private View view;
-    private ImmutableTexture texture;
+    private final ConstView defaultView;
+    private ConstView view;
+    private final ConstTexture texture;
 
     /**
      * Creates a new render texture.
@@ -22,9 +22,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         super();
         SFMLNative.ensureDisplay();
 
-        defaultView = new ImmutableView(nativeGetDefaultView());
+        defaultView = new View(nativeGetDefaultView());
         view = defaultView;
-        texture = new ImmutableTexture(nativeGetTexture());
+        texture = new Texture(nativeGetTexture());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      *
      * @return The target texture.
      */
-    public Texture getTexture() {
+    public ConstTexture getTexture() {
         return texture;
     }
 
@@ -121,23 +121,23 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull View view) {
+    public void setView(@NotNull ConstView view) {
         if (view == null)
             throw new NullPointerException("view must not be null.");
 
         this.view = view;
-        nativeSetView(view);
+        nativeSetView((View) view);
     }
 
     @Override
-    public View getView() {
+    public ConstView getView() {
         return view;
     }
 
     private native long nativeGetDefaultView();
 
     @Override
-    public View getDefaultView() {
+    public ConstView getDefaultView() {
         return defaultView;
     }
 
@@ -168,7 +168,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public final void draw(Drawable drawable) {
-        draw(drawable, new RenderStates());
+        draw(drawable, RenderStates.DEFAULT);
     }
 
     @Override
@@ -178,7 +178,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public final void draw(Vertex[] vertices, PrimitiveType type) {
-        draw(vertices, type, new RenderStates());
+        draw(vertices, type, RenderStates.DEFAULT);
     }
 
     private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);

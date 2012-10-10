@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * Shader program consisting of a vertex and a fragment shader.
  */
-public class Shader extends SFMLNativeObject {
+public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Special type denoting that the texture of the object being drawn
      * should be used, which cannot be known before it is actually being drawn.
@@ -296,14 +296,14 @@ public class Shader extends SFMLNativeObject {
      * @param name    The parameter's name.
      * @param texture The parameter's value.
      */
-    public void setParameter(@NotNull String name, @NotNull Texture texture) {
+    public void setParameter(@NotNull String name, @NotNull ConstTexture texture) {
         if (name == null)
             throw new NullPointerException("name must not be null.");
 
         if (texture == null)
             throw new NullPointerException("texture must not be null.");
 
-        nativeSetParameter(name, texture);
+        nativeSetParameter(name, (Texture) texture);
     }
 
     private native void nativeSetParameterCurrentTexture(String name);
@@ -325,13 +325,9 @@ public class Shader extends SFMLNativeObject {
         nativeSetParameterCurrentTexture(name);
     }
 
-    /**
-     * Activates the shader for rendering.
-     */
+    @Override
     public native void bind();
 
-    /**
-     * Deactivates the shader for rendering.
-     */
+    @Override
     public native void unbind();
 }

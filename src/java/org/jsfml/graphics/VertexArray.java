@@ -56,14 +56,14 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
      */
     public FloatRect getBounds() {
         if (!isEmpty()) {
-            Vector2f v = get(0).getPosition();
+            Vector2f v = get(0).position;
             float left = v.x;
             float top = v.y;
             float right = v.x;
             float bottom = v.y;
 
             for (int i = 1; i < size(); i++) {
-                v = get(i).getPosition();
+                v = get(i).position;
 
                 if (v.x < left)
                     left = v.x;

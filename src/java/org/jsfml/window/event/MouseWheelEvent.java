@@ -6,22 +6,16 @@ import org.jsfml.Intercom;
  * Event class for event type {@link Event.Type#MOUSE_WHEEL_MOVED}.
  */
 @Intercom
-public class MouseWheelEvent extends MouseEvent {
-    private final int delta;
+public final class MouseWheelEvent extends MouseEvent {
+    /**
+     * The amount of ticks the mouse wheel has been moved.
+     */
+    public final int delta;
 
     @Intercom
     protected MouseWheelEvent(int type, int x, int y, int delta) {
         super(type, x, y);
         this.delta = delta;
-    }
-
-    /**
-     * Retrieves the amount of ticks the mouse wheel has been moved.
-     *
-     * @return The amount of ticks the mouse wheel has been moved.
-     */
-    public int getDelta() {
-        return delta;
     }
 
     @Override

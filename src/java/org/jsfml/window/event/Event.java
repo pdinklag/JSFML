@@ -105,7 +105,12 @@ public class Event {
         JOYSTICK_DISCONNECTED
     }
 
-    private final Type type;
+    /**
+     * The type of event.
+     *
+     * @see Type
+     */
+    public final Type type;
 
     /**
      * Creates a new event.
@@ -115,15 +120,6 @@ public class Event {
     @Intercom
     protected Event(int type) {
         this.type = Type.values()[type];
-    }
-
-    /**
-     * Retrieves the type of the event.
-     *
-     * @return The event type, represented by one of the constants defined in this class.
-     */
-    public Type getType() {
-        return type;
     }
 
     /**

@@ -16,7 +16,7 @@ public class ExampleScene implements Scene {
     private final VertexArray background = new VertexArray(PrimitiveType.QUADS);
     private final Texture jsfmlLogoTexture = new Texture();
     private final Sprite jsfmlLogo = new Sprite();
-    private final RenderStates jsfmlLogoStates = new RenderStates();
+    private RenderStates jsfmlLogoStates = RenderStates.DEFAULT;
 
     private final Font nakadaiFont = new Font();
     private final Font freeSansFont = new Font();
@@ -178,7 +178,7 @@ public class ExampleScene implements Scene {
             waveXShader.setParameter("amplitude", waveXAmp);
             waveXShader.setParameter("wavelen", waveXLen);
 
-            jsfmlLogoStates.setShader(waveXShader);
+            jsfmlLogoStates = new RenderStates(waveXShader);
         } else {
             noShadersText = new Text(
                     "Your graphics card\ndoes not support shaders,\nthe wave effect won't work!",
@@ -212,7 +212,7 @@ public class ExampleScene implements Scene {
     public void handleEvent(Event event) {
         events++;
 
-        switch (event.getType()) {
+        switch (event.type) {
             case CLOSED:
                 //The close button has been pressed
                 quit = true;
@@ -220,7 +220,7 @@ public class ExampleScene implements Scene {
 
             case MOUSE_WHEEL_MOVED:
                 //The mouse wheel was moved
-                int delta = event.asMouseWheelEvent().getDelta();
+                int delta = event.asMouseWheelEvent().delta;
                 if (delta > 0)
                     jsfmlLogo.scale(1.1f, 1.1f);
                 else
@@ -231,8 +231,8 @@ public class ExampleScene implements Scene {
             case MOUSE_BUTTON_PRESSED:
                 //A mouse button was pressed
                 mouseDown = true;
-                mouseButton = event.asMouseButtonEvent().getButton();
-                mouseDownPos = event.asMouseEvent().getPosition();
+                mouseButton = event.asMouseButtonEvent().button;
+                mouseDownPos = event.asMouseEvent().position;
                 mouseLogoRotationStart = jsfmlLogo.getRotation();
                 mouseWaveXAmpStart = waveXAmp;
                 mouseWaveXOffsetStart = waveXOffset;
@@ -240,7 +240,7 @@ public class ExampleScene implements Scene {
 
             case MOUSE_BUTTON_RELEASED:
                 //A mouse button was released
-                if (event.asMouseButtonEvent().getButton() == mouseButton) {
+                if (event.asMouseButtonEvent().button == mouseButton) {
                     mouseDown = false;
                 }
                 break;
@@ -251,7 +251,7 @@ public class ExampleScene implements Scene {
                     switch (mouseButton) {
                         case LEFT:
                             //rotate logo
-                            Vector2i pos = event.asMouseEvent().getPosition();
+                            Vector2i pos = event.asMouseEvent().position;
                             int deg = pos.x - mouseDownPos.x;
 
                             jsfmlLogo.setRotation(mouseLogoRotationStart + deg);
@@ -260,11 +260,11 @@ public class ExampleScene implements Scene {
                         case RIGHT:
                             //change amplitude and offset
                             if (waveXShader != null) {
-                                int amp = event.asMouseEvent().getY() - mouseDownPos.y;
+                                int amp = event.asMouseEvent().position.y - mouseDownPos.y;
                                 waveXAmp = mouseWaveXAmpStart + 0.001f * amp;
                                 waveXShader.setParameter("amplitude", waveXAmp);
 
-                                int off = event.asMouseEvent().getX() - mouseDownPos.x;
+                                int off = event.asMouseEvent().position.x - mouseDownPos.x;
                                 waveXOffset = mouseWaveXOffsetStart + 0.001f * off;
                                 waveXShader.setParameter("offset", waveXOffset);
                             }
@@ -275,7 +275,7 @@ public class ExampleScene implements Scene {
                 break;
 
             case KEY_PRESSED:
-                switch (event.asKeyEvent().getKeyCode()) {
+                switch (event.asKeyEvent().key) {
                     case A:
                         Entity e = new Entity();
                         e.shape.setPosition(screenWidth / 2, screenHeight / 2);

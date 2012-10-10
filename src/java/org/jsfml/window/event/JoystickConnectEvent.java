@@ -7,7 +7,7 @@ import org.jsfml.Intercom;
  * {@link Event.Type#JOYSTICK_DISCONNECTED}.
  */
 @Intercom
-public class JoystickConnectEvent extends JoystickEvent {
+public final class JoystickConnectEvent extends JoystickEvent {
     @Intercom
     protected JoystickConnectEvent(int type, int joystickId) {
         super(type, joystickId);

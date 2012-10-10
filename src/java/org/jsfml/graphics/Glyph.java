@@ -9,46 +9,28 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public final class Glyph {
+    /**
+     * The offset to move horizontally to the next character.
+     */
     @Intercom
-    private final int advance;
+    public final int advance;
 
+    /**
+     * The bounding rectangle of the glyph, in coordinates relative to the baseline.
+     */
     @Intercom
-    private final IntRect bounds;
+    public final IntRect bounds;
 
+    /**
+     * The texture coordinates of the glyph on the font's texture.
+     */
     @Intercom
-    private final IntRect textureRect;
+    public final IntRect textureRect;
 
     @Intercom
     private Glyph(int advance, IntRect bounds, IntRect textureRect) {
         this.advance = advance;
         this.bounds = bounds;
         this.textureRect = textureRect;
-    }
-
-    /**
-     * Gets the offset to move horizontally to the next character.
-     *
-     * @return The offset to move horizontally to the next character.
-     */
-    public int getAdvance() {
-        return advance;
-    }
-
-    /**
-     * Gets the bounding rectangle of the glyph.
-     *
-     * @return The bounding rectangle of the glyph, in coordinates relative to the baseline.
-     */
-    public IntRect getBounds() {
-        return bounds;
-    }
-
-    /**
-     * Gets the texture coordinates of the glyph on the font's texture.
-     *
-     * @return The texture coordinates of the glyph on the font's texture.
-     */
-    public IntRect getTextureRect() {
-        return textureRect;
     }
 }

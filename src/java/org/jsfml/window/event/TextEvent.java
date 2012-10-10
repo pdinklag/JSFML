@@ -6,22 +6,16 @@ import org.jsfml.Intercom;
  * Event class for event type {@link Event.Type#TEXT_ENTERED}.
  */
 @Intercom
-public class TextEvent extends Event {
-    private final long unicode;
+public final class TextEvent extends Event {
+    /**
+     * The unicode (UTF-32) of the character that was entered.
+     */
+    public final long unicode;
 
     @Intercom
     protected TextEvent(int type, long unicode) {
         super(type);
         this.unicode = unicode;
-    }
-
-    /**
-     * Gets the unicode (UTF-32) of the character that was entered.
-     *
-     * @return The unicode (UTF-32) of the character that was entered.
-     */
-    public long getUnicode() {
-        return unicode;
     }
 
     /**

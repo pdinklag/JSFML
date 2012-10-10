@@ -27,7 +27,7 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      */
     public static final int UNDERLINED = 0x04;
 
-    private Font font = null;
+    private ConstFont font = null;
     private String string = "";
 
     /**
@@ -43,7 +43,7 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      * @param string The text string.
      * @param font   The font to use.
      */
-    public Text(@NotNull String string, @NotNull Font font) {
+    public Text(@NotNull String string, @NotNull ConstFont font) {
         this();
         setFont(font);
         setString(string);
@@ -56,7 +56,7 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      * @param font          The font to use.
      * @param characterSize The font size.
      */
-    public Text(@NotNull String string, @NotNull Font font, int characterSize) {
+    public Text(@NotNull String string, @NotNull ConstFont font, int characterSize) {
         this();
         setCharacterSize(characterSize);
         setFont(font);
@@ -94,12 +94,12 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      *
      * @param font The text's font.
      */
-    public void setFont(@NotNull Font font) {
+    public void setFont(@NotNull ConstFont font) {
         if (font == null)
             throw new NullPointerException("font must not be null");
 
         this.font = font;
-        nativeSetFont(font);
+        nativeSetFont((Font) font);
     }
 
     /**
@@ -146,7 +146,7 @@ public class Text extends SFMLNativeTransformable implements Drawable {
      *
      * @return The text's current font. This may be <tt>null</tt> if no font has been set yet.
      */
-    public Font getFont() {
+    public ConstFont getFont() {
         return font;
     }
 
@@ -205,10 +205,10 @@ public class Text extends SFMLNativeTransformable implements Drawable {
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        if(target == null)
+        if (target == null)
             throw new NullPointerException("target must not be null");
 
-        if(states == null)
+        if (states == null)
             throw new NullPointerException("states must not be null");
 
         DrawableNativeImpl.draw(this, target, states);

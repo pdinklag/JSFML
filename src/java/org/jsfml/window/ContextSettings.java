@@ -19,27 +19,75 @@ import java.io.Serializable;
 public final class ContextSettings implements Serializable {
     private static final long serialVersionUID = -3658200233541780345L;
 
+    /**
+     * The amount of depth buffer bits.
+     */
     @Intercom
-    private int depthBits;
-
-    @Intercom
-    private int stencilBits;
-
-    @Intercom
-    private int antialiasingLevel;
-
-    @Intercom
-    private int majorVersion;
-
-    @Intercom
-    private int minorVersion;
+    public final int depthBits;
 
     /**
-     * Creates new context settings with default values (OpenGL 2.0, 24 depth bits,
-     * 8 stencil bits, no anti-aliasing).
+     * The amount of stencil buffer bits.
+     */
+    @Intercom
+    public final int stencilBits;
+
+    /**
+     * The level of anti-aliasing.
+     */
+    @Intercom
+    public final int antialiasingLevel;
+
+    /**
+     * The desired major OpenGL version number.
+     */
+    @Intercom
+    public final int majorVersion;
+
+    /**
+     * The desired minor OpenGL version number.
+     */
+    @Intercom
+    public final int minorVersion;
+
+    /**
+     * Creates new context settings with default values (OpenGL 2.0, 0 depth bits,
+     * 0 stencil bits, no anti-aliasing).
      */
     public ContextSettings() {
-        this(24, 8, 0, 2, 0);
+        this(0, 0, 0, 2, 0);
+    }
+
+    /**
+     * Creates new context settings with a certain anti-aliasing level and OpenGL 2.0,
+     * no depth or stencil bits.
+     *
+     * @param antialiasingLevel The level of anti-aliasing.
+     */
+    public ContextSettings(int antialiasingLevel) {
+        this(0, 0, antialiasingLevel, 2, 0);
+    }
+
+    /**
+     * Creates new context settings with a certain OpenGL version, no depth or stencil
+     * bits and no anti-aliasing.
+     *
+     * @param majorVersion The desired major OpenGL version number.
+     * @param minorVersion The desired minor OpenGL version number.
+     */
+    public ContextSettings(int majorVersion, int minorVersion) {
+        this(0, 0, 0, majorVersion, minorVersion);
+    }
+
+    /**
+     * Creates new context settings with a certain OpenGL version and anti-aliasing level and
+     * no depth or stencil bits
+     *
+     * @param antialiasingLevel The level of anti-aliasing.
+     * @param majorVersion      The desired major OpenGL version number.
+     * @param minorVersion      The desired minor OpenGL version number.
+     */
+    public ContextSettings(int antialiasingLevel, int majorVersion, int minorVersion) {
+        this(0, 0, antialiasingLevel, majorVersion, minorVersion);
     }
 
     /**
@@ -58,117 +106,6 @@ public final class ContextSettings implements Serializable {
         this.antialiasingLevel = antialiasingLevel;
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
-    }
-
-    /**
-     * Gets the desired anti-aliasing level of the OpenGL context.
-     *
-     * @return The desired anti-aliasing level of the OpenGL context.
-     */
-    public int getAntialiasingLevel() {
-        return antialiasingLevel;
-    }
-
-    /**
-     * Sets the desired anti-aliasing level of the OpenGL context.
-     *
-     * @param antialiasingLevel The desired anti-aliasing level of the OpenGL context.
-     */
-    public void setAntialiasingLevel(int antialiasingLevel) {
-        if (antialiasingLevel < 0)
-            throw new IllegalArgumentException("antialiasingLevel must not be negative.");
-
-        this.antialiasingLevel = antialiasingLevel;
-    }
-
-    /**
-     * Gets the desired amount of depth bits of the OpenGL context.
-     *
-     * @return The desired amount of depth bits of the OpenGL context.
-     */
-    public int getDepthBits() {
-        return depthBits;
-    }
-
-    /**
-     * Sets the desired amount of depth bits of the OpenGL context.
-     *
-     * @param depthBits The desired amount of depth bits of the OpenGL context.
-     */
-    public void setDepthBits(int depthBits) {
-        if (depthBits < 0)
-            throw new IllegalArgumentException("depthBits must not be negative.");
-
-        this.depthBits = depthBits;
-    }
-
-    /**
-     * Gets the desired major OpenGL version.
-     *
-     * @return The desired major OpenGL version.
-     */
-    public int getMajorVersion() {
-        return majorVersion;
-    }
-
-    /**
-     * Sets the desired major OpenGL version.
-     * <p/>
-     * Note that only OpenGL versions of 3.0 or higher are relevant if a specific OpenGL version
-     * is to be used. Requested versions older than 3.0 will all be treated the same way.
-     *
-     * @param majorVersion The desired major OpenGL version.
-     */
-    public void setMajorVersion(int majorVersion) {
-        if (majorVersion < 0)
-            throw new IllegalArgumentException("majorVersion must not be negative.");
-
-        this.majorVersion = majorVersion;
-    }
-
-    /**
-     * Gets the desired minor OpenGL version.
-     *
-     * @return The desired minor OpenGL version.
-     */
-    public int getMinorVersion() {
-        return minorVersion;
-    }
-
-    /**
-     * Sets the desired major OpenGL version.
-     * <p/>
-     * Note that only OpenGL versions of 3.0 or higher are relevant if a specific OpenGL version
-     * is to be used. Requested versions older than 3.0 will all be treated the same way.
-     *
-     * @param minorVersion The desired major OpenGL version.
-     */
-    public void setMinorVersion(int minorVersion) {
-        if (minorVersion < 0)
-            throw new IllegalArgumentException("minorVersion must not be negative.");
-
-        this.minorVersion = minorVersion;
-    }
-
-    /**
-     * Gets the desired amount of stencil bits of the OpenGL context.
-     *
-     * @return The desired amount of stencil bits of the OpenGL context.
-     */
-    public int getStencilBits() {
-        return stencilBits;
-    }
-
-    /**
-     * Sets the desired amount of stencil bits of the OpenGL context.
-     *
-     * @param stencilBits The desired amount of stencil bits of the OpenGL context.
-     */
-    public void setStencilBits(int stencilBits) {
-        if (stencilBits < 0)
-            throw new IllegalArgumentException("stencilBits must not be negative.");
-
-        this.stencilBits = stencilBits;
     }
 
     @Override

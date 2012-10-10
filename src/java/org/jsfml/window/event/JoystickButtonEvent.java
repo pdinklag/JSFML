@@ -7,22 +7,16 @@ import org.jsfml.Intercom;
  * {@link Event.Type#JOYSTICK_BUTTON_RELEASED}.
  */
 @Intercom
-public class JoystickButtonEvent extends JoystickEvent {
-    private final int button;
+public final class JoystickButtonEvent extends JoystickEvent {
+    /**
+     * The index of the button that was pressed or released.
+     */
+    public final int button;
 
     @Intercom
     protected JoystickButtonEvent(int type, int joystickId, int button) {
         super(type, joystickId);
         this.button = button;
-    }
-
-    /**
-     * Retrieves the button that was pressed or released.
-     *
-     * @return The index of the button that was pressed or released.
-     */
-    public int getButton() {
-        return button;
     }
 
     @Override

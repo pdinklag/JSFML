@@ -12,8 +12,8 @@ import java.util.HashMap;
 /**
  * Class for loading character fonts.
  */
-public class Font extends SFMLNativeObject {
-    private final HashMap<Integer, ImmutableTexture> textureMap = new HashMap<Integer, ImmutableTexture>();
+public class Font extends SFMLNativeObject implements ConstFont {
+    private final HashMap<Integer, Texture> textureMap = new HashMap<Integer, Texture>();
 
     /**
      * Memory reference and heap pointer that keeps alive the data input stream for freetype.
@@ -34,8 +34,8 @@ public class Font extends SFMLNativeObject {
      * @param other The font to copy.
      */
     @SuppressWarnings("deprecation")
-    public Font(Font other) {
-        super(other.nativeCopy());
+    public Font(ConstFont other) {
+        super(((Font) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
@@ -99,53 +99,26 @@ public class Font extends SFMLNativeObject {
         }
     }
 
-    /**
-     * Gets a glyph information structure from the font.
-     *
-     * @param unicode       The unicode (UTF-32) of the character to retrieve the glyph for.
-     * @param characterSize The character size in question.
-     * @param bold          <tt>true</tt> if the bold glyph version should be returned,
-     *                      <tt>false</tt> for the regular version.
-     * @return The {@link Glyph} representing the given unicode character.
-     */
+    @Override
     public native Glyph getGlyph(int unicode, int characterSize, boolean bold);
 
-    /**
-     * Gets the kerning offset between two glyphs.
-     *
-     * @param first         The unicode (UTF-32) of the first character.
-     * @param second        The unicode (UTF-32) of the second character.
-     * @param characterSize The character size in question.
-     * @return The kerning offset between two glyphs.
-     */
+    @Override
     public native int getKerning(int first, int second, int characterSize);
 
-    /**
-     * Gets the line spacing of the font.
-     *
-     * @param characterSize The character size in question.
-     * @return The line spacing of the font.
-     */
+    @Override
     public native int getLineSpacing(int characterSize);
 
     private native long nativeGetTexture(int characterSize);
 
-    /**
-     * Retrieves the texture containing the font's glyphs.
-     * <p/>
-     * The texture returned is immutable.
-     *
-     * @param characterSize The character size in question.
-     * @return The texture containing the font's glyphs of the character given size.
-     */
-    public Texture getTexture(int characterSize) {
-        ImmutableTexture texture;
+    @Override
+    public ConstTexture getTexture(int characterSize) {
+        Texture texture;
         if (textureMap.containsKey(characterSize)) {
             texture = textureMap.get(characterSize);
         } else {
             long p = nativeGetTexture(characterSize);
             if (p != 0) {
-                texture = new ImmutableTexture(p);
+                texture = new Texture(p);
                 textureMap.put(characterSize, texture);
             } else {
                 texture = null;

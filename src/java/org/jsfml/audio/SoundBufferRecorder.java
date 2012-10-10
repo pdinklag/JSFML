@@ -4,14 +4,14 @@ package org.jsfml.audio;
  * Specialized {@link SoundRecorder} which stores captured audio data into a {@link SoundBuffer}.
  */
 public class SoundBufferRecorder extends SoundRecorder {
-    private ImmutableSoundBuffer soundBuffer;
+    private SoundBuffer soundBuffer;
 
     /**
      * Creates a new sound buffer recorder.
      */
     public SoundBufferRecorder() {
         super();
-        soundBuffer = new ImmutableSoundBuffer(nativeGetBuffer());
+        soundBuffer = new SoundBuffer(nativeGetBuffer());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class SoundBufferRecorder extends SoundRecorder {
      *
      * @return The sound buffer containing the captured audio data.
      */
-    public SoundBuffer getBuffer() {
+    public ConstSoundBuffer getBuffer() {
         return soundBuffer;
     }
 

@@ -19,21 +19,21 @@ public interface RenderTarget {
      *
      * @param view The target's new view.
      */
-    public void setView(View view);
+    public void setView(ConstView view);
 
     /**
      * Gets the target's current view.
      *
      * @return The target's current view.
      */
-    public View getView();
+    public ConstView getView();
 
     /**
      * Gets the target's default view.
      *
      * @return The target's default view.
      */
-    public View getDefaultView();
+    public ConstView getDefaultView();
 
     /**
      * Computes the viewport of the given view applied to this render target.

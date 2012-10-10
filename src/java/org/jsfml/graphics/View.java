@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
 /**
  * A 2D camera that defines which region of the world space is rendered.
  */
-public class View extends SFMLNativeObject {
+public class View extends SFMLNativeObject implements ConstView {
     /**
      * Creates a new View for the area of <tt>(0, 0, 1000, 1000)</tt>.
      */
@@ -121,32 +121,16 @@ public class View extends SFMLNativeObject {
         nativeReset(rect);
     }
 
-    /**
-     * Gets the current center of the view.
-     *
-     * @return The current center of the view.
-     */
+    @Override
     public native Vector2f getCenter();
 
-    /**
-     * Gets the current dimensions of the view in pixels.
-     *
-     * @return The current dimensions of the view in pixels.
-     */
+    @Override
     public native Vector2f getSize();
 
-    /**
-     * Gets the current rotation angle of the view in degrees.
-     *
-     * @return The current rotation angle of the view in degrees.
-     */
+    @Override
     public native float getRotation();
 
-    /**
-     * Gets the current viewport rectangle of this view.
-     *
-     * @return The current viewport rectangle of this view.
-     */
+    @Override
     public native FloatRect getViewport();
 
     /**
@@ -180,19 +164,9 @@ public class View extends SFMLNativeObject {
      */
     public native void zoom(float factor);
 
-    /**
-     * Gets the view's current transformation matrix as determined by its center,
-     * size and rotation angle.
-     *
-     * @return The view's current transformation matrix.
-     */
+    @Override
     public native Transform getTransform();
 
-    /**
-     * Gets the inverse of the view's current transformation matrix as determined
-     * by its center, size and rotation angle.
-     *
-     * @return The inverse of the view's current transformation matrix.
-     */
+    @Override
     public native Transform getInverseTransform();
 }

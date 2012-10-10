@@ -8,7 +8,7 @@ import org.jsfml.system.Vector2f;
  * Base class for textured shapes with outlines.
  */
 public abstract class Shape extends SFMLNativeTransformable implements Drawable {
-    private Texture texture = null;
+    private ConstTexture texture = null;
 
     /**
      * Default constructor.
@@ -27,9 +27,9 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param texture   The texture of the shape.
      * @param resetRect <tt>true</tt> to reset the texture rect, <tt>false</tt> otherwise.
      */
-    public void setTexture(Texture texture, boolean resetRect) {
+    public void setTexture(ConstTexture texture, boolean resetRect) {
         this.texture = texture;
-        nativeSetTexture(texture, resetRect);
+        nativeSetTexture((Texture) texture, resetRect);
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @param texture The texture of the shape.
      */
-    public final void setTexture(Texture texture) {
+    public final void setTexture(ConstTexture texture) {
         setTexture(texture, false);
     }
 
@@ -97,7 +97,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @return The shape's current texture.
      */
-    public Texture getTexture() {
+    public ConstTexture getTexture() {
         return texture;
     }
 

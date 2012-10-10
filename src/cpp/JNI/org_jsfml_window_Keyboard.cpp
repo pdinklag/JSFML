@@ -8,5 +8,7 @@
  * Signature: (Lorg/jsfml/window/Keyboard$Key;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Keyboard_isKeyPressed (JNIEnv* env, jclass cls, jobject key) {
-	return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)JavaEnum::ordinal(env, key));
+    //need to subtract one from the ordinal because UNKNOWN has index 0
+    sf::Keyboard::Key sfKey = (sf::Keyboard::Key)(JavaEnum::ordinal(env, key) - 1);
+	return sf::Keyboard::isKeyPressed(sfKey);
 }
