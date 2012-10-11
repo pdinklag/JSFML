@@ -9,28 +9,33 @@ package org.jsfml;
  */
 @Intercom
 public abstract class SFMLNativeObject {
-    private static boolean debug = false;
-    private static int numManaged = 0, numWrapped = 0;
-
     /**
-     * Enables or disables SFMLNativeObject debug output to the standard output stream.
-     * When enabled, the creation, wrapping and deletion of all SFML native objects will be logged to the
-     * standard output stream for debugging purposes.
-     *
-     * @param b Whether or not to enable debug information logging.
+     * Pointer to the underlying SFML object.
      */
-    @SuppressWarnings("deprecation")
-    public static void setDebug(boolean b) {
-        debug = b;
-        Runtime.runFinalizersOnExit(b);
-    }
-
     @Intercom
     private long ptr = 0;
 
+    /**
+     * "Extra Pointers".
+     * <p/>
+     * These are pointers dynamically cast to abstract supertypes of the same SFML object.
+     * <p/>
+     * Holding these is necessary, because all the C++ type information gets lost in the
+     * process of storing a pointer in a Java long field. When casting them back
+     * to SFML object pointers, the correct virtual table offset has to be used
+     * for calls to methods of abstract types.
+     */
     @Intercom
     private final long[] exPtr = new long[ExPtr.NUM];
 
+    /**
+     * If this is <tt>true</tt>, the underlying object is merely "wrapped" and not
+     * "managed" by JSFML.
+     * <p/>
+     * If an object is managed by JSFML, it will be deleted using the <i>delete</i>
+     * operator when the Java object is finalized. Wrapped objects are expected
+     * to be cleaned up by SFML and will simply be abandoned upon finalization.
+     */
     private boolean wrapped;
 
     /**
@@ -49,10 +54,6 @@ public abstract class SFMLNativeObject {
         nativeSetExPtr();
 
         wrapped = false;
-
-        numManaged++;
-        if (debug)
-            System.out.println("SFMLNativeObject [CREATE] " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged);
     }
 
     /**
@@ -73,29 +74,10 @@ public abstract class SFMLNativeObject {
         nativeSetExPtr();
 
         wrapped = true;
-
-        numWrapped++;
-        if (debug)
-            System.out.println("SFMLNativeObject [WRAP]   " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numWrapped=" + numWrapped);
     }
 
     final void setJavaManaged(boolean javaManaged) {
-        boolean wasWrapped = wrapped;
         wrapped = !javaManaged;
-
-        if (wasWrapped && !wrapped) {
-            numWrapped--;
-            numManaged++;
-
-            if (debug)
-                System.out.println("SFMLNativeObject [MANAGE]   " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged + " - numWrapped=" + numWrapped);
-        } else if (!wasWrapped && wrapped) {
-            numWrapped++;
-            numManaged--;
-
-            if (debug)
-                System.out.println("SFMLNativeObject [UNMANAGE]   " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged + " - numWrapped=" + numWrapped);
-        }
     }
 
     /**
@@ -130,18 +112,8 @@ public abstract class SFMLNativeObject {
     @Override
     @SuppressWarnings("deprecation")
     protected void finalize() throws Throwable {
-        if (!wrapped) {
-            if (ptr != 0)
-                nativeDelete();
-
-            numManaged--;
-            if (debug)
-                System.out.println("SFMLNativeObject [DELETE] " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numManaged=" + numManaged);
-        } else {
-            numWrapped--;
-            if (debug)
-                System.out.println("SFMLNativeObject [UNWRAP] " + this + " - ptr=0x" + Long.toHexString(ptr).toUpperCase() + " - numWrapped=" + numWrapped);
-        }
+        if (!wrapped && ptr != 0)
+            nativeDelete();
 
         ptr = 0;
         for (int i = 0; i < exPtr.length; i++)
