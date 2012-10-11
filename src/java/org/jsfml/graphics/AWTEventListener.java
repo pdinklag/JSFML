@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Translates AWT events to JSFML events and queues them.
@@ -16,7 +17,7 @@ import java.util.List;
 final class AWTEventListener implements
         KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
-    private final LinkedList<Event> queue = new LinkedList<Event>();
+    private final ConcurrentLinkedQueue<Event> queue = new ConcurrentLinkedQueue<Event>();
 
     /**
      * Polls the queued translated events and clears the queue.
