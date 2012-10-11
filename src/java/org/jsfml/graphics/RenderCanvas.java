@@ -56,6 +56,21 @@ public class RenderCanvas extends Canvas {
             } else {
                 renderWindow = new RenderWindow(ptr);
                 UnsafeOperations.manageSFMLObject(renderWindow, true);
+
+                if (System.getProperty("os.name").contains("Linux")) {
+                    /**
+                     * On Linux, there is a problem that prevents key and mouse button events to
+                     * be passed to SFML. The cause of that is not yet known.
+                     *
+                     * As a workaround, we install an AWT event listener that will translate
+                     * AWT events to SFML events.
+                     */
+                    AWTEventListener awtListener = new AWTEventListener();
+                    addKeyListener(awtListener);
+                    addMouseListener(awtListener);
+                    addMouseWheelListener(awtListener);
+                    renderWindow.setAwtListener(awtListener);
+                }
             }
         }
     }
