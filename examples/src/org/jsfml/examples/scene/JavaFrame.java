@@ -1,17 +1,31 @@
 package org.jsfml.examples.scene;
 
 import org.jsfml.graphics.RenderCanvas;
+import org.jsfml.graphics.RenderWindow;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
  * Java Swing application for the example scene.
  */
-public class JavaFrame {
+public class JavaFrame extends JFrame implements ActionListener {
+    private static final long serialVersionUID = 5155515612001343084L;
+
+    private final RenderCanvas canvas = new RenderCanvas();
+    private final JMenuBar menuBar = new JMenuBar();
+
+    private final JMenu fileMenu = new JMenu("File");
+    private final JMenuItem fileExit = new JMenuItem("Exit");
+
+    private final JButton btClose = new JButton("Close");
+
     public static void main(String[] args) {
         //Set the system look and feel
         try {
@@ -21,30 +35,74 @@ public class JavaFrame {
             ex.printStackTrace();
         }
 
+        //Create and show the frame
+        JavaFrame frame = new JavaFrame();
+        frame.setVisible(true);
+
+        //Launch the example application
+        final RenderWindow window = frame.canvas.getRenderWindow();
+        if (window != null) {
+            new ExampleApp(window).play(new ExampleScene());
+        }
+    }
+
+    public JavaFrame() {
         //Create the Java frame
-        JFrame frame = new JFrame("JFrame");
-        frame.setSize(640, 480);
-        frame.setLayout(new BorderLayout());
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super("Example Scene in a Swing frame");
+        setSize(640, 480);
+        setLayout(new BorderLayout(3, 3));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Try and apply an icon to the frame
         try {
             BufferedImage image = ImageIO.read(Standalone.class.getResourceAsStream(
                     "/resources/jsfml-icon.png"));
 
-            frame.setIconImage(image);
+            setIconImage(image);
         } catch (IOException ex) {
             System.err.println("Failed to load icon resource!");
             ex.printStackTrace();
         }
 
-        //Create the RenderCanvas
-        RenderCanvas canvas = new RenderCanvas();
-        frame.add(canvas, BorderLayout.CENTER);
-        frame.add(new JLabel("I'm a JLabel!"), BorderLayout.SOUTH);
-        frame.setVisible(true);
+        //Build Menu
+        fileExit.addActionListener(this);
+        fileMenu.add(fileExit);
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
 
-        //Launch the example application
-        new ExampleApp(canvas.getRenderWindow()).play(new ExampleScene());
+        //Add render area
+        {
+            final JPanel panel = new JPanel(new GridLayout());
+            panel.setBorder(new TitledBorder("Render Area"));
+            panel.add(canvas);
+
+            add(panel, BorderLayout.CENTER);
+        }
+
+        //Add control area
+        {
+            btClose.addActionListener(this);
+
+            final JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            panel.setBorder(new TitledBorder("Control Area"));
+            panel.add(btClose);
+
+            add(panel, BorderLayout.SOUTH);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == fileExit || source == btClose) {
+            //Finish the scene by closing the render window
+            final RenderWindow window = canvas.getRenderWindow();
+            if (window != null) {
+                window.close();
+            }
+
+            //Close the frame
+            dispose();
+        }
     }
 }

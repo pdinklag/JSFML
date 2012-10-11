@@ -46,7 +46,7 @@ public class ExampleApp {
         Clock frameClock = new Clock();
 
         //Enter main loop
-        while (!scene.isDone()) {
+        while (!scene.isDone() && window.isOpen()) {
             //Delegate events to the scene
             for (Event event = window.pollEvent(); event != null; event = window.pollEvent())
                 scene.handleEvent(event);

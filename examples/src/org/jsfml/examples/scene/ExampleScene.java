@@ -26,8 +26,7 @@ public class ExampleScene implements Scene {
                     "Right mouse button and move to wave logo\n" +
                     "Mouse wheel to scale logo\n\n" +
                     "Press A to add an entity\n" +
-                    "Press D to delete an entity\n" +
-                    "Press Escape to quit", nakadaiFont);
+                    "Press D to delete an entity", nakadaiFont);
     private final Text instructionsTextShadow = new Text(instructionsText.getString(), nakadaiFont);
 
     private final Text infoText = new Text();
@@ -288,10 +287,6 @@ public class ExampleScene implements Scene {
                             entities.removeFirst();
                             updateEntityText();
                         }
-                        break;
-
-                    case ESCAPE:
-                        quit = true;
                         break;
                 }
         }
