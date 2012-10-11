@@ -68,6 +68,7 @@ public class RenderCanvas extends Canvas {
                     AWTEventListener awtListener = new AWTEventListener();
                     addKeyListener(awtListener);
                     addMouseListener(awtListener);
+                    addMouseMotionListener(awtListener);
                     addMouseWheelListener(awtListener);
                     renderWindow.setAwtListener(awtListener);
                 }

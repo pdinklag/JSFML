@@ -15,9 +15,9 @@ final class AWTCodeTranslator {
             case MouseEvent.BUTTON1:
                 return Mouse.Button.LEFT;
             case MouseEvent.BUTTON2:
-                return Mouse.Button.RIGHT;
-            case MouseEvent.BUTTON3:
                 return Mouse.Button.MIDDLE;
+            case MouseEvent.BUTTON3:
+                return Mouse.Button.RIGHT;
             case 4:
                 return Mouse.Button.XBUTTON1; //TODO test
             case 5:

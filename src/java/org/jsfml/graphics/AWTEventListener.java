@@ -13,7 +13,9 @@ import java.util.List;
 /**
  * Translates AWT events to JSFML events and queues them.
  */
-final class AWTEventListener implements KeyListener, MouseListener, MouseWheelListener {
+final class AWTEventListener implements
+        KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+
     private final LinkedList<Event> queue = new LinkedList<Event>();
 
     /**
@@ -95,5 +97,17 @@ final class AWTEventListener implements KeyListener, MouseListener, MouseWheelLi
                 Event.Type.MOUSE_WHEEL_MOVED.ordinal(),
                 e.getXOnScreen(), e.getYOnScreen(),
                 -e.getWheelRotation()));
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        queue.add(new org.jsfml.window.event.MouseEvent(
+                Event.Type.MOUSE_MOVED.ordinal(),
+                e.getXOnScreen(), e.getYOnScreen()));
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        //correctly passed to SFML by X11
     }
 }
