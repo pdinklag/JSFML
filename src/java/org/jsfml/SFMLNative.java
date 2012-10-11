@@ -133,6 +133,14 @@ public final class SFMLNative {
                 }
 
                 if (!GraphicsEnvironment.isHeadless()) {
+                    //Force load class "java.awt.Component"
+                    //This way, awt.dll will be loaded in the correct class loader
+                    try {
+                        Class.forName("java.awt.Component");
+                    } catch (ClassNotFoundException ex) {
+                        throw new JSFMLError("", ex);
+                    }
+
                     //try and load awt.dll
                     try {
                         System.loadLibrary("awt");
