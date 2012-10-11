@@ -41,14 +41,14 @@ public class ExampleApp {
             ex.printStackTrace();
             return;
         }
-        
+
         //Create a clock for measuring frame time
         Clock frameClock = new Clock();
 
         //Enter main loop
         while (!scene.isDone() && window.isOpen()) {
             //Delegate events to the scene
-            for (Event event = window.pollEvent(); event != null; event = window.pollEvent())
+            for (Event event : window.pollEvents())
                 scene.handleEvent(event);
 
             //Update the scene

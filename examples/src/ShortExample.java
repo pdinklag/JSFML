@@ -36,8 +36,7 @@ public class ShortExample {
         //Start the game loop
         while (window.isOpen()) {
             //Process events
-            Event event = window.pollEvent();
-            while (event != null) {
+            for (Event event : window.pollEvents()) {
                 //Close window : exit
                 if (event.type == Event.Type.CLOSED)
                     window.close();

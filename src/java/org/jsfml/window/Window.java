@@ -257,7 +257,7 @@ public class Window extends SFMLNativeObject {
      * @return The event currently on top of the event stack, or <tt>null</tt> if there is none.
      * @see #waitEvent()
      */
-    public native Event pollEvent();
+    protected final native Event pollEvent();
 
     /**
      * Returns an {@link Iterable} that consecutively calls {@link #pollEvent()} and
@@ -304,7 +304,7 @@ public class Window extends SFMLNativeObject {
      * @return The event currently on top of the event stack, or the next event that will occur.
      * @see #pollEvent()
      */
-    public native Event waitEvent();
+    protected native Event waitEvent();
 
     /**
      * Enables or disables vertical synchronization (VSync).
