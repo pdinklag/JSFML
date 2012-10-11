@@ -44,9 +44,6 @@ public class JavaFrame {
         frame.add(new JLabel("I'm a JLabel!"), BorderLayout.SOUTH);
         frame.setVisible(true);
 
-        //Initialize the canvas
-        canvas.initialize();
-
         //Launch the example application
         new ExampleApp(canvas.getRenderWindow()).play(new ExampleScene());
     }

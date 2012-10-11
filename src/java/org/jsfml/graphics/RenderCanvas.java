@@ -16,6 +16,7 @@ public class RenderCanvas extends Canvas {
 
     private final ContextSettings settings;
     private RenderWindow renderWindow = null;
+    private boolean initialized = false;
 
     /**
      * Creates a new render canvas with default context settings.
@@ -41,15 +42,21 @@ public class RenderCanvas extends Canvas {
 
     private native long nativeCreateRenderWindow(ContextSettings settings);
 
-    //TODO initialize renderWindow once there is a handle
     @SuppressWarnings("deprecation")
-    public void initialize() {
-        long ptr = nativeCreateRenderWindow(settings);
-        if (ptr == 0) {
-            throw new JSFMLError("Failed to initialize RenderCanvas");
-        } else {
-            renderWindow = new RenderWindow(ptr);
-            UnsafeOperations.manageSFMLObject(renderWindow, true);
+    @Override
+    public void validate() {
+        super.validate();
+
+        if (isValid() && !initialized) {
+            initialized = true;
+
+            long ptr = nativeCreateRenderWindow(settings);
+            if (ptr == 0) {
+                throw new JSFMLError("Failed to initialize RenderCanvas");
+            } else {
+                renderWindow = new RenderWindow(ptr);
+                UnsafeOperations.manageSFMLObject(renderWindow, true);
+            }
         }
     }
 
