@@ -118,7 +118,7 @@ public class Event {
      * @param type The event type.
      */
     @Intercom
-    protected Event(int type) {
+    public Event(int type) {
         this.type = Type.values()[type];
     }
 

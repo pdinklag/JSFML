@@ -34,7 +34,7 @@ public final class KeyEvent extends Event {
     public final boolean system;
 
     @Intercom
-    protected KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
+    public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
         super(type);
         this.key = Keyboard.Key.values()[keyCode + 1];
         this.alt = alt;

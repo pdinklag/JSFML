@@ -15,7 +15,7 @@ public final class MouseButtonEvent extends MouseEvent {
     public final Mouse.Button button;
 
     @Intercom
-    protected MouseButtonEvent(int type, int x, int y, int button) {
+    public MouseButtonEvent(int type, int x, int y, int button) {
         super(type, x, y);
         this.button = Mouse.Button.values()[button];
     }

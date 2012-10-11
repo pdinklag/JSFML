@@ -13,7 +13,7 @@ public final class TextEvent extends Event {
     public final long unicode;
 
     @Intercom
-    protected TextEvent(int type, long unicode) {
+    public TextEvent(int type, long unicode) {
         super(type);
         this.unicode = unicode;
     }

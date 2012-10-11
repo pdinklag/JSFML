@@ -9,7 +9,7 @@ import org.jsfml.Intercom;
 @Intercom
 public final class JoystickConnectEvent extends JoystickEvent {
     @Intercom
-    protected JoystickConnectEvent(int type, int joystickId) {
+    public JoystickConnectEvent(int type, int joystickId) {
         super(type, joystickId);
     }
 

@@ -14,7 +14,7 @@ public class MouseEvent extends Event {
     public final Vector2i position;
 
     @Intercom
-    protected MouseEvent(int type, int x, int y) {
+    public MouseEvent(int type, int x, int y) {
         super(type);
         this.position = new Vector2i(x, y);
     }

@@ -14,7 +14,7 @@ public final class JoystickButtonEvent extends JoystickEvent {
     public final int button;
 
     @Intercom
-    protected JoystickButtonEvent(int type, int joystickId, int button) {
+    public JoystickButtonEvent(int type, int joystickId, int button) {
         super(type, joystickId);
         this.button = button;
     }

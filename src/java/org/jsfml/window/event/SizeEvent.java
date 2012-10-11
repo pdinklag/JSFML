@@ -14,7 +14,7 @@ public final class SizeEvent extends Event {
     public final Vector2i size;
 
     @Intercom
-    protected SizeEvent(int type, int width, int height) {
+    public SizeEvent(int type, int width, int height) {
         super(type);
         this.size = new Vector2i(width, height);
     }

@@ -19,7 +19,7 @@ public final class JoystickMoveEvent extends JoystickEvent {
     public final float position;
 
     @Intercom
-    protected JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
+    public JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
         super(type, joystickId);
         this.joyAxis = Joystick.Axis.values()[joyAxis];
         this.position = position;

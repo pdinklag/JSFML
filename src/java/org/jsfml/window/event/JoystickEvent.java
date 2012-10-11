@@ -13,7 +13,7 @@ public abstract class JoystickEvent extends Event {
     public final int joystickId;
 
     @Intercom
-    protected JoystickEvent(int type, int joystickId) {
+    public JoystickEvent(int type, int joystickId) {
         super(type);
         this.joystickId = joystickId;
     }

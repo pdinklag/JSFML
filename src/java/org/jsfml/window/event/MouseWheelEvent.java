@@ -13,7 +13,7 @@ public final class MouseWheelEvent extends MouseEvent {
     public final int delta;
 
     @Intercom
-    protected MouseWheelEvent(int type, int x, int y, int delta) {
+    public MouseWheelEvent(int type, int x, int y, int delta) {
         super(type, x, y);
         this.delta = delta;
     }
