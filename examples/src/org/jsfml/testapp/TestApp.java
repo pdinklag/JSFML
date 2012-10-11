@@ -1,6 +1,7 @@
 package org.jsfml.testapp;
 
 import org.jsfml.SFMLNative;
+import org.jsfml.examples.scene.JavaFrame;
 import org.jsfml.examples.scene.Standalone;
 import org.jsfml.graphics.Shader;
 import org.jsfml.graphics.Texture;
@@ -18,12 +19,33 @@ import java.awt.*;
  */
 public class TestApp {
     /**
+     * Execution modes.
+     */
+    enum Mode {
+        /**
+         * Standalone - using an SFML window.
+         */
+        STANDALONE,
+
+        /**
+         * Swing - using a Java Swing frame.
+         */
+        SWING
+    }
+
+    private static Mode mode = Mode.STANDALONE;
+
+    /**
      * The main method that starts the application.
      *
      * @param args Command-line arguments; not used.
      */
     public static void main(String[] args) {
-        System.out.println("JSFML TestApp started.");
+        if (args.length >= 1) {
+            mode = Mode.valueOf(args[0].toUpperCase());
+        }
+
+        System.out.println("JSFML TestApp started with mode: " + mode);
         System.out.println();
 
         try {
@@ -94,6 +116,16 @@ public class TestApp {
 
         //Start demo scene
         System.out.println("Starting the demo scene ...");
-        Standalone.main(new String[0]);
+
+        switch (mode) {
+            case SWING:
+                JavaFrame.main(new String[0]);
+                break;
+
+            default:
+                Standalone.main(new String[0]);
+                break;
+        }
+
     }
 }
