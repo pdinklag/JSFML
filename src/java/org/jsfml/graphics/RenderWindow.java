@@ -6,9 +6,6 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
-import org.jsfml.window.event.Event;
-
-import java.util.LinkedList;
 
 /**
  * Window that can serve as a target for 2D drawing.
@@ -16,8 +13,6 @@ import java.util.LinkedList;
 public class RenderWindow extends Window implements RenderTarget {
     private final ConstView defaultView;
     private ConstView view;
-
-    private AWTEventListener awtListener = null;
 
     /**
      * Constructs a new window without creating it.
@@ -189,23 +184,4 @@ public class RenderWindow extends Window implements RenderTarget {
 
     @Override
     public native void resetGLStates();
-
-    @Override
-    public Iterable<Event> pollEvents() {
-        if (awtListener != null) {
-            final LinkedList<Event> events = new LinkedList<Event>();
-
-            for (Event e = pollEvent(); e != null; e = pollEvent())
-                events.add(e);
-
-            events.addAll(awtListener.pollEvents());
-            return events;
-        } else {
-            return super.pollEvents();
-        }
-    }
-
-    void setAwtListener(AWTEventListener awtListener) {
-        this.awtListener = awtListener;
-    }
 }

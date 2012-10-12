@@ -1,38 +1,70 @@
 package org.jsfml.graphics;
 
 import org.jsfml.window.event.*;
-import org.jsfml.window.event.TextEvent;
 
 import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Translates AWT events to JSFML events and queues them.
+ * A render window that receives events from Java AWT rather than SFML.
  */
-final class AWTEventListener implements
-        KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+final class AWTRenderWindow extends RenderWindow implements
+        ComponentListener, FocusListener, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+
+    private final static long WAIT_EVENT_DURATION = 10; //same as SFML
 
     private final ConcurrentLinkedQueue<Event> queue = new ConcurrentLinkedQueue<Event>();
 
-    /**
-     * Polls the queued translated events and clears the queue.
-     *
-     * @return The queues translated events.
-     */
-    public List<Event> pollEvents() {
-        final List<Event> r = new LinkedList<Event>(queue);
+    @SuppressWarnings("deprecation")
+    AWTRenderWindow(long ptr) {
+        super(ptr);
+    }
+
+    private void clearSFMLEventQueue() {
+        //Queue SFML events so its buffer doesn't fill up, but ignore the output.
+        for (Event e = super.pollEvent(); e != null; e = super.pollEvent()) {
+            //discard
+        }
+    }
+
+    @Override
+    public Event pollEvent() {
+        clearSFMLEventQueue();
+
+        //Poll the first event from the queue
+        return queue.poll();
+    }
+
+    @Override
+    public Event waitEvent() throws InterruptedException {
+        clearSFMLEventQueue();
+
+        Event e = queue.poll();
+        while (e == null) {
+            Thread.sleep(WAIT_EVENT_DURATION);
+            e = queue.poll();
+        }
+
+        return e;
+    }
+
+    @Override
+    public Iterable<Event> pollEvents() {
+        clearSFMLEventQueue();
+
+        //Create a copy of the queue and clear it.
+        final Iterable<Event> it = new LinkedList<Event>(queue);
         queue.clear();
-        return r;
+        return it;
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        queue.add(new TextEvent(Event.Type.TEXT_ENTERED.ordinal(), (long) e.getKeyChar()));
+        queue.add(new org.jsfml.window.event.TextEvent(Event.Type.TEXT_ENTERED.ordinal(), (long) e.getKeyChar()));
     }
 
     @Override
@@ -65,7 +97,7 @@ final class AWTEventListener implements
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //not specified in SFML
+        //not specified by SFML
     }
 
     @Override
@@ -84,12 +116,16 @@ final class AWTEventListener implements
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        //correctly passed to SFML by X11
+        queue.add(new org.jsfml.window.event.MouseEvent(
+                Event.Type.MOUSE_ENTERED.ordinal(),
+                e.getXOnScreen(), e.getYOnScreen()));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        //correctly passed to SFML by X11
+        queue.add(new org.jsfml.window.event.MouseEvent(
+                Event.Type.MOUSE_LEFT.ordinal(),
+                e.getXOnScreen(), e.getYOnScreen()));
     }
 
     @Override
@@ -102,13 +138,45 @@ final class AWTEventListener implements
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        //as per SFML, this is the same as a simple mouse movement
+        mouseMoved(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
         queue.add(new org.jsfml.window.event.MouseEvent(
                 Event.Type.MOUSE_MOVED.ordinal(),
                 e.getXOnScreen(), e.getYOnScreen()));
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        //correctly passed to SFML by X11
+    public void focusGained(FocusEvent e) {
+        queue.add(new Event(Event.Type.GAINED_FOCUS.ordinal()));
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        queue.add(new Event(Event.Type.LOST_FOCUS.ordinal()));
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        queue.add(new SizeEvent(Event.Type.RESIZED.ordinal(),
+                e.getComponent().getWidth(), e.getComponent().getHeight()));
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        //not specified by SFML
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        //not specified by SFML
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        //not specified by SFML
     }
 }

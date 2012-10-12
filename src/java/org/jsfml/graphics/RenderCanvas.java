@@ -15,7 +15,7 @@ public class RenderCanvas extends Canvas {
     private static final long serialVersionUID = 5458266655879697610L;
 
     private final ContextSettings settings;
-    private RenderWindow renderWindow = null;
+    private AWTRenderWindow renderWindow = null;
     private boolean initialized = false;
 
     /**
@@ -54,24 +54,15 @@ public class RenderCanvas extends Canvas {
             if (ptr == 0) {
                 throw new JSFMLError("Failed to initialize RenderCanvas");
             } else {
-                renderWindow = new RenderWindow(ptr);
+                renderWindow = new AWTRenderWindow(ptr);
                 UnsafeOperations.manageSFMLObject(renderWindow, true);
 
-                if (System.getProperty("os.name").contains("Linux")) {
-                    /**
-                     * On Linux, there is a problem that prevents key and mouse button events to
-                     * be passed to SFML. The cause of that is not yet known.
-                     *
-                     * As a workaround, we install an AWT event listener that will translate
-                     * AWT events to SFML events.
-                     */
-                    AWTEventListener awtListener = new AWTEventListener();
-                    addKeyListener(awtListener);
-                    addMouseListener(awtListener);
-                    addMouseMotionListener(awtListener);
-                    addMouseWheelListener(awtListener);
-                    renderWindow.setAwtListener(awtListener);
-                }
+                addComponentListener(renderWindow);
+                addFocusListener(renderWindow);
+                addKeyListener(renderWindow);
+                addMouseListener(renderWindow);
+                addMouseMotionListener(renderWindow);
+                addMouseWheelListener(renderWindow);
             }
         }
     }
@@ -88,18 +79,16 @@ public class RenderCanvas extends Canvas {
     }
 
     @Override
-    public void setBounds(int x, int y, int width, int height) {
-        super.setBounds(x, y, width, height);
-
-        if (renderWindow != null) {
-            //TODO pass resize event?
-        }
-    }
-
-    @Override
     protected void finalize() throws Throwable {
         if (renderWindow != null) {
+            removeComponentListener(renderWindow);
+            removeFocusListener(renderWindow);
+            removeKeyListener(renderWindow);
+            removeMouseListener(renderWindow);
+            removeMouseMotionListener(renderWindow);
+            removeMouseWheelListener(renderWindow);
             renderWindow.close();
+            renderWindow = null;
         }
 
         super.finalize();
