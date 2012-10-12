@@ -63,8 +63,16 @@ public class RenderCanvas extends Canvas {
                 addMouseListener(renderWindow);
                 addMouseMotionListener(renderWindow);
                 addMouseWheelListener(renderWindow);
+
+                //vvoid occasional flicker; painting is done by calling "display"
+                setIgnoreRepaint(true);
             }
         }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        //nothing to paint
     }
 
     /**
