@@ -132,32 +132,30 @@ public final class SFMLNative {
                     nativeLibs.add("windows_x64/jsfml.dll");
                 }
 
-                if (!GraphicsEnvironment.isHeadless()) {
-                    //Force load class "java.awt.Component"
-                    //This way, awt.dll will be loaded in the correct class loader
-                    try {
-                        Class.forName("java.awt.Component");
-                    } catch (ClassNotFoundException ex) {
-                        throw new JSFMLError("", ex);
-                    }
+                //Force load class "java.awt.Component"
+                //This way, awt.dll will be loaded in the correct class loader
+                try {
+                    Class.forName("java.awt.Component");
+                } catch (ClassNotFoundException ex) {
+                    throw new JSFMLError("", ex);
+                }
 
-                    //try and load awt.dll
-                    try {
-                        System.loadLibrary("awt");
-                    } catch (UnsatisfiedLinkError err) {
-                        //it might have already been loaded
-                        if (!err.getMessage().contains("already loaded"))
-                            throw err;
-                    }
+                //try and load awt.dll
+                try {
+                    System.loadLibrary("awt");
+                } catch (UnsatisfiedLinkError err) {
+                    //it might have already been loaded
+                    if (!err.getMessage().contains("already loaded"))
+                        throw err;
+                }
 
-                    //try and load jawt.dll
-                    try {
-                        System.loadLibrary("jawt");
-                    } catch (UnsatisfiedLinkError err) {
-                        //it might have already been loaded
-                        if (!err.getMessage().contains("already loaded"))
-                            throw err;
-                    }
+                //try and load jawt.dll
+                try {
+                    System.loadLibrary("jawt");
+                } catch (UnsatisfiedLinkError err) {
+                    //it might have already been loaded
+                    if (!err.getMessage().contains("already loaded"))
+                        throw err;
                 }
             } else if (osName.contains(OS_NAME_LINUX)) {
                 linux = true;
