@@ -164,6 +164,7 @@
 		<!-- Requires ${arch} -->
 		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.so" />
 		<mkdir dir="${cpp.obj}" />
+		<mkdir dir="${cpp.obj}/${arch}" />
 		<mkdir dir="${cpp.out}" />
 		<mkdir dir="${cpp.out}/${arch}" />
 		
@@ -175,7 +176,7 @@
 		<pathconvert pathsep=" " property="cpp.src.files" refid="cpp.src.fileset"/>
 		
 		<!-- compile and link -->
-		<exec executable="g++" dir="${cpp.obj}" failonerror="true">
+		<exec executable="g++" dir="${cpp.obj}/${arch}" failonerror="true">
 			<arg value="-I${cpp.include}" />
 			<arg value="-I${sfml.include}" />
 			<arg value="-I${env.JAVA_HOME}/include" />
@@ -184,23 +185,27 @@
 			<arg value="-fPIC" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
 			<arg line="${cpp.src.files}" />
-			<arg value="-Wl,-no-undefined,-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system" />
+			<arg value="-Wl,-no-undefined,-L${sfml.bin}/${arch},-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system" />
 		</exec>
+
+		<copy todir="${cpp.out}/${arch}">
+			<fileset dir="${sfml.bin}/${arch}" includes="*.so" />
+		</copy>
 		
 		<checksum>
 			<fileset dir="${cpp.out}/${arch}" includes="*.so" />
 		</checksum>
 	</target>
 	
-	<!-- Compile C++ for Linux 32 -->
-	<target name="linux32" description="Build the C++ sources for Linux 32 bit.">
-		<property name="arch" value="linux_x86" />
+	<!-- Compile C++ for Debian 32 -->
+	<target name="debian32" description="Build the C++ sources for Debian 32 bit.">
+		<property name="arch" value="linux_x86/debian" />
 		<ant target="linux.build" />
 	</target>
 	
-	<!-- Compile C++ for Linux 64 -->
-	<target name="linux64" description="Build the C++ sources for Linux 64 bit.">
-		<property name="arch" value="linux_x64" />
+	<!-- Compile C++ for Debian 64 -->
+	<target name="debian64" description="Build the C++ sources for Debian 64 bit.">
+		<property name="arch" value="linux_x64/debian" />
 		<ant target="linux.build" />
 	</target>
 	

@@ -105,85 +105,83 @@ public final class SFMLNative {
             loaded = true;
 
             //Get operating system information
-            String osName = System.getProperty("os.name");
-            String osArch = System.getProperty("os.arch");
+            final String osName = System.getProperty("os.name");
+            final String osArch = System.getProperty("os.arch");
 
-            LinkedList<String> nativeLibs = new LinkedList<String>();
+            String arch = null;
 
-            //Determine which native libraries to load
-            boolean linux = false;
+            final LinkedList<String> nativeLibs = new LinkedList<String>();
 
             if (osName.contains(OS_NAME_WINDOWS)) {
                 if (osArch.equals("x86")) {
-                    nativeLibs.add("windows_x86/libsndfile-1.dll");
-                    nativeLibs.add("windows_x86/openal32.dll");
-                    nativeLibs.add("windows_x86/sfml-system-2.dll");
-                    nativeLibs.add("windows_x86/sfml-window-2.dll");
-                    nativeLibs.add("windows_x86/sfml-audio-2.dll");
-                    nativeLibs.add("windows_x86/sfml-graphics-2.dll");
-                    nativeLibs.add("windows_x86/jsfml.dll");
+                    arch = "windows_x86";
                 } else if (osArch.equals("amd64")) {
-                    nativeLibs.add("windows_x64/libsndfile-1.dll");
-                    nativeLibs.add("windows_x64/openal32.dll");
-                    nativeLibs.add("windows_x64/sfml-system-2.dll");
-                    nativeLibs.add("windows_x64/sfml-window-2.dll");
-                    nativeLibs.add("windows_x64/sfml-audio-2.dll");
-                    nativeLibs.add("windows_x64/sfml-graphics-2.dll");
-                    nativeLibs.add("windows_x64/jsfml.dll");
+                    arch = "windows_x64";
                 }
+
+                nativeLibs.add("libsndfile-1.dll");
+                nativeLibs.add("openal32.dll");
+                nativeLibs.add("sfml-system-2.dll");
+                nativeLibs.add("sfml-window-2.dll");
+                nativeLibs.add("sfml-audio-2.dll");
+                nativeLibs.add("sfml-graphics-2.dll");
+                nativeLibs.add("jsfml.dll");
             } else if (osName.contains(OS_NAME_LINUX)) {
-                linux = true;
                 if (osArch.equals("x86") || osArch.equals("i386")) {
-                    nativeLibs.add("linux_x86/libjsfml.so");
+                    arch = "linux_x86";
                 } else if (osArch.equals("amd64")) {
-                    nativeLibs.add("linux_x64/libjsfml.so");
+                    arch = "linux_x64";
+                }
+
+                if (new File("/etc/debian_version").isFile()) {
+                    //Debian based
+                    arch += "/debian";
+                    nativeLibs.add("libsfml-system.so");
+                    nativeLibs.add("libsfml-window.so");
+                    nativeLibs.add("libsfml-graphics.so");
+                    nativeLibs.add("libsfml-audio.so");
+                    nativeLibs.add("libjsfml.so");
+                } else {
+                    //TODO find a generic linux solution
                 }
             } else if (osName.contains(OS_NAME_MACOSX)) {
-                nativeLibs.add("macosx_universal/libfreetype.dylib");
-                nativeLibs.add("macosx_universal/libsndfile.dylib");
-                nativeLibs.add("macosx_universal/libsfml-system.dylib");
-                nativeLibs.add("macosx_universal/libsfml-window.dylib");
-                nativeLibs.add("macosx_universal/libsfml-graphics.dylib");
-                nativeLibs.add("macosx_universal/libsfml-audio.dylib");
-                nativeLibs.add("macosx_universal/libjsfml.jnilib");
+                arch = "macosx_universal";
+
+                nativeLibs.add("libfreetype.dylib");
+                nativeLibs.add("libsndfile.dylib");
+                nativeLibs.add("libsfml-system.dylib");
+                nativeLibs.add("libsfml-window.dylib");
+                nativeLibs.add("libsfml-graphics.dylib");
+                nativeLibs.add("libsfml-audio.dylib");
+                nativeLibs.add("libjsfml.jnilib");
             }
 
-            //Check if the current operating system is supported
-            if (nativeLibs.size() == 0) {
-                throw new UnsupportedOperationException("Unsupported operating system: " + osName + " " + osArch);
+            //Check if the current platform is supported
+            if (arch == null) {
+                throw new JSFMLError("Unsupported platform: " + osName + " " + osArch);
             }
 
-            //On Linux, try and load SFML first. We assume it is installed on the system.
-            if (linux) {
-                try {
-                    System.loadLibrary("sfml-system");
-                    System.loadLibrary("sfml-window");
-                    System.loadLibrary("sfml-graphics");
-                    System.loadLibrary("sfml-audio");
-                } catch (UnsatisfiedLinkError error) {
-                    throw new JSFMLError("Failed to load SFML. Please make sure that " +
-                            "SFML 2.0 or higher is installed and that the LD_LIBRARY_PATH " +
-                            "variable is set correctly. See http://jsfml.org/ for more " +
-                            "information", error);
-                }
-            }
+            //Extract native libraries
+            final String nativeResourcePath = JSFML_BIN_RESOURCE_PATH + arch + "/";
+            final File nativeLibPath = new File(JSFML_USER_HOME, arch);
 
-            //Locate native libraries
             for (String lib : nativeLibs) {
-                File libFile = new File(JSFML_USER_HOME, lib);
+                File libFile = new File(nativeLibPath, lib);
+                libFile.getParentFile().mkdirs();
 
                 //Check MD5 hash, don't extract if not necessary
-                boolean md5Equal = libFile.exists();
+                boolean md5Equal = false;
 
                 String md5FileName = lib + MD5_EXT;
                 InputStream md5InputStream =
-                        SFMLNative.class.getResourceAsStream(JSFML_BIN_RESOURCE_PATH + md5FileName);
+                        SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName);
 
                 if (md5InputStream != null) {
                     try {
                         String md5Jar = readMD5File(md5InputStream);
 
-                        File md5File = new File(JSFML_USER_HOME, md5FileName);
+                        File md5File = new File(nativeLibPath, md5FileName);
+
                         if (md5File.exists()) {
                             md5Equal = readMD5File(md5File).equals(md5Jar);
                         }
@@ -204,12 +202,11 @@ public final class SFMLNative {
 
                 if (!md5Equal) {
                     InputStream inputStream =
-                            SFMLNative.class.getResourceAsStream(JSFML_BIN_RESOURCE_PATH + lib);
+                            SFMLNative.class.getResourceAsStream(nativeResourcePath + lib);
 
                     if (inputStream != null) {
-                        libFile.getParentFile().mkdirs();
-
                         try {
+                            //System.out.println("Extracting: " + libFile);
                             StreamUtil.streamToFile(inputStream, libFile);
                         } catch (IOException ex) {
                             throw new JSFMLError(
@@ -217,24 +214,18 @@ public final class SFMLNative {
                         }
                     } else {
                         throw new JSFMLError(
-                                "Could not find native library in the classpath: " + lib);
+                                "Could not find native library in the classpath: " + nativeResourcePath + lib);
                     }
                 } else {
                     //no need to extract
                 }
             }
 
-            //Load JSFML libraries
-            for (String lib : nativeLibs) {
-                final File libFile = new File(JSFML_USER_HOME, lib);
-                if (libFile.isFile()) {
-                    System.load(libFile.getAbsolutePath());
-                } else {
-                    throw new JSFMLError("Native library file does not exist: " + libFile.getAbsolutePath());
-                }
-            }
+            //On Linux, add SFML's default install path as a fallback
+            for (String lib : nativeLibs)
+                System.load(new File(nativeLibPath, lib).getAbsolutePath());
 
-            //Initialize native library
+            //Initialize
             nativeInit();
         }
     }
