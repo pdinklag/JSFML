@@ -457,25 +457,10 @@ public :
     /// window.setActive();
     /// shader.bind();
     /// ... render OpenGL geometry ...
-    /// shader.unbind();
     /// \endcode
-    ///
-    /// \see unbind
     ///
     ////////////////////////////////////////////////////////////
     void bind() const;
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Unbind the shader (deactivate it)
-    ///
-    /// This function is normally for internal use only, unless
-    /// you want to use the shader with a custom OpenGL rendering
-    /// instead of a SFML drawable.
-    ///
-    /// \see bind
-    ///
-    ////////////////////////////////////////////////////////////
-    void unbind() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Tell whether or not the system supports shaders
@@ -547,7 +532,7 @@ private :
 ///
 /// A sf::Shader can be composed of either a vertex shader
 /// alone, a fragment shader alone, or both combined
-/// (see the variants of the Load functions).
+/// (see the variants of the load functions).
 ///
 /// Shaders are written in GLSL, which is a C-like
 /// language dedicated to OpenGL shaders. You'll probably
@@ -556,17 +541,19 @@ private :
 ///
 /// Like any C/C++ program, a shader has its own variables
 /// that you can set from your C++ application. sf::Shader
-/// handles 4 different types of variables:
+/// handles 5 different types of variables:
 /// \li floats
 /// \li vectors (2, 3 or 4 components)
+/// \li colors
 /// \li textures
 /// \li transforms (matrices)
 ///
 /// The value of the variables can be changed at any time
-/// with either the various overloads of the setParameter function:
+/// with the various overloads of the setParameter function:
 /// \code
 /// shader.setParameter("offset", 2.f);
-/// shader.setParameter("color", 0.5f, 0.8f, 0.3f);
+/// shader.setParameter("point", 0.5f, 0.8f, 0.3f);
+/// shader.setParameter("color", sf::Color(128, 50, 255));
 /// shader.setParameter("matrix", transform); // transform is a sf::Transform
 /// shader.setParameter("overlay", texture); // texture is a sf::Texture
 /// shader.setParameter("texture", sf::Shader::CurrentTexture);

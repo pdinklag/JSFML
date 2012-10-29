@@ -7,9 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: debug */
-/* Inaccessible static: numManaged */
-/* Inaccessible static: numWrapped */
 #undef org_jsfml_graphics_Text_REGULAR
 #define org_jsfml_graphics_Text_REGULAR 0L
 #undef org_jsfml_graphics_Text_BOLD

@@ -20,9 +20,4 @@ public interface ConstShader extends Const {
      * Activates the shader for rendering.
      */
     public void bind();
-
-    /**
-     * Deactivates the shader for rendering.
-     */
-    public void unbind();
 }

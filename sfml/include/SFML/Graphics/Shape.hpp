@@ -107,7 +107,6 @@ public :
     ////////////////////////////////////////////////////////////
     /// \brief Set the outline color of the shape
     ///
-    /// You can use sf::Color::Transparent to disable the outline.
     /// By default, the shape's outline color is opaque white.
     ///
     /// \param color New outline color of the shape
@@ -201,7 +200,7 @@ public :
     ///
     /// The result is undefined if \a index is out of the valid range.
     ///
-    /// \param index Index of the point to get, in range [0 .. GetPointCount() - 1]
+    /// \param index Index of the point to get, in range [0 .. getPointCount() - 1]
     ///
     /// \return Index-th point of the shape
     ///

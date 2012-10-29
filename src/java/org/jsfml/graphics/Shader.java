@@ -327,7 +327,4 @@ public class Shader extends SFMLNativeObject implements ConstShader {
 
     @Override
     public native void bind();
-
-    @Override
-    public native void unbind();
 }
