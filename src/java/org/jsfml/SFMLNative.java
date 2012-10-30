@@ -133,17 +133,11 @@ public final class SFMLNative {
                     arch = "linux_x64";
                 }
 
-                if (new File("/etc/debian_version").isFile()) {
-                    //Debian based
-                    arch += "/debian";
-                    nativeLibs.add("libsfml-system.so");
-                    nativeLibs.add("libsfml-window.so");
-                    nativeLibs.add("libsfml-graphics.so");
-                    nativeLibs.add("libsfml-audio.so");
-                    nativeLibs.add("libjsfml.so");
-                } else {
-                    //TODO find a generic linux solution
-                }
+				nativeLibs.add("libsfml-system.so");
+				nativeLibs.add("libsfml-window.so");
+				nativeLibs.add("libsfml-graphics.so");
+				nativeLibs.add("libsfml-audio.so");
+				nativeLibs.add("libjsfml.so");
             } else if (osName.contains(OS_NAME_MACOSX)) {
                 arch = "macosx_universal";
 

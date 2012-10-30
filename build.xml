@@ -197,15 +197,15 @@
 		</checksum>
 	</target>
 	
-	<!-- Compile C++ for Debian 32 -->
-	<target name="debian32" description="Build the C++ sources for Debian 32 bit.">
-		<property name="arch" value="linux_x86/debian" />
+	<!-- Compile C++ for Linux 32 -->
+	<target name="linux32" description="Build the C++ sources for Linux 32 bit.">
+		<property name="arch" value="linux_x86" />
 		<ant target="linux.build" />
 	</target>
 	
-	<!-- Compile C++ for Debian 64 -->
-	<target name="debian64" description="Build the C++ sources for Debian 64 bit.">
-		<property name="arch" value="linux_x64/debian" />
+	<!-- Compile C++ for Linux 64 -->
+	<target name="linux64" description="Build the C++ sources for Linux 64 bit.">
+		<property name="arch" value="linux_x64" />
 		<ant target="linux.build" />
 	</target>
 	
