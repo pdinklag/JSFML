@@ -5,11 +5,10 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for 3-dimensional floating point vectors.
+ * Utility class for 3-dimensional integer vectors.
  */
-@Intercom
-public final class Vector3f implements Serializable {
-	private static final long serialVersionUID = -2176250005619169432L;
+public final class Vector3i implements Serializable {
+	private static final long serialVersionUID = -2260992069088589367L;
 
 	/**
 	 * Adds two vectors.
@@ -18,8 +17,8 @@ public final class Vector3f implements Serializable {
 	 * @param b The right vector.
 	 * @return A new vector, representing the sum of the two vectors.
 	 */
-	public static Vector3f add(Vector3f a, Vector3f b) {
-		return new Vector3f(
+	public static Vector3i add(Vector3i a, Vector3i b) {
+		return new Vector3i(
 				a.x + b.x,
 				a.y + b.y,
 				a.z + b.z);
@@ -32,8 +31,8 @@ public final class Vector3f implements Serializable {
 	 * @param b The right vector.
 	 * @return A new vector, representing the difference between the two vectors.
 	 */
-	public static Vector3f sub(Vector3f a, Vector3f b) {
-		return new Vector3f(
+	public static Vector3i sub(Vector3i a, Vector3i b) {
+		return new Vector3i(
 				a.x - b.x,
 				a.y - b.y,
 				a.z - b.z);
@@ -46,22 +45,22 @@ public final class Vector3f implements Serializable {
 	 * @param b The right vector.
 	 * @return A new vector, representing the "product" of the two vectors.
 	 */
-	public static Vector3f componentwiseMul(Vector3f a, Vector3f b) {
-		return new Vector3f(
+	public static Vector3i componentwiseMul(Vector3i a, Vector3i b) {
+		return new Vector3i(
 				a.x * b.x,
 				a.y * b.y,
 				a.z * b.z);
 	}
 
 	/**
-	 * Performs a component-wise division of two vectors.
+	 * Performs a component-wise integer division of two vectors.
 	 *
 	 * @param a The left vector.
 	 * @param b The right vector.
 	 * @return A new vector, representing the "quotient" of the two vectors.
 	 */
-	public static Vector3f componentwiseDiv(Vector3f a, Vector3f b) {
-		return new Vector3f(
+	public static Vector3i componentwiseDiv(Vector3i a, Vector3i b) {
+		return new Vector3i(
 				a.x / b.x,
 				a.y / b.y,
 				a.z / b.z);
@@ -74,22 +73,22 @@ public final class Vector3f implements Serializable {
 	 * @param s The scalar.
 	 * @return A new vector, representing the scaled vector.
 	 */
-	public static Vector3f mul(Vector3f a, float s) {
-		return new Vector3f(
+	public static Vector3i mul(Vector3i a, int s) {
+		return new Vector3i(
 				a.x * s,
 				a.y * s,
 				a.z * s);
 	}
 
 	/**
-	 * Multiplies a vector by the inverse of a scalar.
+	 * Performs an integer division on each component of the vector by a scalar.
 	 *
 	 * @param a The vector.
 	 * @param s The scalar.
 	 * @return A new vector, representing the scaled vector.
 	 */
-	public static Vector3f div(Vector3f a, float s) {
-		return new Vector3f(
+	public static Vector3i div(Vector3i a, int s) {
+		return new Vector3i(
 				a.x / s,
 				a.y / s,
 				a.z / s);
@@ -101,32 +100,32 @@ public final class Vector3f implements Serializable {
 	 * @param v The vector.
 	 * @return A new vector, representing the negative of the given vector.
 	 */
-	public static Vector3f neg(Vector3f v) {
-		return new Vector3f(-v.x, -v.y, -v.z);
+	public static Vector3i neg(Vector3i v) {
+		return new Vector3i(-v.x, -v.y, -v.z);
 	}
 
 	/**
 	 * The vector's X coordinate.
 	 */
 	@Intercom
-	public final float x;
+	public final int x;
 
 	/**
 	 * The vector's Y coordinate.
 	 */
 	@Intercom
-	public final float y;
+	public final int y;
 
 	/**
 	 * The vector's Z coordinate.
 	 */
 	@Intercom
-	public final float z;
+	public final int z;
 
 	/**
 	 * Creates a new 3D vector.
 	 */
-	public Vector3f() {
+	public Vector3i() {
 		this(0, 0, 0);
 	}
 
@@ -135,21 +134,20 @@ public final class Vector3f implements Serializable {
 	 *
 	 * @param v The vector to copy.
 	 */
-	public Vector3f(Vector3f v) {
+	public Vector3i(Vector3i v) {
 		this.x = v.x;
 		this.y = v.y;
 		this.z = v.z;
 	}
 
 	/**
-	 * Creates a new 3D vector from an integer vector.
-	 * <p/>
-	 * The fractions of the x, y and z components will be zero.
+	 * Creates a new 3D vector from a floating point vector.
+	 * The fractions of the x, y and z components will be removed in the process.
 	 *
 	 * @param v The vector to convert.
 	 */
-	public Vector3f(Vector3i v) {
-		this((float) v.x, (float) v.y, (float) v.z);
+	public Vector3i(Vector3f v) {
+		this((int) v.x, (int) v.y, (int) v.z);
 	}
 
 	/**
@@ -160,7 +158,7 @@ public final class Vector3f implements Serializable {
 	 * @param z The Z coordinate.
 	 */
 	@Intercom
-	public Vector3f(float x, float y, float z) {
+	public Vector3i(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -174,9 +172,9 @@ public final class Vector3f implements Serializable {
 
 	@Override
 	public int hashCode() {
-		int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
-		result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
-		result = 31 * result + (z != +0.0f ? Float.floatToIntBits(z) : 0);
+		int result = x;
+		result = 31 * result + y;
+		result = 31 * result + z;
 		return result;
 	}
 
