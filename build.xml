@@ -302,13 +302,33 @@
 			<fileset dir="${java.out}" includes="**/*.class" />
 			<fileset dir="${jsfml.out}" includes="**/*.dll **/*.so* **/*.jnilib **/*.dylib **/*.MD5" />
 			<manifest>
-				<attribute name="Sealed" value="true" />
-				<attribute name="Specification-Title" value="JSFML" />
-				<attribute name="Specification-Version" value="0" />
-				<attribute name="Specification-Vendor" value="pdinklag" />
-				<attribute name="Implementation-Title" value="org.sfml" />
-				<attribute name="Implementation-Version" value="0" />
-				<attribute name="Implementation-Vendor" value="pdinklag" />
+				<attribute name="Built-By" value="${user.name}"/>
+				<section name="common">
+					<attribute name="Specification-Title" value="JSFML" />
+					<attribute name="Specification-Version" value="1.0" />
+					<attribute name="Specification-Vendor" value="Patrick Dinklage" />
+					<attribute name="Implementation-Title" value="org.jsfml" />
+					<attribute name="Implementation-Version" value="pre-RC" />
+					<attribute name="Implementation-Vendor" value="Patrick Dinklage" />
+				</section>
+				<section name="org/jsfml/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/audio/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/graphics/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/system/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/window/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/window/event/">
+					<attribute name="Sealed" value="true"/>
+				</section>
 			</manifest>
 		</jar>
 	</target>
