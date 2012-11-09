@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Utility class for 3-dimensional floating point vectors.
  */
 @Intercom
-public final class Vector3f implements Serializable {
+public final strictfp class Vector3f implements Serializable {
 	private static final long serialVersionUID = -2176250005619169432L;
 
 	/**
