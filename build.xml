@@ -50,9 +50,6 @@
 			<class name="${jsfml.package}.ExPtr" />
 			<class name="${jsfml.package}.SFMLNative" />
 			
-			<!-- system -->
-			<class name="${jsfml.package}.system.Clock" />
-			
 			<!-- window -->
 			<class name="${jsfml.package}.window.Context" />
 			<class name="${jsfml.package}.window.Joystick" />
