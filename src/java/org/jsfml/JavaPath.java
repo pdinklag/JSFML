@@ -2,7 +2,6 @@ package org.jsfml;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.Arrays;
  
 /**
  * Utility class for java library path operations.
@@ -20,9 +19,8 @@ final class JavaPath {
     public static File getJreLibPath() throws Exception {
         final Field sysPathsField = ClassLoader.class.getDeclaredField("sys_paths");
         sysPathsField.setAccessible(true);
- 
-        File jreLibPath = new File(((String[]) sysPathsField.get(null))[0]);
-        return jreLibPath;
+
+		return new File(((String[]) sysPathsField.get(null))[0]);
     }
  
     /**
@@ -45,7 +43,6 @@ final class JavaPath {
         newUsrPaths[newUsrPaths.length - 1] = path;
  
         usrPathsField.set(null, newUsrPaths);
-        System.out.println("usr_paths: " + Arrays.toString(newUsrPaths));
     }
  
     private JavaPath() {
