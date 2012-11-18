@@ -103,6 +103,14 @@ public final class SFMLNative {
     public static void loadNativeLibraries() {
         if (!loaded) {
             loaded = true;
+            
+            //Force load class "java.awt.Component"
+            //This way, the AWT libraries will be loaded by the correct class loader
+            try {
+                Class.forName("java.awt.Component");
+            } catch (ClassNotFoundException ex) {
+                throw new JSFMLError("", ex);
+            }
 
             //Get operating system information
             final String osName = System.getProperty("os.name");
@@ -126,14 +134,6 @@ public final class SFMLNative {
                 nativeLibs.add("sfml-audio-2.dll");
                 nativeLibs.add("sfml-graphics-2.dll");
                 nativeLibs.add("jsfml.dll");
-
-                //Force load class "java.awt.Component"
-                //This way, awt.dll will be loaded in the correct class loader
-                try {
-                    Class.forName("java.awt.Component");
-                } catch (ClassNotFoundException ex) {
-                    throw new JSFMLError("", ex);
-                }
 
                 //try and load awt.dll
                 try {
@@ -164,6 +164,23 @@ public final class SFMLNative {
 				nativeLibs.add("libsfml-graphics.so");
 				nativeLibs.add("libsfml-audio.so");
 				nativeLibs.add("libjsfml.so");
+				
+				//Add "xawt" lib dir to java.library.path
+                try {
+                    final File jreLibPath = JavaPath.getJreLibPath();
+                    JavaPath.addLibraryPath(new File(jreLibPath, "xawt").getAbsolutePath());
+                } catch(Exception ex) {
+                    throw new JSFMLError("Failed to add xawt lib path to the native library path", ex);
+                }
+                
+                //try and load libmawt
+                try {
+                    System.loadLibrary("mawt");
+                 } catch (UnsatisfiedLinkError err) {
+                    //it might have already been loaded
+                    if (!err.getMessage().contains("already loaded"))
+                        throw err;
+                }
             } else if (osName.contains(OS_NAME_MACOSX)) {
                 arch = "macosx_universal";
 
@@ -241,7 +258,7 @@ public final class SFMLNative {
                 }
             }
 
-            //On Linux, add SFML's default install path as a fallback
+            //Load native libraries
             for (String lib : nativeLibs)
                 System.load(new File(nativeLibPath, lib).getAbsolutePath());
 
