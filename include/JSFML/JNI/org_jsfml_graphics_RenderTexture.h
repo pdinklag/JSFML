@@ -7,9 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: debug */
-/* Inaccessible static: numManaged */
-/* Inaccessible static: numWrapped */
 /*
  * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeCreate

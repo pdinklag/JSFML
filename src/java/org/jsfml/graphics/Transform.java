@@ -38,7 +38,7 @@ import java.util.Arrays;
  * Defines a 3x3 transformation matrix for 2D transformations.
  */
 @Intercom
-public final class Transform implements Serializable {
+public final strictfp class Transform implements Serializable {
     private static final long serialVersionUID = 3796964163848107663L;
 
     /**

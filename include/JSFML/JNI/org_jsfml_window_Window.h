@@ -7,9 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: debug */
-/* Inaccessible static: numManaged */
-/* Inaccessible static: numWrapped */
 #undef org_jsfml_window_Window_NONE
 #define org_jsfml_window_Window_NONE 0L
 #undef org_jsfml_window_Window_TITLEBAR

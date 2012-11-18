@@ -7,9 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: debug */
-/* Inaccessible static: numManaged */
-/* Inaccessible static: numWrapped */
 /* Inaccessible static: CURRENT_TEXTURE */
 /*
  * Class:     org_jsfml_graphics_Shader
@@ -113,14 +110,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentT
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shader
- * Method:    unbind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_unbind
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

@@ -152,12 +152,3 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentT
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind (JNIEnv *env, jobject obj) {
     THIS(sf::Shader)->bind();
 }
-
-/*
- * Class:     org_jsfml_graphics_Shader
- * Method:    unbind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_unbind (JNIEnv *env, jobject obj) {
-    THIS(sf::Shader)->unbind();
-}

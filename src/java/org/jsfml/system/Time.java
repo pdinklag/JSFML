@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Utility class for the representation of time values.
  */
 @Intercom
-public final class Time implements Comparable<Time>, Serializable {
+public final strictfp class Time implements Comparable<Time>, Serializable {
     private static final long serialVersionUID = 7038088548302750096L;
 
     /**

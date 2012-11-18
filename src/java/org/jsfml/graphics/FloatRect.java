@@ -37,7 +37,7 @@ import java.io.Serializable;
  * Utility class for manipulating 2D axis aligned rectangles.
  */
 @Intercom
-public final class FloatRect implements Serializable {
+public final strictfp class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
     /**
