@@ -6,7 +6,6 @@
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>

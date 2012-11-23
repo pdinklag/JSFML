@@ -5,7 +5,6 @@
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vector2i.hpp>
 #include <JSFML/Intercom/Vector2u.hpp>
@@ -60,11 +59,15 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeDelete (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_window_VideoMode_2Ljava_lang_String_2ILorg_jsfml_window_ContextSettings_2
     (JNIEnv *env, jobject obj, jobject videoMode, jstring title, jint style, jobject settings) {
 
+	const char *utf8 = env->GetStringUTFChars(title, NULL);
+
     SF_WINDOW->create(
         JSFML::VideoMode::ToSFML(env, videoMode),
-        std::string(JavaString::getUTF8(env, title)),
+        std::string(utf8),
         (sf::Uint32)style,
         JSFML::ContextSettings::ToSFML(env, settings));
+
+    env->ReleaseStringUTFChars(title, utf8);
 }
 
 /*
@@ -203,7 +206,9 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_setMouseCursorVisible (JNIEn
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetTitle (JNIEnv *env, jobject obj, jstring title) {
-    SF_WINDOW->setTitle(std::string(JavaString::getUTF8(env, title)));
+	const char *utf8 = env->GetStringUTFChars(title, NULL);
+	SF_WINDOW->setTitle(std::string(utf8));
+	env->ReleaseStringUTFChars(title, utf8);
 }
 
 /*
@@ -234,7 +239,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetIcon
 
     sf::Image* icon = JSFML::NativeObject::GetPointer<sf::Image>(env, jicon);
 	sf::Vector2u iconSize = icon->getSize();
-	
+
     SF_WINDOW->setIcon(
         iconSize.x,
         iconSize.y,

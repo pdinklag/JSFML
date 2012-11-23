@@ -2,7 +2,6 @@
 
 #include <JSFML/Intercom/Color.hpp>
 #include <JSFML/Intercom/IntRect.hpp>
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector2u.hpp>
 
@@ -58,7 +57,12 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeLoadFromMemory (J
  * Signature: (Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile (JNIEnv *env, jobject obj, jstring fileName) {
-    return THIS(sf::Image)->saveToFile(std::string(JavaString::getUTF8(env, fileName)));
+	const char *utf8 = env->GetStringUTFChars(fileName, NULL);
+
+    jboolean result = THIS(sf::Image)->saveToFile(std::string(utf8));
+	env->ReleaseStringUTFChars(fileName, utf8);
+
+    return result;
 }
 
 /*

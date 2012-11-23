@@ -1,6 +1,5 @@
 #include <JSFML/JNI/org_jsfml_audio_Music.h>
 
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Time.hpp>
 
@@ -47,7 +46,12 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeDelete (JNIEnv *env, job
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromFile
     (JNIEnv *env, jobject obj, jstring fileName) {
 
-    return THIS(sf::Music)->openFromFile(std::string(JavaString::getUTF8(env, fileName)));
+	const char *utf8 = env->GetStringUTFChars(fileName, NULL);
+
+    jboolean result = THIS(sf::Music)->openFromFile(std::string(utf8));
+	env->ReleaseStringUTFChars(fileName, utf8);
+
+    return result;
 }
 
 /*
