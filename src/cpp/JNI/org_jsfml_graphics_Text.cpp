@@ -49,7 +49,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeDelete (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
     (JNIEnv *env, jobject obj, jstring str) {
 
-	jsize len = env->GetStringUTFLength(str);
+	jsize len = env->GetStringLength(str);
 	if(len > 0) {
 		wchar_t *buffer = new wchar_t[len + 1];
 
@@ -72,7 +72,8 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
 
 		delete[] buffer;
 	} else {
-		THIS(sf::Text)->setString(sf::String(""));
+		sf::String str("");
+		THIS(sf::Text)->setString(sf::String(str));
 	}
 }
 
