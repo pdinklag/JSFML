@@ -72,8 +72,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
 
 		delete[] buffer;
 	} else {
-		sf::String str("");
-		THIS(sf::Text)->setString(sf::String(str));
+                THIS(sf::Text)->setString(std::string(""));
 	}
 }
 
