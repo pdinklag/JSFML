@@ -1,5 +1,6 @@
 package org.jsfml.window;
 
+import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 
 /**
@@ -121,13 +122,21 @@ public final class Keyboard {
         PAUSE
     }
 
+	private static native boolean nativeIsKeyPressed(Key key);
+
     /**
      * Checks if a certain key is currently pressed on the keyboard.
      *
      * @param key The key in question.
      * @return <tt>true</tt> if the key is currently being pressed, <tt>false</tt> otherwise.
      */
-    public static native boolean isKeyPressed(Key key);
+    public static boolean isKeyPressed(@NotNull Key key) {
+		if(key == null) {
+			throw new NullPointerException("key must not be null");
+		}
+
+		return nativeIsKeyPressed(key);
+	}
 
     //cannot instantiate
     private Keyboard() {

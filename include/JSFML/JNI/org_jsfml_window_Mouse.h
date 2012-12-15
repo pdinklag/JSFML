@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    isButtonPressed
+ * Method:    nativeIsButtonPressed
  * Signature: (Lorg/jsfml/window/Mouse$Button;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_isButtonPressed
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed
   (JNIEnv *, jclass, jobject);
 
 /*
