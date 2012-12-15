@@ -22,7 +22,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
         super();
     }
 
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
     SoundBuffer(long wrap) {
         super(wrap);
     }
@@ -32,20 +32,26 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      *
      * @param other The sound buffer to copy.
      */
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
     public SoundBuffer(ConstSoundBuffer other) {
         super(((SoundBuffer) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native long nativeCopy();

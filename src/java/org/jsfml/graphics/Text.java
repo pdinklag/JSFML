@@ -64,12 +64,18 @@ public class Text extends SFMLNativeTransformable implements Drawable {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native void nativeSetString(String string);
@@ -144,7 +150,7 @@ public class Text extends SFMLNativeTransformable implements Drawable {
     /**
      * Gets the text's current font.
      *
-     * @return The text's current font. This may be <tt>null</tt> if no font has been set yet.
+     * @return The text's current font. This may be {@code null} if no font has been set yet.
      */
     public ConstFont getFont() {
         return font;

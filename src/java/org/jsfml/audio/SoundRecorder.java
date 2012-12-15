@@ -14,7 +14,7 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     /**
      * Checks whether audio capturing is available on this system.
      *
-     * @return <tt>true</tt> if audio capturing is available, <tt>false</tt> otherwise.
+     * @return {@code true} if audio capturing is available, {@code false} otherwise.
      */
     public static native boolean isAvailable();
 

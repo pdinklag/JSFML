@@ -21,8 +21,8 @@ public interface ConstFont extends Const {
      *
      * @param unicode       The unicode (UTF-32) of the character to retrieve the glyph for.
      * @param characterSize The character size in question.
-     * @param bold          <tt>true</tt> if the bold glyph version should be returned,
-     *                      <tt>false</tt> for the regular version.
+     * @param bold          {@code true} if the bold glyph version should be returned,
+     *                      {@code false} for the regular version.
      * @return The {@link Glyph} representing the given unicode character.
      */
     public Glyph getGlyph(int unicode, int characterSize, boolean bold);

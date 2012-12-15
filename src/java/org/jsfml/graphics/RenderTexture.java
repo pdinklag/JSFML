@@ -28,12 +28,18 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 	}
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native long nativeCreate();
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native void nativeSetExPtr();
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native void nativeDelete();
 
 	private native boolean nativeCreate(int width, int height, boolean depthBuffer);
@@ -43,7 +49,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 	 *
 	 * @param width       The texture's width.
 	 * @param height      The texture's height.
-	 * @param depthBuffer <tt>true</tt> to generate a depth buffer, <tt>false</tt> otherwise.
+	 * @param depthBuffer {@code true} to generate a depth buffer, {@code false} otherwise.
 	 *                    Use this only in case you wish to do 3D rendering to this texture.
 	 */
 	public void create(int width, int height, boolean depthBuffer) {
@@ -64,21 +70,21 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 	/**
 	 * Enables or disables textures smoothing.
 	 *
-	 * @param smooth <tt>true</tt> to enable, <tt>false</tt> to disable.
+	 * @param smooth {@code true} to enable, {@code false} to disable.
 	 */
 	public native void setSmooth(boolean smooth);
 
 	/**
 	 * Checks whether texture smoothing is enabled.
 	 *
-	 * @return <tt>true</tt> if enabled, <tt>false</tt> if not.
+	 * @return {@code true} if enabled, {@code false} if not.
 	 */
 	public native boolean isSmooth();
 
 	/**
 	 * Activates or deactivates the render texture for rendering.
 	 *
-	 * @param active <tt>true</tt> to activate, <tt>false</tt> to deactivate.
+	 * @param active {@code true} to activate, {@code false} to deactivate.
 	 */
 	public native void setActive(boolean active);
 

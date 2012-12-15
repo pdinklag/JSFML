@@ -19,12 +19,18 @@ public class Music extends SoundStream {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeOpenFromFile(String fileName);

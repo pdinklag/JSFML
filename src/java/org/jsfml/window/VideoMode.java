@@ -66,7 +66,7 @@ public final class VideoMode implements Serializable {
     /**
      * Checks whether this display mode is a valid (supported) fullscreen mode.
      *
-     * @return <tt>true</tt> if this video mode is a valid fullscreen mode, <tt>false</tt> otherwise.
+     * @return {@code true} if this video mode is a valid fullscreen mode, {@code false} otherwise.
      */
     public boolean isValid() {
         VideoMode[] validModes = getFullscreenModes();

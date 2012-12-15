@@ -40,7 +40,7 @@ public final class Joystick {
      * Checks if a joystick is connected.
      *
      * @param joystick The index of the joystick to check.
-     * @return <tt>true</tt> if the joystick is connected, <tt>false</tt> otherwise.
+     * @return {@code true} if the joystick is connected, {@code false} otherwise.
      */
     public static boolean isConnected(int joystick) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -71,7 +71,7 @@ public final class Joystick {
      *
      * @param joystick The index of the joystick in question.
      * @param axis     The axis in question.
-     * @return <tt>true</tt> if the joystick supports the given axis, <tt>false</tt> otherwise.
+     * @return {@code true} if the joystick supports the given axis, {@code false} otherwise.
      */
     public static boolean hasAxis(int joystick, Axis axis) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -87,7 +87,7 @@ public final class Joystick {
      *
      * @param joystick The index of the joystick in question.
      * @param button   The index of the button on the joystick to check.
-     * @return <tt>true</tt> if the button on the joystick is currently pressed, <tt>false</tt> otherwise.
+     * @return {@code true} if the button on the joystick is currently pressed, {@code false} otherwise.
      */
     public static boolean isButtonPressed(int joystick, int button) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)

@@ -48,14 +48,14 @@ public interface ConstTexture extends Const {
     /**
      * Checks whether the smooth filter is enabled.
      *
-     * @return <tt>true</tt> if enabled, <tt>false</tt> if disabled.
+     * @return {@code true} if enabled, {@code false} if disabled.
      */
     public boolean isSmooth();
 
     /**
      * Checks whether texture repeating is enabled.
      *
-     * @return <tt>true</tt> if enabled, <tt>false</tt> if disabled.
+     * @return {@code true} if enabled, {@code false} if disabled.
      */
     public boolean isRepeated();
 }

@@ -14,22 +14,22 @@ public final class KeyEvent extends Event {
     public final Keyboard.Key key;
 
     /**
-     * <tt>true</tt> if an ALT key was pressed, <tt>false</tt> otherwise.
+     * {@code true} if an ALT key was pressed, {@code false} otherwise.
      */
     public final boolean alt;
 
     /**
-     * <tt>true</tt> if a SHIFT key was pressed, <tt>false</tt> otherwise.
+     * {@code true} if a SHIFT key was pressed, {@code false} otherwise.
      */
     public final boolean shift;
 
     /**
-     * <tt>true</tt> if a CTRL key was pressed, <tt>false</tt> otherwise.
+     * {@code true} if a CTRL key was pressed, {@code false} otherwise.
      */
     public final boolean control;
 
     /**
-     * <tt>true</tt> if a system key was pressed, <tt>false</tt> otherwise.
+     * {@code true} if a system key was pressed, {@code false} otherwise.
      */
     public final boolean system;
 

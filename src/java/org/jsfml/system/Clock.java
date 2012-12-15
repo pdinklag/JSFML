@@ -1,13 +1,13 @@
 package org.jsfml.system;
 
 /**
- * Utility class for measuring time.
+ * Provides functionality for time measurement.
  */
 public final class Clock {
 	private long t0;
 
 	/**
-	 * Creates and starts a new clock.
+	 * Constructs a clock and starts it.
 	 */
 	public Clock() {
 		t0 = System.nanoTime();
@@ -16,7 +16,7 @@ public final class Clock {
 	/**
 	 * Gets the elapsed time since the clock was created or last restarted.
 	 *
-	 * @return The elapsed time since the clock was created or last restarted.
+	 * @return the elapsed time since the clock was created or last restarted.
 	 */
 	public Time getElapsedTime() {
 		long dt = System.nanoTime() - t0;
@@ -24,9 +24,9 @@ public final class Clock {
 	}
 
 	/**
-	 * Yields the elapsed time and restarts the clock at zero.
+	 * Yields the elapsed time and restarts the clock.
 	 *
-	 * @return The elapsed time since the clock was created or last restarted.
+	 * @return the elapsed time since the clock was created or last restarted.
 	 */
 	public Time restart() {
 		Time dt = getElapsedTime();

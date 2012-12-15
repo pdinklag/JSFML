@@ -128,7 +128,7 @@ public final class Keyboard {
      * Checks if a certain key is currently pressed on the keyboard.
      *
      * @param key The key in question.
-     * @return <tt>true</tt> if the key is currently being pressed, <tt>false</tt> otherwise.
+     * @return {@code true} if the key is currently being pressed, {@code false} otherwise.
      */
     public static boolean isKeyPressed(@NotNull Key key) {
 		if(key == null) {

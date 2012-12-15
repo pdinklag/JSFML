@@ -25,12 +25,18 @@ public class RectangleShape extends Shape {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native void nativeSetSize(Vector2f size);

@@ -29,7 +29,7 @@ public final class Mouse {
      * Checks if a mouse button is currently pressed.
      *
      * @param button The button in question.
-     * @return <tt>true</tt> if the button is currently being pressed, <tt>false</tt> otherwise.
+     * @return {@code true} if the button is currently being pressed, {@code false} otherwise.
      */
     public static boolean isButtonPressed(@NotNull Button button) {
 		if (button == null)

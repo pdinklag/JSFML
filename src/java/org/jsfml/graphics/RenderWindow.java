@@ -72,12 +72,18 @@ public class RenderWindow extends Window implements RenderTarget {
 	}
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native long nativeCreate();
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native void nativeSetExPtr();
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	protected native void nativeDelete();
 
 	private native void nativeClear(Color color);

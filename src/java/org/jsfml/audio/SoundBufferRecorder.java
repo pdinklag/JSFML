@@ -15,14 +15,20 @@ public class SoundBufferRecorder extends SoundRecorder {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
         //TODO Make SoundRecorder tree use the ExPtr system.
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native long nativeGetBuffer();

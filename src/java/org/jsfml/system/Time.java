@@ -5,75 +5,76 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for the representation of time values.
+ * Represents a time period and provides functionality to convert between
+ * various time units, as well as arithmetic operations on time intervals.
  */
 @Intercom
 public final strictfp class Time implements Comparable<Time>, Serializable {
     private static final long serialVersionUID = 7038088548302750096L;
 
     /**
-     * A time object that represents a zero time period.
+     * A time object that represents a zero time period, ie with no duration.
      */
     public static final Time ZERO = new Time(0);
 
     /**
-     * Gets a new time with the given value.
+     * Creates a new time with the given value.
      *
-     * @param seconds The time value in seconds.
-     * @return A new time with the given value.
+     * @param seconds the time value, in seconds.
+     * @return a new time with the given value.
      */
     public static Time getSeconds(float seconds) {
         return new Time((long) (seconds * 1000000.0f));
     }
 
     /**
-     * Gets a new time with the given value.
+     * Creates a new time with the given value.
      *
-     * @param milliseconds The time value in milliseconds.
-     * @return A new time with the given value.
+     * @param milliseconds the time value in milliseconds.
+     * @return a new time with the given value.
      */
     public static Time getMilliseconds(long milliseconds) {
         return new Time(milliseconds * 1000);
     }
 
     /**
-     * Gets a new time with the given value.
+     * Creates a new time with the given value.
      *
-     * @param microseconds The time value in microseconds.
-     * @return A new time with the given value.
+     * @param microseconds the time value in microseconds.
+     * @return a new time with the given value.
      */
     public static Time getMicroseconds(long microseconds) {
         return new Time(microseconds);
     }
 
     /**
-     * Adds two times.
+     * Adds two time values.
      *
-     * @param a The left time.
-     * @param b The right time.
-     * @return A new time, representing the sum of the two times.
+     * @param a the first operand.
+     * @param b The second operand.
+     * @return a new time, representing the sum of the two times.
      */
     public static Time add(Time a, Time b) {
         return new Time(a.microseconds + b.microseconds);
     }
 
     /**
-     * Subtracts two times.
+     * Subtracts two time values.
      *
-     * @param a The left time.
-     * @param b The right time.
-     * @return A new time, representing the difference between the two times.
+     * @param a the minuend.
+     * @param b the subtrahend.
+     * @return a new time, representing the difference between the two times.
      */
     public static Time sub(Time a, Time b) {
         return new Time(a.microseconds - b.microseconds);
     }
 
     /**
-     * Scales a time by multiplying it by a scalar.
+     * Scales a time by multiplying its value by a scalar.
      *
-     * @param a The time to scale.
-     * @param s The scalar.
-     * @return A new time, representing the given time scaled by the given factor.
+     * @param a the time to scale.
+     * @param s the scalar.
+     * @return a new time, representing the given time scaled by the given factor.
      */
     public static Time mul(Time a, float s) {
         return new Time((long) (s * (float)a.microseconds));
@@ -82,20 +83,20 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     /**
      * Scales a time by dividing it by a scalar.
      *
-     * @param a The time to scale.
-     * @param s The scalar.
-     * @return A new time, representing the given time scaled by the given factor.
+     * @param a the time to scale.
+     * @param s the scalar.
+     * @return a new time, representing the given time scaled by the given factor.
      */
     public static Time div(Time a, float s) {
         return new Time((long) ((float)a.microseconds / s));
     }
 
     /**
-     * Computes a time's ratio of another time.
+     * Computes a time period's ratio of another time period.
      *
-     * @param a The first time.
-     * @param b The right time.
-     * @return The ratio of the first time to the second time.
+     * @param a The first time period.
+     * @param b The second time period.
+     * @return The ratio of the first time period to the second time period.
      */
     public static float ratio(Time a, Time b) {
         return (float) a.microseconds / (float) b.microseconds;
@@ -104,19 +105,15 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     @Intercom
     private final long microseconds;
 
-    private Time() {
-        this(0);
-    }
-
     @Intercom
     private Time(long microseconds) {
         this.microseconds = microseconds;
     }
 
     /**
-     * Creates a new time from another time.
+     * Constructs a new time by copying another time.
      *
-     * @param time The time to copy.
+     * @param time the time to copy.
      */
     public Time(Time time) {
         this.microseconds = time.microseconds;
@@ -125,7 +122,7 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     /**
      * Returns the time value in seconds.
      *
-     * @return The time value in seconds.
+     * @return the time value in seconds.
      */
     public float asSeconds() {
         return (float) microseconds / 1000000.0f;
@@ -134,7 +131,7 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     /**
      * Returns the time value in milliseconds.
      *
-     * @return The time value in milliseconds.
+     * @return the time value in milliseconds.
      */
     public long asMilliseconds() {
         return microseconds / 1000;
@@ -143,7 +140,7 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     /**
      * Returns the time value in microseconds.
      *
-     * @return The time value in microseconds.
+     * @return the time value in microseconds.
      */
     public long asMicroseconds() {
         return microseconds;

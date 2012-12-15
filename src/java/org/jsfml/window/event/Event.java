@@ -125,7 +125,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link JoystickButtonEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public JoystickButtonEvent asJoystickButtonEvent() {
         return null;
@@ -134,7 +134,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link JoystickConnectEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public JoystickConnectEvent asJoystickConnectEvent() {
         return null;
@@ -143,7 +143,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link JoystickEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public JoystickEvent asJoystickEvent() {
         return null;
@@ -152,7 +152,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link JoystickMoveEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public JoystickMoveEvent asJoystickMoveEvent() {
         return null;
@@ -161,7 +161,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link KeyEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public KeyEvent asKeyEvent() {
         return null;
@@ -170,7 +170,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link MouseButtonEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public MouseButtonEvent asMouseButtonEvent() {
         return null;
@@ -179,7 +179,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link MouseEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public MouseEvent asMouseEvent() {
         return null;
@@ -188,7 +188,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link MouseWheelEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public MouseWheelEvent asMouseWheelEvent() {
         return null;
@@ -197,7 +197,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link SizeEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public SizeEvent asSizeEvent() {
         return null;
@@ -206,7 +206,7 @@ public class Event {
     /**
      * Attempts to cast this event to a {@link TextEvent}.
      *
-     * @return The cast event, or <tt>null</tt> if casting was not possible.
+     * @return The cast event, or {@code null} if casting was not possible.
      */
     public TextEvent asTextEvent() {
         return null;

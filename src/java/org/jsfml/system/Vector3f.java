@@ -5,7 +5,8 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for 3-dimensional floating point vectors.
+ * Represents three-dimensional vectors using floating point coordinates and provides
+ * arithmetic operations on floating point 3D vectors.
  */
 @Intercom
 public final strictfp class Vector3f implements Serializable {
@@ -14,9 +15,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Adds two vectors.
 	 *
-	 * @param a The left vector.
-	 * @param b The right vector.
-	 * @return A new vector, representing the sum of the two vectors.
+	 * @param a the first vector.
+	 * @param b the second vector.
+	 * @return a new vector, representing the sum of the two vectors.
 	 */
 	public static Vector3f add(Vector3f a, Vector3f b) {
 		return new Vector3f(
@@ -28,9 +29,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Subtracts two vectors.
 	 *
-	 * @param a The left vector.
-	 * @param b The right vector.
-	 * @return A new vector, representing the difference between the two vectors.
+	 * @param a the first vector.
+	 * @param b the second vector.
+	 * @return a new vector, representing the difference between the two vectors.
 	 */
 	public static Vector3f sub(Vector3f a, Vector3f b) {
 		return new Vector3f(
@@ -42,9 +43,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Performs a component-wise multiplication of two vectors.
 	 *
-	 * @param a The left vector.
-	 * @param b The right vector.
-	 * @return A new vector, representing the "product" of the two vectors.
+	 * @param a the first vector.
+	 * @param b the second vector.
+	 * @return a new vector, representing the "product" of the two vectors.
 	 */
 	public static Vector3f componentwiseMul(Vector3f a, Vector3f b) {
 		return new Vector3f(
@@ -56,9 +57,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Performs a component-wise division of two vectors.
 	 *
-	 * @param a The left vector.
-	 * @param b The right vector.
-	 * @return A new vector, representing the "quotient" of the two vectors.
+	 * @param a the first vector.
+	 * @param b the second vector.
+	 * @return a new vector, representing the "quotient" of the two vectors.
 	 */
 	public static Vector3f componentwiseDiv(Vector3f a, Vector3f b) {
 		return new Vector3f(
@@ -70,9 +71,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Multiplies a vector by a scalar.
 	 *
-	 * @param a The vector.
-	 * @param s The scalar.
-	 * @return A new vector, representing the scaled vector.
+	 * @param a the vector.
+	 * @param s the scalar to multiply by.
+	 * @return a new vector, representing the scaled vector.
 	 */
 	public static Vector3f mul(Vector3f a, float s) {
 		return new Vector3f(
@@ -84,9 +85,9 @@ public final strictfp class Vector3f implements Serializable {
 	/**
 	 * Multiplies a vector by the inverse of a scalar.
 	 *
-	 * @param a The vector.
-	 * @param s The scalar.
-	 * @return A new vector, representing the scaled vector.
+	 * @param a the vector.
+	 * @param s the scalar to divide by.
+	 * @return a new vector, representing the scaled vector.
 	 */
 	public static Vector3f div(Vector3f a, float s) {
 		return new Vector3f(
@@ -96,10 +97,10 @@ public final strictfp class Vector3f implements Serializable {
 	}
 
 	/**
-	 * Computes the negative of a vector.
+	 * Computes the negation of a vector.
 	 *
-	 * @param v The vector.
-	 * @return A new vector, representing the negative of the given vector.
+	 * @param v the vector.
+	 * @return a new vector, representing the negation of the given vector.
 	 */
 	public static Vector3f neg(Vector3f v) {
 		return new Vector3f(-v.x, -v.y, -v.z);
@@ -124,16 +125,16 @@ public final strictfp class Vector3f implements Serializable {
 	public final float z;
 
 	/**
-	 * Creates a new 3D vector.
+	 * Constructs a new vector and sets its coordinates to zero.
 	 */
 	public Vector3f() {
 		this(0, 0, 0);
 	}
 
 	/**
-	 * Creates a new 3D vector as a copy of another vector.
+	 * Constructs a new vector by copying another vector.
 	 *
-	 * @param v The vector to copy.
+	 * @param v the vector to copy.
 	 */
 	public Vector3f(Vector3f v) {
 		this.x = v.x;
@@ -142,22 +143,22 @@ public final strictfp class Vector3f implements Serializable {
 	}
 
 	/**
-	 * Creates a new 3D vector from an integer vector.
+	 * Constructs a new vector by converting an integral vector.
 	 * <p/>
-	 * The fractions of the x, y and z components will be zero.
+	 * The fractions of the coordinates will be zero.
 	 *
-	 * @param v The vector to convert.
+	 * @param v the vector to convert.
 	 */
 	public Vector3f(Vector3i v) {
 		this((float) v.x, (float) v.y, (float) v.z);
 	}
 
 	/**
-	 * Creates a new 3D vector with the given coordinates.
+	 * Constructs a new vector with the given coordinates.
 	 *
-	 * @param x The X coordinate.
-	 * @param y The Y coordinate.
-	 * @param z The Z coordinate.
+	 * @param x the X coordinate.
+	 * @param y the Y coordinate.
+	 * @param z the Z coordinate.
 	 */
 	@Intercom
 	public Vector3f(float x, float y, float z) {

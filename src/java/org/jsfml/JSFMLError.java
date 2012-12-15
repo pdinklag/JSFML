@@ -10,19 +10,19 @@ public class JSFMLError extends Error {
     private static final long serialVersionUID = -8281004117329430845L;
 
     /**
-     * Creates a new JSFML error.
+     * Constructs a JSFML error with the specified message.
      *
-     * @param message The exception's message.
+     * @param message the exception's message text.
      */
     public JSFMLError(String message) {
         super(message);
     }
 
     /**
-     * Creates a new JSFML error.
+     * Constructs a JSFML error with the specified message and cause.
      *
-     * @param message The exception's message.
-     * @param cause   The exception's cause, or <tt>null</tt> if no cause is available.
+     * @param message the exception's message text.
+     * @param cause   the exception's cause, or {@code null} if no cause is known or available.
      */
     public JSFMLError(String message, Throwable cause) {
         super(message, cause);

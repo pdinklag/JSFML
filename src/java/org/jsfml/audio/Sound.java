@@ -32,18 +32,25 @@ public class Sound extends SoundSource {
      *
      * @param other The sound to copy.
      */
+	@SuppressWarnings("deprecation")
     public Sound(Sound other) {
         super(other.nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native long nativeCopy();
@@ -81,7 +88,7 @@ public class Sound extends SoundSource {
     /**
      * Enables or disables repeated looping of the sound.
      *
-     * @param loop <tt>true</tt> to enable looping, <tt>false</tt> to disable.
+     * @param loop {@code true} to enable looping, {@code false} to disable.
      */
     public native void setLoop(boolean loop);
 
@@ -111,7 +118,7 @@ public class Sound extends SoundSource {
     /**
      * Returns whether or not the sound is looping.
      *
-     * @return <tt>true</tt> if it is looping, <tt>false</tt> if not.
+     * @return {@code true} if it is looping, {@code false} if not.
      */
     public native boolean isLoop();
 

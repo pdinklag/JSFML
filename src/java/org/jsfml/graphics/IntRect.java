@@ -126,7 +126,7 @@ public final class IntRect implements Serializable {
      *
      * @param x The X coordinate of the tested point.
      * @param y The Y coordinate of the tested point.
-     * @return <tt>true</tt> if the point lies within the rectangle's area, <tt>false</tt> otherwise.
+     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
      */
     public boolean contains(int x, int y) {
         return (x >= left) && (x < left + width) && (y >= top) && (y < top + height);
@@ -136,7 +136,7 @@ public final class IntRect implements Serializable {
      * Tests whether a point is inside the rectangle's area, including its edges.
      *
      * @param point The point to be tested.
-     * @return <tt>true</tt> if the point lies within the rectangle's area, <tt>false</tt> otherwise.
+     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
      */
     public boolean contains(Vector2i point) {
         return contains(point.x, point.y);
@@ -147,7 +147,7 @@ public final class IntRect implements Serializable {
      * calculates the rectangle of intersection.
      *
      * @param rect The rectangle to test intersection against.
-     * @return The intersection rectangle, or <tt>null</tt> if the rectangles do not intersect.
+     * @return The intersection rectangle, or {@code null} if the rectangles do not intersect.
      */
     public IntRect intersection(IntRect rect) {
         int left = Math.max(this.left, rect.left);

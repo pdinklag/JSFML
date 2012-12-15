@@ -26,7 +26,7 @@ public abstract class SoundStream extends SoundSource {
          *
          * @param data An array of 16-bit samples representing the chunk's audio data.
          * @param last Determines whether this audio chunk is the last in the stream. If
-         *             <tt>true</tt>, the stream will stop playing once this chunk has been
+         *             {@code true}, the stream will stop playing once this chunk has been
          *             played.
          */
         public Chunk(@NotNull short[] data, boolean last) {
@@ -49,9 +49,9 @@ public abstract class SoundStream extends SoundSource {
         /**
          * Tests whether this chunk is the last chunk of data in the stream.
          * <p/>
-         * If this is <tt>true</tt>, the audio stream will stop playing after this chunk.
+         * If this is {@code true}, the audio stream will stop playing after this chunk.
          *
-         * @return <tt>true</tt> if the chunk is marked as the last one, <tt>false</tt>
+         * @return {@code true} if the chunk is marked as the last one, {@code false}
          *         otherwise
          */
         public boolean isLast() {
@@ -67,12 +67,18 @@ public abstract class SoundStream extends SoundSource {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     /**
@@ -128,14 +134,14 @@ public abstract class SoundStream extends SoundSource {
     /**
      * Enables or disables repeated looping of the sound stream playback.
      *
-     * @param loop <tt>true</tt> to enable looping, <tt>false</tt> to disable.
+     * @param loop {@code true} to enable looping, {@code false} to disable.
      */
     public native void setLoop(boolean loop);
 
     /**
      * Returns whether or not the sound stream playback is looping.
      *
-     * @return <tt>true</tt> if it is looping, <tt>false</tt> if not.
+     * @return {@code true} if it is looping, {@code false} if not.
      */
     public native boolean isLoop();
 
@@ -167,7 +173,7 @@ public abstract class SoundStream extends SoundSource {
      *
      * @return The next chunk of audio data. If the chunk is marked as the last chunk,
      *         the stream will stop playing after playing this chunk.
-     *         To stop playback immediately, <tt>null</tt> may be returned as well.
+     *         To stop playback immediately, {@code null} may be returned as well.
      * @see Chunk
      */
     @Intercom

@@ -5,11 +5,11 @@ import java.io.*;
 import java.util.LinkedList;
 
 /**
- * JSFML native library loader.
+ * Native library loader.
  * <p/>
  * This class contains the "self-containedness" functionality of JSFML.
  *
- * @see #loadNativeLibraries() For more information.
+ * @see #loadNativeLibraries() for more information.
  */
 public final class SFMLNative {
     private static final File JSFML_USER_HOME = new File(System.getProperty("user.home"), ".jsfml");
@@ -20,17 +20,20 @@ public final class SFMLNative {
     private static final int MD5_LENGTH = 32;
 
     /**
-     * The substring of the <tt>os.name</tt> system property to look for to detect Windows.
+     * The substring of the {@code os.name} system property
+	 * to look for to detect Windows systems.
      */
     public static final String OS_NAME_WINDOWS = "Windows";
 
     /**
-     * The substring of the <tt>os.name</tt> system property to look for to detect Linux.
+     * The substring of the {@code os.name} system property
+	 * to look for to detect Linux systems.
      */
     public static final String OS_NAME_LINUX = "Linux";
 
     /**
-     * The substring of the <tt>os.name</tt> system property to look for to detect Mac OS X.
+     * The substring of the {@code os.name} system property
+	 * to look for to detect Mac OS X systems.
      */
     public static final String OS_NAME_MACOSX = "Mac OS X";
 
@@ -60,7 +63,7 @@ public final class SFMLNative {
      * platform. If this is not the case, {@link #loadNativeLibraries()} will raise an error attempting
      * to load the native library.
      *
-     * @return <tt>true</tt> if this platform is supported by JSFML, <tt>false</tt> otherwise.
+     * @return {@code true} if this platform is supported by JSFML, {@code false} otherwise.
      */
     public static boolean isPlatformSupported() {
         String osName = System.getProperty("os.name");
@@ -87,17 +90,17 @@ public final class SFMLNative {
      * This must be done before any SFML class representations can be used. All affected classes
      * will call this method when they are loaded, so this does not have to be done manually.
      * <p/>
-     * This method will scan the <tt>os.name</tt> and <tt>os.arch</tt> system properties and
+     * This method will scan the {@code os.name} and {@code os.arch} system properties and
      * compile a list of libraries to load if the platform is supported. The libraries will
      * then be looked for in the classpath, extracted to the user directory and loaded.
      * <p/>
-     * The libraries will be extracted to <tt>~/.jsfml</tt>. If the files already exist, their MD5
+     * The libraries will be extracted to {@code ~/.jsfml}. If the files already exist, their MD5
      * hashes (which are provided in separate files) will be tested against the ones in the
      * classpath. If the MD5 hashes differ, the existing file in the user directory will
      * be overridden.
      * <p/>
      * If the current platform is not supported, a {@link JSFMLError} will be raised. To avoid
-     * this situation, make sure that {@link #isPlatformSupported} returns <tt>true</tt> before
+     * this situation, make sure that {@link #isPlatformSupported} returns {@code true} before
      * using any other JSFML class.
      */
     public static void loadNativeLibraries() {
@@ -233,6 +236,5 @@ public final class SFMLNative {
     public static void ensureDisplay() {
         if (GraphicsEnvironment.isHeadless())
             throw new HeadlessException("This JSFML feature is not available in a headless environment");
-
     }
 }
