@@ -1,9 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Window;
 
@@ -15,6 +12,10 @@ import java.io.InputStream;
  * Immutable 2D texture stored on the graphics card for rendering.
  */
 public class Texture extends SFMLNativeObject implements ConstTexture {
+	static {
+		SFMLNative.loadNativeLibraries();
+	}
+
     /**
      * Gets the maximum texture size supported by the current hardware.
      *

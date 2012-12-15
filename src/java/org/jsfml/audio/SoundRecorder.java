@@ -1,11 +1,16 @@
 package org.jsfml.audio;
 
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 
 /**
  * Abstract base class for capturing audio data.
  */
 public abstract class SoundRecorder extends SFMLNativeObject {
+	static {
+		SFMLNative.loadNativeLibraries();
+	}
+
     /**
      * Checks whether audio capturing is available on this system.
      *

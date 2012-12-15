@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.system.Vector2f;
@@ -14,6 +15,10 @@ import java.io.InputStream;
  * Shader program consisting of a vertex and a fragment shader.
  */
 public class Shader extends SFMLNativeObject implements ConstShader {
+	static {
+		SFMLNative.loadNativeLibraries();
+	}
+
     /**
      * Special type denoting that the texture of the object being drawn
      * should be used, which cannot be known before it is actually being drawn.
