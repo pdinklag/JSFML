@@ -4,7 +4,7 @@ JSFML::Event::JavaClassInfo JSFML::Event::GenericEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::KeyEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::JoystickButtonEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::JoystickMoveEvent;
-JSFML::Event::JavaClassInfo JSFML::Event::JoystickConnectEvent;
+JSFML::Event::JavaClassInfo JSFML::Event::JoystickEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::MouseMoveEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::MouseButtonEvent;
 JSFML::Event::JavaClassInfo JSFML::Event::MouseWheelEvent;
@@ -35,10 +35,10 @@ void JSFML::Event::Init(JNIEnv* env) {
 		env->DeleteLocalRef(cls);
     }
 
-    cls = env->FindClass("org/jsfml/window/event/JoystickConnectEvent");
+    cls = env->FindClass("org/jsfml/window/event/JoystickEvent");
     if(cls) {
-        JoystickConnectEvent.cls = (jclass)env->NewGlobalRef(cls);
-		JoystickConnectEvent.ctor = env->GetMethodID(cls, "<init>", "(II)V");
+        JoystickEvent.cls = (jclass)env->NewGlobalRef(cls);
+		JoystickEvent.ctor = env->GetMethodID(cls, "<init>", "(II)V");
 		env->DeleteLocalRef(cls);
     }
 
@@ -118,7 +118,7 @@ jobject JSFML::Event::FromSFML(JNIEnv* env, const sf::Event& event) {
 
 		case sf::Event::JoystickConnected:
 		case sf::Event::JoystickDisconnected:
-			return env->NewObject(EVENT_PARAMS(JoystickConnectEvent), event.joystickConnect.joystickId);
+			return env->NewObject(EVENT_PARAMS(JoystickEvent), event.joystickConnect.joystickId);
 
 		default:
 			return env->NewObject(EVENT_PARAMS(GenericEvent));
