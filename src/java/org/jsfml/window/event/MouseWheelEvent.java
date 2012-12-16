@@ -3,23 +3,26 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Event class for event type {@link Event.Type#MOUSE_WHEEL_MOVED}.
+ * Represents mouse wheel movement events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#MOUSE_WHEEL_MOVED}.
  */
 @Intercom
 public final class MouseWheelEvent extends MouseEvent {
-    /**
-     * The amount of ticks the mouse wheel has been moved.
-     */
-    public final int delta;
+	/**
+	 * The amount of ticks that the mouse wheel was moved.
+	 */
+	public final int delta;
 
-    @Intercom
-    protected MouseWheelEvent(int type, int x, int y, int delta) {
-        super(type, x, y);
-        this.delta = delta;
-    }
+	@Intercom
+	MouseWheelEvent(int type, int x, int y, int delta) {
+		super(type, x, y);
+		this.delta = delta;
+	}
 
-    @Override
-    public MouseWheelEvent asMouseWheelEvent() {
-        return this;
-    }
+	@Override
+	public MouseWheelEvent asMouseWheelEvent() {
+		return this;
+	}
 }

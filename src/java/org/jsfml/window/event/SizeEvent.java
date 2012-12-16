@@ -4,17 +4,20 @@ import org.jsfml.Intercom;
 import org.jsfml.system.Vector2i;
 
 /**
- * Event class for event type {@link Event.Type#RESIZED}.
+ * Represents window resize events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#RESIZED}.
  */
 @Intercom
 public final class SizeEvent extends Event {
     /**
-     * The new size of the window.
+     * The new size of the window in pixels.
      */
     public final Vector2i size;
 
     @Intercom
-    protected SizeEvent(int type, int width, int height) {
+    SizeEvent(int type, int width, int height) {
         super(type);
         this.size = new Vector2i(width, height);
     }
