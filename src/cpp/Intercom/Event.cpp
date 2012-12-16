@@ -80,7 +80,7 @@ void JSFML::Event::Init(JNIEnv* env) {
     cls = env->FindClass("org/jsfml/window/event/TextEvent");
     if(cls) {
         TextEvent.cls = (jclass)env->NewGlobalRef(cls);
-		TextEvent.ctor = env->GetMethodID(cls, "<init>", "(IJ)V");
+		TextEvent.ctor = env->GetMethodID(cls, "<init>", "(II)V");
 		env->DeleteLocalRef(cls);
     }
 }
@@ -93,7 +93,7 @@ jobject JSFML::Event::FromSFML(JNIEnv* env, const sf::Event& event) {
 			return env->NewObject(EVENT_PARAMS(SizeEvent), event.size.width, event.size.height);
 
 		case sf::Event::TextEntered:
-			return env->NewObject(EVENT_PARAMS(TextEvent), (jlong)event.text.unicode);
+			return env->NewObject(EVENT_PARAMS(TextEvent), (jint)event.text.unicode);
 
 		case sf::Event::KeyPressed:
 		case sf::Event::KeyReleased:

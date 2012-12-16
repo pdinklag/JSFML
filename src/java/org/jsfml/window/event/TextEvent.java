@@ -2,6 +2,10 @@ package org.jsfml.window.event;
 
 import org.jsfml.Intercom;
 
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+
 /**
  * Represents text enter events.
  * <p/>
@@ -10,25 +14,30 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public final class TextEvent extends Event {
+	private final static Charset utf32 = Charset.forName("UTF-32");
+
 	/**
-	 * The unicode (UTF-32) of the character that was entered.
+	 * The UTF-32 code of the character that was entered.
 	 */
-	public final long unicode;
+	public final int unicode;
+
+	/**
+	 * The Java representation of the character that was entered.
+	 */
+	public final char character;
 
 	@Intercom
-	TextEvent(int type, long unicode) {
+	TextEvent(int type, int unicode) {
 		super(type);
-		this.unicode = unicode;
-	}
 
-	/**
-	 * Gets the UTF-16 character that was entered.
-	 *
-	 * @return the UTF-16 character that was entered, or {@code ''} if the character that
-	 *         was entered cannot be represented by UTF-16.
-	 */
-	public char getChar() {
-		return (char) unicode;
+		this.unicode = unicode;
+
+		final ByteBuffer unicodeBuffer = ByteBuffer.allocate(4);
+		unicodeBuffer.putInt(unicode);
+		unicodeBuffer.flip();
+
+		final CharBuffer chars = utf32.decode(unicodeBuffer);
+		character = chars.get();
 	}
 
 	@Override
