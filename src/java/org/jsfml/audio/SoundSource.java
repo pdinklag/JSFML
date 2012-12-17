@@ -4,31 +4,31 @@ import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector3f;
 
 /**
- * Base class for playable sound instances.
+ * Abstract base class for playable sound sources.
  */
 public abstract class SoundSource extends SFMLNativeObject {
 	/**
-	 * Enumeration of sound source states.
+	 * Enumeration of possible sound source states.
 	 */
 	public static enum Status {
 		/**
-		 * The sound is currently stopped or has finished playing.
+		 * Indicates that the sound is currently stopped or has finished playing.
 		 */
 		STOPPED,
 
 		/**
-		 * The sound is currently paused and can be resumed.
+		 * Indicates that the sound is currently paused and can be resumed.
 		 */
 		PAUSED,
 
 		/**
-		 * The sound is currently playing.
+		 * Indicates that the sound is currently playing.
 		 */
 		PLAYING
 	}
 
 	/**
-	 * Default constructor.
+	 * Constructs a sound source.
 	 */
 	public SoundSource() {
 		super();
@@ -42,57 +42,85 @@ public abstract class SoundSource extends SFMLNativeObject {
 
 	/**
 	 * Sets the pitch factor of the sound.
+	 * <p/>
+	 * This factor is used to scale the sound's original pitch. This means that the default
+	 * value of 1 will not affect the pitch at all. Values between 0 and 1 will pitch
+	 * down the sound, while values greater than 1 will pitch it up.
 	 *
-	 * @param pitch The pitch factor of the sound, where 1 is the default pitch.
+	 * @param pitch the new pitch factor of the sound.
 	 */
 	public native void setPitch(float pitch);
 
 	/**
 	 * Sets the volume of the sound.
 	 * <p/>
-	 * A sound's default volume is 100 (maximum):
+	 * The sound volume is a percentages and ranges between 0 (silence) and 100 (full volume).
+	 * The default volume of a sound is 100.
 	 *
-	 * @param volume The volume of the sound, ranging between 0 and 100.
+	 * @param volume the new volume of the sound, ranging between 0 and 100.
 	 */
 	public native void setVolume(float volume);
 
 	/**
 	 * Sets the position of the sound in the scene.
+	 * <p/>
+	 * This allows for sound spatialization, also involving the {@link Listener}.
+	 * The sound position is set either absolutely in the scene or relatively to the
+	 * {@code Listener}, depending on whether {@link #isRelativeToListener()} is
+	 * {@code true} or {@code false}.
+	 * <p/>
+	 * By default, a sound is located at the origin {@code (0, 0, 0)}.
+	 * <p/>
+	 * Note that only mono sounds (ie 1 audio channel) can be spatialized.
 	 *
-	 * @param x The X coordinate.
-	 * @param y The Y coordinate.
-	 * @param z The Z coordinate.
+	 * @param x the sound's new X coordinate.
+	 * @param y the sound's new Y coordinate.
+	 * @param z the sound's new Z coordinate.
+	 * @see #setRelativeToListener(boolean)
 	 */
 	public native void setPosition(float x, float y, float z);
 
 	/**
 	 * Sets the position of the sound in the scene.
+	 * <p/>
+	 * This allows for sound spatialization, also involving the {@link Listener}.
+	 * The sound position is set either absolutely in the scene or relatively to the
+	 * {@code Listener}, depending on whether {@link #isRelativeToListener()} is
+	 * {@code true} or {@code false}.
+	 * <p/>
+	 * By default, a sound is located at the origin {@code (0, 0, 0)}.
+	 * <p/>
+	 * Note that only mono sounds (ie 1 audio channel) can be spatialized.
 	 *
-	 * @param v The new position.
+	 * @param v the sound's new position.
+	 * @see #setRelativeToListener(boolean)
 	 */
 	public final void setPosition(Vector3f v) {
 		setPosition(v.x, v.y, v.z);
 	}
 
 	/**
-	 * Determines whether the sound position is always relative to the {@link Listener}
-	 * or whether it is absolute.
+	 * Determines whether the sound position is bound to be relative to the {@link Listener}
+	 * or whether it is positioned absolutely in the scene.
 	 * <p/>
-	 * By default, the scene position is absolute.
+	 * By default, the sound's position in the scene is absolute.
 	 *
-	 * @param relative {@code true} to make the sound position relative to the listener, {@code false}
-	 *                 to make it absolute.
+	 * @param relative {@code true} to make the sound position relative to the listener,
+	 *                 {@code false} to make it absolute.
 	 * @see SoundSource#setPosition(float, float, float)
 	 */
 	public native void setRelativeToListener(boolean relative);
 
 	/**
-	 * The minimum distance of the sound before attenuation kicks in.
+	 * Sets the minimum distance of the sound before attenuation kicks in.
 	 * <p/>
-	 * If the distance between the sound and the listener is less or equal to this value, the sound
-	 * will be heard at its maximum volume. The default minimum distance is 1.
+	 * If the distance between the sound and the {@link Listener} is less or equal to this value,
+	 * the sound  will be heard at its maximum volume. As the distance becomes larger,
+	 * the sound is attenuated (ie become more quiet) according to its attenuation factor.
+	 * <p/>
+	 * The default minimum distance is 1.
 	 *
-	 * @param distance The distance in world units.
+	 * @param distance the minimum distance before attenuation in world units.
 	 * @see SoundSource#setAttenuation(float)
 	 */
 	public native void setMinDistance(float distance);
@@ -100,32 +128,41 @@ public abstract class SoundSource extends SFMLNativeObject {
 	/**
 	 * Sets the sound's attenuation factor.
 	 * <p/>
-	 * As the distance between the sound and the listener becomes higher than the minimum distance,
-	 * the sound volume will decrease according to this value.
+	 * As the distance between the sound and the {@link Listener} becomes higher than the
+	 * minimum distance, the sound volume will decrease according to this factor.
+	 * <p/>
+	 * The attenuation factor ranges between 0 (no attenuation) and 100 (instant attenuation),
+	 * where the default value is 1.
 	 *
-	 * @param att The attenuation factor, ranging between 0 (no attenuation) and 100 (instant attenuation).
+	 * @param att the new attenuation factor, ranging between 0 (no attenuation)
+	 *            and 100 (instant attenuation).
 	 * @see SoundSource#setMinDistance(float)
 	 */
 	public native void setAttenuation(float att);
 
 	/**
 	 * Gets the sound's current pitch factor.
+	 * <p/>
+	 * A value of 1 means that the sound is not pitched, a value between 0 and 1 means that
+	 * the sound is pitched down, a value greater than 1 means that the sound is pitched up.
 	 *
-	 * @return The sound's current pitch factor.
+	 * @return the sound's current pitch factor.
 	 */
 	public native float getPitch();
 
 	/**
 	 * Gets the sound's current volume.
+	 * <p/>
+	 * The volume level ranges between 0 (silence) and 100 (full volume).
 	 *
-	 * @return The sound's current volume.
+	 * @return the sound's current volume, ranging between 0 (silence) and 100 (full volume).
 	 */
 	public native float getVolume();
 
 	/**
 	 * Gets the sound's current position in the scene.
 	 *
-	 * @return The sound's current position in the scene.
+	 * @return the sound's current position in the scene.
 	 */
 	public native Vector3f getPosition();
 
@@ -139,17 +176,20 @@ public abstract class SoundSource extends SFMLNativeObject {
 	public native boolean isRelativeToListener();
 
 	/**
-	 * Gets the sound's minimum distance before attenuation sets in.
+	 * Gets the sound's minimum distance from the {@link Listener} before attenuation sets in.
 	 *
-	 * @return The sound's minimum distance before attenuation sets in.
+	 * @return the sound's minimum distance before attenuation sets in.
 	 * @see SoundSource#setMinDistance(float)
 	 */
 	public native float getMinDistance();
 
 	/**
 	 * Gets the sound's attenuation factor.
+	 * <p/>
+	 * The attenuation factor ranges between 0 (no attenuation) and 100 (instant attenuation),
+	 * where the default value is 1.
 	 *
-	 * @return The sound's attenuation factor.
+	 * @return the sound's attenuation factor.
 	 * @see SoundSource#setAttenuation(float)
 	 */
 	public native float getAttenuation();
@@ -159,7 +199,7 @@ public abstract class SoundSource extends SFMLNativeObject {
 	/**
 	 * Gets the current state of the sound stream.
 	 *
-	 * @return The current state of the sound stream.
+	 * @return the current state of the sound stream.
 	 */
 	protected Status getStatus() {
 		return Status.values()[nativeGetStatus()];
