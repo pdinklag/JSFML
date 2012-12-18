@@ -1,9 +1,11 @@
 package org.jsfml.audio;
 
-import org.jsfml.StreamUtil;
+import org.jsfml.NotNull;
+import org.jsfml.SFMLInputStream;
 import org.jsfml.system.Time;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,6 +20,9 @@ import java.io.InputStream;
  * mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64}
  */
 public class Music extends SoundStream {
+	private final SFMLInputStream.NativeStreamRef streamRef =
+			new SFMLInputStream.NativeStreamRef();
+
 	/**
 	 * Constructs a music.
 	 */
@@ -40,40 +45,35 @@ public class Music extends SoundStream {
 	@SuppressWarnings("deprecation")
 	protected native void nativeDelete();
 
-	private native boolean nativeOpenFromFile(String fileName);
+	private native boolean nativeOpenFromStream(SFMLInputStream.NativeStreamRef stream);
 
 	/**
-	 * Fully writes all available bytes from an {@link java.io.InputStream} into a temporary file
-	 * and attempts to open the stream from it.
-	 * <p/>
-	 * Direct streaming from a Java input stream is not possible at this time, therefore JSFML
-	 * resorts to this method.
-	 * <p/>
-	 * The temporary file is deleted once the JVM terminates.
+	 * Attempts to open the music from an {@code InputStream}.
 	 *
-	 * @param in the input stream to read from.
+	 * @param in the input stream to stream from.
 	 * @throws java.io.IOException in case an I/O error occurs.
 	 */
-	public void openFromStream(InputStream in) throws IOException {
-		File tempFile = StreamUtil.streamToTempFile(in);
-		tempFile.deleteOnExit();
+	public void openFromStream(@NotNull InputStream in) throws IOException {
+		if (in == null)
+			throw new NullPointerException("in must not be null");
 
-		if (!nativeOpenFromFile(tempFile.getAbsolutePath()))
+		streamRef.initialize(new SFMLInputStream(in));
+
+		if (!nativeOpenFromStream(streamRef))
 			throw new IOException("Failed to open music from input stream.");
 	}
 
 	/**
-	 * Attempts to open the stream from a file.
+	 * Attempts to open the music from a file.
 	 *
-	 * @param file the file to load the sound buffer from.
+	 * @param file the file to stream from.
 	 * @throws IOException in case an I/O error occurs.
 	 */
 	public void openFromFile(File file) throws IOException {
 		if (!file.isFile())
 			throw new IOException("file not found: " + file);
 
-		if (!nativeOpenFromFile(file.getAbsolutePath()))
-			throw new IOException("Failed to open music from file: " + file);
+		openFromStream(new FileInputStream(file));
 	}
 
 	/**
