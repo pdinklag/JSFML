@@ -23,7 +23,6 @@ public class SFMLInputStream {
 
 	private final InputStream stream;
 	private long pos;
-	private long size;
 
 	public SFMLInputStream(InputStream stream) {
 		if (stream.markSupported()) {
@@ -59,14 +58,19 @@ public class SFMLInputStream {
 	//As defined in sf::InputStream.
 	long seek(long n) {
 		try {
-			stream.reset();
-			pos = 0;
+			if(n > pos) {
+				long skipped = stream.skip(n - pos);
+				pos += skipped;
+			} else {
+				stream.reset();
+				pos = 0;
 
-			if (n > 0) {
-				pos = stream.skip(n);
+				if (n > 0) {
+					pos = stream.skip(n);
+				}
 			}
 
-			return pos;
+			return (pos == n) ? pos : -1;
 		} catch (IOException ex) {
 			pos = -1;
 			return -1;
