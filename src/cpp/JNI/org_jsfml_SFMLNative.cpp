@@ -3,7 +3,9 @@
 #include <JSFML/Intercom/JVM.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 
+#include <JSFML/Intercom/InputStream.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/NativeRef.hpp>
 
 #include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector2i.hpp>
@@ -34,8 +36,10 @@
 JNIEXPORT void JNICALL Java_org_jsfml_SFMLNative_nativeInit (JNIEnv *env, jclass cls) {
     JVM::Init(env);
     JavaEnum::Init(env);
-
+    
+    JSFML::InputStream::Init(env);
     JSFML::NativeObject::Init(env);
+    JSFML::NativeRef::Init(env);
 
     JSFML::Time::Init(env);
     JSFML::Vector2i::Init(env);
