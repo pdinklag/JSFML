@@ -13,47 +13,47 @@ public final class Color implements Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
     /**
-     * Black <tt>(RGB:0,0,0)</tt>
+     * Black {@code (RGB:0,0,0)}
      */
     public final static Color BLACK = new Color(0, 0, 0);
 
     /**
-     * White <tt>(RGB:255,255,255)</tt>
+     * White {@code (RGB:255,255,255)}
      */
     public final static Color WHITE = new Color(255, 255, 255);
 
     /**
-     * Red <tt>(RGB:255,0,0)</tt>
+     * Red {@code (RGB:255,0,0)}
      */
     public final static Color RED = new Color(255, 0, 0);
 
     /**
-     * Green <tt>(RGB:0,255,0)</tt>
+     * Green {@code (RGB:0,255,0)}
      */
     public final static Color GREEN = new Color(0, 255, 0);
 
     /**
-     * Blue <tt>(RGB:0,0,255)</tt>
+     * Blue {@code (RGB:0,0,255)}
      */
     public final static Color BLUE = new Color(0, 0, 255);
 
     /**
-     * Yellow <tt>(RGB:255,255,0)</tt>
+     * Yellow {@code (RGB:255,255,0)}
      */
     public final static Color YELLOW = new Color(255, 255, 0);
 
     /**
-     * Magenta <tt>(RGB:255,255,0)</tt>
+     * Magenta {@code (RGB:255,255,0)}
      */
     public final static Color MAGENTA = new Color(255, 0, 255);
 
     /**
-     * Cyan <tt>(RGB:0,255,255)</tt>
+     * Cyan {@code (RGB:0,255,255)}
      */
     public final static Color CYAN = new Color(0, 255, 255);
 
     /**
-     * Transparent <tt>(RGBA:0,0,0,0)</tt>
+     * Transparent {@code (RGBA:0,0,0,0)}
      */
     public final static Color TRANSPARENT = new Color(0, 0, 0, 0);
 
@@ -131,7 +131,7 @@ public final class Color implements Serializable {
     public final int a;
 
     /**
-     * Creates a new default color <tt>(RGBA:0,0,0,255)</tt>.
+     * Creates a new default color {@code (RGBA:0,0,0,255)}.
      */
     public Color() {
         this(0, 0, 0, 255);
@@ -140,7 +140,7 @@ public final class Color implements Serializable {
     /**
      * Creates a new color.
      * <p/>
-     * The alpha value will be set to <tt>255</tt>.
+     * The alpha value will be set to {@code 255}.
      *
      * @param r The color's red component.
      * @param g The color's green component.

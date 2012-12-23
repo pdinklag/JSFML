@@ -1,6 +1,5 @@
 #include <JSFML/JNI/org_jsfml_audio_SoundBuffer.h>
 
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Time.hpp>
 
@@ -72,7 +71,12 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSample
  * Signature: (Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeSaveToFile (JNIEnv *env, jobject obj, jstring fileName) {
-    return THIS(sf::SoundBuffer)->saveToFile(std::string(JavaString::getUTF8(env, fileName)));
+	const char *utf8 = env->GetStringUTFChars(fileName, NULL);
+
+    jboolean result = THIS(sf::SoundBuffer)->saveToFile(std::string(utf8));
+	env->ReleaseStringUTFChars(fileName, utf8);
+
+    return result;
 }
 
 /*

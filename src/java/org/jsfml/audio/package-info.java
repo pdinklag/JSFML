@@ -1,4 +1,4 @@
 /**
- * Java bindings to the SFML Audio module.
+ * Contains classes related to audio playback and recording.
  */
 package org.jsfml.audio;

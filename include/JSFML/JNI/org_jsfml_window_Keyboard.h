@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_window_Keyboard
- * Method:    isKeyPressed
+ * Method:    nativeIsKeyPressed
  * Signature: (Lorg/jsfml/window/Keyboard$Key;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Keyboard_isKeyPressed
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Keyboard_nativeIsKeyPressed
   (JNIEnv *, jclass, jobject);
 
 #ifdef __cplusplus

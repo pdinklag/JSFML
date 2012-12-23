@@ -152,20 +152,40 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewpor
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeConvertCoords
+ * Method:    nativeMapPixelToCoords
  * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeConvertCoords
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapPixelToCoords
     (JNIEnv *env, jobject obj, jobject point, jobject view) {
 
     if(view == NULL) {
         return JSFML::Vector2f::FromSFML(env,
-            THIS(sf::RenderTexture)->convertCoords(
+            THIS(sf::RenderTexture)->mapPixelToCoords(
                 JSFML::Vector2i::ToSFML(env, point)));
     } else {
         return JSFML::Vector2f::FromSFML(env,
-            THIS(sf::RenderTexture)->convertCoords(
+            THIS(sf::RenderTexture)->mapPixelToCoords(
                 JSFML::Vector2i::ToSFML(env, point),
+                *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
+    }
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    nativeMapCoordsToPixel
+ * Signature: (Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2i;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapCoordsToPixel
+    (JNIEnv *env, jobject obj, jobject point, jobject view) {
+
+    if(view == NULL) {
+        return JSFML::Vector2i::FromSFML(env,
+            THIS(sf::RenderTexture)->mapCoordsToPixel(
+                JSFML::Vector2f::ToSFML(env, point)));
+    } else {
+        return JSFML::Vector2i::FromSFML(env,
+            THIS(sf::RenderTexture)->mapCoordsToPixel(
+                JSFML::Vector2f::ToSFML(env, point),
                 *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
     }
 }

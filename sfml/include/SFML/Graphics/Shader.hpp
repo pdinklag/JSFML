@@ -382,7 +382,7 @@ public :
     /// \endcode
     /// \code
     /// sf::Transform transform;
-    /// transform.Translate(5, 10);
+    /// transform.translate(5, 10);
     /// shader.setParameter("matrix", transform);
     /// \endcode
     ///
@@ -610,7 +610,6 @@ private :
 /// window.setActive();
 /// shader.bind();
 /// ... render OpenGL geometry ...
-/// shader.unbind();
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////

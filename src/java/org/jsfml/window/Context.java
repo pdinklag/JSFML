@@ -18,13 +18,19 @@ public final class Context extends SFMLNativeObject {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeSetActive(boolean active);
@@ -32,7 +38,7 @@ public final class Context extends SFMLNativeObject {
     /**
      * Explictly activates or deactivates the OpenGL context.
      *
-     * @param active <tt>true</tt> to activate, <tt>false</tt> to deactivate.
+     * @param active {@code true} to activate, {@code false} to deactivate.
      * @throws ContextActivationException If activating or deactivating the context failed.
      */
     public void setActive(boolean active) throws ContextActivationException {

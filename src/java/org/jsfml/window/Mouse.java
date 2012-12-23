@@ -23,13 +23,20 @@ public final class Mouse {
         XBUTTON2,
     }
 
+	private static native boolean nativeIsButtonPressed(Button button);
+
     /**
      * Checks if a mouse button is currently pressed.
      *
      * @param button The button in question.
-     * @return <tt>true</tt> if the button is currently being pressed, <tt>false</tt> otherwise.
+     * @return {@code true} if the button is currently being pressed, {@code false} otherwise.
      */
-    public static native boolean isButtonPressed(Button button);
+    public static boolean isButtonPressed(@NotNull Button button) {
+		if (button == null)
+			throw new NullPointerException("button must not be null");
+
+		return nativeIsButtonPressed(button);
+	}
 
     /**
      * Retrieves the position of the mouse cursor on the screen.

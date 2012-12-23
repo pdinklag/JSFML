@@ -77,10 +77,18 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeConvertCoords
+ * Method:    nativeMapPixelToCoords
  * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeConvertCoords
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapPixelToCoords
+  (JNIEnv *, jobject, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeMapCoordsToPixel
+ * Signature: (Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2i;
+ */
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsToPixel
   (JNIEnv *, jobject, jobject, jobject);
 
 /*

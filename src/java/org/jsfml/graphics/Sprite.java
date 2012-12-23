@@ -37,12 +37,18 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native void nativeSetTexture(Texture texture, boolean resetRect);
@@ -51,7 +57,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * Sets the texture of this sprite.
      *
      * @param texture   The new texture.
-     * @param resetRect <tt>true</tt> to reset the texture rectangle, <tt>false</tt> otherwise.
+     * @param resetRect {@code true} to reset the texture rectangle, {@code false} otherwise.
      */
     public void setTexture(@NotNull ConstTexture texture, boolean resetRect) {
         if (texture == null)
@@ -76,7 +82,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * Sets the portion of the texture that will be used for drawing.
      * <p/>
      * The width and / or height of the rectangle may be negative to indicate that the
-     * respective axis should be flipped. For example, a width of <tt>-32</tt> will
+     * respective axis should be flipped. For example, a width of {@code -32} will
      * result in a sprite that is 32 pixels wide and flipped horizontally.
      *
      * @param rect The texture portion.

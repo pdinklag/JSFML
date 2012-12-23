@@ -4,29 +4,43 @@ import org.jsfml.Intercom;
 import org.jsfml.window.Joystick;
 
 /**
- * Event class for event type {@link Event.Type#JOYSTICK_MOVED}.
+ * Represents joystick or gamepad axis movement events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#JOYSTICK_MOVED}.
  */
 @Intercom
 public final class JoystickMoveEvent extends JoystickEvent {
-    /**
-     * The joystick axis that was moved.
-     */
-    public final Joystick.Axis joyAxis;
+	/**
+	 * The joystick or gamepad axis that was moved.
+	 */
+	public final Joystick.Axis joyAxis;
 
-    /**
-     * The current position of the axis that was moved, ranging between -100 and 100.
-     */
-    public final float position;
+	/**
+	 * The position that the axis was moved to, ranging between -100 and 100.
+	 */
+	public final float position;
 
-    @Intercom
-    public JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
-        super(type, joystickId);
-        this.joyAxis = Joystick.Axis.values()[joyAxis];
-        this.position = position;
-    }
+	/**
+	 * Constructs a new joystick axis event.
+	 *
+	 * @param type       the type of the event.
+	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param joystickId the joystick ID.
+	 * @param joyAxis    the joystick axis that was moved.
+	 *                   This must be a valid ordinal in the {@link Joystick.Axis}
+	 *                   enumeration.
+	 * @param position   the position that the axis was moved to.
+	 */
+	@Intercom
+	public JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
+		super(type, joystickId);
+		this.joyAxis = Joystick.Axis.values()[joyAxis];
+		this.position = position;
+	}
 
-    @Override
-    public JoystickMoveEvent asJoystickMoveEvent() {
-        return this;
-    }
+	@Override
+	public JoystickMoveEvent asJoystickMoveEvent() {
+		return this;
+	}
 }

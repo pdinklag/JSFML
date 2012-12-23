@@ -22,10 +22,10 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
     /**
      * Sets the texture of the shape.
      * <p/>
-     * The texture may be <tt>null</tt> if no texture is to be used.
+     * The texture may be {@code null} if no texture is to be used.
      *
      * @param texture   The texture of the shape.
-     * @param resetRect <tt>true</tt> to reset the texture rect, <tt>false</tt> otherwise.
+     * @param resetRect {@code true} to reset the texture rect, {@code false} otherwise.
      */
     public void setTexture(ConstTexture texture, boolean resetRect) {
         this.texture = texture;
@@ -35,7 +35,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
     /**
      * Sets the texture of the shape.
      * <p/>
-     * The texture may be <tt>null</tt> if no texture is to be used.
+     * The texture may be {@code null} if no texture is to be used.
      *
      * @param texture The texture of the shape.
      */

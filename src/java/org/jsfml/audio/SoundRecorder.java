@@ -1,48 +1,55 @@
 package org.jsfml.audio;
 
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 
 /**
- * Abstract base class for capturing audio data.
+ * Abstract base class for sound recorders, which provide functionality to capture audio data.
+ * <p/>
+ * This class can currently not be implemented to function properly in pure Java.
  */
 public abstract class SoundRecorder extends SFMLNativeObject {
-    /**
-     * Checks whether audio capturing is available on this system.
-     *
-     * @return <tt>true</tt> if audio capturing is available, <tt>false</tt> otherwise.
-     */
-    public static native boolean isAvailable();
+	static {
+		SFMLNative.loadNativeLibraries();
+	}
 
-    /**
-     * Default constructor.
-     */
-    public SoundRecorder() {
-        super();
-    }
+	/**
+	 * Checks whether audio capturing is available on this system.
+	 *
+	 * @return {@code true} if audio capturing is available, {@code false} otherwise.
+	 */
+	public static native boolean isAvailable();
 
-    /**
-     * Starts capturing audio data.
-     *
-     * @param sampleRate The sample rate in samples per second.
-     */
-    public abstract void start(int sampleRate);
+	/**
+	 * Constructs a sound recorder.
+	 */
+	public SoundRecorder() {
+		super();
+	}
 
-    /**
-     * Starts capturing audio data with a sample rate of 44,100 Hz.
-     */
-    public final void start() {
-        start(44100);
-    }
+	/**
+	 * Starts capturing audio data.
+	 *
+	 * @param sampleRate the sample rate in samples per second.
+	 */
+	public abstract void start(int sampleRate);
 
-    /**
-     * Stops the audio capturing.
-     */
-    public abstract void stop();
+	/**
+	 * Starts capturing audio data with a sample rate of 44,100 Hz.
+	 */
+	public final void start() {
+		start(44100);
+	}
 
-    /**
-     * Gets the audio sample rate.
-     *
-     * @return The audio sample rate in samples per second.
-     */
-    public abstract int getSampleRate();
+	/**
+	 * Stops capturing audio data.
+	 */
+	public abstract void stop();
+
+	/**
+	 * Gets the audio sample rate.
+	 *
+	 * @return the audio sample rate in samples per second.
+	 */
+	public abstract int getSampleRate();
 }

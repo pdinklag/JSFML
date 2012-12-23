@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.NotNull;
+import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.system.Vector2f;
@@ -14,6 +15,10 @@ import java.io.InputStream;
  * Shader program consisting of a vertex and a fragment shader.
  */
 public class Shader extends SFMLNativeObject implements ConstShader {
+	static {
+		SFMLNative.loadNativeLibraries();
+	}
+
     /**
      * Special type denoting that the texture of the object being drawn
      * should be used, which cannot be known before it is actually being drawn.
@@ -37,7 +42,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Checks if shaders are available on this system.
      *
-     * @return <tt>true</tt> if shaders are available, <tt>false</tt> otherwise.
+     * @return {@code true} if shaders are available, {@code false} otherwise.
      */
     public static native boolean isAvailable();
 
@@ -64,13 +69,19 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeLoadFromSource(String source, Type shaderType);
@@ -173,7 +184,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     private native void nativeSetParameter(String name, float x);
 
     /**
-     * Sets a float parameter (<tt>float</tt>) value in the shader.
+     * Sets a float parameter ({@code float}) value in the shader.
      *
      * @param name The parameter's name.
      * @param x    The parameter's value.
@@ -188,7 +199,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     private native void nativeSetParameter(String name, float x, float y);
 
     /**
-     * Sets a 2-component-float (<tt>vec2</tt>) parameter value in the shader.
+     * Sets a 2-component-float ({@code vec2}) parameter value in the shader.
      *
      * @param name The parameter's name.
      * @param x    The parameter's value.
@@ -202,7 +213,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     /**
-     * Sets a 2-component-float (<tt>vec2</tt>) parameter value in the shader.
+     * Sets a 2-component-float ({@code vec2}) parameter value in the shader.
      *
      * @param name The parameter's name.
      * @param v    The parameter's value.
@@ -214,7 +225,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     private native void nativeSetParameter(String name, float x, float y, float z);
 
     /**
-     * Sets a 3-component-float (<tt>vec3</tt>) parameter value in the shader.
+     * Sets a 3-component-float ({@code vec3}) parameter value in the shader.
      *
      * @param name The parameter's name.
      * @param x    The parameter's value.
@@ -229,7 +240,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     /**
-     * Sets a 3-component-float (<tt>vec3</tt>) parameter value in the shader.
+     * Sets a 3-component-float ({@code vec3}) parameter value in the shader.
      *
      * @param name The parameter's name.
      * @param v    The parameter's value.
@@ -241,7 +252,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     private native void nativeSetParameter(String name, float x, float y, float z, float w);
 
     /**
-     * Sets a 4-component-float (<tt>vec4</tt>) parameter value in the shader.
+     * Sets a 4-component-float ({@code vec4}) parameter value in the shader.
      *
      * @param name The parameter's name.
      * @param x    The parameter's value.

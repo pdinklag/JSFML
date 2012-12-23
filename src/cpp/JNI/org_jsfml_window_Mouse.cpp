@@ -10,10 +10,10 @@
 
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    isButtonPressed
+ * Method:    nativeIsButtonPressed
  * Signature: (Lorg/jsfml/window/Mouse$Button;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_isButtonPressed (JNIEnv* env, jclass cls, jobject button) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed (JNIEnv* env, jclass cls, jobject button) {
 	return sf::Mouse::isButtonPressed((sf::Mouse::Button)JavaEnum::ordinal(env, button));
 }
 

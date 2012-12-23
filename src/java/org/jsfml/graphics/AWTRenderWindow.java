@@ -64,7 +64,7 @@ final class AWTRenderWindow extends RenderWindow implements
 
     @Override
     public void keyTyped(KeyEvent e) {
-        queue.add(new org.jsfml.window.event.TextEvent(Event.Type.TEXT_ENTERED.ordinal(), (long) e.getKeyChar()));
+        queue.add(new org.jsfml.window.event.TextEvent(Event.Type.TEXT_ENTERED.ordinal(), e.getKeyChar()));
     }
 
     @Override

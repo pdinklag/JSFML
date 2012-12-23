@@ -2,7 +2,6 @@
 
 #include <JSFML/Intercom/Color.hpp>
 #include <JSFML/Intercom/FloatRect.hpp>
-#include <JSFML/Intercom/JavaString.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
@@ -50,7 +49,31 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeDelete (JNIEnv *env, j
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetString
     (JNIEnv *env, jobject obj, jstring str) {
 
-    THIS(sf::Text)->setString(sf::String(JavaString::getUnicode(env, str)));
+	jsize len = env->GetStringLength(str);
+	if(len > 0) {
+		wchar_t *buffer = new wchar_t[len + 1];
+
+		#if defined(SFML_SYSTEM_WINDOWS)
+			// sizeof(wchar_t) == 2
+			env->GetStringRegion(str, 0, len, (jchar *)buffer);
+			THIS(sf::Text)->setString(sf::String(buffer));
+		#else
+			// sizeof(whcar_t) == 4
+			const jchar *chars = env->GetStringChars(str, NULL);
+
+			for(size_t i = 0; i < len; i++)
+				buffer[i] = (wchar_t)chars[i];
+
+			env->ReleaseStringChars(str, chars);
+		#endif
+
+		buffer[len] = 0;
+		THIS(sf::Text)->setString(sf::String(buffer));
+
+		delete[] buffer;
+	} else {
+                THIS(sf::Text)->setString(std::string(""));
+	}
 }
 
 /*

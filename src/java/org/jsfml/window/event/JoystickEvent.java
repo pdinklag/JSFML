@@ -3,27 +3,40 @@ package org.jsfml.window.event;
 import org.jsfml.Intercom;
 
 /**
- * Abstract base class for all joystick / gamepad events.
+ * Represents generic joystick or gamepad events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#JOYSTICK_CONNECETED},
+ * {@link Event.Type#JOYSTICK_DISCONNECTED},
+ * {@link Event.Type#JOYSTICK_BUTTON_PRESSED},
+ * {@link Event.Type#JOYSTICK_BUTTON_RELEASED} or
+ * {@link Event.Type#JOYSTICK_MOVED}.
  */
 @Intercom
-public abstract class JoystickEvent extends Event {
-    /**
-     * The index of the joystick that caused this event.
-     */
-    public final int joystickId;
+public class JoystickEvent extends Event {
+	/**
+	 * The index of the joystick that caused this event.
+	 * <p/>
+	 * The value is guaranteed to range between 0 (inclusive) and
+	 * {@link org.jsfml.window.Joystick#JOYSTICK_COUNT} (exclusive).
+	 */
+	public final int joystickId;
 
-    @Intercom
-    public JoystickEvent(int type, int joystickId) {
-        super(type);
-        this.joystickId = joystickId;
-    }
+	/**
+	 * Constructs a new joystick event.
+	 *
+	 * @param type       the type of the event.
+	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param joystickId the joystick ID.
+	 */
+	@Intercom
+	public JoystickEvent(int type, int joystickId) {
+		super(type);
+		this.joystickId = joystickId;
+	}
 
-    public int getJoystickId() {
-        return joystickId;
-    }
-
-    @Override
-    public JoystickEvent asJoystickEvent() {
-        return this;
-    }
+	@Override
+	public JoystickEvent asJoystickEvent() {
+		return this;
+	}
 }

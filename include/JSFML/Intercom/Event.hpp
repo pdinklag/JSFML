@@ -17,7 +17,7 @@ namespace JSFML {
                 KeyEvent,
                 JoystickButtonEvent,
                 JoystickMoveEvent,
-                JoystickConnectEvent,
+                JoystickEvent,
                 MouseMoveEvent,
                 MouseButtonEvent,
                 MouseWheelEvent,

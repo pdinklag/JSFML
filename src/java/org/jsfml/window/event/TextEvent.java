@@ -2,33 +2,53 @@ package org.jsfml.window.event;
 
 import org.jsfml.Intercom;
 
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+
 /**
- * Event class for event type {@link Event.Type#TEXT_ENTERED}.
+ * Represents text enter events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#TEXT_ENTERED}.
  */
 @Intercom
 public final class TextEvent extends Event {
-    /**
-     * The unicode (UTF-32) of the character that was entered.
-     */
-    public final long unicode;
+	private final static Charset utf32 = Charset.forName("UTF-32");
 
-    @Intercom
-    public TextEvent(int type, long unicode) {
-        super(type);
-        this.unicode = unicode;
-    }
+	/**
+	 * The UTF-32 code of the character that was entered.
+	 */
+	public final int unicode;
 
-    /**
-     * Gets the UTF-16 character that was entered.
-     *
-     * @return The UTF-16 character that was entered.
-     */
-    public char getChar() {
-        return (char) unicode;
-    }
+	/**
+	 * The Java representation of the character that was entered.
+	 */
+	public final char character;
 
-    @Override
-    public TextEvent asTextEvent() {
-        return this;
-    }
+	/**
+	 * Constructs a new text event.
+	 *
+	 * @param type    the type of the event.
+	 *                This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param unicode the UTF-32 code of the character that was entered.
+	 */
+	@Intercom
+	public TextEvent(int type, int unicode) {
+		super(type);
+
+		this.unicode = unicode;
+
+		final ByteBuffer unicodeBuffer = ByteBuffer.allocate(4);
+		unicodeBuffer.putInt(unicode);
+		unicodeBuffer.flip();
+
+		final CharBuffer chars = utf32.decode(unicodeBuffer);
+		character = chars.get();
+	}
+
+	@Override
+	public TextEvent asTextEvent() {
+		return this;
+	}
 }

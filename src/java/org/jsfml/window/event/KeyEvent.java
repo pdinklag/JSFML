@@ -4,47 +4,67 @@ import org.jsfml.Intercom;
 import org.jsfml.window.Keyboard;
 
 /**
- * Event class for event types {@link Event.Type#KEY_PRESSED} and {@link Event.Type#KEY_RELEASED}.
+ * Represents keyboard key events.
+ * <p/>
+ * Objects of this class are created for events of type
+ * {@link Event.Type#KEY_PRESSED} or
+ * {@link Event.Type#KEY_RELEASED}.
  */
 @Intercom
 public final class KeyEvent extends Event {
-    /**
-     * The code of the key that was pressed or released.
-     */
-    public final Keyboard.Key key;
+	/**
+	 * The code of the key that was pressed or released.
+	 */
+	public final Keyboard.Key key;
 
-    /**
-     * <tt>true</tt> if an ALT key was pressed, <tt>false</tt> otherwise.
-     */
-    public final boolean alt;
+	/**
+	 * {@code true} if an {@code ALT} key (left or right) was pressed when the event occured,
+	 * {@code false} if not.
+	 */
+	public final boolean alt;
 
-    /**
-     * <tt>true</tt> if a SHIFT key was pressed, <tt>false</tt> otherwise.
-     */
-    public final boolean shift;
+	/**
+	 * {@code true} if a {@code SHIFT} key (left or right) was pressed when the event occured,
+	 * {@code false} if not.
+	 */
+	public final boolean shift;
 
-    /**
-     * <tt>true</tt> if a CTRL key was pressed, <tt>false</tt> otherwise.
-     */
-    public final boolean control;
+	/**
+	 * {@code true} if a {@code CTRL} key (left or right) was pressed when the event occured,
+	 * {@code false} if not.
+	 */
+	public final boolean control;
 
-    /**
-     * <tt>true</tt> if a system key was pressed, <tt>false</tt> otherwise.
-     */
-    public final boolean system;
+	/**
+	 * {@code true} if a system key was pressed when the event occured,
+	 * {@code false} if not.
+	 */
+	public final boolean system;
 
-    @Intercom
-    public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
-        super(type);
-        this.key = Keyboard.Key.values()[keyCode + 1];
-        this.alt = alt;
-        this.shift = shift;
-        this.control = control;
-        this.system = system;
-    }
+	/**
+	 * Constructs a new key event.
+	 *
+	 * @param type    the type of the event.
+	 *                This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param keyCode the code of the key that was pressed.
+	 *                This must be a valid ordinal in the {@link Keyboard.Key} enumeration.
+	 * @param alt     {@code true} to indicate that an {@code ALT} key was pressed.
+	 * @param shift   {@code true} to indicate that a {@code SHIFT} key was pressed.
+	 * @param control {@code true} to indicate that a {@code CTRL} key was pressed.
+	 * @param system  {@code true} to indicate that a system key was pressed.
+	 */
+	@Intercom
+	public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
+		super(type);
+		this.key = Keyboard.Key.values()[keyCode + 1];
+		this.alt = alt;
+		this.shift = shift;
+		this.control = control;
+		this.system = system;
+	}
 
-    @Override
-    public KeyEvent asKeyEvent() {
-        return this;
-    }
+	@Override
+	public KeyEvent asKeyEvent() {
+		return this;
+	}
 }

@@ -1,13 +1,13 @@
 package org.jsfml.audio;
 
 /**
- * Specialized {@link SoundRecorder} which stores captured audio data into a {@link SoundBuffer}.
+ * A {@code SoundRecorder} which stores captured audio data into a {@code SoundBuffer}.
  */
 public class SoundBufferRecorder extends SoundRecorder {
     private SoundBuffer soundBuffer;
 
     /**
-     * Creates a new sound buffer recorder.
+     * Constructs a sound buffer recorder.
      */
     public SoundBufferRecorder() {
         super();
@@ -15,22 +15,31 @@ public class SoundBufferRecorder extends SoundRecorder {
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
         //TODO Make SoundRecorder tree use the ExPtr system.
     }
 
     @Override
+	@Deprecated
+	@SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native long nativeGetBuffer();
 
     /**
      * Gets the sound buffer containing the captured audio data.
+	 * <p />
+	 * The sound buffer will remain empty until any sound has been successfully captured
+	 * using the {@link #start(int)} and {@link #stop()} methods.
      *
-     * @return The sound buffer containing the captured audio data.
+     * @return the sound buffer containing the captured audio data.
      */
     public ConstSoundBuffer getBuffer() {
         return soundBuffer;

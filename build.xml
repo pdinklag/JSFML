@@ -48,6 +48,7 @@
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
 			<!-- base -->
 			<class name="${jsfml.package}.ExPtr" />
+            <class name="${jsfml.package}.SFMLInputStream$NativeStreamRef" />
 			<class name="${jsfml.package}.SFMLNative" />
 			
 			<!-- window -->
