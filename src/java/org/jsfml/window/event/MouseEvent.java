@@ -21,8 +21,17 @@ public class MouseEvent extends Event {
 	 */
 	public final Vector2i position;
 
+	/**
+	 * /**
+	 * Constructs a new mouse button event.
+	 *
+	 * @param type the type of the event.
+	 *             This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param x    the X coordinate of the mouse cursor relative to the window.
+	 * @param y    the Y coordinate of the mouse cursor relative to the window.
+	 */
 	@Intercom
-	MouseEvent(int type, int x, int y) {
+	public MouseEvent(int type, int x, int y) {
 		super(type);
 		this.position = new Vector2i(x, y);
 	}

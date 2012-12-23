@@ -22,8 +22,15 @@ public class JoystickEvent extends Event {
 	 */
 	public final int joystickId;
 
+	/**
+	 * Constructs a new joystick event.
+	 *
+	 * @param type       the type of the event.
+	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param joystickId the joystick ID.
+	 */
 	@Intercom
-	JoystickEvent(int type, int joystickId) {
+	public JoystickEvent(int type, int joystickId) {
 		super(type);
 		this.joystickId = joystickId;
 	}

@@ -21,8 +21,19 @@ public final class JoystickMoveEvent extends JoystickEvent {
 	 */
 	public final float position;
 
+	/**
+	 * Constructs a new joystick axis event.
+	 *
+	 * @param type       the type of the event.
+	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param joystickId the joystick ID.
+	 * @param joyAxis    the joystick axis that was moved.
+	 *                   This must be a valid ordinal in the {@link Joystick.Axis}
+	 *                   enumeration.
+	 * @param position   the position that the axis was moved to.
+	 */
 	@Intercom
-	JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
+	public JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
 		super(type, joystickId);
 		this.joyAxis = Joystick.Axis.values()[joyAxis];
 		this.position = position;

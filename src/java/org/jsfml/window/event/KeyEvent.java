@@ -41,8 +41,20 @@ public final class KeyEvent extends Event {
 	 */
 	public final boolean system;
 
+	/**
+	 * Constructs a new key event.
+	 *
+	 * @param type    the type of the event.
+	 *                This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param keyCode the code of the key that was pressed.
+	 *                This must be a valid ordinal in the {@link Keyboard.Key} enumeration.
+	 * @param alt     {@code true} to indicate that an {@code ALT} key was pressed.
+	 * @param shift   {@code true} to indicate that a {@code SHIFT} key was pressed.
+	 * @param control {@code true} to indicate that a {@code CTRL} key was pressed.
+	 * @param system  {@code true} to indicate that a system key was pressed.
+	 */
 	@Intercom
-	KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
+	public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
 		super(type);
 		this.key = Keyboard.Key.values()[keyCode + 1];
 		this.alt = alt;

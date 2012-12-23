@@ -26,8 +26,15 @@ public final class TextEvent extends Event {
 	 */
 	public final char character;
 
+	/**
+	 * Constructs a new text event.
+	 *
+	 * @param type    the type of the event.
+	 *                This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 * @param unicode the UTF-32 code of the character that was entered.
+	 */
 	@Intercom
-	TextEvent(int type, int unicode) {
+	public TextEvent(int type, int unicode) {
 		super(type);
 
 		this.unicode = unicode;

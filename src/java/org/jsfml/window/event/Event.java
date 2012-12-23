@@ -167,8 +167,14 @@ public class Event {
 	 */
 	public final Type type;
 
+	/**
+	 * Constructs a new event.
+	 *
+	 * @param type the type of the event.
+	 *             This must be a valid ordinal in the {@link Event.Type} enumeration.
+	 */
 	@Intercom
-	Event(int type) {
+	public Event(int type) {
 		this.type = Type.values()[type];
 	}
 
