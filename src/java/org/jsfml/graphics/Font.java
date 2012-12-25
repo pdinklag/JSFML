@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.NativeRef;
 import org.jsfml.SFMLNativeObject;
 import org.jsfml.StreamUtil;
 import org.jsfml.UnsafeOperations;
@@ -19,8 +20,17 @@ public class Font extends SFMLNativeObject implements ConstFont {
     /**
      * Memory reference and heap pointer that keeps alive the data input stream for freetype.
      */
-    private byte[] memRef = null;
-    private long memPtr = 0;
+    private final NativeRef<byte[]> memoryRef = new NativeRef<byte[]>() {
+        @Override
+        protected long nativeInitialize(byte[] ref) {
+            return nativeLoadFromMemory(ref);
+        }
+
+        @Override
+        protected void nativeRelease(byte[] ref, long ptr) {
+            nativeReleaseMemory(ref, ptr);
+        }
+    };
 
     /**
      * Constructs a new font.
@@ -62,16 +72,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
     private native void nativeReleaseMemory(byte[] memory, long ptr);
 
-    private void releaseMemory() {
-        if (memRef != null) {
-            if (memPtr != 0)
-                nativeReleaseMemory(memRef, memPtr);
-
-            memRef = null;
-            memPtr = 0;
-        }
-    }
-
     /**
      * Fully loads all available bytes from an {@link java.io.InputStream}
      * and attempts to load the texture from it.
@@ -80,12 +80,9 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        releaseMemory();
-        memRef = StreamUtil.readStream(in);
-        memPtr = nativeLoadFromMemory(memRef);
+        memoryRef.initialize(StreamUtil.readStream(in));
 
-        if (memPtr == 0) {
-            releaseMemory();
+        if (!memoryRef.hasNonZeroPointer()) {
             throw new IOException("Failed to load font from input stream.");
         }
     }
@@ -97,12 +94,9 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
-        releaseMemory();
-        memRef = StreamUtil.readFile(file);
-        memPtr = nativeLoadFromMemory(memRef);
+        memoryRef.initialize(StreamUtil.readFile(file));
 
-        if (memPtr == 0) {
-            releaseMemory();
+        if (!memoryRef.hasNonZeroPointer()) {
             throw new IOException("Failed to load font from file: " + file);
         }
     }
@@ -134,11 +128,5 @@ public class Font extends SFMLNativeObject implements ConstFont {
         }
 
         return texture;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        releaseMemory();
-        super.finalize();
     }
 }

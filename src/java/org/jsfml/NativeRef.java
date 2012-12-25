@@ -61,6 +61,15 @@ public abstract class NativeRef<T> {
         ref = null;
     }
 
+    /**
+     * Tests whether this reference has a non-zero native pointer.
+     *
+     * @return {@code true} if the pointer is non-zero, {@code false} if it is {@code NULL}.
+     */
+    public boolean hasNonZeroPointer() {
+        return (ptr != 0);
+    }
+
     @Override
     protected void finalize() throws Throwable {
         release();
