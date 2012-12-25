@@ -20,7 +20,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCreate
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__
   (JNIEnv *, jobject);
 
 /*
@@ -41,10 +41,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopy
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    create
+ * Method:    nativeCreate
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_create
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
   (JNIEnv *, jobject, jint, jint);
 
 /*

@@ -45,10 +45,12 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopy (JNIEnv *env,
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    create
+ * Method:    nativeCreate
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_create (JNIEnv *env, jobject obj, jint width, jint height) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
+  (JNIEnv *env, jobject obj, jint width, jint height) {
+
     return THIS(sf::Texture)->create(width, height);
 }
 

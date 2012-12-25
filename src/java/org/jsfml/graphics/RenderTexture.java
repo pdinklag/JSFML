@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
@@ -51,10 +50,13 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      * @param height      the texture's height.
      * @param depthBuffer {@code true} to generate a depth buffer, {@code false} otherwise.
      *                    Use this only in case you wish to do 3D rendering to this texture.
+     * @throws TextureCreationException if the render texture could not be created.
      */
-    public void create(int width, int height, boolean depthBuffer) {
+    public void create(int width, int height, boolean depthBuffer)
+            throws TextureCreationException {
+
         if (!nativeCreate(width, height, depthBuffer))
-            throw new JSFMLError("Failed to create render texture.");
+            throw new TextureCreationException("Failed to create render texture.");
     }
 
     /**
@@ -62,8 +64,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      *
      * @param width  the texture's width.
      * @param height the texture's height.
+     * @throws TextureCreationException if the render texture could not be created.
      */
-    public final void create(int width, int height) {
+    public final void create(int width, int height) throws TextureCreationException {
         create(width, height, false);
     }
 

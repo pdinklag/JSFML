@@ -79,14 +79,19 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
 
     private native long nativeCopy();
 
+    private native boolean nativeCreate(int width, int height);
+
     /**
      * Generates an empty texture with the specified dimensions.
      *
      * @param width  the texture's width.
      * @param height the texture's height.
-     * @return {@code true} if the texture was successfully created, {@code false} otherwise.
+     * @throws TextureCreationException if the texture could not be created.
      */
-    public native boolean create(int width, int height);
+    public void create(int width, int height) throws TextureCreationException {
+        if (!nativeCreate(width, height))
+            throw new TextureCreationException("Failed to create texture.");
+    }
 
     private native boolean nativeLoadFromMemory(byte[] memory, IntRect area);
 
@@ -149,26 +154,28 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      *
      * @param image the source image.
      * @param area  the area of the image to load into the texture.
-     * @return {@code true} if the texture was successfully loaded, {@code false} otherwise.
+     * @throws TextureCreationException if the texture could not be loaded from the image.
      */
-    public boolean loadFromImage(@NotNull Image image, @NotNull IntRect area) {
+    public void loadFromImage(@NotNull Image image, @NotNull IntRect area)
+            throws TextureCreationException {
         if (image == null)
             throw new NullPointerException("image must not be null.");
 
         if (area == null)
             throw new NullPointerException("area must not be null.");
 
-        return nativeLoadFromImage(image, area);
+        if (!nativeLoadFromImage(image, area))
+            throw new TextureCreationException("Failed to load texture from image.");
     }
 
     /**
      * Attempts to load the texture from a source image.
      *
      * @param image the source image.
-     * @return {@code true} if the texture was successfully loaded, {@code false} otherwise.
+     * @throws TextureCreationException if the texture could not be loaded from the image.
      */
-    public final boolean loadFromImage(Image image) {
-        return loadFromImage(image, IntRect.EMPTY);
+    public final void loadFromImage(Image image) throws TextureCreationException {
+        loadFromImage(image, IntRect.EMPTY);
     }
 
     /**
