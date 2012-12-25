@@ -14,29 +14,29 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public class JoystickEvent extends Event {
-	/**
-	 * The index of the joystick that caused this event.
-	 * <p/>
-	 * The value is guaranteed to range between 0 (inclusive) and
-	 * {@link org.jsfml.window.Joystick#JOYSTICK_COUNT} (exclusive).
-	 */
-	public final int joystickId;
+    /**
+     * The index of the joystick that caused this event.
+     * <p/>
+     * The value is guaranteed to range between 0 (inclusive) and
+     * {@link org.jsfml.window.Joystick#JOYSTICK_COUNT} (exclusive).
+     */
+    public final int joystickId;
 
-	/**
-	 * Constructs a new joystick event.
-	 *
-	 * @param type       the type of the event.
-	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
-	 * @param joystickId the joystick ID.
-	 */
-	@Intercom
-	public JoystickEvent(int type, int joystickId) {
-		super(type);
-		this.joystickId = joystickId;
-	}
+    /**
+     * Constructs a new joystick event.
+     *
+     * @param type       the type of the event.
+     *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+     * @param joystickId the joystick ID.
+     */
+    @Intercom
+    public JoystickEvent(int type, int joystickId) {
+        super(type);
+        this.joystickId = joystickId;
+    }
 
-	@Override
-	public JoystickEvent asJoystickEvent() {
-		return this;
-	}
+    @Override
+    public JoystickEvent asJoystickEvent() {
+        return this;
+    }
 }

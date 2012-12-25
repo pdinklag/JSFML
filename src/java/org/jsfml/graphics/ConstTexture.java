@@ -21,21 +21,21 @@ public interface ConstTexture extends Const {
     /**
      * Gets the dimensions of the texture.
      *
-     * @return The dimensions of the texture.
+     * @return the dimensions of the texture.
      */
     public Vector2i getSize();
 
     /**
      * Copies this texture to an editable {@link Image}.
      *
-     * @return The image that contains a coyp of the texure's contents.
+     * @return the image that contains a coyp of the texure's contents.
      */
     public Image copyToImage();
 
     /**
      * Activates the texture for rendering.
      *
-     * @param coordinateType The coordinate type to use.
+     * @param coordinateType the coordinate type to use.
      */
     public void bind(@NotNull Texture.CoordinateType coordinateType);
 

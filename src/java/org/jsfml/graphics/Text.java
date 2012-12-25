@@ -4,29 +4,12 @@ import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
- * Graphical text that can be transformed and drawn to a render target.
+ * Represents a graphical text that can be transformed and drawn to a render target.
+ *
+ * This class implements the {@code TextStyle} interface for quick access to the constants
+ * provided by it.
  */
-public class Text extends SFMLNativeTransformable implements Drawable {
-    /**
-     * Regular drawing style.
-     */
-    public static final int REGULAR = 0;
-
-    /**
-     * Bold drawing style.
-     */
-    public static final int BOLD = 0x01;
-
-    /**
-     * Italic drawing style.
-     */
-    public static final int ITALIC = 0x02;
-
-    /**
-     * Underlined drawing style.
-     */
-    public static final int UNDERLINED = 0x04;
-
+public class Text extends SFMLNativeTransformable implements Drawable, TextStyle {
     private ConstFont font = null;
     private String string = "";
 
@@ -64,18 +47,18 @@ public class Text extends SFMLNativeTransformable implements Drawable {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native void nativeSetString(String string);
@@ -118,9 +101,10 @@ public class Text extends SFMLNativeTransformable implements Drawable {
     /**
      * Sets the font drawing style.
      *
-     * @param style The font drawing style. This should be an ORed combination of the style flags
-     *              {@link Text#BOLD}, {@link Text#ITALIC} and {@link  Text#UNDERLINED},
-     *              or {@link Text#REGULAR} for a regular style.
+     * @param style The font drawing style. This should be an combination ({@code OR})
+     *              of the style flags {@link TextStyle#BOLD}, {@link TextStyle#ITALIC} and
+     *              {@link TextStyle#UNDERLINED}, or {@link TextStyle#REGULAR} for the
+     *              regular style.
      */
     public native void setStyle(int style);
 

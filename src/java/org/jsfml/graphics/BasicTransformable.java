@@ -4,15 +4,15 @@ import org.jsfml.JSFML;
 import org.jsfml.system.Vector2f;
 
 /**
- * Simple implementation of the {@link Transformable} interface.
+ * Implementation of the {@link Transformable} interface.
  * <p/>
  * Classes can inherit from this in order to provide the {@link Transformable} interface.
  * The implementation equals that of the original SFML implementation.
  */
 @JSFML
 public class BasicTransformable implements Transformable {
-    private Vector2f origin = new Vector2f();
-    private Vector2f position = new Vector2f();
+    private Vector2f origin = Vector2f.ZERO;
+    private Vector2f position = Vector2f.ZERO;
     private float rotation = 0;
     private Vector2f scale = new Vector2f(1, 1);
 
@@ -22,7 +22,7 @@ public class BasicTransformable implements Transformable {
     private boolean inverseTransformNeedsUpdate = false;
 
     /**
-     * Default constructor; initializes this object with an identity transformation.
+     * Default constructor, initializes this object with an identity transformation.
      */
     public BasicTransformable() {
     }

@@ -6,63 +6,63 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating RGBA colors.
+ * Represents RGBA colors.
  */
 @Intercom
 public final class Color implements Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
     /**
-     * Black {@code (RGB:0,0,0)}
+     * Black {@code (0, 0, 0)}
      */
     public final static Color BLACK = new Color(0, 0, 0);
 
     /**
-     * White {@code (RGB:255,255,255)}
+     * White {@code (255, 255, 255)}
      */
     public final static Color WHITE = new Color(255, 255, 255);
 
     /**
-     * Red {@code (RGB:255,0,0)}
+     * Red {@code (255, 0, 0)}
      */
     public final static Color RED = new Color(255, 0, 0);
 
     /**
-     * Green {@code (RGB:0,255,0)}
+     * Green {@code (0, 255, 0)}
      */
     public final static Color GREEN = new Color(0, 255, 0);
 
     /**
-     * Blue {@code (RGB:0,0,255)}
+     * Blue {@code (0, 0, 255)}
      */
     public final static Color BLUE = new Color(0, 0, 255);
 
     /**
-     * Yellow {@code (RGB:255,255,0)}
+     * Yellow {@code (255, 255, 0)}
      */
     public final static Color YELLOW = new Color(255, 255, 0);
 
     /**
-     * Magenta {@code (RGB:255,255,0)}
+     * Magenta {@code (255, 255, 0)}
      */
     public final static Color MAGENTA = new Color(255, 0, 255);
 
     /**
-     * Cyan {@code (RGB:0,255,255)}
+     * Cyan {@code (0, 255, 255)}
      */
     public final static Color CYAN = new Color(0, 255, 255);
 
     /**
-     * Transparent {@code (RGBA:0,0,0,0)}
+     * Transparent {@code (0, 0, 0, 0)}
      */
     public final static Color TRANSPARENT = new Color(0, 0, 0, 0);
 
     /**
-     * Modulates two colors by adding them to one another.
+     * Modulates two colors by performing a component-wise addition.
      *
-     * @param a The left color.
-     * @param b The right color.
-     * @return A new color, the modulation of the two given colors.
+     * @param a the first color.
+     * @param b the second color.
+     * @return the modulated color.
      */
     public static Color add(Color a, Color b) {
         return new Color(
@@ -73,11 +73,11 @@ public final class Color implements Serializable {
     }
 
     /**
-     * Modulates two colors by multiplying their components.
+     * Modulates two colors by performing a component-wise multiplication.
      *
-     * @param a The left color.
-     * @param b The right color.
-     * @return A new color, the modulation of the two given colors.
+     * @param a the first color.
+     * @param b the second color.
+     * @return the modulated color.
      */
     public static Color mul(Color a, Color b) {
         return new Color(
@@ -90,9 +90,9 @@ public final class Color implements Serializable {
     /**
      * Modulates a color by multiplying its components with a factor.
      *
-     * @param color The color.
-     * @param f     The factor.
-     * @return A new color, the modulation of the given color.
+     * @param color the color.
+     * @param f     the factor.
+     * @return the modulated color.
      */
     public static Color mul(Color color, float f) {
         return new Color(
@@ -125,38 +125,30 @@ public final class Color implements Serializable {
     public final int b;
 
     /**
-     * The alpha component of the color.
+     * The alpha component of the color, ranging between 0 (transparent) and 255 (fully opaque).
      */
     @Intercom
     public final int a;
 
     /**
-     * Creates a new default color {@code (RGBA:0,0,0,255)}.
-     */
-    public Color() {
-        this(0, 0, 0, 255);
-    }
-
-    /**
-     * Creates a new color.
-     * <p/>
-     * The alpha value will be set to {@code 255}.
+     * Constructs a new color with the specified color components and an alpha value of 255
+     * (fully opaque).
      *
-     * @param r The color's red component.
-     * @param g The color's green component.
-     * @param b The color's blue component.
+     * @param r the color's red component.
+     * @param g the color's green component.
+     * @param b the color's blue component.
      */
     public Color(int r, int g, int b) {
         this(r, g, b, 255);
     }
 
     /**
-     * Creates a new color.
+     * Constructs a new color with the specified color and alpha components.
      *
-     * @param r The color's red component.
-     * @param g The color's green component.
-     * @param b The color's blue component.
-     * @param a The color's alpha component.
+     * @param r the color's red component.
+     * @param g the color's green component.
+     * @param b the color's blue component.
+     * @param a the color's alpha component, ranging between 0 (transparent) and 255 (fully opaque).
      */
     @Intercom
     public Color(int r, int g, int b, int a) {
@@ -167,22 +159,11 @@ public final class Color implements Serializable {
     }
 
     /**
-     * Creates a color from another color.
+     * Constructs a new color by copying another color and resetting the alpha value.
      *
-     * @param color The color to copy.
-     */
-    public Color(Color color) {
-        this.r = color.r;
-        this.g = color.g;
-        this.b = color.b;
-        this.a = color.a;
-    }
-
-    /**
-     * Creates a color from another color with a new alpha value.
-     *
-     * @param color The color to copy.
-     * @param alpha The alpha value of the new color.
+     * @param color the color to copy.
+     * @param alpha the alpha value of the new color,
+     *              ranging between 0 (transparent) and 255 (fully opaque).
      */
     public Color(Color color, int alpha) {
         this.r = color.r;

@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.JSFMLError;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
@@ -8,222 +7,226 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 /**
- * Target for off-screen 2D rendering into a texture.
+ * Provides a render target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-	private final ConstView defaultView;
-	private ConstView view;
-	private final ConstTexture texture;
+    private final ConstView defaultView;
+    private ConstView view;
+    private final ConstTexture texture;
 
-	/**
-	 * Creates a new render texture.
-	 */
-	public RenderTexture() {
-		super();
-		SFMLNative.ensureDisplay();
+    /**
+     * Constructs a new render texture.
+     */
+    public RenderTexture() {
+        super();
+        SFMLNative.ensureDisplay();
 
-		defaultView = new View(nativeGetDefaultView());
-		view = defaultView;
-		texture = new Texture(nativeGetTexture());
-	}
+        defaultView = new View(nativeGetDefaultView());
+        view = defaultView;
+        texture = new Texture(nativeGetTexture());
+    }
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native long nativeCreate();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native long nativeCreate();
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native void nativeSetExPtr();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeSetExPtr();
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native void nativeDelete();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeDelete();
 
-	private native boolean nativeCreate(int width, int height, boolean depthBuffer);
+    private native boolean nativeCreate(int width, int height, boolean depthBuffer);
 
-	/**
-	 * Sets up the render texture.
-	 *
-	 * @param width       The texture's width.
-	 * @param height      The texture's height.
-	 * @param depthBuffer {@code true} to generate a depth buffer, {@code false} otherwise.
-	 *                    Use this only in case you wish to do 3D rendering to this texture.
-	 */
-	public void create(int width, int height, boolean depthBuffer) {
-		if (!nativeCreate(width, height, depthBuffer))
-			throw new JSFMLError("Failed to create render texture.");
-	}
+    /**
+     * Sets up the render texture.
+     *
+     * @param width       the texture's width.
+     * @param height      the texture's height.
+     * @param depthBuffer {@code true} to generate a depth buffer, {@code false} otherwise.
+     *                    Use this only in case you wish to do 3D rendering to this texture.
+     * @throws TextureCreationException if the render texture could not be created.
+     */
+    public void create(int width, int height, boolean depthBuffer)
+            throws TextureCreationException {
 
-	/**
-	 * Sets up the render texture without a depth buffer..
-	 *
-	 * @param width  The texture's width.
-	 * @param height The texture's height.
-	 */
-	public final void create(int width, int height) {
-		create(width, height, false);
-	}
+        if (!nativeCreate(width, height, depthBuffer))
+            throw new TextureCreationException("Failed to create render texture.");
+    }
 
-	/**
-	 * Enables or disables textures smoothing.
-	 *
-	 * @param smooth {@code true} to enable, {@code false} to disable.
-	 */
-	public native void setSmooth(boolean smooth);
+    /**
+     * Sets up the render texture without a depth buffer.
+     *
+     * @param width  the texture's width.
+     * @param height the texture's height.
+     * @throws TextureCreationException if the render texture could not be created.
+     */
+    public final void create(int width, int height) throws TextureCreationException {
+        create(width, height, false);
+    }
 
-	/**
-	 * Checks whether texture smoothing is enabled.
-	 *
-	 * @return {@code true} if enabled, {@code false} if not.
-	 */
-	public native boolean isSmooth();
+    /**
+     * Enables or disables textures smoothing.
+     *
+     * @param smooth {@code true} to enable, {@code false} to disable.
+     */
+    public native void setSmooth(boolean smooth);
 
-	/**
-	 * Activates or deactivates the render texture for rendering.
-	 *
-	 * @param active {@code true} to activate, {@code false} to deactivate.
-	 */
-	public native void setActive(boolean active);
+    /**
+     * Checks whether texture smoothing is enabled.
+     *
+     * @return {@code true} if enabled, {@code false} if not.
+     */
+    public native boolean isSmooth();
 
-	/**
-	 * Updates the contents of the target texture.
-	 */
-	public native void display();
+    /**
+     * Activates or deactivates the render texture for rendering.
+     *
+     * @param active {@code true} to activate, {@code false} to deactivate.
+     */
+    public native void setActive(boolean active);
 
-	private native long nativeGetTexture();
+    /**
+     * Updates the contents of the target texture.
+     */
+    public native void display();
 
-	/**
-	 * Gets the target texture.
-	 *
-	 * @return The target texture.
-	 */
-	public ConstTexture getTexture() {
-		return texture;
-	}
+    private native long nativeGetTexture();
 
-	@Override
-	public native Vector2i getSize();
+    /**
+     * Gets the target texture.
+     *
+     * @return the target texture.
+     */
+    public ConstTexture getTexture() {
+        return texture;
+    }
 
-	private native void nativeClear(Color color);
+    @Override
+    public native Vector2i getSize();
 
-	@Override
-	public void clear(@NotNull Color color) {
-		if (color == null)
-			throw new NullPointerException("color must not be null.");
+    private native void nativeClear(Color color);
 
-		nativeClear(color);
-	}
+    @Override
+    public void clear(@NotNull Color color) {
+        if (color == null)
+            throw new NullPointerException("color must not be null.");
 
-	/**
-	 * Clears the target with black.
-	 */
-	public void clear() {
-		nativeClear(Color.BLACK);
-	}
+        nativeClear(color);
+    }
 
-	private native void nativeSetView(View view);
+    /**
+     * Clears the target with black.
+     */
+    public void clear() {
+        nativeClear(Color.BLACK);
+    }
 
-	@Override
-	public void setView(@NotNull ConstView view) {
-		if (view == null)
-			throw new NullPointerException("view must not be null.");
+    private native void nativeSetView(View view);
 
-		this.view = view;
-		nativeSetView((View) view);
-	}
+    @Override
+    public void setView(@NotNull ConstView view) {
+        if (view == null)
+            throw new NullPointerException("view must not be null.");
 
-	@Override
-	public ConstView getView() {
-		return view;
-	}
+        this.view = view;
+        nativeSetView((View) view);
+    }
 
-	private native long nativeGetDefaultView();
+    @Override
+    public ConstView getView() {
+        return view;
+    }
 
-	@Override
-	public ConstView getDefaultView() {
-		return defaultView;
-	}
+    private native long nativeGetDefaultView();
 
-	private native IntRect nativeGetViewport(View view);
+    @Override
+    public ConstView getDefaultView() {
+        return defaultView;
+    }
 
-	@Override
-	public IntRect getViewport(@NotNull View view) {
-		if (view == null)
-			throw new NullPointerException("view must not be null.");
+    private native IntRect nativeGetViewport(View view);
 
-		return nativeGetViewport(view);
-	}
+    @Override
+    public IntRect getViewport(@NotNull View view) {
+        if (view == null)
+            throw new NullPointerException("view must not be null.");
 
-	private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
+        return nativeGetViewport(view);
+    }
 
-	@Override
-	public final Vector2f mapPixelToCoords(@NotNull Vector2i point) {
-		return mapPixelToCoords(point, null); //null is handled in C code
-	}
+    private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
 
-	@Override
-	public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
-		if (point == null)
-			throw new NullPointerException("point must not be null.");
+    @Override
+    public final Vector2f mapPixelToCoords(@NotNull Vector2i point) {
+        return mapPixelToCoords(point, null); //null is handled in C code
+    }
 
-		return nativeMapPixelToCoords(point, view);
-	}
+    @Override
+    public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
+        if (point == null)
+            throw new NullPointerException("point must not be null.");
 
-	private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
+        return nativeMapPixelToCoords(point, view);
+    }
 
-	@Override
-	public final Vector2i mapCoordsToPixel(@NotNull Vector2f point) {
-		return mapCoordsToPixel(point, null); //null is handled in C code
-	}
+    private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
 
-	@Override
-	public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
-		if (point == null)
-			throw new NullPointerException("point must not be null.");
+    @Override
+    public final Vector2i mapCoordsToPixel(@NotNull Vector2f point) {
+        return mapCoordsToPixel(point, null); //null is handled in C code
+    }
 
-		return nativeMapCoordsToPixel(point, view);
-	}
+    @Override
+    public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
+        if (point == null)
+            throw new NullPointerException("point must not be null.");
 
-	@Override
-	public final void draw(Drawable drawable) {
-		draw(drawable, RenderStates.DEFAULT);
-	}
+        return nativeMapCoordsToPixel(point, view);
+    }
 
-	@Override
-	public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
-		drawable.draw(this, renderStates);
-	}
+    @Override
+    public final void draw(Drawable drawable) {
+        draw(drawable, RenderStates.DEFAULT);
+    }
 
-	@Override
-	public final void draw(Vertex[] vertices, PrimitiveType type) {
-		draw(vertices, type, RenderStates.DEFAULT);
-	}
+    @Override
+    public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
+        drawable.draw(this, renderStates);
+    }
 
-	private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
+    @Override
+    public final void draw(Vertex[] vertices, PrimitiveType type) {
+        draw(vertices, type, RenderStates.DEFAULT);
+    }
 
-	@Override
-	public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
-		if (vertices == null)
-			throw new NullPointerException("vertices must not be null.");
+    private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
 
-		if (type == null)
-			throw new NullPointerException("type must not be null.");
+    @Override
+    public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
+        if (vertices == null)
+            throw new NullPointerException("vertices must not be null.");
 
-		if (states == null)
-			throw new NullPointerException("states must not be null.");
+        if (type == null)
+            throw new NullPointerException("type must not be null.");
 
-		nativeDraw(vertices, type, states);
-	}
+        if (states == null)
+            throw new NullPointerException("states must not be null.");
 
-	@Override
-	public native void pushGLStates();
+        nativeDraw(vertices, type, states);
+    }
 
-	@Override
-	public native void popGLStates();
+    @Override
+    public native void pushGLStates();
 
-	@Override
-	public native void resetGLStates();
+    @Override
+    public native void popGLStates();
+
+    @Override
+    public native void resetGLStates();
 }

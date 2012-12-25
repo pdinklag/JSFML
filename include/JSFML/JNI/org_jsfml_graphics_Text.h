@@ -7,14 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#undef org_jsfml_graphics_Text_REGULAR
-#define org_jsfml_graphics_Text_REGULAR 0L
-#undef org_jsfml_graphics_Text_BOLD
-#define org_jsfml_graphics_Text_BOLD 1L
-#undef org_jsfml_graphics_Text_ITALIC
-#define org_jsfml_graphics_Text_ITALIC 2L
-#undef org_jsfml_graphics_Text_UNDERLINED
-#define org_jsfml_graphics_Text_UNDERLINED 4L
 /*
  * Class:     org_jsfml_graphics_Text
  * Method:    nativeCreate

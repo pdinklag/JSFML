@@ -8,16 +8,16 @@ import org.jsfml.system.Vector2f;
  */
 public class RectangleShape extends Shape {
     /**
-     * Creates a new rectangle with no dimensions.
+     * Constructs a new rectangle shape with no dimensions.
      */
     public RectangleShape() {
         super();
     }
 
     /**
-     * Creates a new rectangle shape.
+     * Constructs a new rectangle shape with the specified dimensions.
      *
-     * @param size The rectangle's dimensions.
+     * @param size the rectangle's dimensions.
      */
     public RectangleShape(Vector2f size) {
         this();
@@ -25,18 +25,18 @@ public class RectangleShape extends Shape {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeSetExPtr();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native void nativeSetSize(Vector2f size);
@@ -44,7 +44,7 @@ public class RectangleShape extends Shape {
     /**
      * Sets the dimensions of the rectangle.
      *
-     * @param size The dimensions of the rectangle.
+     * @param size the new dimensions of the rectangle.
      */
     public void setSize(@NotNull Vector2f size) {
         if (size == null)
@@ -56,7 +56,7 @@ public class RectangleShape extends Shape {
     /**
      * Gets the dimensions of the rectangle.
      *
-     * @return The dimensions of the rectangle.
+     * @return the dimensions of the rectangle.
      */
     public native Vector2f getSize();
 }

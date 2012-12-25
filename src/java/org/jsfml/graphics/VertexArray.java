@@ -14,14 +14,14 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
     private PrimitiveType primitiveType;
 
     /**
-     * Creates a new empty vertex array.
+     * Constructs a new empty vertex array using the {@link PrimitiveType#POINTS} type.
      */
     public VertexArray() {
         this(PrimitiveType.POINTS);
     }
 
     /**
-     * Creates a new empty vertex array.
+     * Constructs a new empty vertex array.
      *
      * @param primitiveType The type of primitives drawn by this vertex array.
      */
@@ -34,7 +34,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
     /**
      * Gets the type of primitives drawn by this vertex array.
      *
-     * @return The type of primitives drawn by this vertex array.
+     * @return the type of primitives drawn by this vertex array.
      */
     public PrimitiveType getPrimitiveType() {
         return primitiveType;
@@ -43,7 +43,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
     /**
      * Sets the type of primitives drawn by this vertex array.
      *
-     * @param primitiveType The type of primitives drawn by this vertex array.
+     * @param primitiveType the type of primitives drawn by this vertex array.
      */
     public void setPrimitiveType(PrimitiveType primitiveType) {
         this.primitiveType = primitiveType;
@@ -52,7 +52,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
     /**
      * Computes the axis-aligned bounding box of this vertex array.
      *
-     * @return The axis-aligned bounding box of this vertex array.
+     * @return the axis-aligned bounding box of this vertex array.
      */
     public FloatRect getBounds() {
         if (!isEmpty()) {
@@ -78,7 +78,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
 
             return new FloatRect(left, top, right - left, bottom - top);
         } else {
-            return new FloatRect();
+            return FloatRect.EMPTY;
         }
     }
 

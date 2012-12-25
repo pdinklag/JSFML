@@ -21,19 +21,19 @@ public final class SFMLNative {
 
     /**
      * The substring of the {@code os.name} system property
-	 * to look for to detect Windows systems.
+     * to look for to detect Windows systems.
      */
     public static final String OS_NAME_WINDOWS = "Windows";
 
     /**
      * The substring of the {@code os.name} system property
-	 * to look for to detect Linux systems.
+     * to look for to detect Linux systems.
      */
     public static final String OS_NAME_LINUX = "Linux";
 
     /**
      * The substring of the {@code os.name} system property
-	 * to look for to detect Mac OS X systems.
+     * to look for to detect Mac OS X systems.
      */
     public static final String OS_NAME_MACOSX = "Mac OS X";
 
@@ -162,11 +162,11 @@ public final class SFMLNative {
                     arch = "linux_x64";
                 }
 
-				nativeLibs.add("libsfml-system.so");
-				nativeLibs.add("libsfml-window.so");
-				nativeLibs.add("libsfml-graphics.so");
-				nativeLibs.add("libsfml-audio.so");
-				nativeLibs.add("libjsfml.so");
+                nativeLibs.add("libsfml-system.so");
+                nativeLibs.add("libsfml-window.so");
+                nativeLibs.add("libsfml-graphics.so");
+                nativeLibs.add("libsfml-audio.so");
+                nativeLibs.add("libjsfml.so");
 				
 				//Add "xawt" lib dir to java.library.path
                 try {
@@ -261,6 +261,7 @@ public final class SFMLNative {
                 }
             }
 
+            //On Linux, add SFML's default install path as a fallback
             //Load native libraries
             for (String lib : nativeLibs)
                 System.load(new File(nativeLibPath, lib).getAbsolutePath());

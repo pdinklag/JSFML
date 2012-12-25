@@ -4,10 +4,12 @@ import org.jsfml.SFMLNative;
 import org.jsfml.SFMLNativeObject;
 
 /**
- * Class holding a valid OpenGL drawing context.
+ * Holds a valid OpenGL drawing context.
  * <p/>
  * For every OpenGL call, a valid context is required. Using this class, by creating
  * an instance, you can obtain a valid context.
+ * <p/>
+ * This is only required if you do not have an active window that provides an OpenGL context.
  */
 public final class Context extends SFMLNativeObject {
     /**
@@ -18,19 +20,19 @@ public final class Context extends SFMLNativeObject {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeSetActive(boolean active);
@@ -39,7 +41,7 @@ public final class Context extends SFMLNativeObject {
      * Explictly activates or deactivates the OpenGL context.
      *
      * @param active {@code true} to activate, {@code false} to deactivate.
-     * @throws ContextActivationException If activating or deactivating the context failed.
+     * @throws ContextActivationException if activating or deactivating the context failed.
      */
     public void setActive(boolean active) throws ContextActivationException {
         if (!nativeSetActive(active)) {

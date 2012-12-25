@@ -7,9 +7,6 @@ import org.jsfml.system.Vector2f;
  * Decomposed transform defined by a position, a rotation and a scale.
  */
 abstract class SFMLNativeTransformable extends SFMLNativeObject implements Transformable {
-    /**
-     * Default constructor.
-     */
     protected SFMLNativeTransformable() {
         super();
     }

@@ -77,7 +77,7 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
      * @return a new time, representing the given time scaled by the given factor.
      */
     public static Time mul(Time a, float s) {
-        return new Time((long) (s * (float)a.microseconds));
+        return new Time((long) (s * (float) a.microseconds));
     }
 
     /**
@@ -88,7 +88,7 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
      * @return a new time, representing the given time scaled by the given factor.
      */
     public static Time div(Time a, float s) {
-        return new Time((long) ((float)a.microseconds / s));
+        return new Time((long) ((float) a.microseconds / s));
     }
 
     /**
@@ -108,15 +108,6 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     @Intercom
     private Time(long microseconds) {
         this.microseconds = microseconds;
-    }
-
-    /**
-     * Constructs a new time by copying another time.
-     *
-     * @param time the time to copy.
-     */
-    public Time(Time time) {
-        this.microseconds = time.microseconds;
     }
 
     /**

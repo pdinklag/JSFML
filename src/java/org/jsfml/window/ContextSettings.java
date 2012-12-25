@@ -5,7 +5,7 @@ import org.jsfml.Intercom;
 import java.io.Serializable;
 
 /**
- * Holds the settings of an OpenGL context attached to a window.
+ * Holds the settings for an OpenGL context attached to a window.
  * <p/>
  * Unless you need anti-aliasing for primitives or require your window to hold an OpenGL context
  * for a specific OpenGL version (e.g. for custom OpenGL rendering), you will most likely not
@@ -50,54 +50,54 @@ public final class ContextSettings implements Serializable {
     public final int minorVersion;
 
     /**
-     * Creates new context settings with default values (OpenGL 2.0, 0 depth bits,
-     * 0 stencil bits, no anti-aliasing).
+     * Constructs new context settings with default values (OpenGL 2.0, no depth or stencil bits,
+     * no anti-aliasing).
      */
     public ContextSettings() {
         this(0, 0, 0, 2, 0);
     }
 
     /**
-     * Creates new context settings with a certain anti-aliasing level and OpenGL 2.0,
+     * Constructs new context settings with the specified level of anti-aliasing and OpenGL 2.0,
      * no depth or stencil bits.
      *
-     * @param antialiasingLevel The level of anti-aliasing.
+     * @param antialiasingLevel the level of anti-aliasing.
      */
     public ContextSettings(int antialiasingLevel) {
         this(0, 0, antialiasingLevel, 2, 0);
     }
 
     /**
-     * Creates new context settings with a certain OpenGL version, no depth or stencil
+     * Constructs new context settings with the specified OpenGL version, no depth or stencil
      * bits and no anti-aliasing.
      *
-     * @param majorVersion The desired major OpenGL version number.
-     * @param minorVersion The desired minor OpenGL version number.
+     * @param majorVersion the desired major OpenGL version number.
+     * @param minorVersion the desired minor OpenGL version number.
      */
     public ContextSettings(int majorVersion, int minorVersion) {
         this(0, 0, 0, majorVersion, minorVersion);
     }
 
     /**
-     * Creates new context settings with a certain OpenGL version and anti-aliasing level and
-     * no depth or stencil bits
+     * Constructs new context settings with the specified OpenGL version and anti-aliasing level and
+     * no depth or stencil bits.
      *
-     * @param antialiasingLevel The level of anti-aliasing.
-     * @param majorVersion      The desired major OpenGL version number.
-     * @param minorVersion      The desired minor OpenGL version number.
+     * @param antialiasingLevel the level of anti-aliasing.
+     * @param majorVersion      the desired major OpenGL version number.
+     * @param minorVersion      the desired minor OpenGL version number.
      */
     public ContextSettings(int antialiasingLevel, int majorVersion, int minorVersion) {
         this(0, 0, antialiasingLevel, majorVersion, minorVersion);
     }
 
     /**
-     * Creates new context settings.
+     * Constructs new context settings.
      *
-     * @param depthBits         The amount of depth buffer bits.
-     * @param stencilBits       The amount of stencil buffer bits.
-     * @param antialiasingLevel The level of anti-aliasing.
-     * @param majorVersion      The desired major OpenGL version number.
-     * @param minorVersion      The desired minor OpenGL version number.
+     * @param depthBits         the amount of depth buffer bits.
+     * @param stencilBits       the amount of stencil buffer bits.
+     * @param antialiasingLevel the level of anti-aliasing.
+     * @param majorVersion      the desired major OpenGL version number.
+     * @param minorVersion      the desired minor OpenGL version number.
      */
     @Intercom
     public ContextSettings(int depthBits, int stencilBits, int antialiasingLevel, int majorVersion, int minorVersion) {

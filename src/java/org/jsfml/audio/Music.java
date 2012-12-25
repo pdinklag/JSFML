@@ -20,82 +20,82 @@ import java.io.InputStream;
  * mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64}
  */
 public class Music extends SoundStream {
-	private final SFMLInputStream.NativeStreamRef streamRef =
-			new SFMLInputStream.NativeStreamRef();
+    private final SFMLInputStream.NativeStreamRef streamRef =
+            new SFMLInputStream.NativeStreamRef();
 
-	/**
-	 * Constructs a music.
-	 */
-	public Music() {
-		super();
-	}
+    /**
+     * Constructs a music.
+     */
+    public Music() {
+        super();
+    }
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native long nativeCreate();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native long nativeCreate();
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native void nativeSetExPtr();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeSetExPtr();
 
-	@Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
-	protected native void nativeDelete();
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeDelete();
 
-	private native boolean nativeOpenFromStream(SFMLInputStream.NativeStreamRef stream);
+    private native boolean nativeOpenFromStream(SFMLInputStream.NativeStreamRef stream);
 
-	/**
-	 * Attempts to open the music from an {@code InputStream}.
-	 *
-	 * @param in the input stream to stream from.
-	 * @throws java.io.IOException in case an I/O error occurs.
-	 */
-	public void openFromStream(@NotNull InputStream in) throws IOException {
-		if (in == null)
-			throw new NullPointerException("in must not be null");
+    /**
+     * Attempts to open the music from an {@code InputStream}.
+     *
+     * @param in the input stream to stream from.
+     * @throws java.io.IOException in case an I/O error occurs.
+     */
+    public void openFromStream(@NotNull InputStream in) throws IOException {
+        if (in == null)
+            throw new NullPointerException("in must not be null");
 
-		streamRef.initialize(new SFMLInputStream(in));
+        streamRef.initialize(new SFMLInputStream(in));
 
-		if (!nativeOpenFromStream(streamRef))
-			throw new IOException("Failed to open music from input stream.");
-	}
+        if (!nativeOpenFromStream(streamRef))
+            throw new IOException("Failed to open music from input stream.");
+    }
 
-	/**
-	 * Attempts to open the music from a file.
-	 *
-	 * @param file the file to stream from.
-	 * @throws IOException in case an I/O error occurs.
-	 */
-	public void openFromFile(File file) throws IOException {
-		if (!file.isFile())
-			throw new IOException("file not found: " + file);
+    /**
+     * Attempts to open the music from a file.
+     *
+     * @param file the file to stream from.
+     * @throws IOException in case an I/O error occurs.
+     */
+    public void openFromFile(File file) throws IOException {
+        if (!file.isFile())
+            throw new IOException("file not found: " + file);
 
-		openFromStream(new FileInputStream(file));
-	}
+        openFromStream(new FileInputStream(file));
+    }
 
-	/**
-	 * Gets the total duration of the music.
-	 *
-	 * @return the total duration of the music.
-	 */
-	public native Time getDuration();
+    /**
+     * Gets the total duration of the music.
+     *
+     * @return the total duration of the music.
+     */
+    public native Time getDuration();
 
-	@Override
-	protected final void initialize(int channelCount, int sampleRate) {
-		//Music is implemented natively, so this is not used.
-	}
+    @Override
+    protected final void initialize(int channelCount, int sampleRate) {
+        //Music is implemented natively, so this is not used.
+    }
 
-	@Override
-	protected final Chunk onGetData() {
-		//Music is implemented natively, so this is not used.
-		return null;
-	}
+    @Override
+    protected final Chunk onGetData() {
+        //Music is implemented natively, so this is not used.
+        return null;
+    }
 
-	@Override
-	protected final void onSeek(Time time) {
-		//Music is implemented natively, so this is not used.
-	}
+    @Override
+    protected final void onSeek(Time time) {
+        //Music is implemented natively, so this is not used.
+    }
 }

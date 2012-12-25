@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Shader program consisting of a vertex and a fragment shader.
+ * Represents a GLSL shader program, consisting of a vertex and a fragment shader.
  */
 public class Shader extends SFMLNativeObject implements ConstShader {
-	static {
-		SFMLNative.loadNativeLibraries();
-	}
+    static {
+        SFMLNative.loadNativeLibraries();
+    }
 
     /**
      * Special type denoting that the texture of the object being drawn
@@ -47,41 +47,41 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public static native boolean isAvailable();
 
     /**
-     * Shader type enumeration.
+     * Enumeration of shader types.
      */
     public static enum Type {
         /**
-         * Type for vertex shaders.
+         * Vertex shaders.
          */
         VERTEX,
 
         /**
-         * Type for fragment a.k.a. pixel shaders.
+         * Fragment shaders.
          */
         FRAGMENT
     }
 
     /**
-     * Creates a new shader.
+     * Constructs a new shader.
      */
     public Shader() {
         super();
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeLoadFromSource(String source, Type shaderType);
@@ -89,10 +89,10 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     private native boolean nativeLoadFromSource(String vertSource, String fragSource);
 
     /**
-     * Attempts to load a shader from a source code.
+     * Attempts to load a shader from GLSL source code.
      *
-     * @param source     The source code.
-     * @param shaderType The shader type.
+     * @param source     the GLSL source code.
+     * @param shaderType the shader type.
      */
     public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
             throws IOException {
@@ -108,11 +108,11 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     /**
-     * Attempts to load a shader from a source code.
+     * Attempts to load a shader from GLSL source code.
      *
-     * @param vertexShaderSource   The vertex shader's source code.
-     * @param fragmentShaderSource The fragment shader's source code.
-     * @throws java.io.IOException In case an I/O error occurs.
+     * @param vertexShaderSource   the vertex shader's GLSL source code.
+     * @param fragmentShaderSource the fragment shader's GLSL source code.
+     * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
             throws IOException {
@@ -128,11 +128,12 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     /**
-     * Fully loads all available bytes from an {@link InputStream} and attempts to load the shader from it.
+     * Fully loads all available bytes from an {@link InputStream}
+     * and attempts to load the shader from it.
      *
-     * @param in         The input stream to read from.
-     * @param shaderType The shader type.
-     * @throws IOException In case an I/O error occurs.
+     * @param in         the input stream to read from.
+     * @param shaderType the shader type.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
@@ -142,11 +143,12 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     /**
-     * Fully loads all available bytes from an {@link InputStream} and attempts to load the shader from it.
+     * Fully loads all available bytes from an {@link InputStream}
+     * and attempts to load the shader from it.
      *
-     * @param vertexShaderIn   The input stream to read the vertex shader from.
-     * @param fragmentShaderIn The input stream to read the fragment shader from.
-     * @throws IOException In case an I/O error occurs.
+     * @param vertexShaderIn   the input stream to read the vertex shader from.
+     * @param fragmentShaderIn the input stream to read the fragment shader from.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn) throws IOException {
         loadFromSource(
@@ -157,9 +159,9 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Attempts to load the shader from a file.
      *
-     * @param file       The file to load.
-     * @param shaderType The shader type.
-     * @throws IOException In case an I/O error occurs.
+     * @param file       the file to load.
+     * @param shaderType the shader type.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
         if (shaderType == null)
@@ -171,9 +173,9 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Attempts to load the shader from files.
      *
-     * @param vertexShaderFile   The file to read the vertex shader from.
-     * @param fragmentShaderFile The file to read the fragment shader from.
-     * @throws IOException In case an I/O error occurs.
+     * @param vertexShaderFile   the file to read the vertex shader from.
+     * @param fragmentShaderFile the file to read the fragment shader from.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
         loadFromSource(
@@ -186,8 +188,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a float parameter ({@code float}) value in the shader.
      *
-     * @param name The parameter's name.
-     * @param x    The parameter's value.
+     * @param name the parameter's name.
+     * @param x    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x) {
         if (name == null)
@@ -201,9 +203,9 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a 2-component-float ({@code vec2}) parameter value in the shader.
      *
-     * @param name The parameter's name.
-     * @param x    The parameter's value.
-     * @param y    The parameter's value.
+     * @param name the parameter's name.
+     * @param x    the parameter's value.
+     * @param y    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y) {
         if (name == null)
@@ -215,8 +217,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a 2-component-float ({@code vec2}) parameter value in the shader.
      *
-     * @param name The parameter's name.
-     * @param v    The parameter's value.
+     * @param name the parameter's name.
+     * @param v    the parameter's value.
      */
     public void setParameter(String name, Vector2f v) {
         setParameter(name, v.x, v.y);
@@ -227,10 +229,10 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a 3-component-float ({@code vec3}) parameter value in the shader.
      *
-     * @param name The parameter's name.
-     * @param x    The parameter's value.
-     * @param y    The parameter's value.
-     * @param z    The parameter's value.
+     * @param name the parameter's name.
+     * @param x    the parameter's value.
+     * @param y    the parameter's value.
+     * @param z    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y, float z) {
         if (name == null)
@@ -242,8 +244,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a 3-component-float ({@code vec3}) parameter value in the shader.
      *
-     * @param name The parameter's name.
-     * @param v    The parameter's value.
+     * @param name the parameter's name.
+     * @param v    the parameter's value.
      */
     public void setParameter(String name, Vector3f v) {
         setParameter(name, v.x, v.y, v.z);
@@ -254,11 +256,11 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a 4-component-float ({@code vec4}) parameter value in the shader.
      *
-     * @param name The parameter's name.
-     * @param x    The parameter's value.
-     * @param y    The parameter's value.
-     * @param z    The parameter's value.
-     * @param w    The parameter's value.
+     * @param name the parameter's name.
+     * @param x    the parameter's value.
+     * @param y    the parameter's value.
+     * @param z    the parameter's value.
+     * @param w    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y, float z, float w) {
         if (name == null)
@@ -270,8 +272,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a color (vec4) parameter value in the shader.
      *
-     * @param name  The parameter's name.
-     * @param color The parameter's value.
+     * @param name  the parameter's name.
+     * @param color the parameter's value.
      */
     public void setParameter(String name, Color color) {
         setParameter(name,
@@ -286,8 +288,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a matrix (mat4) parameter value in the shader.
      *
-     * @param name  The parameter's name.
-     * @param xform The parameter's value.
+     * @param name  the parameter's name.
+     * @param xform the parameter's value.
      */
     public void setParameter(@NotNull String name, @NotNull Transform xform) {
         if (name == null)
@@ -304,8 +306,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a texture (sampler2D) parameter value in the shader.
      *
-     * @param name    The parameter's name.
-     * @param texture The parameter's value.
+     * @param name    the parameter's name.
+     * @param texture the parameter's value.
      */
     public void setParameter(@NotNull String name, @NotNull ConstTexture texture) {
         if (name == null)
@@ -326,8 +328,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * Since that texture cannot be known before the object is actually being drawn,
      * this overload can be used to tell the shader to use it when applied.
      *
-     * @param name           The parameter's name.
-     * @param currentTexture Should be {@link Shader#CURRENT_TEXTURE}.
+     * @param name           the parameter's name.
+     * @param currentTexture should be {@link Shader#CURRENT_TEXTURE}.
      */
     public void setParameter(@NotNull String name, CurrentTextureType currentTexture) {
         if (name == null)

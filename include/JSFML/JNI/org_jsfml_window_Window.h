@@ -7,18 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#undef org_jsfml_window_Window_NONE
-#define org_jsfml_window_Window_NONE 0L
-#undef org_jsfml_window_Window_TITLEBAR
-#define org_jsfml_window_Window_TITLEBAR 1L
-#undef org_jsfml_window_Window_RESIZE
-#define org_jsfml_window_Window_RESIZE 2L
-#undef org_jsfml_window_Window_CLOSE
-#define org_jsfml_window_Window_CLOSE 4L
-#undef org_jsfml_window_Window_FULLSCREEN
-#define org_jsfml_window_Window_FULLSCREEN 8L
-#undef org_jsfml_window_Window_DEFAULT
-#define org_jsfml_window_Window_DEFAULT 7L
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeCreate

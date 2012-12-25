@@ -51,7 +51,7 @@ public interface ConstSoundBuffer extends Const {
 
     /**
      * Gets the amount of audio channels in the buffer
-	 * (e.g. 1 for mono, 2 for stereo etc).
+     * (e.g. 1 for mono, 2 for stereo etc).
      *
      * @return the amount of audio channels in the buffer.
      */
