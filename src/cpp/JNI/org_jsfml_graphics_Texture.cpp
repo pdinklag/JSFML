@@ -21,7 +21,7 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize (JNIEnv *e
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCreate (JNIEnv *env, jobject obj) {
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__ (JNIEnv *env, jobject obj) {
     return (jlong)new sf::Texture();
 }
 
