@@ -13,47 +13,47 @@ public final class Color implements Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
     /**
-     * Black {@code (RGB:0,0,0)}
+     * Black {@code (RGB:0, 0, 0)}
      */
     public final static Color BLACK = new Color(0, 0, 0);
 
     /**
-     * White {@code (RGB:255,255,255)}
+     * White {@code (RGB:255, 255, 255)}
      */
     public final static Color WHITE = new Color(255, 255, 255);
 
     /**
-     * Red {@code (RGB:255,0,0)}
+     * Red {@code (RGB:255, 0, 0)}
      */
     public final static Color RED = new Color(255, 0, 0);
 
     /**
-     * Green {@code (RGB:0,255,0)}
+     * Green {@code (RGB:0, 255, 0)}
      */
     public final static Color GREEN = new Color(0, 255, 0);
 
     /**
-     * Blue {@code (RGB:0,0,255)}
+     * Blue {@code (RGB:0, 0, 255)}
      */
     public final static Color BLUE = new Color(0, 0, 255);
 
     /**
-     * Yellow {@code (RGB:255,255,0)}
+     * Yellow {@code (RGB:255, 255, 0)}
      */
     public final static Color YELLOW = new Color(255, 255, 0);
 
     /**
-     * Magenta {@code (RGB:255,255,0)}
+     * Magenta {@code (RGB:255, 255, 0)}
      */
     public final static Color MAGENTA = new Color(255, 0, 255);
 
     /**
-     * Cyan {@code (RGB:0,255,255)}
+     * Cyan {@code (RGB:0, 255, 255)}
      */
     public final static Color CYAN = new Color(0, 255, 255);
 
     /**
-     * Transparent {@code (RGBA:0,0,0,0)}
+     * Transparent {@code (RGBA:0, 0, 0, 0)}
      */
     public final static Color TRANSPARENT = new Color(0, 0, 0, 0);
 
@@ -131,7 +131,7 @@ public final class Color implements Serializable {
     public final int a;
 
     /**
-     * Creates a new default color {@code (RGBA:0,0,0,255)}.
+     * Creates a new default color {@code (RGBA:0, 0, 0, 255)}.
      */
     public Color() {
         this(0, 0, 0, 255);

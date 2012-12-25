@@ -15,9 +15,9 @@ import java.io.InputStream;
  * Shader program consisting of a vertex and a fragment shader.
  */
 public class Shader extends SFMLNativeObject implements ConstShader {
-	static {
-		SFMLNative.loadNativeLibraries();
-	}
+    static {
+        SFMLNative.loadNativeLibraries();
+    }
 
     /**
      * Special type denoting that the texture of the object being drawn
@@ -69,19 +69,19 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native boolean nativeLoadFromSource(String source, Type shaderType);

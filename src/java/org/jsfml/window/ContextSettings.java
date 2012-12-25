@@ -51,7 +51,7 @@ public final class ContextSettings implements Serializable {
 
     /**
      * Constructs new context settings with default values (OpenGL 2.0, no depth or stencil bits,
-	 * no anti-aliasing).
+     * no anti-aliasing).
      */
     public ContextSettings() {
         this(0, 0, 0, 2, 0);

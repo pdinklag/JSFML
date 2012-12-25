@@ -15,29 +15,29 @@ public class SoundBufferRecorder extends SoundRecorder {
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native long nativeCreate();
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected void nativeSetExPtr() {
         //TODO Make SoundRecorder tree use the ExPtr system.
     }
 
     @Override
-	@Deprecated
-	@SuppressWarnings("deprecation")
+    @Deprecated
+    @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
     private native long nativeGetBuffer();
 
     /**
      * Gets the sound buffer containing the captured audio data.
-	 * <p />
-	 * The sound buffer will remain empty until any sound has been successfully captured
-	 * using the {@link #start(int)} and {@link #stop()} methods.
+     * <p/>
+     * The sound buffer will remain empty until any sound has been successfully captured
+     * using the {@link #start(int)} and {@link #stop()} methods.
      *
      * @return the sound buffer containing the captured audio data.
      */

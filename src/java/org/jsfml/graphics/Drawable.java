@@ -9,11 +9,11 @@ import org.jsfml.NotNull;
  * method, but serve no additional purpose otherwise.
  */
 public interface Drawable {
-	/**
-	 * Draws the object to a render target.
-	 *
-	 * @param target the target to draw this object on.
-	 * @param states the current render states.
-	 */
-	void draw(@NotNull RenderTarget target, @NotNull RenderStates states);
+    /**
+     * Draws the object to a render target.
+     *
+     * @param target the target to draw this object on.
+     * @param states the current render states.
+     */
+    void draw(@NotNull RenderTarget target, @NotNull RenderStates states);
 }

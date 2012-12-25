@@ -11,30 +11,30 @@ import org.jsfml.Intercom;
  */
 @Intercom
 public final class JoystickButtonEvent extends JoystickEvent {
-	/**
-	 * The index of the button that was pressed or released.
-	 * <p/>
-	 * The value is guaranteed to range between 0 (inclusive) and
-	 * {@link org.jsfml.window.Joystick#BUTTON_COUNT} (exclusive).
-	 */
-	public final int button;
+    /**
+     * The index of the button that was pressed or released.
+     * <p/>
+     * The value is guaranteed to range between 0 (inclusive) and
+     * {@link org.jsfml.window.Joystick#BUTTON_COUNT} (exclusive).
+     */
+    public final int button;
 
-	/**
-	 * Constructs a new joystick button event.
-	 *
-	 * @param type       the type of the event.
-	 *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
-	 * @param joystickId the joystick ID.
-	 * @param button     the index of the button that was pressed.
-	 */
-	@Intercom
-	public JoystickButtonEvent(int type, int joystickId, int button) {
-		super(type, joystickId);
-		this.button = button;
-	}
+    /**
+     * Constructs a new joystick button event.
+     *
+     * @param type       the type of the event.
+     *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
+     * @param joystickId the joystick ID.
+     * @param button     the index of the button that was pressed.
+     */
+    @Intercom
+    public JoystickButtonEvent(int type, int joystickId, int button) {
+        super(type, joystickId);
+        this.button = button;
+    }
 
-	@Override
-	public JoystickButtonEvent asJoystickButtonEvent() {
-		return this;
-	}
+    @Override
+    public JoystickButtonEvent asJoystickButtonEvent() {
+        return this;
+    }
 }

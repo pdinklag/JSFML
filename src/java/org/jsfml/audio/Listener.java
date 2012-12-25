@@ -6,7 +6,7 @@ import org.jsfml.system.Vector3f;
 /**
  * Represents the point in the scene from where all the sounds are heard and
  * provides funcionality to modify it.
- * <p />
+ * <p/>
  * Modifying the position and orientation ("view direction") of the listener
  * changes the way sounds are heard to accomplish 3D sound.
  * Sounds will be panned and attenuated according to their position relative to the listener
@@ -35,23 +35,23 @@ public final class Listener {
 
     /**
      * Sets the position of the listener in the scene.
-	 * <p />
-	 * Initially, the listener is located at the origin <i>(0, 0, 0)</i>.
+     * <p/>
+     * Initially, the listener is located at the origin <i>(0, 0, 0)</i>.
      *
      * @param x the X coordinate of the listener's new position.
      * @param y the Y coordinate of the listener's new position.
      * @param z the Z coordinate of the listener's new position.
-	 * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
+     * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static native void setPosition(float x, float y, float z);
 
     /**
      * Sets the position of the listener in the scene.
-	 * <p />
-	 * Initially, the listener is located at the origin <i>(0, 0, 0)</i>.
+     * <p/>
+     * Initially, the listener is located at the origin <i>(0, 0, 0)</i>.
      *
      * @param v the listener's new position.
-	 * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
+     * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static void setPosition(Vector3f v) {
         setPosition(v.x, v.y, v.z);
@@ -66,25 +66,25 @@ public final class Listener {
 
     /**
      * Sets the orientation or "view direction" of the listener in the scene.
-	 * <p />
-	 * The vector passed does not need to be normalized. Initially, the listener's orientation
-	 * is along the Z axis, looking "into" the screen <i>(0, 0, -1)</i>.
+     * <p/>
+     * The vector passed does not need to be normalized. Initially, the listener's orientation
+     * is along the Z axis, looking "into" the screen <i>(0, 0, -1)</i>.
      *
      * @param x the X component of the listener's new orientation.
      * @param y the Y component of the listener's new orientation.
      * @param z the Z component of the listener's new orientation.
-	 * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
+     * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static native void setDirection(float x, float y, float z);
 
     /**
-	 * Sets the orientation or "view direction" of the listener in the scene.
-	 * <p />
-	 * The vector passed does not need to be normalized. Initially, the listener's orientation
-	 * is along the Z axis, looking "into" the screen <i>(0, 0, -1)</i>.
+     * Sets the orientation or "view direction" of the listener in the scene.
+     * <p/>
+     * The vector passed does not need to be normalized. Initially, the listener's orientation
+     * is along the Z axis, looking "into" the screen <i>(0, 0, -1)</i>.
      *
      * @param v the listener's new orientation.
-	 * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
+     * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static void setDirection(Vector3f v) {
         setDirection(v.x, v.y, v.z);
