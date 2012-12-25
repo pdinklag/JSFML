@@ -8,14 +8,14 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.Window;
 
 /**
- * Window that can serve as a target for 2D drawing.
+ * Provides a window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
     private final ConstView defaultView;
     private ConstView view;
 
     /**
-     * Constructs a new window without creating it.
+     * Constructs a new render window without actually creating (opening) it.
      *
      * @see RenderWindow#create(org.jsfml.window.VideoMode, String, int, org.jsfml.window.ContextSettings)
      */
@@ -36,12 +36,13 @@ public class RenderWindow extends Window implements RenderTarget {
     }
 
     /**
-     * Creates a new render window.
+     * Constructs a new render window and creates it with the specified parameters.
      *
-     * @param mode     The video mode to use for rendering.
-     * @param title    The window title.
-     * @param style    The window style.
-     * @param settings The settings for the OpenGL context.
+     * @param mode     the video mode to use for rendering.
+     * @param title    the window title.
+     * @param style    the window style.
+     * @param settings the settings for the OpenGL context.
+     * @see #create(org.jsfml.window.VideoMode, String, int, org.jsfml.window.ContextSettings)
      */
     public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
         this();
@@ -49,11 +50,12 @@ public class RenderWindow extends Window implements RenderTarget {
     }
 
     /**
-     * Creates a new render window with default context settings.
+     * Constructs a new render window and creates it with default context settings.
      *
-     * @param mode  The video mode to use for rendering.
-     * @param title The window title.
-     * @param style The window style.
+     * @param mode  the video mode to use for rendering.
+     * @param title the window title.
+     * @param style the window style.
+     * @see #create(org.jsfml.window.VideoMode, String, int)
      */
     public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style) {
         this();
@@ -61,7 +63,7 @@ public class RenderWindow extends Window implements RenderTarget {
     }
 
     /**
-     * Creates a new render window with default style and context settings.
+     * Constructs a new render window and creates it with default style and context settings.
      *
      * @param mode  The video mode to use for rendering.
      * @param title The window title.

@@ -4,7 +4,7 @@ import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
 /**
- * Graphical text that can be transformed and drawn to a render target.
+ * Represents a graphical text that can be transformed and drawn to a render target.
  */
 public class Text extends SFMLNativeTransformable implements Drawable {
     /**

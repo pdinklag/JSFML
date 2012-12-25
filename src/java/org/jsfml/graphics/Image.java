@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Class for loading, manipulating and saving images.
+ * Provides methods for loading, manipulating and saving images.
  */
 public class Image extends SFMLNativeObject {
     /**
-     * Creates a new image.
+     * Constructs a new empty image.
      */
     public Image() {
         super();
@@ -46,9 +46,9 @@ public class Image extends SFMLNativeObject {
     /**
      * Generates a new image and fills it with a color.
      *
-     * @param width  The image's width.
-     * @param height The image's height.
-     * @param color  The fill color of the image.
+     * @param width  the image's width.
+     * @param height the image's height.
+     * @param color  the fill color of the image.
      */
     public void create(int width, int height, @NotNull Color color) {
         if (color == null)
@@ -60,8 +60,8 @@ public class Image extends SFMLNativeObject {
     /**
      * Generates a new image and fills it with black.
      *
-     * @param width  The image's width.
-     * @param height The image's height.
+     * @param width  the image's width.
+     * @param height the image's height.
      */
     public final void create(int width, int height) {
         create(width, height, Color.BLACK);
@@ -70,10 +70,11 @@ public class Image extends SFMLNativeObject {
     private native boolean nativeLoadFromMemory(byte[] memory);
 
     /**
-     * Fully loads all available bytes from an {@link java.io.InputStream} and attempts to load the image from it.
+     * Fully loads all available bytes from an {@link java.io.InputStream}
+     * and attempts to load the image from it.
      *
-     * @param in The input stream to read from.
-     * @throws java.io.IOException In case an I/O error occurs.
+     * @param in the input stream to read from.
+     * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
         if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
@@ -81,10 +82,10 @@ public class Image extends SFMLNativeObject {
     }
 
     /**
-     * Attempts to load the texture from a file.
+     * Attempts to load an image from a file.
      *
-     * @param file The file to load the texture from.
-     * @throws IOException In case an I/O error occurs.
+     * @param file the file to load the texture from.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
         if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
@@ -96,7 +97,8 @@ public class Image extends SFMLNativeObject {
     /**
      * Attempts to save the image to a file.
      *
-     * @param file The file to write.
+     * @param file the file to write.
+     * @throws IOException in case an I/O error occurs.
      */
     public void saveToFile(@NotNull File file) throws IOException {
         if (file == null)
@@ -109,7 +111,7 @@ public class Image extends SFMLNativeObject {
     /**
      * Gets the size of the image.
      *
-     * @return The size of the image.
+     * @return the size of the image.
      */
     public native Vector2i getSize();
 
@@ -118,8 +120,8 @@ public class Image extends SFMLNativeObject {
     /**
      * Creates a transparency mask from the given color.
      *
-     * @param color The color to be made transparent.
-     * @param alpha The alpha value to assign to transparent pixels.
+     * @param color the color to be made transparent.
+     * @param alpha the alpha value to assign to pixels matching the color key.
      */
     public void createMaskFromColor(@NotNull Color color, int alpha) {
         if (color == null)
@@ -129,9 +131,9 @@ public class Image extends SFMLNativeObject {
     }
 
     /**
-     * Creates a transparency mask from the given color.
+     * Creates a transparency mask from the given color, making matching pixels fully transparent.
      *
-     * @param color The color to be made transparent.
+     * @param color the color to be made transparent.
      */
     public final void createMaskFromColor(Color color) {
         createMaskFromColor(color, 0);
@@ -142,10 +144,10 @@ public class Image extends SFMLNativeObject {
     /**
      * Copies a portion of another image onto this image.
      *
-     * @param source     The source image.
-     * @param destX      The destination X coordinate.
-     * @param destY      The destination X coordinate.
-     * @param sourceRect The source rectangle. An empty rectangle means the full image.
+     * @param source     the source image.
+     * @param destX      the destination X coordinate.
+     * @param destY      the destination X coordinate.
+     * @param sourceRect the source rectangle. An empty rectangle means the full image.
      * @param applyAlpha {@code true} to copy alpha values as well, {@code false} to leave the destination alpha.
      */
     public void copy(@NotNull Image source, int destX, int destY, @NotNull IntRect sourceRect, boolean applyAlpha) {
@@ -161,21 +163,21 @@ public class Image extends SFMLNativeObject {
     /**
      * Copies a portion of another image onto this image.
      *
-     * @param source     The source image.
-     * @param destX      The destination X coordinate.
-     * @param destY      The destination X coordinate.
-     * @param sourceRect The source rectangle. An empty rectangle means the full image.
+     * @param source     the source image.
+     * @param destX      the destination X coordinate.
+     * @param destY      the destination X coordinate.
+     * @param sourceRect the source rectangle. An empty rectangle means the full image.
      */
     public final void copy(Image source, int destX, int destY, IntRect sourceRect) {
         copy(source, destX, destY, sourceRect, false);
     }
 
     /**
-     * Copies a portion of another image onto this image.
+     * Copies another image onto this image.
      *
-     * @param source The source image.
-     * @param destX  The destination X coordinate.
-     * @param destY  The destination X coordinate.
+     * @param source the source image.
+     * @param destX  the destination X coordinate.
+     * @param destY  the destination X coordinate.
      */
     public final void copy(Image source, int destX, int destY) {
         copy(source, destX, destY, new IntRect(), false);
@@ -186,9 +188,9 @@ public class Image extends SFMLNativeObject {
     /**
      * Sets the color of a certain pixel.
      *
-     * @param x     The pixel's X coordinate.
-     * @param y     The pixel's Y coordinate.
-     * @param color The color to apply to the pixel.
+     * @param x     the pixel's X coordinate.
+     * @param y     the pixel's Y coordinate.
+     * @param color the color to apply to the pixel.
      */
     public void setPixel(int x, int y, @NotNull Color color) {
         if (color == null)
@@ -200,9 +202,9 @@ public class Image extends SFMLNativeObject {
     /**
      * Gets the color of a certain pixel.
      *
-     * @param x The pixel's X coordinate.
-     * @param y The pixel's Y coordinate.
-     * @return The pixel's color.
+     * @param x the pixel's X coordinate.
+     * @param y the pixel's Y coordinate.
+     * @return the pixel's color.
      */
     public native Color getPixel(int x, int y);
 

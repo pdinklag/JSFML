@@ -34,20 +34,20 @@ import org.jsfml.system.Vector2i;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating 2D axis aligned rectangles.
+ * Represents an axis-aligned rectangle using integer coordinates.
  */
 @Intercom
 public final class IntRect implements Serializable {
     private static final long serialVersionUID = -4430448425788537785L;
 
     /**
-     * Left (X) coordinate of the rectangle.
+     * The X coordinate of the rectangle's left edge.
      */
     @Intercom
     public final int left;
 
     /**
-     * Top (Y) coordinate of the rectangle.
+     * The Y coordinate of the rectangle's top edge.
      */
     @Intercom
     public final int top;
@@ -65,19 +65,19 @@ public final class IntRect implements Serializable {
     public final int height;
 
     /**
-     * Creates a new rectangle with no dimensions.
+     * Constructs a new rectangle with no dimensions.
      */
     public IntRect() {
         this(0, 0, 0, 0);
     }
 
     /**
-     * Creates a new rectangle.
+     * Constructs a new rectangle with the specified parameters.
      *
-     * @param left   The rectangle's left coordinate.
-     * @param top    The rectangle's top coordinate.
-     * @param width  The rectangle's width.
-     * @param height The rectangle's height.
+     * @param left   the X coordinate of the rectangle's left edge.
+     * @param top    the Y coordinate of the rectangle's top edge.
+     * @param width  the rectangle's width.
+     * @param height the rectangle's height.
      */
     public IntRect(int left, int top, int width, int height) {
         this.left = left;
@@ -87,10 +87,10 @@ public final class IntRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle.
+     * Constructs a new rectangle with the specified parameters.
      *
-     * @param position The rectangle's position.
-     * @param size     The rectangle's size.
+     * @param position the position of the rectangle's top left corner.
+     * @param size     the rectangle's dimension.
      */
     public IntRect(Vector2i position, Vector2i size) {
         this.left = position.x;
@@ -100,9 +100,9 @@ public final class IntRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle as a copy of another rectangle.
+     * Constructs a new rectangle by copying another rectangle.
      *
-     * @param rect The rectangle to copy.
+     * @param rect the rectangle to copy.
      */
     public IntRect(IntRect rect) {
         this.left = rect.left;
@@ -112,42 +112,45 @@ public final class IntRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle from a floating point rectangle.
+     * Constructs a new rectangle by converting a floating point rectangle.
+     * <p/>
      * The fractions of the components will be removed.
      *
-     * @param rect The rectangle to convert.
+     * @param rect the rectangle to convert.
      */
     public IntRect(FloatRect rect) {
         this((int) rect.left, (int) rect.top, (int) rect.width, (int) rect.height);
     }
 
     /**
-     * Tests whether a point is inside the rectangle's area, including its edges.
+     * Tests whether a point is inside the rectangle's boundaries, including its edges.
      *
-     * @param x The X coordinate of the tested point.
-     * @param y The Y coordinate of the tested point.
-     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
+     * @param x the X coordinate of the tested point.
+     * @param y the Y coordinate of the tested point.
+     * @return {@code true} if the point lies within the rectangle's boundaries,
+     *         {@code false} otherwise.
      */
     public boolean contains(int x, int y) {
         return (x >= left) && (x < left + width) && (y >= top) && (y < top + height);
     }
 
     /**
-     * Tests whether a point is inside the rectangle's area, including its edges.
+     * Tests whether a point is inside the rectangle's boundaries, including its edges.
      *
-     * @param point The point to be tested.
-     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
+     * @param point the point to be tested.
+     * @return {@code true} if the point lies within the rectangle's boundaries,
+     *         {@code false} otherwise.
      */
     public boolean contains(Vector2i point) {
         return contains(point.x, point.y);
     }
 
     /**
-     * Tests whether this rectangle intersects with another one and
+     * Tests whether this rectangle intersects with another rectangle and
      * calculates the rectangle of intersection.
      *
-     * @param rect The rectangle to test intersection against.
-     * @return The intersection rectangle, or {@code null} if the rectangles do not intersect.
+     * @param rect the rectangle to test against.
+     * @return the intersection rectangle, or {@code null} if the rectangles do not intersect.
      */
     public IntRect intersection(IntRect rect) {
         int left = Math.max(this.left, rect.left);

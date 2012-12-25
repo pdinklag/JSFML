@@ -35,47 +35,47 @@ public final class Vertex implements Serializable {
     public final Vector2f texCoords;
 
     /**
-     * Creates a new vertex.
+     * Constructs a new vertex at the origin with white color.
      */
     public Vertex() {
-        this(new Vector2f(), new Color(), new Vector2f());
+        this(new Vector2f(), Color.WHITE, new Vector2f());
     }
 
     /**
-     * Creates a new vertex.
+     * Constructs a new vertex at the specified position with white color.
      *
-     * @param position The vertex' position.
+     * @param position the vertex' position.
      */
     public Vertex(Vector2f position) {
-        this(position, new Color(), new Vector2f());
+        this(position, Color.WHITE, new Vector2f());
     }
 
     /**
-     * Creates a new vertex.
+     * Constructs a new vertex with the specified position and color.
      *
-     * @param position The vertex' position.
-     * @param color    The vertex' color.
+     * @param position the vertex' position.
+     * @param color    the vertex' color.
      */
     public Vertex(Vector2f position, Color color) {
         this(position, color, new Vector2f());
     }
 
     /**
-     * Creates a new vertex.
+     * Constructs a new vertex with the specified position and texture coordinates, with white color.
      *
-     * @param position  The vertex' position.
-     * @param texCoords The vertex' texture coordinates.
+     * @param position  the vertex' position.
+     * @param texCoords the vertex' texture coordinates.
      */
     public Vertex(Vector2f position, Vector2f texCoords) {
-        this(position, new Color(), texCoords);
+        this(position, Color.WHITE, texCoords);
     }
 
     /**
-     * Creates a new vertex.
+     * Constructs a new vertex with the specified parameters.
      *
-     * @param position  The vertex' position.
-     * @param color     The vertex' color.
-     * @param texCoords The vertex' texture coordinates.
+     * @param position  the vertex' position.
+     * @param color     the vertex' color.
+     * @param texCoords the vertex' texture coordinates.
      */
     public Vertex(Vector2f position, Color color, Vector2f texCoords) {
         this.position = position;

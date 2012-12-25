@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Class for loading character fonts.
+ * Holds a character font for use in text displays.
  */
 public class Font extends SFMLNativeObject implements ConstFont {
     private final Map<Integer, Texture> textureMap = new TreeMap<Integer, Texture>();
@@ -23,16 +23,16 @@ public class Font extends SFMLNativeObject implements ConstFont {
     private long memPtr = 0;
 
     /**
-     * Creates a font.
+     * Constructs a new font.
      */
     public Font() {
         super();
     }
 
     /**
-     * Creates a font from another font.
+     * Constructs a new font by copying another font.
      *
-     * @param other The font to copy.
+     * @param other the font to copy.
      */
     @SuppressWarnings("deprecation")
     public Font(ConstFont other) {
@@ -73,10 +73,11 @@ public class Font extends SFMLNativeObject implements ConstFont {
     }
 
     /**
-     * Fully loads all available bytes from an {@link java.io.InputStream} and attempts to load the texture from it.
+     * Fully loads all available bytes from an {@link java.io.InputStream}
+     * and attempts to load the texture from it.
      *
-     * @param in The input stream to read from.
-     * @throws java.io.IOException In case an I/O error occurs.
+     * @param in the input stream to read from.
+     * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
         releaseMemory();
@@ -92,8 +93,8 @@ public class Font extends SFMLNativeObject implements ConstFont {
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file The file to load the texture from.
-     * @throws IOException In case an I/O error occurs.
+     * @param file the file to load the texture from.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
         releaseMemory();

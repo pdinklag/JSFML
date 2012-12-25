@@ -3,7 +3,7 @@ package org.jsfml.graphics;
 import org.jsfml.Intercom;
 
 /**
- * Class describing a glyph of a {@link Font}.
+ * Describes a glyph in a {@link Font}.
  *
  * @see Font
  */

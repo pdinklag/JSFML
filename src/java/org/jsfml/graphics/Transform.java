@@ -43,16 +43,16 @@ public final strictfp class Transform implements Serializable {
 
     /**
      * The identity transformation, maps any vector to itself and therefore
-     * does nothing.
+     * "does nothing".
      */
     public final static Transform IDENTITY = new Transform();
 
     /**
      * Combines two transformation matrices by multiplying them.
      *
-     * @param t1 The first transformation matrix.
-     * @param t2 The second transformation matrix.
-     * @return A new transformation matrix, the product of the two given matrices.
+     * @param t1 the first transformation matrix.
+     * @param t2 the second transformation matrix.
+     * @return the product of the two given matrices.
      */
     public static Transform combine(Transform t1, Transform t2) {
         float[] a = t1.data;
@@ -73,10 +73,10 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a translation by a 2D vector to a transformation.
      *
-     * @param t The transformation to apply the translation on.
-     * @param x The X coordinate of the translation vector.
-     * @param y The Y coordinate of the translation vector.
-     * @return A new transformation matrix with the translation applied.
+     * @param t the transformation to apply the translation on.
+     * @param x the X coordinate of the translation vector.
+     * @param y the Y coordinate of the translation vector.
+     * @return a new transformation matrix with the translation applied.
      */
     public static Transform translate(Transform t, float x, float y) {
         return combine(t, new Transform(
@@ -88,9 +88,9 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a translation by a 2D vector to a transformation.
      *
-     * @param t The transformation to apply the translation to.
-     * @param v The  translation vector.
-     * @return A new transformation matrix with the translation applied.
+     * @param t the transformation to apply the translation to.
+     * @param v the  translation vector.
+     * @return a new transformation matrix with the translation applied.
      */
     public static Transform translate(Transform t, Vector2f v) {
         return translate(t, v.x, v.y);
@@ -99,9 +99,9 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a rotation around the origin to a transformation.
      *
-     * @param t     The transformation to apply the rotation on.
-     * @param angle The rotation angle in degrees.
-     * @return A new transformation with the rotation applied
+     * @param t     the transformation to apply the rotation on.
+     * @param angle the rotation angle in degrees.
+     * @return a new transformation with the rotation applied
      */
     public static Transform rotate(Transform t, float angle) {
         double rad = Math.toRadians(angle);
@@ -117,11 +117,11 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a rotation around an arbitrary center to this transformation.
      *
-     * @param t       The transformation to apply the rotation on.
-     * @param angle   The rotation angle in degrees.
-     * @param centerX The X coordinate of the rotation center.
-     * @param centerY The Y coordinate of the rotation center.
-     * @return A new transformation with the rotation applied.
+     * @param t       the transformation to apply the rotation on.
+     * @param angle   the rotation angle in degrees.
+     * @param centerX the X coordinate of the rotation center.
+     * @param centerY the Y coordinate of the rotation center.
+     * @return a new transformation with the rotation applied.
      */
     public static Transform rotate(Transform t, float angle, float centerX, float centerY) {
         double rad = Math.toRadians(angle);
@@ -137,10 +137,10 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a rotation around an arbitrary center to this transformation.
      *
-     * @param t      The transformation to apply the rotation on.
-     * @param angle  The rotation angle in degrees.
-     * @param center The rotation center.
-     * @return A new transformation with the rotation applied.
+     * @param t      the transformation to apply the rotation on.
+     * @param angle  the rotation angle in degrees.
+     * @param center the rotation center.
+     * @return a new transformation with the rotation applied.
      */
     public static Transform rotate(Transform t, float angle, Vector2f center) {
         return rotate(t, angle, center.x, center.y);
@@ -149,10 +149,10 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a scaling operation from the origin to a transformation.
      *
-     * @param t      The transform to apply the scaling on.
-     * @param scaleX The X factor of the scaling operation.
-     * @param scaleY The Y factor of the scaling operation.
-     * @return A new transformation with the scaling applied.
+     * @param t      the transform to apply the scaling on.
+     * @param scaleX the X factor of the scaling operation.
+     * @param scaleY the Y factor of the scaling operation.
+     * @return a new transformation with the scaling applied.
      */
     public static Transform scale(Transform t, float scaleX, float scaleY) {
         return combine(t, new Transform(
@@ -164,9 +164,9 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a scaling operation from the origin to a transformation.
      *
-     * @param t       The transform to apply the scaling on.
-     * @param factors The factors of the scaling operation.
-     * @return A new transformation with the scaling applied.
+     * @param t       the transform to apply the scaling on.
+     * @param factors the factors of the scaling operation.
+     * @return a new transformation with the scaling applied.
      */
     public static Transform scale(Transform t, Vector2f factors) {
         return scale(t, factors.x, factors.y);
@@ -175,12 +175,12 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a scaling operation from an arbitrary center to a transformation.
      *
-     * @param t       The transform to apply the scaling on.
-     * @param scaleX  The X factor of the scaling operation.
-     * @param scaleY  The Y factor of the scaling operation.
-     * @param centerX The X coordinate of the scaling origin.
-     * @param centerY The Y coordinate of the scaling origin.
-     * @return A new transformation with the scaling applied.
+     * @param t       the transform to apply the scaling on.
+     * @param scaleX  the X factor of the scaling operation.
+     * @param scaleY  the Y factor of the scaling operation.
+     * @param centerX the X coordinate of the scaling center.
+     * @param centerY the Y coordinate of the scaling center.
+     * @return a new transformation with the scaling applied.
      */
     public static Transform scale(Transform t, float scaleX, float scaleY, float centerX, float centerY) {
         return combine(t, new Transform(
@@ -192,10 +192,10 @@ public final strictfp class Transform implements Serializable {
     /**
      * Adds a scaling operation from an arbitrary center to a transformation.
      *
-     * @param t       The transform to apply the scaling on.
-     * @param factors The factors of the scaling operation.
-     * @param center  The scaling origin.
-     * @return A new transformation with the scaling applied.
+     * @param t       the transform to apply the scaling on.
+     * @param factors the factors of the scaling operation.
+     * @param center  the scaling center.
+     * @return a new transformation with the scaling applied.
      */
     public static Transform scale(Transform t, Vector2f factors, Vector2f center) {
         return scale(t, factors.x, factors.y, center.x, center.y);
@@ -205,7 +205,7 @@ public final strictfp class Transform implements Serializable {
     private final float[] data = new float[16];
 
     /**
-     * Creates an identity transformation.
+     * Constructs an identity transformation.
      */
     public Transform() {
         data[0] = 1.0f;
@@ -215,7 +215,10 @@ public final strictfp class Transform implements Serializable {
     }
 
     /**
-     * Creates a new transformation from a 3x3 matrix.
+     * Constructs a new transformation from a 3x3 matrix of the following format:
+     * <pre>a00, a01, a02,
+     * a10, a11, a12,
+     * a20, a21, a22</pre>
      *
      * @param a00 Matrix component.
      * @param a01 Matrix component.
@@ -246,9 +249,9 @@ public final strictfp class Transform implements Serializable {
     }
 
     /**
-     * Copies another transformation.
+     * Constructs a new transformation by copying another transformation.
      *
-     * @param t The transformation to copy.
+     * @param t the transformation to copy.
      */
     public Transform(Transform t) {
         System.arraycopy(t.data, 0, data, 0, 16);
@@ -257,7 +260,7 @@ public final strictfp class Transform implements Serializable {
     /**
      * Gets a copy of the underlying 4x4 3D transformation matrix.
      *
-     * @return A copy of the underlying 4x4 3D transformation matrix.
+     * @return a copy of the underlying 4x4 3D transformation matrix.
      */
     public float[] getMatrix() {
         float[] m = new float[16];
@@ -268,7 +271,8 @@ public final strictfp class Transform implements Serializable {
     /**
      * Returns the inverse transformation.
      *
-     * @return The inverse transformation, or an identity transformation if the matrix cannot be inverted.
+     * @return the inverse transformation,
+     *         or the identity transformation if the matrix cannot be inverted.
      */
     public Transform getInverse() {
         float det = data[0] * (data[15] * data[5] - data[7] * data[13]) -
@@ -294,9 +298,9 @@ public final strictfp class Transform implements Serializable {
     /**
      * Transforms a 2D point using the transformation matrix.
      *
-     * @param x The X coordinate of the point.
-     * @param y The Y coordinate of the point.
-     * @return A new 2D vector, representing the transformed point.
+     * @param x the X coordinate of the point.
+     * @param y the Y coordinate of the point.
+     * @return a new 2D vector, representing the transformed point.
      */
     public Vector2f transformPoint(float x, float y) {
         return new Vector2f(
@@ -307,8 +311,8 @@ public final strictfp class Transform implements Serializable {
     /**
      * Transforms a 2D point using the transformation matrix.
      *
-     * @param v The point to transform.
-     * @return A new 2D vector, representing the transformed point.
+     * @param v the point to transform.
+     * @return a new 2D vector, representing the transformed point.
      */
     public final Vector2f transformPoint(Vector2f v) {
         return transformPoint(v.x, v.y);
@@ -317,8 +321,8 @@ public final strictfp class Transform implements Serializable {
     /**
      * Transforms a rectangle and returns the axis-aligned bounding rectangle.
      *
-     * @param rectangle The rectangle to transform.
-     * @return The axis-aligned bounding rectangle of the rotated rectangle.
+     * @param rectangle the rectangle to transform.
+     * @return the axis-aligned bounding rectangle of the rotated rectangle.
      */
     public FloatRect transformRect(FloatRect rectangle) {
         // Transform the 4 corners of the rectangle

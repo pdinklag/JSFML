@@ -34,20 +34,20 @@ import org.jsfml.system.Vector2f;
 import java.io.Serializable;
 
 /**
- * Utility class for manipulating 2D axis aligned rectangles.
+ * Represents an axis-aligned rectangle using floating point coordinates.
  */
 @Intercom
 public final strictfp class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
     /**
-     * Left (X) coordinate of the rectangle.
+     * The X coordinate of the rectangle's left edge.
      */
     @Intercom
     public final float left;
 
     /**
-     * Top (Y) coordinate of the rectangle.
+     * The Y coordinate of the rectangle's top edge.
      */
     @Intercom
     public final float top;
@@ -65,19 +65,19 @@ public final strictfp class FloatRect implements Serializable {
     public final float height;
 
     /**
-     * Creates a new rectangle with no dimensions.
+     * Constructs a new rectangle with no dimensions.
      */
     public FloatRect() {
         this(0, 0, 0, 0);
     }
 
     /**
-     * Creates a new rectangle.
+     * Constructs a new rectangle with the specified parameters.
      *
-     * @param left   The rectangle's left coordinate.
-     * @param top    The rectangle's top coordinate.
-     * @param width  The rectangle's width.
-     * @param height The rectangle's height.
+     * @param left   the X coordinate of the rectangle's left edge.
+     * @param top    the Y coordinate of the rectangle's top edge.
+     * @param width  the rectangle's width.
+     * @param height the rectangle's height.
      */
     @Intercom
     public FloatRect(float left, float top, float width, float height) {
@@ -88,10 +88,10 @@ public final strictfp class FloatRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle.
+     * Constructs a new rectangle with the specified parameters.
      *
-     * @param position The rectangle's position.
-     * @param size     The rectangle's size.
+     * @param position the position of the rectangle's top left corner.
+     * @param size     the rectangle's dimension.
      */
     public FloatRect(Vector2f position, Vector2f size) {
         this.left = position.x;
@@ -101,9 +101,9 @@ public final strictfp class FloatRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle as a copy of another rectangle.
+     * Constructs a new rectangle by copying another rectangle.
      *
-     * @param rect The rectangle to copy.
+     * @param rect the rectangle to copy.
      */
     public FloatRect(FloatRect rect) {
         this.left = rect.left;
@@ -113,42 +113,45 @@ public final strictfp class FloatRect implements Serializable {
     }
 
     /**
-     * Creates a new rectangle from an integer rectangle.
+     * Constructs a new rectangle by converting an intergral rectangle.
+     * <p/>
      * The fractions of the components will be set to zero.
      *
-     * @param rect The rectangle to convert.
+     * @param rect the rectangle to convert.
      */
     public FloatRect(IntRect rect) {
         this((float) rect.left, (float) rect.top, (float) rect.width, (float) rect.height);
     }
 
     /**
-     * Tests whether a point is inside the rectangle's area, including its edges.
+     * Tests whether a point is inside the rectangle's boundaries, including its edges.
      *
-     * @param x The X coordinate of the tested point.
-     * @param y The Y coordinate of the tested point.
-     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
+     * @param x the X coordinate of the tested point.
+     * @param y the Y coordinate of the tested point.
+     * @return {@code true} if the point lies within the rectangle's boundaries,
+     *         {@code false} otherwise.
      */
     public boolean contains(float x, float y) {
         return (x >= left) && (x < left + width) && (y >= top) && (y < top + height);
     }
 
     /**
-     * Tests whether a point is inside the rectangle's area, including its edges.
+     * Tests whether a point is inside the rectangle's boundaries, including its edges.
      *
-     * @param point The point to be tested.
-     * @return {@code true} if the point lies within the rectangle's area, {@code false} otherwise.
+     * @param point the point to be tested.
+     * @return {@code true} if the point lies within the rectangle's boundaries,
+     *         {@code false} otherwise.
      */
     public boolean contains(Vector2f point) {
         return contains(point.x, point.y);
     }
 
     /**
-     * Tests whether this rectangle intersects with another one and
+     * Tests whether this rectangle intersects with another rectangle and
      * calculates the rectangle of intersection.
      *
-     * @param rect The rectangle to test intersection against.
-     * @return The intersection rectangle, or {@code null} if the rectangles do not intersect.
+     * @param rect the rectangle to test against.
+     * @return the intersection rectangle, or {@code null} if the rectangles do not intersect.
      */
     public FloatRect intersection(FloatRect rect) {
         float left = Math.max(this.left, rect.left);

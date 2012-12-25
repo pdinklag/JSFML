@@ -5,11 +5,11 @@ import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
 /**
- * A 2D camera that defines which region of the world space is rendered.
+ * Represents a 2D camera which defines the region of the scene that is visible.
  */
 public class View extends SFMLNativeObject implements ConstView {
     /**
-     * Creates a new View for the area of {@code (0, 0, 1000, 1000)}.
+     * Constructs a new view for the area of (0, 0, 1000, 1000).
      */
     public View() {
         super();
@@ -21,9 +21,9 @@ public class View extends SFMLNativeObject implements ConstView {
     }
 
     /**
-     * Creates a new View for a certain area.
+     * Constructs a new view for the specified area.
      *
-     * @param rect The area visible by this view.
+     * @param rect the area visible by this view.
      */
     public View(@NotNull FloatRect rect) {
         this();
@@ -31,10 +31,10 @@ public class View extends SFMLNativeObject implements ConstView {
     }
 
     /**
-     * Creates a new View for a certain area.
+     * Constructs a view for the specified area.
      *
-     * @param center The center of the view.
-     * @param size   The size of the view in pixels.
+     * @param center the center of the view.
+     * @param size   the size of the view.
      */
     public View(Vector2f center, Vector2f size) {
         this();
@@ -61,15 +61,15 @@ public class View extends SFMLNativeObject implements ConstView {
     /**
      * Sets the center of the view.
      *
-     * @param x The X coordinate of the view's center.
-     * @param y The Y coordinate of the view's center.
+     * @param x the new X coordinate of the view's center.
+     * @param y the new Y coordinate of the view's center.
      */
     public native void setCenter(float x, float y);
 
     /**
      * Sets the center of the view.
      *
-     * @param v The center of the view.
+     * @param v the new center of the view.
      */
     public final void setCenter(Vector2f v) {
         setCenter(v.x, v.y);
@@ -78,24 +78,24 @@ public class View extends SFMLNativeObject implements ConstView {
     /**
      * Sets the dimensions of the view.
      *
-     * @param width  The new width of the view in pixels.
-     * @param height The new height of the view in pixels.
+     * @param width  the new width of the view in pixels.
+     * @param height the new height of the view in pixels.
      */
     public native void setSize(float width, float height);
 
     /**
      * Sets the dimensions of the view.
      *
-     * @param v The new size of the view in pixels.
+     * @param v the new size of the view in pixels.
      */
     public final void setSize(Vector2f v) {
         setSize(v.x, v.y);
     }
 
     /**
-     * Sets the rotation of the view.
+     * Sets the rotation of the view around its center.
      *
-     * @param angle The rotation angle in degrees.
+     * @param angle the new rotation angle in degrees.
      */
     public native void setRotation(float angle);
 
@@ -103,8 +103,13 @@ public class View extends SFMLNativeObject implements ConstView {
 
     /**
      * Sets the viewport rectangle of this view.
+     * <p/>
+     * The viewport defines which portion of the render target is used by this view and is
+     * expressed using factors between 0 and 1 (percentage of the target's width and height).
+     * <p/>
+     * The default viewport rectangle is (0, 0, 1, 1).
      *
-     * @param rect The new viewport rectangle.
+     * @param rect the new viewport rectangle.
      */
     public void setViewport(@NotNull FloatRect rect) {
         if (rect == null)
@@ -118,7 +123,7 @@ public class View extends SFMLNativeObject implements ConstView {
     /**
      * Resets the view to a certain viewport rectangle, resetting the rotation angle in the process.
      *
-     * @param rect The viewport rectangle.
+     * @param rect the viewport rectangle.
      */
     public void reset(@NotNull FloatRect rect) {
         if (rect == null)
@@ -142,22 +147,22 @@ public class View extends SFMLNativeObject implements ConstView {
     /**
      * Rotates the view around its center.
      *
-     * @param angle The angle to rotate by in degrees.
+     * @param angle the angle to rotate by, in degrees.
      */
     public native void rotate(float angle);
 
     /**
      * Moves the center of the view.
      *
-     * @param x The X offset to move the view's center by.
-     * @param y The Y offset to move the view's center by.
+     * @param x the X offset to move the view's center by.
+     * @param y the Y offset to move the view's center by.
      */
     public native void move(float x, float y);
 
     /**
      * Moves the center of the view.
      *
-     * @param v The offset vector to move the view's center by.
+     * @param v the offset vector to move the view's center by.
      */
     public final void move(Vector2f v) {
         move(v.x, v.y);
@@ -166,7 +171,7 @@ public class View extends SFMLNativeObject implements ConstView {
     /**
      * Resizes the view.
      *
-     * @param factor The zoom factor.
+     * @param factor the zoom factor.
      */
     public native void zoom(float factor);
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Immutable 2D texture stored on the graphics card for rendering.
+ * Represents a 2D texture stored on the graphics card for rendering.
  */
 public class Texture extends SFMLNativeObject implements ConstTexture {
     static {
@@ -19,27 +19,27 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Gets the maximum texture size supported by the current hardware.
      *
-     * @return The maximum texture size supported by the current hardware.
+     * @return the maximum texture size supported by the current hardware.
      */
     public static native int getMaximumSize();
 
     /**
-     * Types of texture coordinates that can be used for rendering.
+     * Enumeation of texture coordinate types that can be used for rendering.
      */
     public static enum CoordinateType {
         /**
-         * Normalized OpenGL coordinates ranging from 0 to 1.
+         * Normalized OpenGL coordinates, ranging from 0 to 1.
          */
         NORMALIZED,
 
         /**
-         * Pixel coordinates ranging from 0 to the respective dimension (width or height).
+         * Pixel coordinates, ranging from 0 to the respective dimension (width or height).
          */
         PIXELS
     }
 
     /**
-     * Creates a texture.
+     * Constructs a new texture.
      */
     public Texture() {
         super();
@@ -51,7 +51,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     }
 
     /**
-     * Creates a texture from another texture.
+     * Constructs a new texture by copying another texture.
      *
      * @param other The texture to copy.
      */
@@ -80,10 +80,10 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     private native long nativeCopy();
 
     /**
-     * Generates an empty texture with the given dimensions.
+     * Generates an empty texture with the specified dimensions.
      *
-     * @param width  The texture's width.
-     * @param height The texture's height.
+     * @param width  the texture's width.
+     * @param height the texture's height.
      * @return {@code true} if the texture was successfully created, {@code false} otherwise.
      */
     public native boolean create(int width, int height);
@@ -91,11 +91,12 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     private native boolean nativeLoadFromMemory(byte[] memory, IntRect area);
 
     /**
-     * Fully loads all available bytes from an {@link InputStream} and attempts to load the texture from it.
+     * Fully loads all available bytes from an {@link InputStream}
+     * and attempts to load the texture portion from it.
      *
-     * @param in   The input stream to read from.
-     * @param area The area of the image to load into the texture.
-     * @throws IOException In case an I/O error occurs.
+     * @param in   the input stream to read from.
+     * @param area the area of the image to load into the texture.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
         if (area == null)
@@ -106,10 +107,11 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     }
 
     /**
-     * Fully loads all available bytes from an {@link InputStream} and attempts to load the texture from it.
+     * Fully loads all available bytes from an {@link InputStream}
+     * and attempts to load the texture from it.
      *
-     * @param in The input stream to read from.
-     * @throws IOException In case an I/O error occurs.
+     * @param in the input stream to read from.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
         loadFromStream(in, new IntRect());
@@ -118,9 +120,9 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file The file to load the texture from.
-     * @param area The area of the image to load into the texture.
-     * @throws IOException In case an I/O error occurs.
+     * @param file the file to load the texture from.
+     * @param area the area of the image to load into the texture.
+     * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file, @NotNull IntRect area) throws IOException {
         if (area == null)
@@ -133,8 +135,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file The file to load the texture from.
-     * @throws IOException In case an I/O error occurs.
+     * @param file the file to load the texture from.
+     * @throws IOException in case an I/O error occurs.
      */
     public final void loadFromFile(File file) throws IOException {
         loadFromFile(file, new IntRect());
@@ -143,10 +145,10 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     private native boolean nativeLoadFromImage(Image image, IntRect area);
 
     /**
-     * Attempts to load the texture from a source image.
+     * Attempts to load the texture from a source image portion.
      *
-     * @param image The source image.
-     * @param area  The area of the image to load into the texture.
+     * @param image the source image.
+     * @param area  the area of the image to load into the texture.
      * @return {@code true} if the texture was successfully loaded, {@code false} otherwise.
      */
     public boolean loadFromImage(@NotNull Image image, @NotNull IntRect area) {
@@ -162,7 +164,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Attempts to load the texture from a source image.
      *
-     * @param image The source image.
+     * @param image the source image.
      * @return {@code true} if the texture was successfully loaded, {@code false} otherwise.
      */
     public final boolean loadFromImage(Image image) {
@@ -172,7 +174,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Gets the dimensions of the texture.
      *
-     * @return The dimensions of the texture.
+     * @return the dimensions of the texture.
      */
     public native Vector2i getSize();
 
@@ -191,9 +193,9 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Updates a part of the texture from an image.
      *
-     * @param image The image to update from.
-     * @param x     The X offset inside the texture.
-     * @param y     The Y offset inside the texture.
+     * @param image the image to update from.
+     * @param x     the X offset inside the texture.
+     * @param y     the Y offset inside the texture.
      */
     public void update(@NotNull Image image, int x, int y) {
         if (image == null)
@@ -207,9 +209,9 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Updates a part of the texture from the contents of a window.
      *
-     * @param window The window to update from.
-     * @param x      The X offset inside the texture.
-     * @param y      The Y offset inside the texture.
+     * @param window the window to update from.
+     * @param x      the X offset inside the texture.
+     * @param y      the Y offset inside the texture.
      */
     public void update(@NotNull Window window, int x, int y) {
         if (window == null)
@@ -221,7 +223,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Updates the texture from the contents of a window.
      *
-     * @param window The window to update from.
+     * @param window the window to update from.
      */
     public final void update(Window window) {
         update(window, 0, 0);

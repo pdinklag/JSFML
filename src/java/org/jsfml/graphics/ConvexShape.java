@@ -9,19 +9,19 @@ import org.jsfml.system.Vector2f;
  */
 public class ConvexShape extends Shape {
     /**
-     * Creates a new empty polygon.
+     * Constructs a new empty polygon.
      */
     public ConvexShape() {
         super();
     }
 
     /**
-     * Creates a new empty polygon and allocates a certain amount of points.
+     * Constructs a new empty polygon and allocates a certain amount of points.
      * <p/>
      * This is equal to calling {@link ConvexShape#setPointCount(int)} directly after
      * construction of the polygon.
      *
-     * @param points The amount of points of the polygon.
+     * @param points the amount of points of the polygon.
      */
     public ConvexShape(int points) {
         this();
@@ -29,12 +29,12 @@ public class ConvexShape extends Shape {
     }
 
     /**
-     * Creates a new polygon from a given set of points.
+     * Constructs a new polygon from a given set of points.
      * <p/>
      * This is equal to calling {@link ConvexShape#setPoints(org.jsfml.system.Vector2f...)}
      * directly after construction of the polygon.
      *
-     * @param points The points of the polygon.
+     * @param points the points of the polygon.
      */
     @JSFML
     public ConvexShape(@NotNull Vector2f... points) {
@@ -62,10 +62,10 @@ public class ConvexShape extends Shape {
     /**
      * Sets a point of the polygon.
      *
-     * @param i The index of the point to set. Note that this index must be within the bounds
+     * @param i the index of the point to set. Note that this index must be within the bounds
      *          of the polygon's point count, ie the point count needs to be set properly
      *          using {@link ConvexShape#setPointCount(int)} first.
-     * @param v The point to set at the given index.
+     * @param v the point to set at the given index.
      */
     public void setPoint(int i, @NotNull Vector2f v) {
         if (v == null)
@@ -80,7 +80,7 @@ public class ConvexShape extends Shape {
     /**
      * Sets the amount of points that belong to the polygon.
      *
-     * @param pointCount The amount of points of the polygon.
+     * @param pointCount the amount of points of the polygon.
      */
     public native void setPointCount(int pointCount);
 
@@ -91,7 +91,7 @@ public class ConvexShape extends Shape {
      * and {@link ConvexShape#setPoint(int, org.jsfml.system.Vector2f)} for each point
      * in the given array.
      *
-     * @param points The points of the polygon.
+     * @param points the points of the polygon.
      */
     @JSFML
     public void setPoints(@NotNull Vector2f... points) {

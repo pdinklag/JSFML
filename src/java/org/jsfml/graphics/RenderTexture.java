@@ -8,7 +8,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 /**
- * Target for off-screen 2D rendering into a texture.
+ * Provides a render target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     private final ConstView defaultView;
@@ -16,7 +16,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     private final ConstTexture texture;
 
     /**
-     * Creates a new render texture.
+     * Constructs a new render texture.
      */
     public RenderTexture() {
         super();
@@ -47,8 +47,8 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     /**
      * Sets up the render texture.
      *
-     * @param width       The texture's width.
-     * @param height      The texture's height.
+     * @param width       the texture's width.
+     * @param height      the texture's height.
      * @param depthBuffer {@code true} to generate a depth buffer, {@code false} otherwise.
      *                    Use this only in case you wish to do 3D rendering to this texture.
      */
@@ -58,10 +58,10 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     /**
-     * Sets up the render texture without a depth buffer..
+     * Sets up the render texture without a depth buffer.
      *
-     * @param width  The texture's width.
-     * @param height The texture's height.
+     * @param width  the texture's width.
+     * @param height the texture's height.
      */
     public final void create(int width, int height) {
         create(width, height, false);
@@ -98,7 +98,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     /**
      * Gets the target texture.
      *
-     * @return The target texture.
+     * @return the target texture.
      */
     public ConstTexture getTexture() {
         return texture;
