@@ -13,6 +13,11 @@ public final class Vector2i implements Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
     /**
+     * The zero vector.
+     */
+    public static final Vector2i ZERO = new Vector2i(0, 0);
+
+    /**
      * Adds two vectors.
      *
      * @param a the first vector.
@@ -102,20 +107,15 @@ public final class Vector2i implements Serializable {
     public final int y;
 
     /**
-     * Constructs a new vector and sets its coordinates to zero.
-     */
-    public Vector2i() {
-        this(0, 0);
-    }
-
-    /**
-     * Constructs a new vector by copying another vector.
+     * Constructs a new vector with the given coordinates.
      *
-     * @param v the vector to copy.
+     * @param x the X coordinate.
+     * @param y the Y coordinate.
      */
-    public Vector2i(Vector2i v) {
-        this.x = v.x;
-        this.y = v.y;
+    @Intercom
+    public Vector2i(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -127,18 +127,6 @@ public final class Vector2i implements Serializable {
      */
     public Vector2i(Vector2f v) {
         this((int) v.x, (int) v.y);
-    }
-
-    /**
-     * Constructs a new vector with the given coordinates.
-     *
-     * @param x the X coordinate.
-     * @param y the Y coordinate.
-     */
-    @Intercom
-    public Vector2i(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     @Override

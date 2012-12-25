@@ -131,13 +131,6 @@ public final class Color implements Serializable {
     public final int a;
 
     /**
-     * Constructs a new black color.
-     */
-    public Color() {
-        this(0, 0, 0, 255);
-    }
-
-    /**
      * Constructs a new color with the specified color components and an alpha value of 255
      * (fully opaque).
      *
@@ -163,18 +156,6 @@ public final class Color implements Serializable {
         this.g = clamp(g);
         this.b = clamp(b);
         this.a = clamp(a);
-    }
-
-    /**
-     * Constructs a new color by copying another color.
-     *
-     * @param color the color to copy.
-     */
-    public Color(Color color) {
-        this.r = color.r;
-        this.g = color.g;
-        this.b = color.b;
-        this.a = color.a;
     }
 
     /**

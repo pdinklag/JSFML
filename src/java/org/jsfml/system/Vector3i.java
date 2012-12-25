@@ -12,6 +12,11 @@ public final class Vector3i implements Serializable {
     private static final long serialVersionUID = -2260992069088589367L;
 
     /**
+     * The zero vector.
+     */
+    public static final Vector3i ZERO = new Vector3i(0, 0, 0);
+
+    /**
      * Adds two vectors.
      *
      * @param a the first vector.
@@ -124,35 +129,6 @@ public final class Vector3i implements Serializable {
     public final int z;
 
     /**
-     * Constructs a new vector and sets its coordinates to zero.
-     */
-    public Vector3i() {
-        this(0, 0, 0);
-    }
-
-    /**
-     * Constructs a new vector by copying another vector.
-     *
-     * @param v the vector to copy.
-     */
-    public Vector3i(Vector3i v) {
-        this.x = v.x;
-        this.y = v.y;
-        this.z = v.z;
-    }
-
-    /**
-     * Constructs a new vector by converting a floating point vector.
-     * <p/>
-     * The fractions of the coordinates will be cut off.
-     *
-     * @param v the vector to convert.
-     */
-    public Vector3i(Vector3f v) {
-        this((int) v.x, (int) v.y, (int) v.z);
-    }
-
-    /**
      * Constructs a new vector with the given coordinates.
      *
      * @param x the X coordinate.
@@ -164,6 +140,17 @@ public final class Vector3i implements Serializable {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    /**
+     * Constructs a new vector by converting a floating point vector.
+     * <p/>
+     * The fractions of the coordinates will be cut off.
+     *
+     * @param v the vector to convert.
+     */
+    public Vector3i(Vector3f v) {
+        this((int) v.x, (int) v.y, (int) v.z);
     }
 
     @Override

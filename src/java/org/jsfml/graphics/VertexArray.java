@@ -78,7 +78,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
 
             return new FloatRect(left, top, right - left, bottom - top);
         } else {
-            return new FloatRect();
+            return FloatRect.EMPTY;
         }
     }
 

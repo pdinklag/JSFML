@@ -114,7 +114,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        loadFromStream(in, new IntRect());
+        loadFromStream(in, IntRect.EMPTY);
     }
 
     /**
@@ -139,7 +139,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public final void loadFromFile(File file) throws IOException {
-        loadFromFile(file, new IntRect());
+        loadFromFile(file, IntRect.EMPTY);
     }
 
     private native boolean nativeLoadFromImage(Image image, IntRect area);
@@ -168,7 +168,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @return {@code true} if the texture was successfully loaded, {@code false} otherwise.
      */
     public final boolean loadFromImage(Image image) {
-        return loadFromImage(image, new IntRect());
+        return loadFromImage(image, IntRect.EMPTY);
     }
 
     /**

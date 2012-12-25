@@ -35,19 +35,12 @@ public final class Vertex implements Serializable {
     public final Vector2f texCoords;
 
     /**
-     * Constructs a new vertex at the origin with white color.
-     */
-    public Vertex() {
-        this(new Vector2f(), Color.WHITE, new Vector2f());
-    }
-
-    /**
      * Constructs a new vertex at the specified position with white color.
      *
      * @param position the vertex' position.
      */
     public Vertex(Vector2f position) {
-        this(position, Color.WHITE, new Vector2f());
+        this(position, Color.WHITE, Vector2f.ZERO);
     }
 
     /**
@@ -57,7 +50,7 @@ public final class Vertex implements Serializable {
      * @param color    the vertex' color.
      */
     public Vertex(Vector2f position, Color color) {
-        this(position, color, new Vector2f());
+        this(position, color, Vector2f.ZERO);
     }
 
     /**

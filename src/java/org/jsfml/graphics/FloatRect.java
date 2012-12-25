@@ -41,6 +41,11 @@ public final strictfp class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
     /**
+     * An empty rectangle with no dimensions.
+     */
+    public static final FloatRect EMPTY = new FloatRect(0, 0, 0, 0);
+
+    /**
      * The X coordinate of the rectangle's left edge.
      */
     @Intercom
@@ -63,13 +68,6 @@ public final strictfp class FloatRect implements Serializable {
      */
     @Intercom
     public final float height;
-
-    /**
-     * Constructs a new rectangle with no dimensions.
-     */
-    public FloatRect() {
-        this(0, 0, 0, 0);
-    }
 
     /**
      * Constructs a new rectangle with the specified parameters.
@@ -98,18 +96,6 @@ public final strictfp class FloatRect implements Serializable {
         this.top = position.y;
         this.width = size.x;
         this.height = size.y;
-    }
-
-    /**
-     * Constructs a new rectangle by copying another rectangle.
-     *
-     * @param rect the rectangle to copy.
-     */
-    public FloatRect(FloatRect rect) {
-        this.left = rect.left;
-        this.top = rect.top;
-        this.width = rect.width;
-        this.height = rect.height;
     }
 
     /**

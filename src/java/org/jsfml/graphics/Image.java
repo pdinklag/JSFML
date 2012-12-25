@@ -180,7 +180,7 @@ public class Image extends SFMLNativeObject {
      * @param destY  the destination X coordinate.
      */
     public final void copy(Image source, int destX, int destY) {
-        copy(source, destX, destY, new IntRect(), false);
+        copy(source, destX, destY, IntRect.EMPTY, false);
     }
 
     private native void nativeSetPixel(int x, int y, Color color);

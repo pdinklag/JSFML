@@ -13,6 +13,11 @@ public final strictfp class Vector2f implements Serializable {
     private static final long serialVersionUID = -2082611034304583379L;
 
     /**
+     * The zero vector.
+     */
+    public static final Vector2f ZERO = new Vector2f(0, 0);
+
+    /**
      * Adds two vectors.
      *
      * @param a the first vector.
@@ -101,20 +106,15 @@ public final strictfp class Vector2f implements Serializable {
     public final float y;
 
     /**
-     * Constructs a new vector and sets its coordinates to zero.
-     */
-    public Vector2f() {
-        this(0, 0);
-    }
-
-    /**
-     * Constructs a new vector by copying another vector.
+     * Constructs a new vector with the given coordinates.
      *
-     * @param v the vector to copy.
+     * @param x the X coordinate.
+     * @param y the Y coordinate.
      */
-    public Vector2f(Vector2f v) {
-        this.x = v.x;
-        this.y = v.y;
+    @Intercom
+    public Vector2f(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -126,18 +126,6 @@ public final strictfp class Vector2f implements Serializable {
      */
     public Vector2f(Vector2i v) {
         this((float) v.x, (float) v.y);
-    }
-
-    /**
-     * Constructs a new vector with the given coordinates.
-     *
-     * @param x the X coordinate.
-     * @param y the Y coordinate.
-     */
-    @Intercom
-    public Vector2f(float x, float y) {
-        this.x = x;
-        this.y = y;
     }
 
     @Override

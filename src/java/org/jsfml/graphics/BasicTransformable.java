@@ -11,8 +11,8 @@ import org.jsfml.system.Vector2f;
  */
 @JSFML
 public class BasicTransformable implements Transformable {
-    private Vector2f origin = new Vector2f();
-    private Vector2f position = new Vector2f();
+    private Vector2f origin = Vector2f.ZERO;
+    private Vector2f position = Vector2f.ZERO;
     private float rotation = 0;
     private Vector2f scale = new Vector2f(1, 1);
 

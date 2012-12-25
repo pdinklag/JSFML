@@ -111,15 +111,6 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     }
 
     /**
-     * Constructs a new time by copying another time.
-     *
-     * @param time the time to copy.
-     */
-    public Time(Time time) {
-        this.microseconds = time.microseconds;
-    }
-
-    /**
      * Returns the time value in seconds.
      *
      * @return the time value in seconds.
