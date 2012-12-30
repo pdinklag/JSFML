@@ -1,9 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.JSFMLError;
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNative;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.JSFMLError;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.window.ContextSettings;
 
 import java.awt.*;

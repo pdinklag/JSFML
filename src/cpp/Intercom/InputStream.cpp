@@ -11,7 +11,7 @@ jmethodID JSFML::InputStream::m_getSize = 0;
 jmethodID JSFML::InputStream::m_close = 0;
 
 void JSFML::InputStream::Init(JNIEnv *env) {
-    jclass javaClass = env->FindClass("org/jsfml/SFMLInputStream");
+    jclass javaClass = env->FindClass("org/jsfml/internal/SFMLInputStream");
     if(javaClass) {
         cls = (jclass)env->NewGlobalRef(javaClass);
         m_read = env->GetMethodID(javaClass, "read", "(Ljava/nio/ByteBuffer;J)J");

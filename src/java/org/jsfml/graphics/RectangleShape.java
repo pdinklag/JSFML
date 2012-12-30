@@ -1,7 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
+import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
+
+import java.util.Objects;
 
 /**
  * A specialized shape representing a rectangle.
@@ -47,10 +49,7 @@ public class RectangleShape extends Shape {
      * @param size the new dimensions of the rectangle.
      */
     public void setSize(@NotNull Vector2f size) {
-        if (size == null)
-            throw new NullPointerException("size must not be null.");
-
-        nativeSetSize(size);
+        nativeSetSize(Objects.requireNonNull(size));
     }
 
     /**

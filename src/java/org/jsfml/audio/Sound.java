@@ -1,8 +1,10 @@
 package org.jsfml.audio;
 
-import org.jsfml.NotNull;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
+
+import java.util.Objects;
 
 /**
  * Provides functionality to instantiate a {@code SoundBuffer} and play a buffered sound.
@@ -78,10 +80,7 @@ public class Sound extends SoundSource {
      * @param soundBuffer the new sound buffer.
      */
     public void setBuffer(@NotNull ConstSoundBuffer soundBuffer) {
-        if (soundBuffer == null)
-            throw new NullPointerException("soundBuffer must not be null.");
-
-        this.soundBuffer = soundBuffer;
+        this.soundBuffer = Objects.requireNonNull(soundBuffer);
         nativeSetBuffer((SoundBuffer) soundBuffer);
     }
 
@@ -103,10 +102,7 @@ public class Sound extends SoundSource {
      * @param offset the playing offset in the underlaying buffer.
      */
     public void setPlayingOffset(@NotNull Time offset) {
-        if (offset == null)
-            throw new NullPointerException("offset must not be null.");
-
-        nativeSetPlayingOffset(offset);
+        nativeSetPlayingOffset(Objects.requireNonNull(offset));
     }
 
     /**

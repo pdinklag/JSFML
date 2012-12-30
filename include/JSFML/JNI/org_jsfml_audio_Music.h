@@ -34,7 +34,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeDelete
 /*
  * Class:     org_jsfml_audio_Music
  * Method:    nativeOpenFromStream
- * Signature: (Lorg/jsfml/SFMLInputStream$NativeStreamRef;)Z
+ * Signature: (Lorg/jsfml/internal/SFMLInputStream/NativeStreamRef;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromStream
   (JNIEnv *, jobject, jobject);

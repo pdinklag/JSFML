@@ -1,7 +1,7 @@
 package org.jsfml.graphics;
 
 
-import org.jsfml.Intercom;
+import org.jsfml.internal.Intercom;
 
 import java.io.Serializable;
 

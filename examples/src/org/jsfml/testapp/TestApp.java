@@ -1,6 +1,6 @@
 package org.jsfml.testapp;
 
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.SFMLNative;
 import org.jsfml.examples.scene.JavaFrame;
 import org.jsfml.examples.scene.Standalone;
 import org.jsfml.graphics.Shader;
@@ -90,14 +90,6 @@ public class TestApp {
                 System.out.println();
             }
         }
-
-        //Check if JSFML supports this
-        if (!SFMLNative.isPlatformSupported()) {
-            System.err.println("Platform is not supported - exiting.");
-            return;
-        }
-
-        System.out.println("Platform is supported.");
 
         //Try to load native libs.
         SFMLNative.loadNativeLibraries();

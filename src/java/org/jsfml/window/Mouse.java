@@ -1,8 +1,10 @@
 package org.jsfml.window;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNative;
 import org.jsfml.system.Vector2i;
+
+import java.util.Objects;
 
 /**
  * Provides access to the the real-time state of the mouse.
@@ -56,10 +58,7 @@ public final class Mouse {
      *         {@code false} otherwise.
      */
     public static boolean isButtonPressed(@NotNull Button button) {
-        if (button == null)
-            throw new NullPointerException("button must not be null");
-
-        return nativeIsButtonPressed(button);
+        return nativeIsButtonPressed(Objects.requireNonNull(button));
     }
 
     /**
@@ -78,10 +77,7 @@ public final class Mouse {
      * @return the position of the mouse cursor relative to the window's top left corner.
      */
     public static Vector2i getPosition(@NotNull Window relativeTo) {
-        if (relativeTo == null)
-            throw new NullPointerException("relativeTo must not be null");
-
-        return nativeGetPosition(relativeTo);
+        return nativeGetPosition(Objects.requireNonNull(relativeTo));
     }
 
     private static native void nativeSetPosition(Vector2i position);
@@ -92,10 +88,7 @@ public final class Mouse {
      * @param position the new absolute position of the mouse cursor on the screen.
      */
     public static void setPosition(@NotNull Vector2i position) {
-        if (position == null)
-            throw new NullPointerException("position must not be null");
-
-        nativeSetPosition(position);
+        nativeSetPosition(Objects.requireNonNull(position));
     }
 
     private static native void nativeSetPosition(Vector2i position, Window relativeTo);
@@ -108,13 +101,7 @@ public final class Mouse {
      * @param relativeTo the window in question.
      */
     public static void setPosition(@NotNull Vector2i position, @NotNull Window relativeTo) {
-        if (position == null)
-            throw new NullPointerException("position must not be null");
-
-        if (relativeTo == null)
-            throw new NullPointerException("relativeTo must not be null");
-
-        nativeSetPosition(position, relativeTo);
+        nativeSetPosition(Objects.requireNonNull(position), Objects.requireNonNull(relativeTo));
     }
 
     //cannot instantiate

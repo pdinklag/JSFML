@@ -36,10 +36,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Shader_nativeCreate (JNIEnv *env
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeLoadFromSource
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader$Type;)Z
+ * Method:    nativeLoadFromSource1
+ * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader/Type;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource__Ljava_lang_String_2Lorg_jsfml_graphics_Shader_00024Type_2
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource1
     (JNIEnv *env, jobject obj, jstring source, jobject type) {
 
     const char *utf8 = env->GetStringUTFChars(source, NULL);
@@ -54,10 +54,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource__
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeLoadFromSource
+ * Method:    nativeLoadFromSource2
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource__Ljava_lang_String_2Ljava_lang_String_2
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource2
     (JNIEnv *env, jobject obj, jstring vertSource, jstring fragSource) {
 
     const char *utf8Vert = env->GetStringUTFChars(vertSource, NULL);

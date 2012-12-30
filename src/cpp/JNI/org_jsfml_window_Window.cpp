@@ -10,7 +10,7 @@
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -22,7 +22,7 @@
     #include <pthread.h>
 #endif
 
-#define SF_WINDOW JSFML::NativeObject::GetExPointer<sf::Window>(env, obj, org_jsfml_ExPtr_WINDOW)
+#define SF_WINDOW JSFML::NativeObject::GetExPointer<sf::Window>(env, obj, org_jsfml_internal_ExPtr_WINDOW)
 
 /*
  * Class:     org_jsfml_window_Window
@@ -39,7 +39,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__ (JNIEnv *env
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW, THIS(sf::Window));
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_WINDOW, THIS(sf::Window));
 }
 
 /*

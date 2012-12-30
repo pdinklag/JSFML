@@ -1,8 +1,10 @@
 package org.jsfml.audio;
 
-import org.jsfml.Intercom;
-import org.jsfml.NotNull;
+import org.jsfml.internal.Intercom;
+import org.jsfml.internal.NotNull;
 import org.jsfml.system.Time;
+
+import java.util.Objects;
 
 /**
  * Abstract base class for streamed sound sources.
@@ -40,10 +42,7 @@ public abstract class SoundStream extends SoundSource {
          *             playing.
          */
         public Chunk(@NotNull short[] data, boolean last) {
-            if (data == null)
-                throw new NullPointerException("data must not be null.");
-
-            this.data = data;
+            this.data = Objects.requireNonNull(data);
             this.last = last;
         }
 
@@ -128,10 +127,7 @@ public abstract class SoundStream extends SoundSource {
      * @param offset the playing offset at which to play from the stream.
      */
     public final void setPlayingOffset(@NotNull Time offset) {
-        if (offset == null)
-            throw new NullPointerException("offset must not be null.");
-
-        nativeSetPlayingOffset(offset);
+        nativeSetPlayingOffset(Objects.requireNonNull(offset));
     }
 
     /**

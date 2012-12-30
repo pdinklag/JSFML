@@ -1,15 +1,16 @@
 package org.jsfml.audio;
 
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Buffer of audio samples, providing an audio data source for a {@code Sound}.
@@ -93,10 +94,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      */
     public void loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate)
             throws IOException {
-        if (samples == null)
-            throw new NullPointerException("samples must not be null");
-
-        if (!nativeLoadFromSamples(samples, channelCount, sampleRate))
+        if (!nativeLoadFromSamples(Objects.requireNonNull(samples), channelCount, sampleRate))
             throw new IOException("Failed to load sound buffer from samples.");
     }
 
@@ -104,9 +102,6 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
 
     @Override
     public void saveToFile(@NotNull File file) throws IOException {
-        if (file == null)
-            throw new NullPointerException("file must not be null");
-
         if (!nativeSaveToFile(file.getAbsolutePath()))
             throw new IOException("Failed to save sound buffer to file: " + file);
     }

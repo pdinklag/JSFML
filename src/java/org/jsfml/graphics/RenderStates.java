@@ -1,7 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.Intercom;
-import org.jsfml.NotNull;
+import org.jsfml.internal.Intercom;
+import org.jsfml.internal.NotNull;
+
+import java.util.Objects;
 
 /**
  * Defines drawing properties when drawing objects to a {@link RenderTarget}.
@@ -128,14 +130,8 @@ public final class RenderStates {
      * @param shader    the shader applied to whatever is drawn using these states.
      */
     public RenderStates(@NotNull BlendMode blendMode, @NotNull Transform transform, ConstTexture texture, ConstShader shader) {
-        if (blendMode == null)
-            throw new NullPointerException("blendMode must not be null");
-
-        if (transform == null)
-            throw new NullPointerException("transform must not be null");
-
-        this.blendMode = blendMode;
-        this.transform = transform;
+        this.blendMode = Objects.requireNonNull(blendMode);
+        this.transform = Objects.requireNonNull(transform);
         this.texture = texture;
         this.shader = shader;
     }

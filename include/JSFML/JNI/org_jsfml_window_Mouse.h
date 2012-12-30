@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeIsButtonPressed
- * Signature: (Lorg/jsfml/window/Mouse$Button;)Z
+ * Signature: (Lorg/jsfml/window/Mouse/Button;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed
   (JNIEnv *, jclass, jobject);

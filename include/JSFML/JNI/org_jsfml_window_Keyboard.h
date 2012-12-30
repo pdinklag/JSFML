@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     org_jsfml_window_Keyboard
  * Method:    nativeIsKeyPressed
- * Signature: (Lorg/jsfml/window/Keyboard$Key;)Z
+ * Signature: (Lorg/jsfml/window/Keyboard/Key;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Keyboard_nativeIsKeyPressed
   (JNIEnv *, jclass, jobject);

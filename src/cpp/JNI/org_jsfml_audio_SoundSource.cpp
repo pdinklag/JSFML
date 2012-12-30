@@ -3,11 +3,11 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Audio/SoundSource.hpp>
 
-#define SOUND_SOURCE JSFML::NativeObject::GetExPointer<sf::SoundSource>(env, obj, org_jsfml_ExPtr_SOUND_SOURCE)
+#define SOUND_SOURCE JSFML::NativeObject::GetExPointer<sf::SoundSource>(env, obj, org_jsfml_internal_ExPtr_SOUND_SOURCE)
 
 /*
  * Class:     org_jsfml_audio_SoundSource

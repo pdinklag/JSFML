@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 /**
  * Holds index definitions for the {@link SFMLNativeObject#exPtr} array.

@@ -1,8 +1,10 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
+
+import java.util.Objects;
 
 /**
  * Represents a 2D camera which defines the region of the scene that is visible.
@@ -112,10 +114,7 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param rect the new viewport rectangle.
      */
     public void setViewport(@NotNull FloatRect rect) {
-        if (rect == null)
-            throw new NullPointerException("rect must not be null.");
-
-        nativeSetViewport(rect);
+        nativeSetViewport(Objects.requireNonNull(rect));
     }
 
     private native void nativeReset(FloatRect rect);
@@ -126,10 +125,7 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param rect the viewport rectangle.
      */
     public void reset(@NotNull FloatRect rect) {
-        if (rect == null)
-            throw new NullPointerException("rect must not be null.");
-
-        nativeReset(rect);
+        nativeReset(Objects.requireNonNull(rect));
     }
 
     @Override

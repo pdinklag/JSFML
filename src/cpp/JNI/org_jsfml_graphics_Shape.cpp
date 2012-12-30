@@ -6,11 +6,11 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/Shape.hpp>
 
-#define SHAPE JSFML::NativeObject::GetExPointer<sf::Shape>(env, obj, org_jsfml_ExPtr_SHAPE)
+#define SHAPE JSFML::NativeObject::GetExPointer<sf::Shape>(env, obj, org_jsfml_internal_ExPtr_SHAPE)
 
 /*
  * Class:     org_jsfml_graphics_Shape

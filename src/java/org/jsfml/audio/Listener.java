@@ -1,6 +1,6 @@
 package org.jsfml.audio;
 
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.SFMLNative;
 import org.jsfml.system.Vector3f;
 
 /**

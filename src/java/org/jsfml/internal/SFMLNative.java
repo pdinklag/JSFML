@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 import java.awt.*;
 import java.io.*;
@@ -44,7 +44,6 @@ public final class SFMLNative {
     private static String readMD5File(InputStream in) throws IOException {
         byte[] buffer = new byte[MD5_LENGTH];
         int n = in.read(buffer);
-        in.close();
 
         if (n != MD5_LENGTH)
             throw new IOException("Error reading MD5 file.");
@@ -53,34 +52,8 @@ public final class SFMLNative {
     }
 
     private static String readMD5File(File file) throws IOException {
-        return readMD5File(new FileInputStream(file));
-    }
-
-    /**
-     * Tests whether the current platform is supported by JSFML.
-     * <p/>
-     * This method can be used before any JSFML call to make sure that JSFML is supported on the current
-     * platform. If this is not the case, {@link #loadNativeLibraries()} will raise an error attempting
-     * to load the native library.
-     *
-     * @return {@code true} if this platform is supported by JSFML, {@code false} otherwise.
-     */
-    public static boolean isPlatformSupported() {
-        String osName = System.getProperty("os.name");
-        String osArch = System.getProperty("os.arch");
-
-        /**
-         * TODO In all probability, a more detailed OS version check should happen in here.
-         */
-
-        if (osName.contains(OS_NAME_WINDOWS)) {
-            return osArch.equals("x86") || osArch.equals("amd64");
-        } else if (osName.contains(OS_NAME_LINUX)) {
-            return osArch.equals("x86") || osArch.equals("i386") || osArch.equals("amd64");
-        } else if (osName.contains(OS_NAME_MACOSX)) {
-            return true;
-        } else {
-            return false;
+        try (final FileInputStream fis = new FileInputStream(file)) {
+            return readMD5File(fis);
         }
     }
 
@@ -99,9 +72,8 @@ public final class SFMLNative {
      * classpath. If the MD5 hashes differ, the existing file in the user directory will
      * be overridden.
      * <p/>
-     * If the current platform is not supported, a {@link JSFMLError} will be raised. To avoid
-     * this situation, make sure that {@link #isPlatformSupported} returns {@code true} before
-     * using any other JSFML class.
+     * If loading the native libraries fails, a {@link JSFMLError} will be raised with
+     * a brief description of what went wrong.
      */
     public static void loadNativeLibraries() {
         if (!loaded) {
@@ -121,13 +93,17 @@ public final class SFMLNative {
 
             String arch = null;
 
-            final LinkedList<String> nativeLibs = new LinkedList<String>();
+            final LinkedList<String> nativeLibs = new LinkedList<>();
 
             if (osName.contains(OS_NAME_WINDOWS)) {
-                if (osArch.equals("x86")) {
-                    arch = "windows_x86";
-                } else if (osArch.equals("amd64")) {
-                    arch = "windows_x64";
+                switch (osArch) {
+                    case "x86":
+                        arch = "windows_x86";
+                        break;
+
+                    case "amd64":
+                        arch = "windows_x64";
+                        break;
                 }
 
                 nativeLibs.add("libsndfile-1.dll");
@@ -156,10 +132,15 @@ public final class SFMLNative {
                         throw err;
                 }
             } else if (osName.contains(OS_NAME_LINUX)) {
-                if (osArch.equals("x86") || osArch.equals("i386")) {
-                    arch = "linux_x86";
-                } else if (osArch.equals("amd64")) {
-                    arch = "linux_x64";
+                switch (osArch) {
+                    case "x86":
+                    case "i386":
+                        arch = "linux_x86";
+                        break;
+
+                    case "amd64":
+                        arch = "linux_x64";
+                        break;
                 }
 
                 nativeLibs.add("libsfml-system.so");
@@ -206,65 +187,59 @@ public final class SFMLNative {
             final File nativeLibPath = new File(JSFML_USER_HOME, arch);
 
             for (String lib : nativeLibs) {
-                File libFile = new File(nativeLibPath, lib);
+                final File libFile = new File(nativeLibPath, lib);
+
                 libFile.getParentFile().mkdirs();
 
                 //Check MD5 hash, don't extract if not necessary
                 boolean md5Equal = false;
 
-                String md5FileName = lib + MD5_EXT;
-                InputStream md5InputStream =
-                        SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName);
+                final String md5FileName = lib + MD5_EXT;
 
-                if (md5InputStream != null) {
-                    try {
-                        String md5Jar = readMD5File(md5InputStream);
+                try (final InputStream md5InputStream =
+                             SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName)) {
 
-                        File md5File = new File(nativeLibPath, md5FileName);
+                    final String md5Jar = readMD5File(md5InputStream);
+                    final File md5File = new File(nativeLibPath, md5FileName);
 
-                        if (md5File.exists()) {
-                            md5Equal = readMD5File(md5File).equals(md5Jar);
-                        }
-
-                        if (!md5Equal) {
-                            try {
-                                FileOutputStream out = new FileOutputStream(md5File);
-                                out.write(md5Jar.getBytes());
-                                out.close();
-                            } catch (IOException ex2) {
-                                md5File.delete();
-                            }
-                        }
-                    } catch (IOException ex) {
-                        //
+                    if (libFile.isFile() && md5File.isFile()) {
+                        md5Equal = readMD5File(md5File).equals(md5Jar);
                     }
+
+                    if (!md5Equal) {
+                        try (final FileOutputStream out = new FileOutputStream(md5File)) {
+                            out.write(md5Jar.getBytes());
+                        } catch (IOException ex) {
+                            ex.printStackTrace(); //write to stderr
+                        }
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace(); //write to stderr
                 }
 
                 if (!md5Equal) {
-                    InputStream inputStream =
-                            SFMLNative.class.getResourceAsStream(nativeResourcePath + lib);
+                    try (final InputStream in = SFMLNative.class.getResourceAsStream(
+                            nativeResourcePath + lib)) {
 
-                    if (inputStream != null) {
-                        try {
-                            //System.out.println("Extracting: " + libFile);
-                            StreamUtil.streamToFile(inputStream, libFile);
-                        } catch (IOException ex) {
+                        if (in != null) {
+                            StreamUtil.streamToFile(in, libFile);
+                        } else {
                             throw new JSFMLError(
-                                    "Failed to extract native library: " + libFile.getAbsolutePath());
+                                    "Could not find native library in the classpath: " + nativeResourcePath + lib);
                         }
-                    } else {
+                    } catch (IOException ex) {
                         throw new JSFMLError(
-                                "Could not find native library in the classpath: " + nativeResourcePath + lib);
+                                "Failed to extract native library: " + libFile.getAbsolutePath(), ex);
                     }
                 } else {
-                    //no need to extract
+                    //MD5 hashes are equal, no need to extract
                 }
             }
 
             //On Linux, add SFML's default install path as a fallback
-            //Load native libraries
-            for (String lib : nativeLibs)
+            for (String lib : nativeLibs) {
                 System.load(new File(nativeLibPath, lib).getAbsolutePath());
+            }
 
             //Initialize
             nativeInit();

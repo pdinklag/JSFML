@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 /**
  * Provides inherently unsafe operations on native SFML objects.
@@ -9,7 +9,7 @@ package org.jsfml;
 public final class UnsafeOperations {
     /**
      * Flags an SFML object as Java managed or unmanaged. Java managed objects will be destroyed using the
-     * {@link org.jsfml.SFMLNativeObject#nativeDelete()} method when this object gets finalized.
+     * {@link SFMLNativeObject#nativeDelete()} method when this object gets finalized.
      * <p/>
      * This is used for JSFML to differentiate between explicitly self-constructed SFML objects
      * (using {@code new}) and SFML objects that are managed by other SFML objects, but require

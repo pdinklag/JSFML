@@ -1,7 +1,7 @@
 package org.jsfml.audio;
 
-import org.jsfml.SFMLNative;
-import org.jsfml.SFMLNativeObject;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
 
 /**
  * Abstract base class for sound recorders, which provide functionality to capture audio data.

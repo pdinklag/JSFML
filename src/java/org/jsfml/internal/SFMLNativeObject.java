@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 /**
  * Abstract base class for classes bound to SFML C++ objects.

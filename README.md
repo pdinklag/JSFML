@@ -6,7 +6,7 @@ JSFML is the official Java library that provides Java applications with access t
 
 ##System requirements
 
-To run a JSFML application, Java JRE 6 or higher is required.
+To run a JSFML application, Java JRE 7 or higher is required.
 
 Graphics features require OpenGL, audio features require OpenAL.
 

@@ -3,7 +3,7 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/ConvexShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -23,13 +23,13 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_ConvexShape_nativeCreate (JNIEnv
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_DRAWABLE,
         dynamic_cast<sf::Drawable*>(THIS(sf::ConvexShape)));
 
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_TRANSFORMABLE,
         dynamic_cast<sf::Transformable*>(THIS(sf::ConvexShape)));
 
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SHAPE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_SHAPE,
         dynamic_cast<sf::Shape*>(THIS(sf::ConvexShape)));
 }
 

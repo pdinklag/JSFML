@@ -3,7 +3,7 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/RenderStates.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -16,7 +16,7 @@
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_DrawableNativeImpl_draw
     (JNIEnv *env, jclass cls, jobject drawable, jobject target, jobject states) {
 
-    JSFML::NativeObject::GetExPointer<sf::RenderTarget>(env, target, org_jsfml_ExPtr_RENDER_TARGET)->draw(
-        *JSFML::NativeObject::GetExPointer<sf::Drawable>(env, drawable, org_jsfml_ExPtr_DRAWABLE),
+    JSFML::NativeObject::GetExPointer<sf::RenderTarget>(env, target, org_jsfml_internal_ExPtr_RENDER_TARGET)->draw(
+        *JSFML::NativeObject::GetExPointer<sf::Drawable>(env, drawable, org_jsfml_internal_ExPtr_DRAWABLE),
         JSFML::RenderStates::ToSFML(env, states));
 }

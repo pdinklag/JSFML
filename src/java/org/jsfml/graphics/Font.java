@@ -1,9 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NativeRef;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NativeRef;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
+import org.jsfml.internal.UnsafeOperations;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.TreeMap;
  * Holds a character font for use in text displays.
  */
 public class Font extends SFMLNativeObject implements ConstFont {
-    private final Map<Integer, Texture> textureMap = new TreeMap<Integer, Texture>();
+    private final Map<Integer, Texture> textureMap = new TreeMap<>();
 
     /**
      * Memory reference and heap pointer that keeps alive the data input stream for freetype.

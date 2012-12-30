@@ -1,12 +1,13 @@
 package org.jsfml.graphics;
 
-import org.jsfml.*;
+import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Window;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Represents a 2D texture stored on the graphics card for rendering.
@@ -104,10 +105,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
-        if (area == null)
-            throw new NullPointerException("area must not be null.");
-
-        if (!nativeLoadFromMemory(StreamUtil.readStream(in), area))
+        if (!nativeLoadFromMemory(StreamUtil.readStream(in), Objects.requireNonNull(area)))
             throw new IOException("Failed to load texture from stream.");
     }
 
@@ -130,10 +128,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file, @NotNull IntRect area) throws IOException {
-        if (area == null)
-            throw new NullPointerException("area must not be null.");
-
-        if (!nativeLoadFromMemory(StreamUtil.readFile(file), area))
+        if (!nativeLoadFromMemory(StreamUtil.readFile(file), Objects.requireNonNull(area)))
             throw new IOException("Failed to load texture from file: " + file);
     }
 
@@ -158,13 +153,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      */
     public void loadFromImage(@NotNull Image image, @NotNull IntRect area)
             throws TextureCreationException {
-        if (image == null)
-            throw new NullPointerException("image must not be null.");
-
-        if (area == null)
-            throw new NullPointerException("area must not be null.");
-
-        if (!nativeLoadFromImage(image, area))
+        if (!nativeLoadFromImage(Objects.requireNonNull(image), Objects.requireNonNull(area)))
             throw new TextureCreationException("Failed to load texture from image.");
     }
 
@@ -205,10 +194,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param y     the Y offset inside the texture.
      */
     public void update(@NotNull Image image, int x, int y) {
-        if (image == null)
-            throw new NullPointerException("image must not be null.");
-
-        nativeUpdate(image, x, y);
+        nativeUpdate(Objects.requireNonNull(image), x, y);
     }
 
     private native void nativeUpdate(Window window, int x, int y);
@@ -221,10 +207,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param y      the Y offset inside the texture.
      */
     public void update(@NotNull Window window, int x, int y) {
-        if (window == null)
-            throw new NullPointerException("window must not be null.");
-
-        nativeUpdate(window, x, y);
+        nativeUpdate(Objects.requireNonNull(window), x, y);
     }
 
     /**
@@ -240,10 +223,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
 
     @Override
     public void bind(@NotNull CoordinateType coordinateType) {
-        if (coordinateType == null)
-            throw new NullPointerException("coordinateType must not be null.");
-
-        nativeBind(coordinateType);
+        nativeBind(Objects.requireNonNull(coordinateType));
     }
 
     @Override

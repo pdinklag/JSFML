@@ -98,7 +98,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
 /*
  * Class:     org_jsfml_graphics_Texture
  * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture$CoordinateType;)V
+ * Signature: (Lorg/jsfml/graphics/Texture/CoordinateType;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
   (JNIEnv *, jobject, jobject);

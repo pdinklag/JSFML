@@ -1,13 +1,14 @@
 package org.jsfml.audio;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLInputStream;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLInputStream;
 import org.jsfml.system.Time;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Provides functionality to play music streams from common audio file formats.
@@ -54,10 +55,7 @@ public class Music extends SoundStream {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void openFromStream(@NotNull InputStream in) throws IOException {
-        if (in == null)
-            throw new NullPointerException("in must not be null");
-
-        streamRef.initialize(new SFMLInputStream(in));
+        streamRef.initialize(new SFMLInputStream(Objects.requireNonNull(in)));
 
         if (!nativeOpenFromStream(streamRef))
             throw new IOException("Failed to open music from input stream.");

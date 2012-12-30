@@ -4,11 +4,11 @@
 #include <JSFML/Intercom/Transform.hpp>
 #include <JSFML/Intercom/Vector2f.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/Transformable.hpp>
 
-#define TRANSFORMABLE JSFML::NativeObject::GetExPointer<sf::Transformable>(env, obj, org_jsfml_ExPtr_TRANSFORMABLE)
+#define TRANSFORMABLE JSFML::NativeObject::GetExPointer<sf::Transformable>(env, obj, org_jsfml_internal_ExPtr_TRANSFORMABLE)
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable

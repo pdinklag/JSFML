@@ -7,7 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: CURRENT_TEXTURE */
 /*
  * Class:     org_jsfml_graphics_Shader
  * Method:    isAvailable
@@ -34,18 +33,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeLoadFromSource
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader$Type;)Z
+ * Method:    nativeLoadFromSource1
+ * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader/Type;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource__Ljava_lang_String_2Lorg_jsfml_graphics_Shader_00024Type_2
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource1
   (JNIEnv *, jobject, jstring, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeLoadFromSource
+ * Method:    nativeLoadFromSource2
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource__Ljava_lang_String_2Ljava_lang_String_2
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource2
   (JNIEnv *, jobject, jstring, jstring);
 
 /*
