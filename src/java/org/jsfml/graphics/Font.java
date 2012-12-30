@@ -15,7 +15,7 @@ import java.util.TreeMap;
  * Holds a character font for use in text displays.
  */
 public class Font extends SFMLNativeObject implements ConstFont {
-    private final Map<Integer, Texture> textureMap = new TreeMap<Integer, Texture>();
+    private final Map<Integer, Texture> textureMap = new TreeMap<>();
 
     /**
      * Memory reference and heap pointer that keeps alive the data input stream for freetype.

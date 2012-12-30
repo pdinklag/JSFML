@@ -85,7 +85,7 @@ public final class SFMLNative {
 
             String arch = null;
 
-            final LinkedList<String> nativeLibs = new LinkedList<String>();
+            final LinkedList<String> nativeLibs = new LinkedList<>();
 
             if (osName.contains(OS_NAME_WINDOWS)) {
                 switch (osArch) {
