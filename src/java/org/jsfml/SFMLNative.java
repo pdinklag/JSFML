@@ -44,7 +44,6 @@ public final class SFMLNative {
     private static String readMD5File(InputStream in) throws IOException {
         byte[] buffer = new byte[MD5_LENGTH];
         int n = in.read(buffer);
-        in.close();
 
         if (n != MD5_LENGTH)
             throw new IOException("Error reading MD5 file.");
@@ -53,7 +52,9 @@ public final class SFMLNative {
     }
 
     private static String readMD5File(File file) throws IOException {
-        return readMD5File(new FileInputStream(file));
+        try (final FileInputStream fis = new FileInputStream(file)) {
+            return readMD5File(fis);
+        }
     }
 
     /**
@@ -163,64 +164,58 @@ public final class SFMLNative {
             final File nativeLibPath = new File(JSFML_USER_HOME, arch);
 
             for (String lib : nativeLibs) {
-                File libFile = new File(nativeLibPath, lib);
+                final File libFile = new File(nativeLibPath, lib);
                 libFile.getParentFile().mkdirs();
 
                 //Check MD5 hash, don't extract if not necessary
                 boolean md5Equal = false;
 
-                String md5FileName = lib + MD5_EXT;
-                InputStream md5InputStream =
-                        SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName);
+                final String md5FileName = lib + MD5_EXT;
 
-                if (md5InputStream != null) {
-                    try {
-                        String md5Jar = readMD5File(md5InputStream);
+                try (final InputStream md5InputStream =
+                             SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName)) {
 
-                        File md5File = new File(nativeLibPath, md5FileName);
+                    final String md5Jar = readMD5File(md5InputStream);
+                    final File md5File = new File(nativeLibPath, md5FileName);
 
-                        if (md5File.exists()) {
-                            md5Equal = readMD5File(md5File).equals(md5Jar);
-                        }
-
-                        if (!md5Equal) {
-                            try {
-                                FileOutputStream out = new FileOutputStream(md5File);
-                                out.write(md5Jar.getBytes());
-                                out.close();
-                            } catch (IOException ex2) {
-                                md5File.delete();
-                            }
-                        }
-                    } catch (IOException ex) {
-                        //
+                    if (libFile.isFile() && md5File.isFile()) {
+                        md5Equal = readMD5File(md5File).equals(md5Jar);
                     }
+
+                    if (!md5Equal) {
+                        try (final FileOutputStream out = new FileOutputStream(md5File)) {
+                            out.write(md5Jar.getBytes());
+                        } catch (IOException ex) {
+                            ex.printStackTrace(); //write to stderr
+                        }
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace(); //write to stderr
                 }
 
                 if (!md5Equal) {
-                    InputStream inputStream =
-                            SFMLNative.class.getResourceAsStream(nativeResourcePath + lib);
+                    try (final InputStream in = SFMLNative.class.getResourceAsStream(
+                            nativeResourcePath + lib)) {
 
-                    if (inputStream != null) {
-                        try {
-                            //System.out.println("Extracting: " + libFile);
-                            StreamUtil.streamToFile(inputStream, libFile);
-                        } catch (IOException ex) {
+                        if (in != null) {
+                            StreamUtil.streamToFile(in, libFile);
+                        } else {
                             throw new JSFMLError(
-                                    "Failed to extract native library: " + libFile.getAbsolutePath());
+                                    "Could not find native library in the classpath: " + nativeResourcePath + lib);
                         }
-                    } else {
+                    } catch (IOException ex) {
                         throw new JSFMLError(
-                                "Could not find native library in the classpath: " + nativeResourcePath + lib);
+                                "Failed to extract native library: " + libFile.getAbsolutePath(), ex);
                     }
                 } else {
-                    //no need to extract
+                    //MD5 hashes are equal, no need to extract
                 }
             }
 
             //On Linux, add SFML's default install path as a fallback
-            for (String lib : nativeLibs)
+            for (String lib : nativeLibs) {
                 System.load(new File(nativeLibPath, lib).getAbsolutePath());
+            }
 
             //Initialize
             nativeInit();
