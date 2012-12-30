@@ -58,34 +58,6 @@ public final class SFMLNative {
     }
 
     /**
-     * Tests whether the current platform is supported by JSFML.
-     * <p/>
-     * This method can be used before any JSFML call to make sure that JSFML is supported on the current
-     * platform. If this is not the case, {@link #loadNativeLibraries()} will raise an error attempting
-     * to load the native library.
-     *
-     * @return {@code true} if this platform is supported by JSFML, {@code false} otherwise.
-     */
-    public static boolean isPlatformSupported() {
-        String osName = System.getProperty("os.name");
-        String osArch = System.getProperty("os.arch");
-
-        /**
-         * TODO In all probability, a more detailed OS version check should happen in here.
-         */
-
-        if (osName.contains(OS_NAME_WINDOWS)) {
-            return osArch.equals("x86") || osArch.equals("amd64");
-        } else if (osName.contains(OS_NAME_LINUX)) {
-            return osArch.equals("x86") || osArch.equals("i386") || osArch.equals("amd64");
-        } else if (osName.contains(OS_NAME_MACOSX)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Loads the native JSFML libraries if it has not been done yet.
      * <p/>
      * This must be done before any SFML class representations can be used. All affected classes
@@ -100,9 +72,8 @@ public final class SFMLNative {
      * classpath. If the MD5 hashes differ, the existing file in the user directory will
      * be overridden.
      * <p/>
-     * If the current platform is not supported, a {@link JSFMLError} will be raised. To avoid
-     * this situation, make sure that {@link #isPlatformSupported} returns {@code true} before
-     * using any other JSFML class.
+     * If loading the native libraries fails, a {@link JSFMLError} will be raised with
+     * a brief description of what went wrong.
      */
     public static void loadNativeLibraries() {
         if (!loaded) {
@@ -117,10 +88,14 @@ public final class SFMLNative {
             final LinkedList<String> nativeLibs = new LinkedList<String>();
 
             if (osName.contains(OS_NAME_WINDOWS)) {
-                if (osArch.equals("x86")) {
-                    arch = "windows_x86";
-                } else if (osArch.equals("amd64")) {
-                    arch = "windows_x64";
+                switch (osArch) {
+                    case "x86":
+                        arch = "windows_x86";
+                        break;
+
+                    case "amd64":
+                        arch = "windows_x64";
+                        break;
                 }
 
                 nativeLibs.add("libsndfile-1.dll");
@@ -131,10 +106,15 @@ public final class SFMLNative {
                 nativeLibs.add("sfml-graphics-2.dll");
                 nativeLibs.add("jsfml.dll");
             } else if (osName.contains(OS_NAME_LINUX)) {
-                if (osArch.equals("x86") || osArch.equals("i386")) {
-                    arch = "linux_x86";
-                } else if (osArch.equals("amd64")) {
-                    arch = "linux_x64";
+                switch (osArch) {
+                    case "x86":
+                    case "i386":
+                        arch = "linux_x86";
+                        break;
+
+                    case "amd64":
+                        arch = "linux_x64";
+                        break;
                 }
 
                 nativeLibs.add("libsfml-system.so");
@@ -165,7 +145,11 @@ public final class SFMLNative {
 
             for (String lib : nativeLibs) {
                 final File libFile = new File(nativeLibPath, lib);
-                libFile.getParentFile().mkdirs();
+
+                if (!libFile.getParentFile().mkdirs()) {
+                    throw new JSFMLError("Failed to create user directory for native libraries: " +
+                            JSFML_USER_HOME.getAbsolutePath());
+                }
 
                 //Check MD5 hash, don't extract if not necessary
                 boolean md5Equal = false;
