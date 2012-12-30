@@ -4,6 +4,8 @@ import org.jsfml.NotNull;
 import org.jsfml.JSFML;
 import org.jsfml.system.Vector2f;
 
+import java.util.Objects;
+
 /**
  * Specialized shape representing a convex polygon.
  */
@@ -68,13 +70,10 @@ public class ConvexShape extends Shape {
      * @param v the point to set at the given index.
      */
     public void setPoint(int i, @NotNull Vector2f v) {
-        if (v == null)
-            throw new NullPointerException("point must not be null.");
-
         if (i < 0 || i >= getPointCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
-        nativeSetPoint(i, v);
+        nativeSetPoint(i, Objects.requireNonNull(v));
     }
 
     /**
@@ -95,9 +94,6 @@ public class ConvexShape extends Shape {
      */
     @JSFML
     public void setPoints(@NotNull Vector2f... points) {
-        if (points == null)
-            throw new NullPointerException("points must not be null.");
-
         setPointCount(points.length);
 
         for (int i = 0; i < points.length; i++) {

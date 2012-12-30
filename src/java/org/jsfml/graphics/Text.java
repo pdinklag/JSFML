@@ -3,9 +3,11 @@ package org.jsfml.graphics;
 import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
+import java.util.Objects;
+
 /**
  * Represents a graphical text that can be transformed and drawn to a render target.
- *
+ * <p/>
  * This class implements the {@code TextStyle} interface for quick access to the constants
  * provided by it.
  */
@@ -69,10 +71,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param string The string to display.
      */
     public void setString(@NotNull String string) {
-        if (string == null)
-            throw new NullPointerException("string must not be null");
-
-        this.string = string;
+        this.string = Objects.requireNonNull(string);
         nativeSetString(string);
     }
 
@@ -84,10 +83,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param font The text's font.
      */
     public void setFont(@NotNull ConstFont font) {
-        if (font == null)
-            throw new NullPointerException("font must not be null");
-
-        this.font = font;
+        this.font = Objects.requireNonNull(font);
         nativeSetFont((Font) font);
     }
 
@@ -116,10 +112,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param color The font color for this text.
      */
     public void setColor(@NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null");
-
-        nativeSetColor(color);
+        nativeSetColor(Objects.requireNonNull(color));
     }
 
     /**
@@ -195,12 +188,8 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        if (target == null)
-            throw new NullPointerException("target must not be null");
-
-        if (states == null)
-            throw new NullPointerException("states must not be null");
-
-        DrawableNativeImpl.draw(this, target, states);
+        DrawableNativeImpl.draw(this,
+                Objects.requireNonNull(target),
+                Objects.requireNonNull(states));
     }
 }

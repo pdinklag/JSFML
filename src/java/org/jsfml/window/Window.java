@@ -6,6 +6,7 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * A basic window that provides an OpenGL context.
@@ -129,15 +130,6 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see ContextSettings
      */
     public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
-        if (mode == null)
-            throw new NullPointerException("mode must not be null.");
-
-        if (title == null)
-            throw new NullPointerException("title must not be null.");
-
-        if (settings == null)
-            throw new NullPointerException("settings must not be null.");
-
         if (!isLegalWindowThread()) {
             throw new JSFMLError("This thread is not allowed to create a window on this system. " +
                     "If you are running on Mac OS X, you MUST run your" +
@@ -147,7 +139,11 @@ public class Window extends SFMLNativeObject implements WindowStyle {
         if ((style & FULLSCREEN) != 0 && !mode.isValid())
             throw new IllegalArgumentException("Invalid video mode for a fullscreen window.");
 
-        nativeCreate(mode, title, style, settings);
+        nativeCreate(
+                Objects.requireNonNull(mode),
+                Objects.requireNonNull(title),
+                style,
+                Objects.requireNonNull(settings));
     }
 
     /**
@@ -213,10 +209,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param position the new absolute position of the window's top left corner on the screen.
      */
     public void setPosition(@NotNull Vector2i position) {
-        if (position == null)
-            throw new NullPointerException("position must not be null.");
-
-        nativeSetPosition(position);
+        nativeSetPosition(Objects.requireNonNull(position));
     }
 
     /**
@@ -234,10 +227,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param size the new size of the window.
      */
     public void setSize(@NotNull Vector2i size) {
-        if (size == null)
-            throw new NullPointerException("size must not be null.");
-
-        nativeSetPosition(size);
+        nativeSetPosition(Objects.requireNonNull(size));
     }
 
     /**
@@ -336,10 +326,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param title the window's new title.
      */
     public void setTitle(@NotNull String title) {
-        if (title == null)
-            throw new NullPointerException("title must not be null.");
-
-        nativeSetTitle(title);
+        nativeSetTitle(Objects.requireNonNull(title));
     }
 
     /**
@@ -369,10 +356,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param icon the icon image.
      */
     public void setIcon(@NotNull Image icon) {
-        if (icon == null)
-            throw new NullPointerException("icon must not be null.");
-
-        this.icon = icon; //keep a local reference
+        this.icon = Objects.requireNonNull(icon); //keep a local reference
         nativeSetIcon(icon);
     }
 

@@ -6,6 +6,8 @@ import org.jsfml.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
+import java.util.Objects;
+
 /**
  * Provides a render target for off-screen 2D rendering into a texture.
  */
@@ -114,10 +116,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public void clear(@NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeClear(color);
+        nativeClear(Objects.requireNonNull(color));
     }
 
     /**
@@ -131,10 +130,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public void setView(@NotNull ConstView view) {
-        if (view == null)
-            throw new NullPointerException("view must not be null.");
-
-        this.view = view;
+        this.view = Objects.requireNonNull(view);
         nativeSetView((View) view);
     }
 
@@ -154,10 +150,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public IntRect getViewport(@NotNull View view) {
-        if (view == null)
-            throw new NullPointerException("view must not be null.");
-
-        return nativeGetViewport(view);
+        return nativeGetViewport(Objects.requireNonNull(view));
     }
 
     private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
@@ -169,10 +162,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
-        if (point == null)
-            throw new NullPointerException("point must not be null.");
-
-        return nativeMapPixelToCoords(point, view);
+        return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
     }
 
     private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
@@ -184,10 +174,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
-        if (point == null)
-            throw new NullPointerException("point must not be null.");
-
-        return nativeMapCoordsToPixel(point, view);
+        return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
     }
 
     @Override
@@ -209,16 +196,10 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
     @Override
     public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
-        if (vertices == null)
-            throw new NullPointerException("vertices must not be null.");
-
-        if (type == null)
-            throw new NullPointerException("type must not be null.");
-
-        if (states == null)
-            throw new NullPointerException("states must not be null.");
-
-        nativeDraw(vertices, type, states);
+        nativeDraw(
+                Objects.requireNonNull(vertices),
+                Objects.requireNonNull(type),
+                Objects.requireNonNull(states));
     }
 
     @Override

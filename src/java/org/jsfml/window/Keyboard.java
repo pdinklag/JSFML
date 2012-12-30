@@ -3,6 +3,8 @@ package org.jsfml.window;
 import org.jsfml.NotNull;
 import org.jsfml.SFMLNative;
 
+import java.util.Objects;
+
 /**
  * Provides access to the the real-time state of the keyboard.
  * <p/>
@@ -571,11 +573,7 @@ public final class Keyboard {
      *         {@code false} otherwise.
      */
     public static boolean isKeyPressed(@NotNull Key key) {
-        if (key == null) {
-            throw new NullPointerException("key must not be null");
-        }
-
-        return nativeIsKeyPressed(key);
+        return nativeIsKeyPressed(Objects.requireNonNull(key));
     }
 
     //cannot instantiate

@@ -4,6 +4,8 @@ import org.jsfml.JSFML;
 import org.jsfml.NotNull;
 import org.jsfml.system.Vector2f;
 
+import java.util.Objects;
+
 /**
  * Abstract base class for (optionally) textured shapes with (optional) outlines.
  */
@@ -59,10 +61,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param rect the texture portion.
      */
     public void setTextureRect(@NotNull IntRect rect) {
-        if (rect == null)
-            throw new NullPointerException("rect must not be null.");
-
-        nativeSetTextureRect(rect);
+        nativeSetTextureRect(Objects.requireNonNull(rect));
     }
 
     private native void nativeSetFillColor(Color color);
@@ -74,10 +73,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *              that the shape should not be filled.
      */
     public void setFillColor(@NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeSetFillColor(color);
+        nativeSetFillColor(Objects.requireNonNull(color));
     }
 
     private native void nativeSetOutlineColor(Color color);
@@ -88,10 +84,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param color the new outline color of the shape.
      */
     public void setOutlineColor(@NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeSetOutlineColor(color);
+        nativeSetOutlineColor(Objects.requireNonNull(color));
     }
 
     /**
@@ -197,12 +190,8 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
 
     @Override
     public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        if (target == null)
-            throw new NullPointerException("target must not be null");
-
-        if (states == null)
-            throw new NullPointerException("states must not be null");
-
-        DrawableNativeImpl.draw(this, target, states);
+        DrawableNativeImpl.draw(this,
+                Objects.requireNonNull(target),
+                Objects.requireNonNull(states));
     }
 }

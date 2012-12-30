@@ -10,6 +10,7 @@ import org.jsfml.system.Vector3f;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Represents a GLSL shader program, consisting of a vertex and a fragment shader.
@@ -97,14 +98,11 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
             throws IOException {
 
-        if (source == null)
-            throw new NullPointerException("source must not be null.");
-
-        if (shaderType == null)
-            throw new NullPointerException("shaderType must not be null.");
-
-        if (!nativeLoadFromSource(source, shaderType))
+        if (!nativeLoadFromSource(
+                Objects.requireNonNull(source),
+                Objects.requireNonNull(shaderType))) {
             throw new IOException("Failed to load shader from source.");
+        }
     }
 
     /**
@@ -117,14 +115,11 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
             throws IOException {
 
-        if (vertexShaderSource == null)
-            throw new NullPointerException("vertexShaderSource must not be null.");
-
-        if (fragmentShaderSource == null)
-            throw new NullPointerException("fragmentShaderSource must not be null.");
-
-        if (!nativeLoadFromSource(vertexShaderSource, fragmentShaderSource))
+        if (!nativeLoadFromSource(
+                Objects.requireNonNull(vertexShaderSource),
+                Objects.requireNonNull(fragmentShaderSource))) {
             throw new IOException("Failed to load shader from source.");
+        }
     }
 
     /**
@@ -136,10 +131,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
-        if (shaderType == null)
-            throw new NullPointerException("shaderType must not be null.");
-
-        loadFromSource(new String(StreamUtil.readStream(in)), shaderType);
+        loadFromSource(new String(StreamUtil.readStream(in)), Objects.requireNonNull(shaderType));
     }
 
     /**
@@ -164,10 +156,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
-        if (shaderType == null)
-            throw new NullPointerException("shaderType must not be null.");
-
-        loadFromSource(new String(StreamUtil.readFile(file)), shaderType);
+        loadFromSource(new String(StreamUtil.readFile(file)), Objects.requireNonNull(shaderType));
     }
 
     /**
@@ -192,10 +181,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param x    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        nativeSetParameter(name, x);
+        nativeSetParameter(Objects.requireNonNull(name), x);
     }
 
     private native void nativeSetParameter(String name, float x, float y);
@@ -208,10 +194,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param y    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        nativeSetParameter(name, x, y);
+        nativeSetParameter(Objects.requireNonNull(name), x, y);
     }
 
     /**
@@ -235,10 +218,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param z    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y, float z) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        nativeSetParameter(name, x, y, z);
+        nativeSetParameter(Objects.requireNonNull(name), x, y, z);
     }
 
     /**
@@ -263,10 +243,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param w    the parameter's value.
      */
     public void setParameter(@NotNull String name, float x, float y, float z, float w) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        nativeSetParameter(name, x, y, z, w);
+        nativeSetParameter(Objects.requireNonNull(name), x, y, z, w);
     }
 
     /**
@@ -292,13 +269,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param xform the parameter's value.
      */
     public void setParameter(@NotNull String name, @NotNull Transform xform) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        if (xform == null)
-            throw new NullPointerException("xform must not be null.");
-
-        nativeSetParameter(name, xform);
+        nativeSetParameter(Objects.requireNonNull(name), Objects.requireNonNull(xform));
     }
 
     private native void nativeSetParameter(String name, Texture texture);
@@ -310,13 +281,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param texture the parameter's value.
      */
     public void setParameter(@NotNull String name, @NotNull ConstTexture texture) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        if (texture == null)
-            throw new NullPointerException("texture must not be null.");
-
-        nativeSetParameter(name, (Texture) texture);
+        nativeSetParameter(Objects.requireNonNull(name), (Texture) Objects.requireNonNull(texture));
     }
 
     private native void nativeSetParameterCurrentTexture(String name);
@@ -332,10 +297,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param currentTexture should be {@link Shader#CURRENT_TEXTURE}.
      */
     public void setParameter(@NotNull String name, CurrentTextureType currentTexture) {
-        if (name == null)
-            throw new NullPointerException("name must not be null.");
-
-        nativeSetParameterCurrentTexture(name);
+        nativeSetParameterCurrentTexture(Objects.requireNonNull(name));
     }
 
     @Override

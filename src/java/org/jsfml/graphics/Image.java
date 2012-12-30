@@ -8,6 +8,7 @@ import org.jsfml.system.Vector2i;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Provides methods for loading, manipulating and saving images.
@@ -51,10 +52,7 @@ public class Image extends SFMLNativeObject {
      * @param color  the fill color of the image.
      */
     public void create(int width, int height, @NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeCreate(width, height, color);
+        nativeCreate(width, height, Objects.requireNonNull(color));
     }
 
     /**
@@ -101,9 +99,6 @@ public class Image extends SFMLNativeObject {
      * @throws IOException in case an I/O error occurs.
      */
     public void saveToFile(@NotNull File file) throws IOException {
-        if (file == null)
-            throw new NullPointerException("file must not be null");
-
         if (!nativeSaveToFile(file.getAbsolutePath()))
             throw new IOException("Failed to save image to file: " + file);
     }
@@ -124,10 +119,7 @@ public class Image extends SFMLNativeObject {
      * @param alpha the alpha value to assign to pixels matching the color key.
      */
     public void createMaskFromColor(@NotNull Color color, int alpha) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeCreateMaskFromColor(color, alpha);
+        nativeCreateMaskFromColor(Objects.requireNonNull(color), alpha);
     }
 
     /**
@@ -151,13 +143,11 @@ public class Image extends SFMLNativeObject {
      * @param applyAlpha {@code true} to copy alpha values as well, {@code false} to leave the destination alpha.
      */
     public void copy(@NotNull Image source, int destX, int destY, @NotNull IntRect sourceRect, boolean applyAlpha) {
-        if (source == null)
-            throw new NullPointerException("source must not be null.");
-
-        if (sourceRect == null)
-            throw new NullPointerException("sourceRect must not be null.");
-
-        nativeCopy(source, destX, destY, sourceRect, applyAlpha);
+        nativeCopy(
+                Objects.requireNonNull(source),
+                destX, destY,
+                Objects.requireNonNull(sourceRect),
+                applyAlpha);
     }
 
     /**
@@ -193,10 +183,7 @@ public class Image extends SFMLNativeObject {
      * @param color the color to apply to the pixel.
      */
     public void setPixel(int x, int y, @NotNull Color color) {
-        if (color == null)
-            throw new NullPointerException("color must not be null.");
-
-        nativeSetPixel(x, y, color);
+        nativeSetPixel(x, y, Objects.requireNonNull(color));
     }
 
     /**
