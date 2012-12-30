@@ -69,14 +69,6 @@ public class TestApp {
             }
         }
 
-        //Check if JSFML supports this
-        if (!SFMLNative.isPlatformSupported()) {
-            System.err.println("Platform is not supported - exiting.");
-            return;
-        }
-
-        System.out.println("Platform is supported.");
-
         //Try to load native libs.
         SFMLNative.loadNativeLibraries();
 
