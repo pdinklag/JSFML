@@ -28,7 +28,7 @@ public final class JoystickMoveEvent extends JoystickEvent {
      *                   This must be a valid ordinal in the {@link Event.Type} enumeration.
      * @param joystickId the joystick ID.
      * @param joyAxis    the joystick axis that was moved.
-     *                   This must be a valid ordinal in the {@link Joystick.Axis}
+     *                   This must be a valid ordinal in the {@link org.jsfml.window.Joystick.Axis}
      *                   enumeration.
      * @param position   the position that the axis was moved to.
      */

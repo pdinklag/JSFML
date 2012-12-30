@@ -25,7 +25,8 @@ public final class MouseButtonEvent extends MouseEvent {
      * @param x      the X coordinate of the mouse cursor relative to the window.
      * @param y      the Y coordinate of the mouse cursor relative to the window.
      * @param button the button that was pressed.
-     *               This must be a valid ordinal in the {@link Mouse.Button} enumeration.
+     *               This must be a valid ordinal in the {@link org.jsfml.window.Mouse.Button}
+     *               enumeration.
      */
     @Intercom
     public MouseButtonEvent(int type, int x, int y, int button) {

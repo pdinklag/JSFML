@@ -47,7 +47,8 @@ public final class KeyEvent extends Event {
      * @param type    the type of the event.
      *                This must be a valid ordinal in the {@link Event.Type} enumeration.
      * @param keyCode the code of the key that was pressed.
-     *                This must be a valid ordinal in the {@link Keyboard.Key} enumeration.
+     *                This must be a valid ordinal in the {@link org.jsfml.window.Keyboard.Key}
+     *                enumeration.
      * @param alt     {@code true} to indicate that an {@code ALT} key was pressed.
      * @param shift   {@code true} to indicate that a {@code SHIFT} key was pressed.
      * @param control {@code true} to indicate that a {@code CTRL} key was pressed.
