@@ -1,9 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNative;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector3f;
 
@@ -85,9 +85,9 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native boolean nativeLoadFromSource(String source, Type shaderType);
+    private native boolean nativeLoadFromSource1(String source, Type shaderType);
 
-    private native boolean nativeLoadFromSource(String vertSource, String fragSource);
+    private native boolean nativeLoadFromSource2(String vertSource, String fragSource);
 
     /**
      * Attempts to load a shader from GLSL source code.
@@ -98,7 +98,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
             throws IOException {
 
-        if (!nativeLoadFromSource(
+        if (!nativeLoadFromSource1(
                 Objects.requireNonNull(source),
                 Objects.requireNonNull(shaderType))) {
             throw new IOException("Failed to load shader from source.");
@@ -115,7 +115,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
             throws IOException {
 
-        if (!nativeLoadFromSource(
+        if (!nativeLoadFromSource2(
                 Objects.requireNonNull(vertexShaderSource),
                 Objects.requireNonNull(fragmentShaderSource))) {
             throw new IOException("Failed to load shader from source.");

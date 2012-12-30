@@ -1,7 +1,7 @@
 package org.jsfml.window;
 
-import org.jsfml.Intercom;
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.Intercom;
+import org.jsfml.internal.SFMLNative;
 
 import java.io.Serializable;
 

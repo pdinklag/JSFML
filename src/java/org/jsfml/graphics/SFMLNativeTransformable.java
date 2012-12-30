@@ -1,6 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.SFMLNativeObject;
+import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
 /**

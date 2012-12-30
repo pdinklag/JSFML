@@ -1,7 +1,7 @@
 package org.jsfml.window;
 
-import org.jsfml.SFMLNative;
-import org.jsfml.SFMLNativeObject;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
 
 /**
  * Holds a valid OpenGL drawing context.

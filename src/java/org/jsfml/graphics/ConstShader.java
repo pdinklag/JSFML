@@ -1,7 +1,7 @@
 package org.jsfml.graphics;
 
-import org.jsfml.Const;
-import org.jsfml.JSFML;
+import org.jsfml.internal.Const;
+import org.jsfml.internal.JSFML;
 
 /**
  * Interface for read-only textures.
@@ -12,7 +12,7 @@ import org.jsfml.JSFML;
  * Note that this interface is expected to be implemented by a {@link Shader}.
  * It is not recommended to be implemented outside of the JSFML API.
  *
- * @see org.jsfml.Const
+ * @see org.jsfml.internal.Const
  */
 @JSFML
 public interface ConstShader extends Const {

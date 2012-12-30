@@ -3,7 +3,7 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Time.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Audio/Sound.hpp>
 
@@ -22,7 +22,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeCreate (JNIEnv *env, jo
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_SOUND_SOURCE,
         dynamic_cast<sf::SoundSource*>(THIS(sf::Sound)));
 }
 

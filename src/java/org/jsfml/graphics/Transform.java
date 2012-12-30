@@ -28,7 +28,7 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.Intercom;
+import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;

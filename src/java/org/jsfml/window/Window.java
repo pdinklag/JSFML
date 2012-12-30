@@ -1,7 +1,7 @@
 package org.jsfml.window;
 
-import org.jsfml.*;
 import org.jsfml.graphics.Image;
+import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 

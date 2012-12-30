@@ -1,6 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
+import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;

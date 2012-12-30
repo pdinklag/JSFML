@@ -1,6 +1,6 @@
 package org.jsfml.testapp;
 
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.SFMLNative;
 import org.jsfml.examples.scene.Standalone;
 import org.jsfml.graphics.Shader;
 import org.jsfml.graphics.Texture;

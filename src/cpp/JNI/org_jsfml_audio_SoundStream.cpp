@@ -4,12 +4,11 @@
 #include <JSFML/Intercom/SoundStream.hpp>
 #include <JSFML/Intercom/Time.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Audio/SoundStream.hpp>
 
-#define SOUND_STREAM JSFML::NativeObject::GetExPointer<sf::SoundStream>(env, obj, org_jsfml_ExPtr_SOUND_STREAM)
-
+#define SOUND_STREAM JSFML::NativeObject::GetExPointer<sf::SoundStream>(env, obj, org_jsfml_internal_ExPtr_SOUND_STREAM)
 
 /*
  * Class:     org_jsfml_audio_SoundStream
@@ -26,10 +25,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeCreate (JNIEnv *e
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_SOURCE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_SOUND_SOURCE,
         dynamic_cast<sf::SoundSource*>(THIS(sf::SoundStream)));
 
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_SOUND_STREAM,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_SOUND_STREAM,
         THIS(sf::SoundStream));
 }
 

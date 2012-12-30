@@ -1,7 +1,7 @@
 package org.jsfml.audio;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLInputStream;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLInputStream;
 import org.jsfml.system.Time;
 
 import java.io.File;

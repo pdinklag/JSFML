@@ -1,6 +1,6 @@
 package org.jsfml.window.event;
 
-import org.jsfml.Intercom;
+import org.jsfml.internal.Intercom;
 
 /**
  * Base class for window events.

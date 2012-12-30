@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 /**
  * Interface for read-only objects.

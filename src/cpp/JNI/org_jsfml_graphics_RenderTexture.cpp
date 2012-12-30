@@ -10,7 +10,7 @@
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/Vertex.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/RenderTexture.hpp>
 
@@ -32,7 +32,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__ (JN
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_RENDER_TARGET,
         dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderTexture)));
 }
 

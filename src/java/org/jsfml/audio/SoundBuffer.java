@@ -1,10 +1,10 @@
 package org.jsfml.audio;
 
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
 
 import java.io.File;

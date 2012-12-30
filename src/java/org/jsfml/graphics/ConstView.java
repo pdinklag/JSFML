@@ -1,7 +1,7 @@
 package org.jsfml.graphics;
 
-import org.jsfml.Const;
-import org.jsfml.JSFML;
+import org.jsfml.internal.Const;
+import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 /**

@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 import java.awt.*;
 import java.io.*;
@@ -146,10 +146,7 @@ public final class SFMLNative {
             for (String lib : nativeLibs) {
                 final File libFile = new File(nativeLibPath, lib);
 
-                if (!libFile.getParentFile().mkdirs()) {
-                    throw new JSFMLError("Failed to create user directory for native libraries: " +
-                            JSFML_USER_HOME.getAbsolutePath());
-                }
+                libFile.getParentFile().mkdirs();
 
                 //Check MD5 hash, don't extract if not necessary
                 boolean md5Equal = false;

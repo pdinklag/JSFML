@@ -14,7 +14,7 @@
 #include <JSFML/Intercom/Vertex.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -37,10 +37,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCreate (JNIEn
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_RENDER_TARGET,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_RENDER_TARGET,
         dynamic_cast<sf::RenderTarget*>(THIS(sf::RenderWindow)));
 
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_WINDOW,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_WINDOW,
         dynamic_cast<sf::Window*>(THIS(sf::RenderWindow)));
 }
 

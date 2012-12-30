@@ -1,6 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.*;
+import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Window;
 

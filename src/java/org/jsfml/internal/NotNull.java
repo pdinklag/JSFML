@@ -1,4 +1,4 @@
-package org.jsfml;
+package org.jsfml.internal;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

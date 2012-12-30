@@ -1,6 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NotNull;
+import org.jsfml.internal.NotNull;
 
 /**
  * Interface for objects that can be drawn to a render target.

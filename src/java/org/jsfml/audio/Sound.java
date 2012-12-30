@@ -1,7 +1,7 @@
 package org.jsfml.audio;
 
-import org.jsfml.NotNull;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
 
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package org.jsfml.window;
 
-import org.jsfml.NotNull;
-import org.jsfml.SFMLNative;
+import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLNative;
 
 import java.util.Objects;
 

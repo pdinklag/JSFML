@@ -1,7 +1,7 @@
 package org.jsfml.audio;
 
-import org.jsfml.Intercom;
-import org.jsfml.NotNull;
+import org.jsfml.internal.Intercom;
+import org.jsfml.internal.NotNull;
 import org.jsfml.system.Time;
 
 import java.util.Objects;

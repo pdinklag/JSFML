@@ -5,7 +5,7 @@
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 
-#include <JSFML/JNI/org_jsfml_ExPtr.h>
+#include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -24,10 +24,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Sprite_nativeCreate (JNIEnv *env
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetExPtr (JNIEnv *env, jobject obj) {
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_DRAWABLE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_DRAWABLE,
         dynamic_cast<sf::Drawable*>(THIS(sf::Sprite)));
 
-    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_ExPtr_TRANSFORMABLE,
+    JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_TRANSFORMABLE,
         dynamic_cast<sf::Transformable*>(THIS(sf::Sprite)));
 }
 

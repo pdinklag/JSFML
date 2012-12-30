@@ -1,9 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.NativeRef;
-import org.jsfml.SFMLNativeObject;
-import org.jsfml.StreamUtil;
-import org.jsfml.UnsafeOperations;
+import org.jsfml.internal.NativeRef;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
+import org.jsfml.internal.UnsafeOperations;
 
 import java.io.File;
 import java.io.IOException;

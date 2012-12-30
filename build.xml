@@ -46,10 +46,10 @@
 	<target name="headers" description="Generate the C++ JNI headers." depends="compile">
 		<mkdir dir="${cpp.include}/JSFML/JNI" />
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
-			<!-- base -->
-			<class name="${jsfml.package}.ExPtr" />
-            <class name="${jsfml.package}.SFMLInputStream$NativeStreamRef" />
-			<class name="${jsfml.package}.SFMLNative" />
+			<!-- internal -->
+			<class name="${jsfml.package}.internal.ExPtr" />
+            <class name="${jsfml.package}.internal.SFMLInputStream$NativeStreamRef" />
+			<class name="${jsfml.package}.internal.SFMLNative" />
 			
 			<!-- window -->
 			<class name="${jsfml.package}.window.Context" />
@@ -319,6 +319,9 @@
 					<attribute name="Sealed" value="true"/>
 				</section>
 				<section name="org/jsfml/graphics/">
+					<attribute name="Sealed" value="true"/>
+				</section>
+				<section name="org/jsfml/internal">
 					<attribute name="Sealed" value="true"/>
 				</section>
 				<section name="org/jsfml/system/">
