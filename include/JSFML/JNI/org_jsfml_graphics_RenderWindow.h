@@ -33,6 +33,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeCapture
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCapture
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */

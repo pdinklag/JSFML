@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.NotNull;
+import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
@@ -89,6 +90,23 @@ public class RenderWindow extends Window implements RenderTarget {
     @Deprecated
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
+
+    private native long nativeCapture();
+
+    /**
+     * Copies the current contents of the window to an image.
+     * <p/>
+     * This is a slow operation and should be used to take screenshots, not to re-use
+     * resulting image as a texture. For that, use {@link Texture#update(org.jsfml.window.Window)}
+     * or a {@link RenderTexture} instead.
+     *
+     * @return the image with the current contents of the window.
+     */
+    public Image capture() {
+        final Image image = new Image(nativeCapture());
+        UnsafeOperations.manageSFMLObject(image, true);
+        return image;
+    }
 
     private native void nativeClear(Color color);
 
