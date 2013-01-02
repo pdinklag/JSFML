@@ -1,10 +1,7 @@
 package org.jsfml.audio;
 
 
-import org.jsfml.internal.NotNull;
-import org.jsfml.internal.SFMLNativeObject;
-import org.jsfml.internal.StreamUtil;
-import org.jsfml.internal.UnsafeOperations;
+import org.jsfml.internal.*;
 import org.jsfml.system.Time;
 
 import java.io.File;
@@ -67,8 +64,13 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
-            throw new IOException("Failed to load sound buffer from input stream.");
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readStream(in));
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     /**
@@ -78,8 +80,13 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
-            throw new IOException("Failed to load sound buffer from file: " + file);
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(file));
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     private native boolean nativeLoadFromSamples(short[] samples, int channelCount, int sampleRate);
@@ -94,8 +101,14 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      */
     public void loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate)
             throws IOException {
-        if (!nativeLoadFromSamples(Objects.requireNonNull(samples), channelCount, sampleRate))
-            throw new IOException("Failed to load sound buffer from samples.");
+
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromSamples(Objects.requireNonNull(samples), channelCount, sampleRate);
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     private native boolean nativeSaveToFile(String fileName);

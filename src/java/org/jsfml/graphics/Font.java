@@ -1,9 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NativeRef;
-import org.jsfml.internal.SFMLNativeObject;
-import org.jsfml.internal.StreamUtil;
-import org.jsfml.internal.UnsafeOperations;
+import org.jsfml.internal.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,10 +77,12 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
+        SFMLErrorCapture.start();
         memoryRef.initialize(StreamUtil.readStream(in));
+        final String msg = SFMLErrorCapture.finish();
 
         if (!memoryRef.hasNonZeroPointer()) {
-            throw new IOException("Failed to load font from input stream.");
+            throw new IOException(msg);
         }
     }
 
@@ -94,10 +93,12 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
+        SFMLErrorCapture.start();
         memoryRef.initialize(StreamUtil.readFile(file));
+        final String msg = SFMLErrorCapture.finish();
 
         if (!memoryRef.hasNonZeroPointer()) {
-            throw new IOException("Failed to load font from file: " + file);
+            throw new IOException(msg);
         }
     }
 

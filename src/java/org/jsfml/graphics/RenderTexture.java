@@ -1,8 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
-import org.jsfml.internal.SFMLNative;
-import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
@@ -57,8 +55,12 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     public void create(int width, int height, boolean depthBuffer)
             throws TextureCreationException {
 
-        if (!nativeCreate(width, height, depthBuffer))
-            throw new TextureCreationException("Failed to create render texture.");
+        SFMLErrorCapture.start();
+        final boolean success = nativeCreate(width, height, depthBuffer);
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!success)
+            throw new TextureCreationException(msg);
     }
 
     /**

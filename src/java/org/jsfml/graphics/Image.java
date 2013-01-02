@@ -1,6 +1,7 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.internal.StreamUtil;
 import org.jsfml.system.Vector2i;
@@ -75,8 +76,13 @@ public class Image extends SFMLNativeObject {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readStream(in)))
-            throw new IOException("Failed to load image from stream.");
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readStream(in));
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     /**
@@ -86,8 +92,13 @@ public class Image extends SFMLNativeObject {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(File file) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readFile(file)))
-            throw new IOException("Failed to load image from file: " + file);
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(file));
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     private native boolean nativeSaveToFile(String fileName);
@@ -99,8 +110,13 @@ public class Image extends SFMLNativeObject {
      * @throws IOException in case an I/O error occurs.
      */
     public void saveToFile(@NotNull File file) throws IOException {
-        if (!nativeSaveToFile(file.getAbsolutePath()))
-            throw new IOException("Failed to save image to file: " + file);
+        SFMLErrorCapture.start();
+        final boolean success = nativeSaveToFile(file.getAbsolutePath());
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     /**
