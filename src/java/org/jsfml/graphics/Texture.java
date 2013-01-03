@@ -4,9 +4,9 @@ import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Window;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -105,8 +105,13 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readStream(in), Objects.requireNonNull(area)))
-            throw new IOException("Failed to load texture from stream.");
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readStream(in), Objects.requireNonNull(area));
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(msg);
+        }
     }
 
     /**
@@ -123,23 +128,28 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file the file to load the texture from.
+     * @param path the path to the file to load the texture from.
      * @param area the area of the image to load into the texture.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromFile(File file, @NotNull IntRect area) throws IOException {
-        if (!nativeLoadFromMemory(StreamUtil.readFile(file), Objects.requireNonNull(area)))
-            throw new IOException("Failed to load texture from file: " + file);
+    public void loadFromFile(Path path, @NotNull IntRect area) throws IOException {
+        SFMLErrorCapture.start();
+        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(path), Objects.requireNonNull(area));
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(msg);
+        }
     }
 
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file the file to load the texture from.
+     * @param path the path to the file to load the texture from.
      * @throws IOException in case an I/O error occurs.
      */
-    public final void loadFromFile(File file) throws IOException {
-        loadFromFile(file, IntRect.EMPTY);
+    public final void loadFromFile(Path path) throws IOException {
+        loadFromFile(path, IntRect.EMPTY);
     }
 
     private native boolean nativeLoadFromImage(Image image, IntRect area);

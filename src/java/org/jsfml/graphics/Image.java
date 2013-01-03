@@ -6,9 +6,9 @@ import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.internal.StreamUtil;
 import org.jsfml.system.Vector2i;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -88,12 +88,12 @@ public class Image extends SFMLNativeObject {
     /**
      * Attempts to load an image from a file.
      *
-     * @param file the file to load the texture from.
+     * @param path the file to load the texture from.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromFile(File file) throws IOException {
+    public void loadFromFile(Path path) throws IOException {
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(file));
+        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(path));
         final String err = SFMLErrorCapture.finish();
 
         if (!success) {
@@ -106,12 +106,12 @@ public class Image extends SFMLNativeObject {
     /**
      * Attempts to save the image to a file.
      *
-     * @param file the file to write.
+     * @param path the path to the file to write.
      * @throws IOException in case an I/O error occurs.
      */
-    public void saveToFile(@NotNull File file) throws IOException {
+    public void saveToFile(@NotNull Path path) throws IOException {
         SFMLErrorCapture.start();
-        final boolean success = nativeSaveToFile(file.getAbsolutePath());
+        final boolean success = nativeSaveToFile(path.toAbsolutePath().toString());
         final String err = SFMLErrorCapture.finish();
 
         if (!success) {

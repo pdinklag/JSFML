@@ -4,9 +4,9 @@ package org.jsfml.audio;
 import org.jsfml.internal.*;
 import org.jsfml.system.Time;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -76,12 +76,12 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     /**
      * Attempts to load the sound buffer from a file.
      *
-     * @param file the file to load the sound buffer from.
+     * @param path the path to the file to load the sound buffer from.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromFile(File file) throws IOException {
+    public void loadFromFile(Path path) throws IOException {
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(file));
+        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(path));
         final String err = SFMLErrorCapture.finish();
 
         if (!success) {
@@ -114,9 +114,14 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     private native boolean nativeSaveToFile(String fileName);
 
     @Override
-    public void saveToFile(@NotNull File file) throws IOException {
-        if (!nativeSaveToFile(file.getAbsolutePath()))
-            throw new IOException("Failed to save sound buffer to file: " + file);
+    public void saveToFile(@NotNull Path path) throws IOException {
+        SFMLErrorCapture.start();
+        final boolean success = nativeSaveToFile(path.toAbsolutePath().toString());
+        final String err = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(err);
+        }
     }
 
     @Override

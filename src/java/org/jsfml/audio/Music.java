@@ -1,19 +1,20 @@
 package org.jsfml.audio;
 
 import org.jsfml.internal.NotNull;
+import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLInputStream;
 import org.jsfml.system.Time;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
  * Provides functionality to play music streams from common audio file formats.
  * <p/>
- * Audio files can be opened using either the {@link #openFromFile(java.io.File)} or
+ * Audio files can be opened using either the {@link #openFromFile(java.nio.file.Path)} or
  * {@link #openFromStream(java.io.InputStream)} methods.
  * <p/>
  * The supported audio file formats are:
@@ -57,21 +58,23 @@ public class Music extends SoundStream {
     public void openFromStream(@NotNull InputStream in) throws IOException {
         streamRef.initialize(new SFMLInputStream(Objects.requireNonNull(in)));
 
-        if (!nativeOpenFromStream(streamRef))
-            throw new IOException("Failed to open music from input stream.");
+        SFMLErrorCapture.start();
+        final boolean success = nativeOpenFromStream(streamRef);
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!success) {
+            throw new IOException(msg);
+        }
     }
 
     /**
      * Attempts to open the music from a file.
      *
-     * @param file the file to stream from.
+     * @param path the file to stream from.
      * @throws IOException in case an I/O error occurs.
      */
-    public void openFromFile(File file) throws IOException {
-        if (!file.isFile())
-            throw new IOException("file not found: " + file);
-
-        openFromStream(new FileInputStream(file));
+    public void openFromFile(Path path) throws IOException {
+        openFromStream(Files.newInputStream(path));
     }
 
     /**

@@ -4,9 +4,9 @@ import org.jsfml.internal.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector3f;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -175,26 +175,26 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Attempts to load the shader from a file.
      *
-     * @param file       the file to load.
+     * @param path       the path to the file to load.
      * @param shaderType the shader type.
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromFile(File file, @NotNull Type shaderType)
+    public void loadFromFile(Path path, @NotNull Type shaderType)
             throws IOException, ShaderSourceException {
 
-        loadFromSource(new String(StreamUtil.readFile(file)), Objects.requireNonNull(shaderType));
+        loadFromSource(new String(StreamUtil.readFile(path)), Objects.requireNonNull(shaderType));
     }
 
     /**
      * Attempts to load the shader from files.
      *
-     * @param vertexShaderFile   the file to read the vertex shader from.
-     * @param fragmentShaderFile the file to read the fragment shader from.
+     * @param vertexShaderFile   the path to the file to read the vertex shader from.
+     * @param fragmentShaderFile the path to the file to read the fragment shader from.
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromFile(File vertexShaderFile, File fragmentShaderFile)
+    public void loadFromFile(Path vertexShaderFile, Path fragmentShaderFile)
             throws IOException, ShaderSourceException {
 
         loadFromSource(

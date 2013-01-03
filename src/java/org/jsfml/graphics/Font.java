@@ -2,9 +2,9 @@ package org.jsfml.graphics;
 
 import org.jsfml.internal.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -89,12 +89,12 @@ public class Font extends SFMLNativeObject implements ConstFont {
     /**
      * Attempts to load the texture from a file.
      *
-     * @param file the file to load the texture from.
+     * @param path the path to the file to load the texture from.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromFile(File file) throws IOException {
+    public void loadFromFile(Path path) throws IOException {
         SFMLErrorCapture.start();
-        memoryRef.initialize(StreamUtil.readFile(file));
+        memoryRef.initialize(StreamUtil.readFile(path));
         final String msg = SFMLErrorCapture.finish();
 
         if (!memoryRef.hasNonZeroPointer()) {
