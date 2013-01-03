@@ -55,6 +55,17 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDelete (JNIEnv
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
+ * Method:    nativeCapture
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCapture (JNIEnv *env, jobject obj) {
+    sf::Image *image = new sf::Image();
+    *image = THIS(sf::RenderWindow)->capture();
+    return (jlong)image;
+}
+
+/*
+ * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
  * Signature: (Lorg/jsfml/graphics/Color;)V
  */

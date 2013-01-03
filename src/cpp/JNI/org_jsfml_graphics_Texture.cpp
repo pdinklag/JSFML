@@ -100,10 +100,7 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Texture_getSize (JNIEnv *env, 
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage (JNIEnv *env, jobject obj) {
     sf::Image* image = new sf::Image();
-    sf::Image copy = THIS(sf::Texture)->copyToImage();
-	sf::Vector2u copySize = copy.getSize();
-
-    image->create(copySize.x, copySize.y, copy.getPixelsPtr());
+    *image = THIS(sf::Texture)->copyToImage();
     return (jlong)image;
 }
 

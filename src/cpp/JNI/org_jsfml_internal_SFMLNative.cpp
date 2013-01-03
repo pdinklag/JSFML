@@ -26,6 +26,7 @@
 #include <JSFML/Intercom/Vertex.hpp>
 
 #include <JSFML/Intercom/Chunk.hpp>
+#include <JSFML/Intercom/SoundRecorder.hpp>
 #include <JSFML/Intercom/SoundStream.hpp>
 
 /*
@@ -60,5 +61,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_internal_SFMLNative_nativeInit (JNIEnv *en
     JSFML::Vertex::Init(env);
 
     JSFML::Chunk::Init(env);
+    JSFML::SoundRecorder::Init(env);
     JSFML::SoundStream::Init(env);
 }

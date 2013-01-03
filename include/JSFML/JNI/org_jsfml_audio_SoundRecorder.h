@@ -15,6 +15,54 @@ extern "C" {
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundRecorder_isAvailable
   (JNIEnv *, jclass);
 
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    nativeCreate
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundRecorder_nativeCreate
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    nativeDelete
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_nativeDelete
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    start
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_start
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    stop
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_stop
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    getSampleRate
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundRecorder_getSampleRate
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

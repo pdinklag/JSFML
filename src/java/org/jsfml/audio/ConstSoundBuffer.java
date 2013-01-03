@@ -4,8 +4,8 @@ import org.jsfml.internal.Const;
 import org.jsfml.internal.NotNull;
 import org.jsfml.system.Time;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 
 /**
@@ -23,10 +23,10 @@ public interface ConstSoundBuffer extends Const {
     /**
      * Attempts to save the sound buffer to a file.
      *
-     * @param file the file to write.
+     * @param path the path to the file to write.
      * @throws IOException in case saving failed.
      */
-    public void saveToFile(@NotNull File file) throws IOException;
+    public void saveToFile(@NotNull Path path) throws IOException;
 
     /**
      * Retrieves the raw 16-bit audio samples stored in the buffer.

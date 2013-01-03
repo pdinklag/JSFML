@@ -188,7 +188,8 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * <p/>
      * Note that the <i>open</i> state is not directly affected by the user clicking
      * the window's <i>close</i> button, if available. In order to accomplish that,
-     * listen to an event of type {@link Event.Type#CLOSED} and use the {@link #close()} method.
+     * listen to an event of type {@link org.jsfml.window.event.Event.Type#CLOSED} and use
+     * the {@link #close()} method.
      *
      * @return {@code true} if the window has been created and is currently open.
      */

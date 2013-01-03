@@ -2,6 +2,10 @@ package org.jsfml.internal;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 
 /**
@@ -12,7 +16,7 @@ import java.util.LinkedList;
  * @see #loadNativeLibraries() for more information.
  */
 public final class SFMLNative {
-    private static final File JSFML_USER_HOME = new File(System.getProperty("user.home"), ".jsfml");
+    private static final Path JSFML_USER_HOME = Paths.get(System.getProperty("user.home"), ".jsfml");
 
     private static final String JSFML_BIN_RESOURCE_PATH = "/bin/";
 
@@ -51,8 +55,8 @@ public final class SFMLNative {
         return new String(buffer);
     }
 
-    private static String readMD5File(File file) throws IOException {
-        try (final FileInputStream fis = new FileInputStream(file)) {
+    private static String readMD5File(Path path) throws IOException {
+        try (final InputStream fis = Files.newInputStream(path)) {
             return readMD5File(fis);
         }
     }
@@ -184,12 +188,19 @@ public final class SFMLNative {
 
             //Extract native libraries
             final String nativeResourcePath = JSFML_BIN_RESOURCE_PATH + arch + "/";
-            final File nativeLibPath = new File(JSFML_USER_HOME, arch);
+            final Path nativeLibPath = JSFML_USER_HOME.resolve(arch);
+
+            try {
+                Files.createDirectories(nativeLibPath);
+            } catch (FileAlreadyExistsException ex) {
+                //nevermind
+            } catch (IOException ex) {
+                throw new JSFMLError("Failed to create native library directory: " +
+                        nativeLibPath.toString(), ex);
+            }
 
             for (String lib : nativeLibs) {
-                final File libFile = new File(nativeLibPath, lib);
-
-                libFile.getParentFile().mkdirs();
+                final Path libFile = nativeLibPath.resolve(lib);
 
                 //Check MD5 hash, don't extract if not necessary
                 boolean md5Equal = false;
@@ -200,14 +211,14 @@ public final class SFMLNative {
                              SFMLNative.class.getResourceAsStream(nativeResourcePath + md5FileName)) {
 
                     final String md5Jar = readMD5File(md5InputStream);
-                    final File md5File = new File(nativeLibPath, md5FileName);
+                    final Path md5File = nativeLibPath.resolve(md5FileName);
 
-                    if (libFile.isFile() && md5File.isFile()) {
+                    if (Files.isRegularFile(libFile) && Files.isRegularFile(md5File)) {
                         md5Equal = readMD5File(md5File).equals(md5Jar);
                     }
 
                     if (!md5Equal) {
-                        try (final FileOutputStream out = new FileOutputStream(md5File)) {
+                        try (final OutputStream out = Files.newOutputStream(md5File)) {
                             out.write(md5Jar.getBytes());
                         } catch (IOException ex) {
                             ex.printStackTrace(); //write to stderr
@@ -229,7 +240,7 @@ public final class SFMLNative {
                         }
                     } catch (IOException ex) {
                         throw new JSFMLError(
-                                "Failed to extract native library: " + libFile.getAbsolutePath(), ex);
+                                "Failed to extract native library: " + libFile.toString(), ex);
                     }
                 } else {
                     //MD5 hashes are equal, no need to extract
@@ -238,7 +249,7 @@ public final class SFMLNative {
 
             //On Linux, add SFML's default install path as a fallback
             for (String lib : nativeLibs) {
-                System.load(new File(nativeLibPath, lib).getAbsolutePath());
+                System.load(nativeLibPath.resolve(lib).toAbsolutePath().toString());
             }
 
             //Initialize

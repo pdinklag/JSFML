@@ -5,8 +5,6 @@ import org.jsfml.internal.SFMLNativeObject;
 
 /**
  * Abstract base class for sound recorders, which provide functionality to capture audio data.
- * <p/>
- * This class can currently not be implemented to function properly in pure Java.
  */
 public abstract class SoundRecorder extends SFMLNativeObject {
     static {
@@ -23,16 +21,31 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     /**
      * Constructs a sound recorder.
      */
-    public SoundRecorder() {
+    protected SoundRecorder() {
         super();
     }
+
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native long nativeCreate();
+
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeSetExPtr();
+
+    @Override
+    @Deprecated
+    @SuppressWarnings("deprecation")
+    protected native void nativeDelete();
 
     /**
      * Starts capturing audio data.
      *
      * @param sampleRate the sample rate in samples per second.
      */
-    public abstract void start(int sampleRate);
+    public final native void start(int sampleRate);
 
     /**
      * Starts capturing audio data with a sample rate of 44,100 Hz.
@@ -44,12 +57,18 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     /**
      * Stops capturing audio data.
      */
-    public abstract void stop();
+    public final native void stop();
 
     /**
      * Gets the audio sample rate.
      *
      * @return the audio sample rate in samples per second.
      */
-    public abstract int getSampleRate();
+    public final native int getSampleRate();
+
+    protected abstract boolean onStart();
+
+    protected abstract boolean onProcessSamples(short[] samples);
+
+    protected abstract void onStop();
 }

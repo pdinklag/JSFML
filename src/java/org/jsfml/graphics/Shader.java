@@ -1,15 +1,12 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
-import org.jsfml.internal.SFMLNative;
-import org.jsfml.internal.SFMLNativeObject;
-import org.jsfml.internal.StreamUtil;
+import org.jsfml.internal.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector3f;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -89,19 +86,34 @@ public class Shader extends SFMLNativeObject implements ConstShader {
 
     private native boolean nativeLoadFromSource2(String vertSource, String fragSource);
 
+    private void throwException(String msg) throws IOException, ShaderSourceException {
+        if (msg.startsWith("Failed to compile") || msg.startsWith("Failed to link")) {
+            throw new ShaderSourceException(msg);
+        } else {
+            throw new IOException(msg);
+        }
+    }
+
     /**
      * Attempts to load a shader from GLSL source code.
      *
      * @param source     the GLSL source code.
      * @param shaderType the shader type.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
     public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
-            throws IOException {
+            throws IOException, ShaderSourceException {
 
-        if (!nativeLoadFromSource1(
+        SFMLErrorCapture.start();
+        final boolean result = nativeLoadFromSource1(
                 Objects.requireNonNull(source),
-                Objects.requireNonNull(shaderType))) {
-            throw new IOException("Failed to load shader from source.");
+                Objects.requireNonNull(shaderType));
+
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!result) {
+            throwException(msg);
         }
     }
 
@@ -110,15 +122,21 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      *
      * @param vertexShaderSource   the vertex shader's GLSL source code.
      * @param fragmentShaderSource the fragment shader's GLSL source code.
-     * @throws java.io.IOException in case an I/O error occurs.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
     public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
-            throws IOException {
+            throws IOException, ShaderSourceException {
 
-        if (!nativeLoadFromSource2(
+        SFMLErrorCapture.start();
+        final boolean result = nativeLoadFromSource2(
                 Objects.requireNonNull(vertexShaderSource),
-                Objects.requireNonNull(fragmentShaderSource))) {
-            throw new IOException("Failed to load shader from source.");
+                Objects.requireNonNull(fragmentShaderSource));
+
+        final String msg = SFMLErrorCapture.finish();
+
+        if (!result) {
+            throwException(msg);
         }
     }
 
@@ -128,9 +146,12 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      *
      * @param in         the input stream to read from.
      * @param shaderType the shader type.
-     * @throws IOException in case an I/O error occurs.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromStream(InputStream in, @NotNull Type shaderType) throws IOException {
+    public void loadFromStream(InputStream in, @NotNull Type shaderType)
+            throws IOException, ShaderSourceException {
+
         loadFromSource(new String(StreamUtil.readStream(in)), Objects.requireNonNull(shaderType));
     }
 
@@ -140,9 +161,12 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      *
      * @param vertexShaderIn   the input stream to read the vertex shader from.
      * @param fragmentShaderIn the input stream to read the fragment shader from.
-     * @throws IOException in case an I/O error occurs.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn) throws IOException {
+    public void loadFromStream(InputStream vertexShaderIn, InputStream fragmentShaderIn)
+            throws IOException, ShaderSourceException {
+
         loadFromSource(
                 new String(StreamUtil.readStream(vertexShaderIn)),
                 new String(StreamUtil.readStream(fragmentShaderIn)));
@@ -151,22 +175,28 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Attempts to load the shader from a file.
      *
-     * @param file       the file to load.
+     * @param path       the path to the file to load.
      * @param shaderType the shader type.
-     * @throws IOException in case an I/O error occurs.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromFile(File file, @NotNull Type shaderType) throws IOException {
-        loadFromSource(new String(StreamUtil.readFile(file)), Objects.requireNonNull(shaderType));
+    public void loadFromFile(Path path, @NotNull Type shaderType)
+            throws IOException, ShaderSourceException {
+
+        loadFromSource(new String(StreamUtil.readFile(path)), Objects.requireNonNull(shaderType));
     }
 
     /**
      * Attempts to load the shader from files.
      *
-     * @param vertexShaderFile   the file to read the vertex shader from.
-     * @param fragmentShaderFile the file to read the fragment shader from.
-     * @throws IOException in case an I/O error occurs.
+     * @param vertexShaderFile   the path to the file to read the vertex shader from.
+     * @param fragmentShaderFile the path to the file to read the fragment shader from.
+     * @throws IOException           in case an I/O error occurs.
+     * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromFile(File vertexShaderFile, File fragmentShaderFile) throws IOException {
+    public void loadFromFile(Path vertexShaderFile, Path fragmentShaderFile)
+            throws IOException, ShaderSourceException {
+
         loadFromSource(
                 new String(StreamUtil.readFile(vertexShaderFile)),
                 new String(StreamUtil.readFile(fragmentShaderFile)));

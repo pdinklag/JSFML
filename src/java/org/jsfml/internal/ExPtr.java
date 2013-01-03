@@ -36,4 +36,8 @@ final class ExPtr {
     //Pointer to sf::SoundStream.
     @Intercom
     static final int SOUND_STREAM = 1;
+
+    //Pointer to sf::SoundRecorder.
+    @Intercom
+    static final int SOUND_RECORDER = 0;
 }
