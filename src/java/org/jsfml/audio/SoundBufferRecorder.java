@@ -22,9 +22,7 @@ public class SoundBufferRecorder extends SoundRecorder {
     @Override
     @Deprecated
     @SuppressWarnings("deprecation")
-    protected void nativeSetExPtr() {
-        //TODO Make SoundRecorder tree use the ExPtr system.
-    }
+    protected native void nativeSetExPtr();
 
     @Override
     @Deprecated
@@ -46,11 +44,19 @@ public class SoundBufferRecorder extends SoundRecorder {
     }
 
     @Override
-    public native void start(int sampleRate);
+    protected final boolean onStart() {
+        //SoundBufferRecorder is implemented natively, so this is not used.
+        return true;
+    }
 
     @Override
-    public native void stop();
+    protected final boolean onProcessSamples(short[] samples) {
+        //SoundBufferRecorder is implemented natively, so this is not used.
+        return true;
+    }
 
     @Override
-    public native int getSampleRate();
+    protected final void onStop() {
+        //SoundBufferRecorder is implemented natively, so this is not used.
+    }
 }

@@ -23,6 +23,8 @@ extern "C" {
 #define org_jsfml_internal_ExPtr_SOUND_SOURCE 0L
 #undef org_jsfml_internal_ExPtr_SOUND_STREAM
 #define org_jsfml_internal_ExPtr_SOUND_STREAM 1L
+#undef org_jsfml_internal_ExPtr_SOUND_RECORDER
+#define org_jsfml_internal_ExPtr_SOUND_RECORDER 0L
 #ifdef __cplusplus
 }
 #endif

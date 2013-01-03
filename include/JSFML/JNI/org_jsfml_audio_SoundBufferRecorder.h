@@ -17,6 +17,14 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeCreate
 
 /*
  * Class:     org_jsfml_audio_SoundBufferRecorder
+ * Method:    nativeSetExPtr
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeSetExPtr
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_audio_SoundBufferRecorder
  * Method:    nativeDelete
  * Signature: ()V
  */
@@ -29,30 +37,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeDelete
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundBufferRecorder_nativeGetBuffer
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundBufferRecorder
- * Method:    start
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_start
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     org_jsfml_audio_SoundBufferRecorder
- * Method:    stop
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBufferRecorder_stop
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundBufferRecorder
- * Method:    getSampleRate
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBufferRecorder_getSampleRate
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetExPtr (JNIEnv *
         dynamic_cast<sf::SoundSource*>(THIS(sf::SoundStream)));
 
     JSFML::NativeObject::SetExPointer(env, obj, org_jsfml_internal_ExPtr_SOUND_STREAM,
-        THIS(sf::SoundStream));
+        dynamic_cast<sf::SoundStream*>(THIS(JSFML::SoundStream)));
 }
 
 /*
