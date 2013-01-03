@@ -18,6 +18,8 @@ final class AWTRenderWindow extends RenderWindow implements
     private final static long WAIT_EVENT_DURATION = 10; //same as SFML
 
     private final ConcurrentLinkedQueue<Event> queue = new ConcurrentLinkedQueue<Event>();
+    private boolean keyRepeatEnabled = true;
+    private int currentKeyDown = -1;
 
     @SuppressWarnings("deprecation")
     AWTRenderWindow(long ptr) {
@@ -63,12 +65,23 @@ final class AWTRenderWindow extends RenderWindow implements
     }
 
     @Override
+    public void setKeyRepeatEnabled(boolean enable) {
+        keyRepeatEnabled = enable;
+    }
+
+    @Override
     public void keyTyped(KeyEvent e) {
         queue.add(new org.jsfml.window.event.TextEvent(Event.Type.TEXT_ENTERED.ordinal(), e.getKeyChar()));
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (!keyRepeatEnabled && currentKeyDown == e.getKeyCode()) {
+            return;
+        }
+
+        currentKeyDown = e.getKeyCode();
+
         final int modifiers = e.getModifiers();
         final boolean alt = ((modifiers & KeyEvent.ALT_MASK) != 0);
         final boolean shift = ((modifiers & KeyEvent.SHIFT_MASK) != 0);
@@ -83,6 +96,10 @@ final class AWTRenderWindow extends RenderWindow implements
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (currentKeyDown == e.getKeyCode()) {
+            currentKeyDown = -1;
+        }
+
         final int modifiers = e.getModifiers();
         final boolean alt = ((modifiers & KeyEvent.ALT_MASK) != 0);
         final boolean shift = ((modifiers & KeyEvent.SHIFT_MASK) != 0);
