@@ -41,7 +41,7 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     protected native void nativeDelete();
 
     /**
-     * Starts capturing audio data.
+     * Starts capturing audio data with the specified sample rate.
      *
      * @param sampleRate the sample rate in samples per second.
      */
@@ -60,15 +60,42 @@ public abstract class SoundRecorder extends SFMLNativeObject {
     public final native void stop();
 
     /**
-     * Gets the audio sample rate.
+     * Gets the sample rate that audio is being captured with.
      *
      * @return the audio sample rate in samples per second.
      */
     public final native int getSampleRate();
 
+    /**
+     * Called when the sound recorder starts recording.
+     * <p/>
+     * This method can be implemented by deriving classes to perform any actions
+     * necessary before audio recording actually starts.
+     *
+     * @return {@code true} to start recording after this method is done, {@code false} to cancel.
+     */
     protected abstract boolean onStart();
 
+    /**
+     * Called when a new batch of audio samples comes in.
+     * <p/>
+     * Implementing classes can then process the captured audio data.
+     * <p/>
+     * Note that this method will be called in a separate audio capturing thread.
+     * <p/>
+     * Also note that this method is currently hardcoded to be called every 100ms, which might
+     * be changed in the future.
+     *
+     * @param samples the 16-bit mono samples that were captured.
+     * @return {@code true} to continue recording after this method is done, {@code false}
+     *         to stop recording.
+     */
     protected abstract boolean onProcessSamples(short[] samples);
 
+    /**
+     * Called when the audio capture has stopped.
+     * <p/>
+     * Note that this method will be called in a separate audio capturing thread.
+     */
     protected abstract void onStop();
 }
