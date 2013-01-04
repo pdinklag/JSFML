@@ -9,7 +9,10 @@ import org.jsfml.window.ContextSettings;
 import java.awt.*;
 
 /**
- * An AWT canvas that can be used as a JSFML render target.
+ * An AWT canvas that contains a {@link RenderWindow}.
+ * <p/>
+ * This allows for a {@code RenderWindow} to be integrated into a Swing UI. Once validated,
+ * it can be retrieved using the {@link #getRenderWindow()} method.
  */
 public class RenderCanvas extends Canvas {
     private static final long serialVersionUID = 5458266655879697610L;
@@ -19,16 +22,16 @@ public class RenderCanvas extends Canvas {
     private boolean initialized = false;
 
     /**
-     * Creates a new render canvas with default context settings.
+     * Constructs a new render canvas with default context settings.
      */
     public RenderCanvas() {
         this(new ContextSettings());
     }
 
     /**
-     * Creates a new render canvas.
+     * Constructs a new render canvas with the specified context settings.
      *
-     * @param settings The settings for the OpenGL context.
+     * @param settings the OpenGL context settings.
      */
     public RenderCanvas(@NotNull ContextSettings settings) {
         SFMLNative.ensureDisplay();
@@ -76,11 +79,11 @@ public class RenderCanvas extends Canvas {
     }
 
     /**
-     * Retrieves the render window encapsuled by this canvas that can be used for JSFML drawing.
+     * Retrieves the {@link RenderWindow} encapsuled by this canvas that can be used for JSFML drawing.
      * <p/>
-     * Note that this may be <tt>null</tt> if the canvas was not yet initialized.
+     * The render window is not available before the canvas has been validated.
      *
-     * @return The render target, or <tt>null</tt> if it was not yet initialized.
+     * @return the render window, or {@code null} if the canvas was not validated yet.
      */
     public RenderWindow getRenderWindow() {
         return renderWindow;
