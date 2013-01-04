@@ -155,8 +155,8 @@ public final class SFMLNative {
 				
 				//Add "xawt" lib dir to java.library.path
                 try {
-                    final File jreLibPath = JavaPath.getJreLibPath();
-                    JavaPath.addLibraryPath(new File(jreLibPath, "xawt").getAbsolutePath());
+                    final Path jreLibPath = JavaPath.getJreLibPath();
+                    JavaPath.addLibraryPath(jreLibPath.resolve("xawt"));
                 } catch(Exception ex) {
                     throw new JSFMLError("Failed to add xawt lib path to the native library path", ex);
                 }
