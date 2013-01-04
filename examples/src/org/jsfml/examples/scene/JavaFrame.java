@@ -16,16 +16,15 @@ import java.io.IOException;
 /**
  * Java Swing application for the example scene.
  */
-public class JavaFrame extends JFrame implements ActionListener {
+public class JavaFrame extends JFrame implements ActionListener, RenderCanvas.Runner {
     private static final long serialVersionUID = 5155515612001343084L;
 
-    private final RenderCanvas canvas = new RenderCanvas();
+    private final RenderCanvas canvas = new RenderCanvas(this);;
     private final JMenuBar menuBar = new JMenuBar();
 
     private final JMenu fileMenu = new JMenu("File");
     private final JMenuItem fileExit = new JMenuItem("Exit");
 
-    private final JCheckBox chKeyRepeat = new JCheckBox("Key repeat enabled");
     private final JButton btClose = new JButton("Close");
 
     public static void main(String[] args) {
@@ -40,12 +39,6 @@ public class JavaFrame extends JFrame implements ActionListener {
         //Create and show the frame
         JavaFrame frame = new JavaFrame();
         frame.setVisible(true);
-
-        //Launch the example application
-        final RenderWindow window = frame.canvas.getRenderWindow();
-        if (window != null) {
-            new ExampleApp(window).play(new ExampleScene());
-        }
     }
 
     public JavaFrame() {
@@ -83,13 +76,10 @@ public class JavaFrame extends JFrame implements ActionListener {
 
         //Add control area
         {
-            chKeyRepeat.setSelected(true);
-            chKeyRepeat.addActionListener(this);
             btClose.addActionListener(this);
 
             final JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             panel.setBorder(new TitledBorder("Control Area"));
-            panel.add(chKeyRepeat);
             panel.add(btClose);
 
             add(panel, BorderLayout.SOUTH);
@@ -100,19 +90,16 @@ public class JavaFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == fileExit || source == btClose) {
-            //Finish the scene by closing the render window
-            final RenderWindow window = canvas.getRenderWindow();
-            if (window != null) {
-                window.close();
-            }
+            //Close the render canvas
+            canvas.closeWindow();
 
             //Close the frame
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        } else if (source == chKeyRepeat) {
-            final RenderWindow window = canvas.getRenderWindow();
-            if (window != null) {
-                window.setKeyRepeatEnabled(chKeyRepeat.isSelected());
-            }
         }
+    }
+
+    @Override
+    public void run(RenderWindow window) {
+        new ExampleApp(window).play(new ExampleScene());
     }
 }

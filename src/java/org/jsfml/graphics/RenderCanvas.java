@@ -11,82 +11,118 @@ import java.awt.*;
 /**
  * An AWT canvas that contains a {@link RenderWindow}.
  * <p/>
- * This allows for a {@code RenderWindow} to be integrated into a Swing UI. Once validated,
- * it can be retrieved using the {@link #getRenderWindow()} method.
+ * This allows for a {@code RenderWindow} to be integrated into a Swing UI.
+ * <p/>
+ * In each of the constructors, a {@link Runner} is expected. Once the
+ * internal render window has been initialized and is ready for use,
+ * the runner's {@code run} method will be invoked and passed the render window.
  */
-public class RenderCanvas extends Canvas {
+public final class RenderCanvas extends Canvas {
     private static final long serialVersionUID = 5458266655879697610L;
 
+    /**
+     * Runs the rendering loop for the render canvas.
+     */
+    public static interface Runner {
+        /**
+         * Called in a new thread once the render canvas' {@code RenderWindow}
+         * has been initialized and is ready for use.
+         * <p/>
+         * This method is supposed to enter a <i>main loop</i> that does the rendering.
+         * <p/>
+         * It should regularly check the window's {@link org.jsfml.graphics.RenderWindow#isOpen()}
+         * state and return once that returns {@code false}.
+         *
+         * @param window the render window.
+         */
+        public void run(RenderWindow window);
+    }
+
     private final ContextSettings settings;
+    private final Runner runner;
+
     private AWTRenderWindow renderWindow = null;
-    private boolean initialized = false;
+    private boolean running = false;
 
     /**
      * Constructs a new render canvas with default context settings.
+     *
+     * @param runner the main loop runner.
+     * @see Runner
      */
-    public RenderCanvas() {
-        this(new ContextSettings());
+    public RenderCanvas(Runner runner) {
+        this(runner, new ContextSettings());
     }
 
     /**
      * Constructs a new render canvas with the specified context settings.
      *
+     * @param runner   the main loop runner.
      * @param settings the OpenGL context settings.
+     * @see Runner
      */
-    public RenderCanvas(@NotNull ContextSettings settings) {
+    public RenderCanvas(Runner runner, @NotNull ContextSettings settings) {
         SFMLNative.ensureDisplay();
         SFMLNative.loadNativeLibraries();
 
         if (settings == null)
             throw new NullPointerException("settings must not be null");
 
+        this.runner = runner;
         this.settings = settings;
+    }
+
+    /**
+     * Closes the internal render window if available.
+     * <p/>
+     * This method simply delegates to the render window's
+     * {@link org.jsfml.graphics.RenderWindow#close()} method and thus
+     * allows to close it from outside the {@link Runner}.
+     */
+    public void closeWindow() {
+        if (renderWindow != null) {
+            renderWindow.close();
+        }
     }
 
     private native long nativeCreateRenderWindow(ContextSettings settings);
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void validate() {
-        super.validate();
-
-        if (isValid() && !initialized) {
-            initialized = true;
-
-            long ptr = nativeCreateRenderWindow(settings);
-            if (ptr == 0) {
-                throw new JSFMLError("Failed to initialize RenderCanvas");
-            } else {
-                renderWindow = new AWTRenderWindow(ptr);
-                UnsafeOperations.manageSFMLObject(renderWindow, true);
-
-                addComponentListener(renderWindow);
-                addFocusListener(renderWindow);
-                addKeyListener(renderWindow);
-                addMouseListener(renderWindow);
-                addMouseMotionListener(renderWindow);
-                addMouseWheelListener(renderWindow);
-
-                //vvoid occasional flicker; painting is done by calling "display"
-                setIgnoreRepaint(true);
-            }
-        }
-    }
-
     @Override
     public void paint(Graphics g) {
-        //nothing to paint
-    }
+        /**
+         * There is nothing to paint here, but the fact that this method is being
+         * called means that the canvas is now valid and showing, ie this is the
+         * time to initialize the RenderWindow if that didn't happen yet.
+         */
+        if (!running) {
+            running = true;
 
-    /**
-     * Retrieves the {@link RenderWindow} encapsuled by this canvas that can be used for JSFML drawing.
-     * <p/>
-     * The render window is not available before the canvas has been validated.
-     *
-     * @return the render window, or {@code null} if the canvas was not validated yet.
-     */
-    public RenderWindow getRenderWindow() {
-        return renderWindow;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    long ptr = nativeCreateRenderWindow(settings);
+                    if (ptr == 0) {
+                        throw new JSFMLError("Failed to initialize RenderCanvas");
+                    } else {
+                        renderWindow = new AWTRenderWindow(ptr);
+                        UnsafeOperations.manageSFMLObject(renderWindow, true);
+
+                        addComponentListener(renderWindow);
+                        addFocusListener(renderWindow);
+                        addKeyListener(renderWindow);
+                        addMouseListener(renderWindow);
+                        addMouseMotionListener(renderWindow);
+                        addMouseWheelListener(renderWindow);
+
+                        //avoid occasional flicker; painting is done by calling "display"
+                        setIgnoreRepaint(true);
+
+                        //Start runner
+                        runner.run(renderWindow);
+                    }
+                }
+            }, "JSFML RenderCanvas Runner").start();
+        }
     }
 
     @Override
