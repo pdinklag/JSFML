@@ -20,6 +20,12 @@
 	<property name="java.src" location="./src/java" />
 	<property name="java.out" location="${jsfml.out}/classes" />
 	<property name="java.classpath" value="${java.out}" />
+    
+    <!-- JDK Home properties -->
+    <property name="jdk.home" value="${env.JAVA_HOME}" />
+    <condition property="jdk.home.32" value="${env.JAVA_HOME32}" else="${env.JAVA_HOME}">
+        <isset property="env.JAVA_HOME32" />
+    </condition>
 	
 	<!-- Javadoc properties -->
 	<property name="javadoc.out" location="./javadoc" />
@@ -179,8 +185,8 @@
 		<exec executable="g++" dir="${cpp.obj}/${arch}" failonerror="true">
 			<arg value="-I${cpp.include}" />
 			<arg value="-I${sfml.include}" />
-			<arg value="-I${env.JAVA_HOME}/include" />
-			<arg value="-I${env.JAVA_HOME}/include/linux" />
+			<arg value="-I${jdk}/include" />
+			<arg value="-I${jdk}/include/linux" />
 			<arg value="-shared" />
 			<arg value="-fPIC" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
@@ -200,14 +206,16 @@
 	<!-- Compile C++ for Linux 32 -->
 	<target name="linux32" description="Build the C++ sources for Linux 32 bit.">
 		<property name="arch" value="linux_x86" />
-		<property name="jre.lib" value="${env.JAVA_HOME}/jre/lib/i386" />
+        <property name="jdk" value="${jdk.home.32}" />
+		<property name="jre.lib" value="${jdk}/jre/lib/i386" />
 		<ant target="linux.build" />
 	</target>
 	
 	<!-- Compile C++ for Linux 64 -->
 	<target name="linux64" description="Build the C++ sources for Linux 64 bit.">
 		<property name="arch" value="linux_x64" />
-		<property name="jre.lib" value="${env.JAVA_HOME}/jre/lib/amd64" />
+        <property name="jdk" value="${jdk.home}" />
+		<property name="jre.lib" value="${jdk}/jre/lib/amd64" />
 		<ant target="linux.build" />
 	</target>
 	
@@ -238,8 +246,8 @@
 			<arg value="/I${path.vs}/VC/include" />
 			<arg value="/I${cpp.include}" />
 			<arg value="/I${sfml.include}" />
-			<arg value="/I${env.JAVA_HOME}/include" />
-			<arg value="/I${env.JAVA_HOME}/include/win32" />
+			<arg value="/I${jdk}/include" />
+			<arg value="/I${jdk}/include/win32" />
 			<arg value="${cpp.src}/Intercom/*.cpp" />
 			<arg value="${cpp.src}/JNI/*.cpp" />
 			<arg value="/Fo${cpp.obj}/" />
@@ -253,7 +261,7 @@
 			<arg value="/LIBPATH:${winsdk.lib}" />
 			<arg value="/LIBPATH:${vs.lib}" />
 			<arg value="/LIBPATH:${sfml.lib}/${arch}" />
-			<arg value="/LIBPATH:${env.JAVA_HOME}/lib" />
+			<arg value="/LIBPATH:${jdk}/lib" />
 			<arg value="User32.lib" />
 			<arg value="jawt.lib" />
 			<arg value="sfml-main.lib" />
@@ -286,6 +294,7 @@
 		<property name="winsdk.lib" value="${path.winsdk}/Lib" />
 		
 		<property name="arch" value="windows_x86" />
+        <property name="jdk" value="${jdk.home.32}" />
 		
 		<ant target="windows.build" />
 	</target>
@@ -300,6 +309,7 @@
 		<property name="winsdk.lib" value="${path.winsdk}/Lib/x64" />
 		
 		<property name="arch" value="windows_x64" />
+        <property name="jdk" value="${jdk.home}" />
 		
 		<ant target="windows.build" />
 	</target>
