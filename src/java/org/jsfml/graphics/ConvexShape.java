@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -37,7 +36,6 @@ public class ConvexShape extends Shape {
      *
      * @param points the points of the polygon.
      */
-    @JSFML
     public ConvexShape(Vector2f... points) {
         this();
         setPoints(points);
@@ -91,7 +89,6 @@ public class ConvexShape extends Shape {
      *
      * @param points the points of the polygon.
      */
-    @JSFML
     public void setPoints(Vector2f... points) {
         setPointCount(points.length);
 

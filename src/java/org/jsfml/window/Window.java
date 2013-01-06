@@ -256,7 +256,6 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @return an {@code Iterable} over all pending events.
      * @see #pollEvent()
      */
-    @JSFML
     public Iterable<Event> pollEvents() {
         return new Iterable<Event>() {
             @Override

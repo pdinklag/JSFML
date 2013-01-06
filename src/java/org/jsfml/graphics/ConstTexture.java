@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.Const;
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2i;
 
 /**
@@ -15,7 +14,6 @@ import org.jsfml.system.Vector2i;
  *
  * @see Const
  */
-@JSFML
 public interface ConstTexture extends Const {
     /**
      * Gets the dimensions of the texture.

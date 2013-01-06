@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -158,7 +157,6 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @return an array containing the points of the shape.
      */
-    @JSFML
     public Vector2f[] getPoints() {
         int n = getPointCount();
         Vector2f[] points = new Vector2f[n];

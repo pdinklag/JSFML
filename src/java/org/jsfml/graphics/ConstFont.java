@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.Const;
-import org.jsfml.internal.JSFML;
 
 /**
  * Interface for read-only fonts.
@@ -14,7 +13,6 @@ import org.jsfml.internal.JSFML;
  *
  * @see org.jsfml.internal.Const
  */
-@JSFML
 public interface ConstFont extends Const {
     /**
      * Gets a glyph information structure from the font.
