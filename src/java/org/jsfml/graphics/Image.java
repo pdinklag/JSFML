@@ -51,7 +51,7 @@ public class Image extends SFMLNativeObject {
      * @param height the image's height.
      * @param color  the fill color of the image.
      */
-    public void create(int width, int height,Color color) {
+    public void create(int width, int height, Color color) {
         nativeCreate(width, height, Objects.requireNonNull(color));
     }
 
@@ -198,8 +198,15 @@ public class Image extends SFMLNativeObject {
      * @param color the color to apply to the pixel.
      */
     public void setPixel(int x, int y, Color color) {
+        final Vector2i size = getSize();
+        if (x < 0 || y < 0 || x >= size.x || y >= size.y) {
+            throw new PixelOutOfBoundsException(x, y);
+        }
+
         nativeSetPixel(x, y, Objects.requireNonNull(color));
     }
+
+    private native Color nativeGetPixel(int x, int y);
 
     /**
      * Gets the color of a certain pixel.
@@ -208,7 +215,14 @@ public class Image extends SFMLNativeObject {
      * @param y the pixel's Y coordinate.
      * @return the pixel's color.
      */
-    public native Color getPixel(int x, int y);
+    public Color getPixel(int x, int y) {
+        final Vector2i size = getSize();
+        if (x < 0 || y < 0 || x >= size.x || y >= size.y) {
+            throw new PixelOutOfBoundsException(x, y);
+        }
+
+        return nativeGetPixel(x, y);
+    }
 
     /**
      * Flips the image horizontally.
@@ -219,4 +233,22 @@ public class Image extends SFMLNativeObject {
      * Flips the image vertically.
      */
     public native void flipVertically();
+
+    /**
+     * Thrown if a non-existing pixel is being accessed by either {@link #getPixel(int, int)}
+     * or {@link #setPixel(int, int, Color)}.
+     */
+    public static class PixelOutOfBoundsException extends RuntimeException {
+        private static final long serialVersionUID = -7306446590734505000L;
+
+        /**
+         * Constructs a new exception.
+         *
+         * @param x the X coordinate of the pixel that was being accessed.
+         * @param y the Y coordinate of the pixel that was being accessed.
+         */
+        public PixelOutOfBoundsException(int x, int y) {
+            super("(" + x + ", " + y + ")");
+        }
+    }
 }

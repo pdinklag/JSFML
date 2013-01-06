@@ -111,10 +111,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSetPixel
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    getPixel
+ * Method:    nativeGetPixel
  * Signature: (II)Lorg/jsfml/graphics/Color;
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getPixel
+JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_nativeGetPixel
     (JNIEnv *env, jobject obj, jint x, jint y) {
 
     return JSFML::Color::FromSFML(env, THIS(sf::Image)->getPixel(x, y));
