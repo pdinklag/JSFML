@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -48,7 +47,7 @@ public class RectangleShape extends Shape {
      *
      * @param size the new dimensions of the rectangle.
      */
-    public void setSize(@NotNull Vector2f size) {
+    public void setSize(Vector2f size) {
         nativeSetSize(Objects.requireNonNull(size));
     }
 

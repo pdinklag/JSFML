@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -28,7 +27,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param string The text string.
      * @param font   The font to use.
      */
-    public Text(@NotNull String string, @NotNull ConstFont font) {
+    public Text(String string, ConstFont font) {
         this();
         setFont(font);
         setString(string);
@@ -41,7 +40,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param font          The font to use.
      * @param characterSize The font size.
      */
-    public Text(@NotNull String string, @NotNull ConstFont font, int characterSize) {
+    public Text(String string, ConstFont font, int characterSize) {
         this();
         setCharacterSize(characterSize);
         setFont(font);
@@ -70,7 +69,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @param string The string to display.
      */
-    public void setString(@NotNull String string) {
+    public void setString(String string) {
         this.string = Objects.requireNonNull(string);
         nativeSetString(string);
     }
@@ -82,7 +81,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @param font The text's font.
      */
-    public void setFont(@NotNull ConstFont font) {
+    public void setFont(ConstFont font) {
         this.font = Objects.requireNonNull(font);
         nativeSetFont((Font) font);
     }
@@ -111,7 +110,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @param color The font color for this text.
      */
-    public void setColor(@NotNull Color color) {
+    public void setColor(Color color) {
         nativeSetColor(Objects.requireNonNull(color));
     }
 
@@ -187,7 +186,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
     public native FloatRect getGlobalBounds();
 
     @Override
-    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+    public void draw(RenderTarget target, RenderStates states) {
         DrawableNativeImpl.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));

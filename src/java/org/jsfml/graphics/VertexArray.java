@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class VertexArray extends ArrayList<Vertex> implements Drawable {
     }
 
     @Override
-    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+    public void draw(RenderTarget target, RenderStates states) {
         if (!isEmpty()) {
             target.draw(toArray(new Vertex[size()]), primitiveType, states);
         }

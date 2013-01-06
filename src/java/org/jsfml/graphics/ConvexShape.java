@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
@@ -39,7 +38,7 @@ public class ConvexShape extends Shape {
      * @param points the points of the polygon.
      */
     @JSFML
-    public ConvexShape(@NotNull Vector2f... points) {
+    public ConvexShape(Vector2f... points) {
         this();
         setPoints(points);
     }
@@ -69,7 +68,7 @@ public class ConvexShape extends Shape {
      *          using {@link ConvexShape#setPointCount(int)} first.
      * @param v the point to set at the given index.
      */
-    public void setPoint(int i, @NotNull Vector2f v) {
+    public void setPoint(int i, Vector2f v) {
         if (i < 0 || i >= getPointCount())
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
@@ -93,7 +92,7 @@ public class ConvexShape extends Shape {
      * @param points the points of the polygon.
      */
     @JSFML
-    public void setPoints(@NotNull Vector2f... points) {
+    public void setPoints(Vector2f... points) {
         setPointCount(points.length);
 
         for (int i = 0; i < points.length; i++) {

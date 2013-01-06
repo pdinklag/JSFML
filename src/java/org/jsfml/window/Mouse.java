@@ -1,6 +1,5 @@
 package org.jsfml.window;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLNative;
 import org.jsfml.system.Vector2i;
 
@@ -57,7 +56,7 @@ public final class Mouse {
      * @return {@code true} if the button is currently being pressed,
      *         {@code false} otherwise.
      */
-    public static boolean isButtonPressed(@NotNull Button button) {
+    public static boolean isButtonPressed(Button button) {
         return nativeIsButtonPressed(Objects.requireNonNull(button));
     }
 
@@ -76,7 +75,7 @@ public final class Mouse {
      * @param relativeTo the window in question.
      * @return the position of the mouse cursor relative to the window's top left corner.
      */
-    public static Vector2i getPosition(@NotNull Window relativeTo) {
+    public static Vector2i getPosition(Window relativeTo) {
         return nativeGetPosition(Objects.requireNonNull(relativeTo));
     }
 
@@ -87,7 +86,7 @@ public final class Mouse {
      *
      * @param position the new absolute position of the mouse cursor on the screen.
      */
-    public static void setPosition(@NotNull Vector2i position) {
+    public static void setPosition(Vector2i position) {
         nativeSetPosition(Objects.requireNonNull(position));
     }
 
@@ -100,7 +99,7 @@ public final class Mouse {
      *                   to the window's top left corner.
      * @param relativeTo the window in question.
      */
-    public static void setPosition(@NotNull Vector2i position, @NotNull Window relativeTo) {
+    public static void setPosition(Vector2i position, Window relativeTo) {
         nativeSetPosition(Objects.requireNonNull(position), Objects.requireNonNull(relativeTo));
     }
 

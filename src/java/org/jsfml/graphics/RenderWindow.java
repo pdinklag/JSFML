@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -47,7 +46,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param settings the settings for the OpenGL context.
      * @see #create(org.jsfml.window.VideoMode, String, int, org.jsfml.window.ContextSettings)
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public RenderWindow(VideoMode mode, String title, int style, ContextSettings settings) {
         this();
         create(mode, title, style, settings);
     }
@@ -60,7 +59,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param style the window style.
      * @see #create(org.jsfml.window.VideoMode, String, int)
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public RenderWindow(VideoMode mode, String title, int style) {
         this();
         create(mode, title, style, new ContextSettings());
     }
@@ -71,7 +70,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param mode  The video mode to use for rendering.
      * @param title The window title.
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title) {
+    public RenderWindow(VideoMode mode, String title) {
         this();
         create(mode, title, DEFAULT, new ContextSettings());
     }
@@ -111,7 +110,7 @@ public class RenderWindow extends Window implements RenderTarget {
     private native void nativeClear(Color color);
 
     @Override
-    public void clear(@NotNull Color color) {
+    public void clear(Color color) {
         nativeClear(Objects.requireNonNull(color));
     }
 
@@ -125,7 +124,7 @@ public class RenderWindow extends Window implements RenderTarget {
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull ConstView view) {
+    public void setView(ConstView view) {
         this.view = Objects.requireNonNull(view);
         nativeSetView((View) view);
     }
@@ -145,31 +144,31 @@ public class RenderWindow extends Window implements RenderTarget {
     private native IntRect nativeGetViewport(View view);
 
     @Override
-    public IntRect getViewport(@NotNull View view) {
+    public IntRect getViewport(View view) {
         return nativeGetViewport(Objects.requireNonNull(view));
     }
 
     private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
 
     @Override
-    public final Vector2f mapPixelToCoords(@NotNull Vector2i point) {
+    public final Vector2f mapPixelToCoords(Vector2i point) {
         return mapPixelToCoords(point, null); //null is handled in C code
     }
 
     @Override
-    public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
+    public Vector2f mapPixelToCoords(Vector2i point, View view) {
         return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
     }
 
     private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
 
     @Override
-    public final Vector2i mapCoordsToPixel(@NotNull Vector2f point) {
+    public final Vector2i mapCoordsToPixel(Vector2f point) {
         return mapCoordsToPixel(point, null); //null is handled in C code
     }
 
     @Override
-    public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
+    public Vector2i mapCoordsToPixel(Vector2f point, View view) {
         return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
     }
 
@@ -179,7 +178,7 @@ public class RenderWindow extends Window implements RenderTarget {
     }
 
     @Override
-    public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
+    public void draw(Drawable drawable, RenderStates renderStates) {
         drawable.draw(this, renderStates);
     }
 
@@ -191,7 +190,8 @@ public class RenderWindow extends Window implements RenderTarget {
     private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
 
     @Override
-    public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
+    public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
+        //TODO deep null check of the vertices array
         nativeDraw(
                 Objects.requireNonNull(vertices),
                 Objects.requireNonNull(type),

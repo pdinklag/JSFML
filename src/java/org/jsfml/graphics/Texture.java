@@ -104,7 +104,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param area the area of the image to load into the texture.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromStream(InputStream in, @NotNull IntRect area) throws IOException {
+    public void loadFromStream(InputStream in, IntRect area) throws IOException {
         SFMLErrorCapture.start();
         final boolean success = nativeLoadFromMemory(StreamUtil.readStream(in), Objects.requireNonNull(area));
         final String msg = SFMLErrorCapture.finish();
@@ -132,7 +132,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param area the area of the image to load into the texture.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromFile(Path path, @NotNull IntRect area) throws IOException {
+    public void loadFromFile(Path path, IntRect area) throws IOException {
         SFMLErrorCapture.start();
         final boolean success = nativeLoadFromMemory(StreamUtil.readFile(path), Objects.requireNonNull(area));
         final String msg = SFMLErrorCapture.finish();
@@ -161,7 +161,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param area  the area of the image to load into the texture.
      * @throws TextureCreationException if the texture could not be loaded from the image.
      */
-    public void loadFromImage(@NotNull Image image, @NotNull IntRect area)
+    public void loadFromImage(Image image, IntRect area)
             throws TextureCreationException {
         if (!nativeLoadFromImage(Objects.requireNonNull(image), Objects.requireNonNull(area)))
             throw new TextureCreationException("Failed to load texture from image.");
@@ -203,7 +203,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param x     the X offset inside the texture.
      * @param y     the Y offset inside the texture.
      */
-    public void update(@NotNull Image image, int x, int y) {
+    public void update(Image image, int x, int y) {
         nativeUpdate(Objects.requireNonNull(image), x, y);
     }
 
@@ -216,7 +216,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param x      the X offset inside the texture.
      * @param y      the Y offset inside the texture.
      */
-    public void update(@NotNull Window window, int x, int y) {
+    public void update(Window window, int x, int y) {
         nativeUpdate(Objects.requireNonNull(window), x, y);
     }
 
@@ -232,7 +232,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     private native void nativeBind(CoordinateType type);
 
     @Override
-    public void bind(@NotNull CoordinateType coordinateType) {
+    public void bind(CoordinateType coordinateType) {
         nativeBind(Objects.requireNonNull(coordinateType));
     }
 

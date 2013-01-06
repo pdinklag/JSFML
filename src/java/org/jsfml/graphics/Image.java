@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.internal.StreamUtil;
@@ -52,7 +51,7 @@ public class Image extends SFMLNativeObject {
      * @param height the image's height.
      * @param color  the fill color of the image.
      */
-    public void create(int width, int height, @NotNull Color color) {
+    public void create(int width, int height,Color color) {
         nativeCreate(width, height, Objects.requireNonNull(color));
     }
 
@@ -109,7 +108,7 @@ public class Image extends SFMLNativeObject {
      * @param path the path to the file to write.
      * @throws IOException in case an I/O error occurs.
      */
-    public void saveToFile(@NotNull Path path) throws IOException {
+    public void saveToFile(Path path) throws IOException {
         SFMLErrorCapture.start();
         final boolean success = nativeSaveToFile(path.toAbsolutePath().toString());
         final String err = SFMLErrorCapture.finish();
@@ -134,7 +133,7 @@ public class Image extends SFMLNativeObject {
      * @param color the color to be made transparent.
      * @param alpha the alpha value to assign to pixels matching the color key.
      */
-    public void createMaskFromColor(@NotNull Color color, int alpha) {
+    public void createMaskFromColor(Color color, int alpha) {
         nativeCreateMaskFromColor(Objects.requireNonNull(color), alpha);
     }
 
@@ -158,7 +157,7 @@ public class Image extends SFMLNativeObject {
      * @param sourceRect the source rectangle. An empty rectangle means the full image.
      * @param applyAlpha {@code true} to copy alpha values as well, {@code false} to leave the destination alpha.
      */
-    public void copy(@NotNull Image source, int destX, int destY, @NotNull IntRect sourceRect, boolean applyAlpha) {
+    public void copy(Image source, int destX, int destY, IntRect sourceRect, boolean applyAlpha) {
         nativeCopy(
                 Objects.requireNonNull(source),
                 destX, destY,
@@ -198,7 +197,7 @@ public class Image extends SFMLNativeObject {
      * @param y     the pixel's Y coordinate.
      * @param color the color to apply to the pixel.
      */
-    public void setPixel(int x, int y, @NotNull Color color) {
+    public void setPixel(int x, int y, Color color) {
         nativeSetPixel(x, y, Objects.requireNonNull(color));
     }
 

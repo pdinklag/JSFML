@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
@@ -27,7 +26,7 @@ public class View extends SFMLNativeObject implements ConstView {
      *
      * @param rect the area visible by this view.
      */
-    public View(@NotNull FloatRect rect) {
+    public View(FloatRect rect) {
         this();
         reset(rect);
     }
@@ -113,7 +112,7 @@ public class View extends SFMLNativeObject implements ConstView {
      *
      * @param rect the new viewport rectangle.
      */
-    public void setViewport(@NotNull FloatRect rect) {
+    public void setViewport(FloatRect rect) {
         nativeSetViewport(Objects.requireNonNull(rect));
     }
 
@@ -124,7 +123,7 @@ public class View extends SFMLNativeObject implements ConstView {
      *
      * @param rect the viewport rectangle.
      */
-    public void reset(@NotNull FloatRect rect) {
+    public void reset(FloatRect rect) {
         nativeReset(Objects.requireNonNull(rect));
     }
 

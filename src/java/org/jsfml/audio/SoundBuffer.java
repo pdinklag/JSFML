@@ -99,7 +99,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
      * @param sampleRate   the sample rate in samples per second.
      * @throws java.io.IOException in case an I/O error occurs.
      */
-    public void loadFromSamples(@NotNull short[] samples, int channelCount, int sampleRate)
+    public void loadFromSamples(short[] samples, int channelCount, int sampleRate)
             throws IOException {
 
         SFMLErrorCapture.start();
@@ -114,7 +114,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
     private native boolean nativeSaveToFile(String fileName);
 
     @Override
-    public void saveToFile(@NotNull Path path) throws IOException {
+    public void saveToFile(Path path) throws IOException {
         SFMLErrorCapture.start();
         final boolean success = nativeSaveToFile(path.toAbsolutePath().toString());
         final String err = SFMLErrorCapture.finish();

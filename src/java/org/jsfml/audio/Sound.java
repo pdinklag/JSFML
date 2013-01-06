@@ -1,6 +1,5 @@
 package org.jsfml.audio;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
 
@@ -79,7 +78,7 @@ public class Sound extends SoundSource {
      *
      * @param soundBuffer the new sound buffer.
      */
-    public void setBuffer(@NotNull ConstSoundBuffer soundBuffer) {
+    public void setBuffer(ConstSoundBuffer soundBuffer) {
         this.soundBuffer = Objects.requireNonNull(soundBuffer);
         nativeSetBuffer((SoundBuffer) soundBuffer);
     }
@@ -101,7 +100,7 @@ public class Sound extends SoundSource {
      *
      * @param offset the playing offset in the underlaying buffer.
      */
-    public void setPlayingOffset(@NotNull Time offset) {
+    public void setPlayingOffset(Time offset) {
         nativeSetPlayingOffset(Objects.requireNonNull(offset));
     }
 

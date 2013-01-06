@@ -1,7 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
-
 import java.util.Objects;
 
 /**
@@ -61,7 +59,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @param texture   the new texture.
      * @param resetRect {@code true} to reset the texture rectangle, {@code false} otherwise.
      */
-    public void setTexture(@NotNull ConstTexture texture, boolean resetRect) {
+    public void setTexture(ConstTexture texture, boolean resetRect) {
         nativeSetTexture((Texture) Objects.requireNonNull(texture), resetRect);
         this.texture = texture;
     }
@@ -71,7 +69,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @param texture the new texture.
      */
-    public final void setTexture(@NotNull ConstTexture texture) {
+    public final void setTexture(ConstTexture texture) {
         setTexture(texture, false);
     }
 
@@ -88,7 +86,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @param rect the texture portion.
      */
-    public void setTextureRect(@NotNull IntRect rect) {
+    public void setTextureRect(IntRect rect) {
         nativeSetTextureRect(Objects.requireNonNull(rect));
     }
 
@@ -99,7 +97,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      *
      * @param color the new color.
      */
-    public void setColor(@NotNull Color color) {
+    public void setColor(Color color) {
         nativeSetColor(Objects.requireNonNull(color));
     }
 
@@ -145,7 +143,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
     public native FloatRect getGlobalBounds();
 
     @Override
-    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+    public void draw(RenderTarget target, RenderStates states) {
         DrawableNativeImpl.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));

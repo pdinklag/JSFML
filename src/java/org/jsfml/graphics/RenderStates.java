@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.Intercom;
-import org.jsfml.internal.NotNull;
 
 import java.util.Objects;
 
@@ -47,7 +46,7 @@ public final class RenderStates {
      *
      * @param blendMode the blending mode used for drawing.
      */
-    public RenderStates(@NotNull BlendMode blendMode) {
+    public RenderStates(BlendMode blendMode) {
         this(blendMode, Transform.IDENTITY, null, null);
     }
 
@@ -57,7 +56,7 @@ public final class RenderStates {
      *
      * @param transform the transformation matrix used for drawing.
      */
-    public RenderStates(@NotNull Transform transform) {
+    public RenderStates(Transform transform) {
         this(BlendMode.ALPHA, transform, null, null);
     }
 
@@ -65,7 +64,8 @@ public final class RenderStates {
      * Constructs a new set of render states with default settings and
      * the specified texture.
      *
-     * @param texture the texture used for drawing.
+     * @param texture the texture used for drawing,
+     *                or {@code null} to indicate that no texture should be used.
      */
     public RenderStates(ConstTexture texture) {
         this(BlendMode.ALPHA, Transform.IDENTITY, texture, null);
@@ -75,7 +75,8 @@ public final class RenderStates {
      * Constructs a new set of render states with default settings and
      * the specified shader.
      *
-     * @param shader the shader applied to whatever is drawn using these states.
+     * @param shader the shader applied to whatever is drawn using these states,
+     *               or {@code null} to indicate that no shader should be used.
      */
     public RenderStates(ConstShader shader) {
         this(BlendMode.ALPHA, Transform.IDENTITY, null, shader);
@@ -87,7 +88,7 @@ public final class RenderStates {
      *
      * @param blendMode the blending mode used for drawing.
      */
-    public RenderStates(RenderStates states, @NotNull BlendMode blendMode) {
+    public RenderStates(RenderStates states, BlendMode blendMode) {
         this(blendMode, states.transform, states.texture, states.shader);
     }
 
@@ -97,7 +98,7 @@ public final class RenderStates {
      *
      * @param transform the transformation matrix used for drawing.
      */
-    public RenderStates(RenderStates states, @NotNull Transform transform) {
+    public RenderStates(RenderStates states, Transform transform) {
         this(states.blendMode, transform, states.texture, states.shader);
     }
 
@@ -105,7 +106,8 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the texture.
      *
-     * @param texture the texture used for drawing.
+     * @param texture the texture used for drawing, or {@code null} to indicate that
+     *                no texture should be used.
      */
     public RenderStates(RenderStates states, ConstTexture texture) {
         this(states.blendMode, states.transform, texture, states.shader);
@@ -115,7 +117,8 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the shader.
      *
-     * @param shader the shader applied to whatever is drawn using these states.
+     * @param shader the shader applied to whatever is drawn using these states,
+     *               or {@code null} to indicate that no shader should be used.
      */
     public RenderStates(RenderStates states, ConstShader shader) {
         this(states.blendMode, states.transform, states.texture, shader);
@@ -126,10 +129,12 @@ public final class RenderStates {
      *
      * @param blendMode the blending mode used for drawing.
      * @param transform the transformation matrix used for drawing.
-     * @param texture   the texture used for drawing.
-     * @param shader    the shader applied to whatever is drawn using these states.
+     * @param texture   the texture used for drawing,
+     *                  or {@code null} to indicate that no texture should be used.
+     * @param shader    the shader applied to whatever is drawn using these states,
+     *                  or {@code null} to indicate that no shader should be used.
      */
-    public RenderStates(@NotNull BlendMode blendMode, @NotNull Transform transform, ConstTexture texture, ConstShader shader) {
+    public RenderStates(BlendMode blendMode, Transform transform, ConstTexture texture, ConstShader shader) {
         this.blendMode = Objects.requireNonNull(blendMode);
         this.transform = Objects.requireNonNull(transform);
         this.texture = texture;

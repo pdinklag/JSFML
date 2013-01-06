@@ -1,7 +1,6 @@
 package org.jsfml.audio;
 
 import org.jsfml.internal.Intercom;
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Time;
 
 import java.util.Objects;
@@ -41,7 +40,7 @@ public abstract class SoundStream extends SoundSource {
          *             {@code true}, the stream will stop playing once this chunk has finished
          *             playing.
          */
-        public Chunk(@NotNull short[] data, boolean last) {
+        public Chunk(short[] data, boolean last) {
             this.data = Objects.requireNonNull(data);
             this.last = last;
         }
@@ -126,7 +125,7 @@ public abstract class SoundStream extends SoundSource {
      *
      * @param offset the playing offset at which to play from the stream.
      */
-    public final void setPlayingOffset(@NotNull Time offset) {
+    public final void setPlayingOffset(Time offset) {
         nativeSetPlayingOffset(Objects.requireNonNull(offset));
     }
 

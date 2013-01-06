@@ -54,7 +54,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param settings the settings for the OpenGL context.
      * @see #create(VideoMode, String, int, ContextSettings)
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public Window(VideoMode mode, String title, int style, ContextSettings settings) {
         this();
         create(mode, title, style, settings);
     }
@@ -67,7 +67,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param title the window title.
      * @param style the window style.
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public Window(VideoMode mode, String title, int style) {
         this();
         create(mode, title, style, new ContextSettings());
     }
@@ -79,7 +79,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param mode  the window's video mode.
      * @param title the window title.
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title) {
+    public Window(VideoMode mode, String title) {
         this();
         create(mode, title, WindowStyle.DEFAULT, new ContextSettings());
     }
@@ -129,7 +129,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see WindowStyle
      * @see ContextSettings
      */
-    public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public void create(VideoMode mode, String title, int style, ContextSettings settings) {
         if (!isLegalWindowThread()) {
             throw new JSFMLError("This thread is not allowed to create a window on this system. " +
                     "If you are running on Mac OS X, you MUST run your" +
@@ -161,7 +161,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see org.jsfml.window.VideoMode#isValid()
      * @see WindowStyle
      */
-    public final void create(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public final void create(VideoMode mode, String title, int style) {
         create(mode, title, style, new ContextSettings());
     }
 
@@ -173,7 +173,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param mode  the video mode that determines the window's size.
      * @param title the window title.
      */
-    public final void create(@NotNull VideoMode mode, @NotNull String title) {
+    public final void create(VideoMode mode, String title) {
         create(mode, title, DEFAULT, new ContextSettings());
     }
 
@@ -209,7 +209,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      *
      * @param position the new absolute position of the window's top left corner on the screen.
      */
-    public void setPosition(@NotNull Vector2i position) {
+    public void setPosition(Vector2i position) {
         nativeSetPosition(Objects.requireNonNull(position));
     }
 
@@ -227,7 +227,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      *
      * @param size the new size of the window.
      */
-    public void setSize(@NotNull Vector2i size) {
+    public void setSize(Vector2i size) {
         nativeSetPosition(Objects.requireNonNull(size));
     }
 
@@ -326,7 +326,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      *
      * @param title the window's new title.
      */
-    public void setTitle(@NotNull String title) {
+    public void setTitle(String title) {
         nativeSetTitle(Objects.requireNonNull(title));
     }
 
@@ -356,7 +356,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      *
      * @param icon the icon image.
      */
-    public void setIcon(@NotNull Image icon) {
+    public void setIcon(Image icon) {
         this.icon = Objects.requireNonNull(icon); //keep a local reference
         nativeSetIcon(icon);
     }

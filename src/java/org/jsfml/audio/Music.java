@@ -1,6 +1,5 @@
 package org.jsfml.audio;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLInputStream;
 import org.jsfml.system.Time;
@@ -55,7 +54,7 @@ public class Music extends SoundStream {
      * @param in the input stream to stream from.
      * @throws java.io.IOException in case an I/O error occurs.
      */
-    public void openFromStream(@NotNull InputStream in) throws IOException {
+    public void openFromStream(InputStream in) throws IOException {
         streamRef.initialize(new SFMLInputStream(Objects.requireNonNull(in)));
 
         SFMLErrorCapture.start();

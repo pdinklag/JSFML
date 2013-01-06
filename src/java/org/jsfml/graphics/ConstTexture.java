@@ -2,7 +2,6 @@ package org.jsfml.graphics;
 
 import org.jsfml.internal.Const;
 import org.jsfml.internal.JSFML;
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2i;
 
 /**
@@ -37,7 +36,7 @@ public interface ConstTexture extends Const {
      *
      * @param coordinateType the coordinate type to use.
      */
-    public void bind(@NotNull Texture.CoordinateType coordinateType);
+    public void bind(Texture.CoordinateType coordinateType);
 
     /**
      * Activates the texture for rendering, using the

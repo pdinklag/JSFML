@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.JSFML;
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -60,7 +59,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @param rect the texture portion.
      */
-    public void setTextureRect(@NotNull IntRect rect) {
+    public void setTextureRect(IntRect rect) {
         nativeSetTextureRect(Objects.requireNonNull(rect));
     }
 
@@ -72,7 +71,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param color the new fill color of the shape, or {@link Color#TRANSPARENT} to indicate
      *              that the shape should not be filled.
      */
-    public void setFillColor(@NotNull Color color) {
+    public void setFillColor(Color color) {
         nativeSetFillColor(Objects.requireNonNull(color));
     }
 
@@ -83,7 +82,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @param color the new outline color of the shape.
      */
-    public void setOutlineColor(@NotNull Color color) {
+    public void setOutlineColor(Color color) {
         nativeSetOutlineColor(Objects.requireNonNull(color));
     }
 
@@ -189,7 +188,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
     public native FloatRect getGlobalBounds();
 
     @Override
-    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
+    public void draw(RenderTarget target, RenderStates states) {
         DrawableNativeImpl.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));
