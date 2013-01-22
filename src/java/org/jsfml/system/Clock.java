@@ -3,7 +3,7 @@ package org.jsfml.system;
 /**
  * Provides functionality for time measurement.
  */
-public final class Clock {
+public class Clock {
     private long t0;
 
     /**
@@ -28,7 +28,7 @@ public final class Clock {
      *
      * @return the elapsed time since the clock was created or last restarted.
      */
-    public Time restart() {
+    public final Time restart() {
         Time dt = getElapsedTime();
         t0 = System.nanoTime();
         return dt;
