@@ -17,6 +17,14 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeBind
+ * Signature: (Lorg/jsfml/graphics/Texture;Lorg/jsfml/graphics/Texture/CoordinateType;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeCreate
  * Signature: ()J
  */
@@ -94,14 +102,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_window_Window_2II
   (JNIEnv *, jobject, jobject, jint, jint);
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture/CoordinateType;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
-  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture

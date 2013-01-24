@@ -14,8 +14,4 @@ import org.jsfml.internal.Const;
  * @see org.jsfml.internal.Const
  */
 public interface ConstShader extends Const {
-    /**
-     * Activates the shader for rendering.
-     */
-    public void bind();
 }

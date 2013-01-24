@@ -38,6 +38,15 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public static final CurrentTextureType CURRENT_TEXTURE = new CurrentTextureType();
 
     /**
+     * Activates a shader for rendering.
+     * <p/>
+     * This is required only if you wish to use JSFML shaders in custom OpenGL code.
+     *
+     * @param shader the shader to activate.
+     */
+    public static native void bind(ConstShader shader);
+
+    /**
      * Checks if shaders are available on this system.
      *
      * @return {@code true} if shaders are available, {@code false} otherwise.
@@ -207,8 +216,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     /**
      * Sets a float parameter ({@code float}) value in the shader.
      *
-     * @param name the parameter's name.
-     * @param value    the parameter's value.
+     * @param name  the parameter's name.
+     * @param value the parameter's value.
      */
     public void setParameter(String name, float value) {
         nativeSetParameter(Objects.requireNonNull(name), value);
@@ -329,7 +338,4 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void setParameter(String name, CurrentTextureType currentTexture) {
         nativeSetParameterCurrentTexture(Objects.requireNonNull(name));
     }
-
-    @Override
-    public native void bind();
 }

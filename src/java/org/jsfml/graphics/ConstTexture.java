@@ -30,19 +30,6 @@ public interface ConstTexture extends Const {
     public Image copyToImage();
 
     /**
-     * Activates the texture for rendering.
-     *
-     * @param coordinateType the coordinate type to use.
-     */
-    public void bind(Texture.CoordinateType coordinateType);
-
-    /**
-     * Activates the texture for rendering, using the
-     * {@link Texture.CoordinateType#NORMALIZED} coordinate type..
-     */
-    public void bind();
-
-    /**
      * Checks whether the smooth filter is enabled.
      *
      * @return {@code true} if enabled, {@code false} if disabled.

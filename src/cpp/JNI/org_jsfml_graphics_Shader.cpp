@@ -9,6 +9,15 @@
 
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    bind
+ * Signature: (Lorg/jsfml/graphics/ConstShader;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind (JNIEnv *env, jclass cls, jobject jshader) {
+    sf::Shader::bind(JSFML::NativeObject::GetPointer<sf::Shader>(env, jshader));
+}
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    isAvailable
  * Signature: ()Z
  */
@@ -170,13 +179,4 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentT
         sf::Shader::CurrentTexture);
 
     env->ReleaseStringUTFChars(name, utf8);
-}
-
-/*
- * Class:     org_jsfml_graphics_Shader
- * Method:    bind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind (JNIEnv *env, jobject obj) {
-    THIS(sf::Shader)->bind();
 }

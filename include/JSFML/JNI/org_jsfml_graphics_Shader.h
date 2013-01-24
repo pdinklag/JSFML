@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_graphics_Shader
+ * Method:    bind
+ * Signature: (Lorg/jsfml/graphics/ConstShader;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Shader
  * Method:    isAvailable
  * Signature: ()Z
  */
@@ -102,14 +110,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentTexture
   (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     org_jsfml_graphics_Shader
- * Method:    bind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind
-  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

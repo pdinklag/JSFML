@@ -18,6 +18,17 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize (JNIEnv *e
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeBind
+ * Signature: (Lorg/jsfml/graphics/Texture;Lorg/jsfml/graphics/Texture/CoordinateType;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind (JNIEnv *env, jclass cls, jobject jtex, jobject coordType) {
+    sf::Texture::bind(
+        JSFML::NativeObject::GetPointer<sf::Texture>(env, jtex),
+        (sf::Texture::CoordinateType)JavaEnum::ordinal(env, coordType));
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeCreate
  * Signature: ()J
  */
@@ -124,15 +135,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
     (JNIEnv *env, jobject obj, jobject window, jint x, jint y) {
 
     THIS(sf::Texture)->update(*JSFML::NativeObject::GetPointer<sf::Window>(env, window), x, y);
-}
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture$CoordinateType;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind (JNIEnv *env, jobject obj, jobject coordType) {
-    THIS(sf::Texture)->bind((sf::Texture::CoordinateType)JavaEnum::ordinal(env, coordType));
 }
 
 /*
