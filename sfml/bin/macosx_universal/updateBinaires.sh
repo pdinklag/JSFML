@@ -55,6 +55,7 @@ install_name_tool -id "$audio" \
 install_name_tool -id "$graphics" \
                   -change /usr/local/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
                   -change /usr/X11/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
+                  -change @executable_path/../Frameworks/freetype.framework/Versions/A/freetype @loader_path/libfreetype.dylib \
                   -change @executable_path/../Frameworks/libsfml-window.2.dylib @loader_path/"$window" \
                   -change @executable_path/../Frameworks/libsfml-system.2.dylib @loader_path/"$system" \
                   "$graphics"
