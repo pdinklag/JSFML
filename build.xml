@@ -222,6 +222,7 @@
 		<!-- Requires ${arch}, ${cl}, ${link}, ${cwd}, ${winsdk.lib} and ${vs.lib} -->
 		<delete file="${cpp.out}/${arch}/${jsfml.bin}.dll" />
 		<mkdir dir="${cpp.obj}" />
+        <mkdir dir="${cpp.obj}/${arch}" />
 		<mkdir dir="${cpp.out}" />
 		<mkdir dir="${cpp.out}/${arch}" />
 		
@@ -239,7 +240,7 @@
 			<arg value="/I${env.JAVA_HOME}/include/win32" />
 			<arg value="${cpp.src}/Intercom/*.cpp" />
 			<arg value="${cpp.src}/JNI/*.cpp" />
-			<arg value="/Fo${cpp.obj}/" />
+			<arg value="/Fo${cpp.obj}/${arch}/" />
 		</exec>
 
 		<!-- link -->
@@ -255,7 +256,7 @@
 			<arg value="sfml-window.lib" />
 			<arg value="sfml-graphics.lib" />
 			<arg value="sfml-audio.lib" />
-			<arg value="${cpp.obj}/*.obj" />
+			<arg value="${cpp.obj}/${arch}/*.obj" />
 		</exec>
 		
 		<delete file="${cpp.out}/${arch}/${jsfml.bin}.exp" />
