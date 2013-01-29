@@ -89,7 +89,7 @@
 		</javah>
 	</target>
 	
-	<!-- Compile C++ for Mac OS X - not to be used directly, use macosx64 -->
+	<!-- Compile C++ for Mac OS X - not to be used directly, use macosx -->
 	<target name="macosx.build">
 		<!-- Requires ${arch} -->
 		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.jnilib" />
@@ -148,7 +148,7 @@
 		</copy>
 		
 		<checksum>
-			<fileset dir="${cpp.out}/${arch}" includes="*.jnilib" />
+			<fileset dir="${cpp.out}/${arch}" includes="*.jnilib *.dylib" />
 		</checksum>
 	</target>
 	
