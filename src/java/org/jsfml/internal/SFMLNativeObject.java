@@ -1,5 +1,8 @@
 package org.jsfml.internal;
 
+import java.nio.ByteBuffer;
+import java.nio.LongBuffer;
+
 /**
  * Abstract base class for classes bound to SFML C++ objects.
  * <p/>
@@ -28,7 +31,8 @@ public abstract class SFMLNativeObject {
      * for calls to methods of abstract types.
      */
     @Intercom
-    private final long[] exPtr = new long[ExPtr.NUM];
+    private final LongBuffer exPtr =
+            ByteBuffer.allocateDirect(ExPtr.NUM << 3).asLongBuffer();
 
     /**
      * If this is {@code true}, the underlying object is merely "wrapped" and not
@@ -117,8 +121,8 @@ public abstract class SFMLNativeObject {
             nativeDelete();
 
         ptr = 0;
-        for (int i = 0; i < exPtr.length; i++)
-            exPtr[i] = 0;
+        for (int i = 0; i < ExPtr.NUM; i++)
+            exPtr.put(i, 0);
 
         super.finalize();
     }

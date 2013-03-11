@@ -22,16 +22,12 @@ namespace JSFML {
                 T *ptr = NULL;
 
                 if(obj && i >= 0) {
-                    jlongArray jarray = (jlongArray)env->GetObjectField(obj, f_exPtr);
-                    if(jarray) {
-                        int length = env->GetArrayLength(jarray);
-                        if(i < length) {
-                            jlong *array = env->GetLongArrayElements(jarray, NULL);
-                            ptr = (T*)array[i];
-
-                            env->ReleaseLongArrayElements(jarray, array, JNI_ABORT);
-                        }
-                        env->DeleteLocalRef(jarray);
+                    jobject buffer = (jlongArray)env->GetObjectField(obj, f_exPtr);
+                    if(buffer) {
+                        jlong *exPtr = (jlong*)env->GetDirectBufferAddress(buffer);
+                        ptr = (T*)exPtr[i];
+                        
+                        env->DeleteLocalRef(buffer);
                     }
                 }
 
@@ -40,16 +36,12 @@ namespace JSFML {
 
             static void SetExPointer(JNIEnv* env, jobject obj, int i, void *ptr) {
                 if(obj && i >= 0) {
-                    jlongArray jarray = (jlongArray)env->GetObjectField(obj, f_exPtr);
-                    if(jarray) {
-                        int length = env->GetArrayLength(jarray);
-                        if(i < length) {
-                            jlong *array = env->GetLongArrayElements(jarray, NULL);
-                            array[i] = (jlong)ptr;
-
-                            env->ReleaseLongArrayElements(jarray, array, 0);
-                        }
-                        env->DeleteLocalRef(jarray);
+                    jobject buffer = (jlongArray)env->GetObjectField(obj, f_exPtr);
+                    if(buffer) {
+                        jlong *exPtr = (jlong*)env->GetDirectBufferAddress(buffer);
+                        exPtr[i] = (jlong)ptr;
+                        
+                        env->DeleteLocalRef(buffer);
                     }
                 }
             }
