@@ -1,5 +1,9 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
+
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.Objects;
 
 /**
@@ -73,7 +77,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
         setTexture(texture, false);
     }
 
-    private native void nativeSetTextureRect(IntRect rect);
+    private native void nativeSetTextureRect(IntBuffer rect);
 
     /**
      * Sets the portion of the texture that will be used for drawing.
@@ -87,10 +91,10 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @param rect the texture portion.
      */
     public void setTextureRect(IntRect rect) {
-        nativeSetTextureRect(Objects.requireNonNull(rect));
+        nativeSetTextureRect(IntercomHelper.encodeIntRect(rect));
     }
 
-    private native void nativeSetColor(Color color);
+    private native void nativeSetColor(int color);
 
     /**
      * Sets the color mask of the sprite.
@@ -98,7 +102,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @param color the new color.
      */
     public void setColor(Color color) {
-        nativeSetColor(Objects.requireNonNull(color));
+        nativeSetColor(IntercomHelper.encodeColor(color));
     }
 
     /**
@@ -110,19 +114,30 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
         return texture;
     }
 
+    private native void nativeGetTextureRect(IntBuffer buf);
+
     /**
      * Gets the sprite's current texture rectangle.
      *
      * @return the sprite's current texture rectangle.
      */
-    public native IntRect getTextureRect();
+    public IntRect getTextureRect() {
+        nativeGetTextureRect(IntercomHelper.getIntBuffer());
+        return IntercomHelper.decodeIntRect();
+    }
+
+    private native int nativeGetColor();
 
     /**
      * Gets the sprite's current color mask.
      *
      * @return the sprite's current color mask.
      */
-    public native Color getColor();
+    public Color getColor() {
+        return IntercomHelper.decodeColor(nativeGetColor());
+    }
+
+    private native void nativeGetLocalBounds(FloatBuffer buf);
 
     /**
      * Gets the sprite's local bounding rectangle,
@@ -131,7 +146,12 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @return the sprite's local bounding rectangle.
      * @see org.jsfml.graphics.Sprite#getGlobalBounds()
      */
-    public native FloatRect getLocalBounds();
+    public FloatRect getLocalBounds() {
+        nativeGetLocalBounds(IntercomHelper.getFloatBuffer());
+        return IntercomHelper.decodeFloatRect();
+    }
+
+    private native void nativeGetGlobalBounds(FloatBuffer buf);
 
     /**
      * Gets the sprite's global bounding rectangle in the scene,
@@ -140,7 +160,10 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
      * @return the sprite's global bounding rectangle.
      * @see org.jsfml.graphics.Sprite#getLocalBounds()
      */
-    public native FloatRect getGlobalBounds();
+    public FloatRect getGlobalBounds() {
+        nativeGetGlobalBounds(IntercomHelper.getFloatBuffer());
+        return IntercomHelper.decodeFloatRect();
+    }
 
     @Override
     public void draw(RenderTarget target, RenderStates states) {
