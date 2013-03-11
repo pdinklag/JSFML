@@ -57,6 +57,22 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_isSmooth
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    setRepeated
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setRepeated
+  (JNIEnv *, jobject, jboolean);
+
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
+ * Method:    isRepeated
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_isRepeated
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_RenderTexture
  * Method:    setActive
  * Signature: (Z)V
  */

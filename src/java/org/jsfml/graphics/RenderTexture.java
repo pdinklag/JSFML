@@ -89,6 +89,22 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     public native boolean isSmooth();
 
     /**
+     * Enables or disables texture repeating for the underlying texture.
+     * <p/>
+     * Texture repeating is disabled by default.
+     *
+     * @param repeated {@code true} to enable, {@code false} to disable.
+     */
+    public native void setRepeated(boolean repeated);
+
+    /**
+     * Checks whether texture repeating is enabled for the underlying texture.
+     *
+     * @return {@code true} if enabled, {@code false} if disabled.
+     */
+    public native boolean isRepeated();
+
+    /**
      * Activates or deactivates the render texture for rendering.
      *
      * @param active {@code true} to activate, {@code false} to deactivate.
