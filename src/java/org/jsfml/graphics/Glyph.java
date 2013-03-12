@@ -27,8 +27,20 @@ public final class Glyph {
     @Intercom
     public final IntRect textureRect;
 
+    /**
+     * Constructs a glyph with the specified parameters.
+     * <p/>
+     * Note that this constructor is reserved for internal use and should
+     * never be required to be used directly. Glyphs should be obtained
+     * using the {@link Font#getGlyph(int, int, boolean)} method.
+     *
+     * @param advance     the offset to move horizontally to the next character.
+     * @param bounds      the boundaries of the glyph.
+     * @param textureRect the texture rectangle used by the glyph.
+     * @see Font#getGlyph(int, int, boolean)
+     */
     @Intercom
-    private Glyph(int advance, IntRect bounds, IntRect textureRect) {
+    public Glyph(int advance, IntRect bounds, IntRect textureRect) {
         this.advance = advance;
         this.bounds = bounds;
         this.textureRect = textureRect;

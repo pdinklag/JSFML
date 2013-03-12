@@ -1,9 +1,6 @@
 package org.jsfml.internal;
 
-import org.jsfml.graphics.Color;
-import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.IntRect;
-import org.jsfml.graphics.Transform;
+import org.jsfml.graphics.*;
 
 import java.nio.*;
 
@@ -104,6 +101,19 @@ public final class IntercomHelper {
                 buf.get(7),
                 buf.get(8)
         );
+    }
+
+    /**
+     * Decodes a glyph from the current buffer content.
+     *
+     * @return the decoded glyph.
+     */
+    public static Glyph decodeGlyph() {
+        final IntBuffer buf = BUFFER.get().asIntBuffer();
+        return new Glyph(
+                buf.get(0),
+                new IntRect(buf.get(1), buf.get(2), buf.get(3), buf.get(4)),
+                new IntRect(buf.get(5), buf.get(6), buf.get(7), buf.get(8)));
     }
 
     private IntercomHelper() {
