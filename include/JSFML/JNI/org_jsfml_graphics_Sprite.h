@@ -42,7 +42,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeSetTextureRect
- * Signature: (Ljava/nio/IntBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTextureRect
   (JNIEnv *, jobject, jobject);
@@ -57,24 +57,8 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetColor
 
 /*
  * Class:     org_jsfml_graphics_Sprite
- * Method:    nativeGetTextureRect
- * Signature: (Ljava/nio/IntBuffer;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetTextureRect
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    nativeGetColor
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Sprite_nativeGetColor
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeGetLocalBounds
- * Signature: (Ljava/nio/FloatBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetLocalBounds
   (JNIEnv *, jobject, jobject);
@@ -82,7 +66,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetLocalBounds
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeGetGlobalBounds
- * Signature: (Ljava/nio/FloatBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetGlobalBounds
   (JNIEnv *, jobject, jobject);

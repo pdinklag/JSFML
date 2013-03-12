@@ -34,7 +34,7 @@ sf::String JSFML::Intercom::decodeUtf32(JNIEnv *env, jstring str) {
     return sf;
 }
 
-sf::Color JSFML::Intercom::decodeColor(JNIEnv *env, jint code) {
+sf::Color JSFML::Intercom::decodeColor(jint code) {
     sf::Uint8 r = (code >> 24) & 0xFF;
     sf::Uint8 g = (code >> 16) & 0xFF;
     sf::Uint8 b = (code >> 8) & 0xFF;
@@ -42,26 +42,9 @@ sf::Color JSFML::Intercom::decodeColor(JNIEnv *env, jint code) {
     return sf::Color(r, g, b, a);
 }
 
-jint JSFML::Intercom::encodeColor(JNIEnv *env, const sf::Color& color) {
-    return (color.r << 24) | (color.g << 16) | (color.b << 8) | color.a;
-}
-
 sf::IntRect JSFML::Intercom::decodeIntRect(JNIEnv *env, jobject code) {
     jint *buf = (jint*)env->GetDirectBufferAddress(code);
     return sf::IntRect(buf[0], buf[1], buf[2], buf[3]);
-}
-
-void JSFML::Intercom::encodeIntRect(JNIEnv *env, const sf::IntRect& rect, jobject out) {
-    jint *buf = (jint*)env->GetDirectBufferAddress(out);
-    buf[0] = rect.left;
-    buf[1] = rect.top;
-    buf[2] = rect.width;
-    buf[3] = rect.height;
-}
-
-sf::FloatRect JSFML::Intercom::decodeFloatRect(JNIEnv *env, jobject code) {
-    jfloat *buf = (jfloat*)env->GetDirectBufferAddress(code);
-    return sf::FloatRect(buf[0], buf[1], buf[2], buf[3]);
 }
 
 void JSFML::Intercom::encodeFloatRect(JNIEnv *env, const sf::FloatRect& rect, jobject out) {
@@ -70,4 +53,19 @@ void JSFML::Intercom::encodeFloatRect(JNIEnv *env, const sf::FloatRect& rect, jo
     buf[1] = rect.top;
     buf[2] = rect.width;
     buf[3] = rect.height;
+}
+
+void JSFML::Intercom::encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out) {
+    jfloat *buf = (jfloat*)env->GetDirectBufferAddress(out);
+    const float *data = xform.getMatrix();
+    
+    buf[0] = data[0];
+    buf[1] = data[4];
+    buf[2] = data[12];
+    buf[3] = data[1];
+    buf[4] = data[5];
+    buf[5] = data[13];
+    buf[6] = data[3];
+    buf[7] = data[7];
+    buf[8] = data[15];
 }

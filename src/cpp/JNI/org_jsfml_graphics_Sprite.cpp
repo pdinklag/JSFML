@@ -1,9 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_Sprite.h>
 
-#include <JSFML/Intercom/Color.hpp>
-#include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/Intercom.hpp>
-#include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
@@ -56,7 +53,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTexture
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeSetTextureRect
- * Signature: (Ljava/nio/IntBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTextureRect (JNIEnv *env, jobject obj, jobject rect) {
     THIS(sf::Sprite)->setTextureRect(JSFML::Intercom::decodeIntRect(env, rect));
@@ -68,31 +65,13 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetTextureRect (JNIE
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeSetColor (JNIEnv *env, jobject obj, jint color) {
-    THIS(sf::Sprite)->setColor(JSFML::Intercom::decodeColor(env, color));
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    nativeGetTextureRect
- * Signature: ([I)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetTextureRect (JNIEnv *env, jobject obj, jobject out) {
-    JSFML::Intercom::encodeIntRect(env, THIS(sf::Sprite)->getTextureRect(), out);
-}
-
-/*
- * Class:     org_jsfml_graphics_Sprite
- * Method:    nativeGetColor
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Sprite_nativeGetColor (JNIEnv *env, jobject obj) {
-    return JSFML::Intercom::encodeColor(env, THIS(sf::Sprite)->getColor());
+    THIS(sf::Sprite)->setColor(JSFML::Intercom::decodeColor(color));
 }
 
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeGetLocalBounds
- * Signature: (Ljava/nio/FloatBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetLocalBounds (JNIEnv *env, jobject obj, jobject r) {
     JSFML::Intercom::encodeFloatRect(env, THIS(sf::Sprite)->getLocalBounds(), r);
@@ -101,7 +80,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetLocalBounds (JNIE
 /*
  * Class:     org_jsfml_graphics_Sprite
  * Method:    nativeGetGlobalBounds
- * Signature: (Ljava/nio/FloatBuffer;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Sprite_nativeGetGlobalBounds (JNIEnv *env, jobject obj, jobject r) {
     JSFML::Intercom::encodeFloatRect(env, THIS(sf::Sprite)->getGlobalBounds(), r);

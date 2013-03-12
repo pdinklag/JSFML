@@ -3,69 +3,34 @@ package org.jsfml.internal;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
+import org.jsfml.graphics.Transform;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
+import java.nio.*;
 
 /**
  * Provides functionality to encode and decode data structures used
  * for intercom methods.
  */
 public final class IntercomHelper {
-    private static final int BUFFER_CAPACITY = 16;
-
-    private static final ThreadLocal<IntBuffer> INT_BUFFER =
-            new ThreadLocal<IntBuffer>() {
+    private static final ThreadLocal<ByteBuffer> BUFFER =
+            new ThreadLocal<ByteBuffer>() {
                 @Override
-                protected IntBuffer initialValue() {
-                    return ByteBuffer.allocateDirect(BUFFER_CAPACITY << 2).asIntBuffer();
-                }
-            };
-
-    private static final ThreadLocal<FloatBuffer> FLOAT_BUFFER =
-            new ThreadLocal<FloatBuffer>() {
-                @Override
-                protected FloatBuffer initialValue() {
-                    return ByteBuffer.allocateDirect(BUFFER_CAPACITY << 2).asFloatBuffer();
+                protected ByteBuffer initialValue() {
+                    return ByteBuffer.allocateDirect(256).order(ByteOrder.nativeOrder());
                 }
             };
 
     /**
-     * Gets the current thread-local integer buffer.
+     * Gets the current thread-local buffer.
      * <p/>
-     * The buffer can store up to 16 integer values.
-     *
-     * @return the current thread-local integer buffer.
-     */
-    public static IntBuffer getIntBuffer() {
-        return INT_BUFFER.get();
-    }
-
-    /**
-     * Gets the current thread-local float buffer.
-     * <p/>
-     * The buffer can store up to 16 float values.
+     * The buffer can store up to 256 bytes.
      *
      * @return the current thread-local float buffer.
      */
-    public static FloatBuffer getFloatBuffer() {
-        return FLOAT_BUFFER.get();
+    public static Buffer getBuffer() {
+        return BUFFER.get();
     }
 
-    /**
-     * Decodes a color from a 32-bit integer.
-     *
-     * @param code the encoded color.
-     * @return the decoded color.
-     */
-    public static Color decodeColor(int code) {
-        final int r = (code >> 24) & 0xFF;
-        final int g = (code >> 16) & 0xFF;
-        final int b = (code >> 8) & 0xFF;
-        final int a = code & 0xFF;
-        return new Color(r, g, b, a);
-    }
 
     /**
      * Encodes a color into a 32-bit integer.
@@ -78,23 +43,13 @@ public final class IntercomHelper {
     }
 
     /**
-     * Decodes an integer rectangle from the current integer buffer content.
-     *
-     * @return the decoded rectangle.
-     */
-    public static IntRect decodeIntRect() {
-        final IntBuffer buf = getIntBuffer();
-        return new IntRect(buf.get(0), buf.get(1), buf.get(2), buf.get(3));
-    }
-
-    /**
      * Encodes an integer rectangle into the current integer buffer.
      *
      * @param r the rectangle to encode.
      * @return A reference to the integer buffer.
      */
-    public static IntBuffer encodeIntRect(IntRect r) {
-        final IntBuffer buf = getIntBuffer();
+    public static Buffer encodeIntRect(IntRect r) {
+        final IntBuffer buf = BUFFER.get().asIntBuffer();
         buf.put(0, r.left);
         buf.put(1, r.top);
         buf.put(2, r.width);
@@ -108,8 +63,12 @@ public final class IntercomHelper {
      * @return the decoded rectangle.
      */
     public static FloatRect decodeFloatRect() {
-        final FloatBuffer buf = getFloatBuffer();
-        return new FloatRect(buf.get(0), buf.get(1), buf.get(2), buf.get(3));
+        final FloatBuffer buf = BUFFER.get().asFloatBuffer();
+        return new FloatRect(
+                buf.get(0),
+                buf.get(1),
+                buf.get(2),
+                buf.get(3));
     }
 
     /**
@@ -118,13 +77,33 @@ public final class IntercomHelper {
      * @param r the float to encode.
      * @return A reference to the float buffer.
      */
-    public static FloatBuffer encodeFloatRect(FloatRect r) {
-        final FloatBuffer buf = getFloatBuffer();
+    public static Buffer encodeFloatRect(FloatRect r) {
+        final FloatBuffer buf = BUFFER.get().asFloatBuffer();
         buf.put(0, r.left);
         buf.put(1, r.top);
         buf.put(2, r.width);
         buf.put(3, r.height);
         return buf;
+    }
+
+    /**
+     * Decodes a transformation matrix from the current float buffer content.
+     *
+     * @return the decoded transformation matrix.
+     */
+    public static Transform decodeTransform() {
+        final FloatBuffer buf = BUFFER.get().asFloatBuffer();
+        return new Transform(
+                buf.get(0),
+                buf.get(1),
+                buf.get(2),
+                buf.get(3),
+                buf.get(4),
+                buf.get(5),
+                buf.get(6),
+                buf.get(7),
+                buf.get(8)
+        );
     }
 
     private IntercomHelper() {
