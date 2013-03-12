@@ -82,3 +82,15 @@ void JSFML::Intercom::encodeGlyph(JNIEnv *env, const sf::Glyph glyph, jobject ou
     buf[7] = glyph.textureRect.width;
     buf[8] = glyph.textureRect.height;
 }
+
+jlong JSFML::Intercom::encodeVector2i(sf::Vector2i& v) {
+    jlong vec = (jlong)v.y << 32;
+    vec |= v.x;
+    return vec;
+}
+
+jlong JSFML::Intercom::encodeVector2u(sf::Vector2u& v) {
+    jlong vec = (jlong)v.y << 32;
+    vec |= v.x;
+    return vec;
+}

@@ -6,6 +6,7 @@ import org.jsfml.window.Window;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -13,16 +14,23 @@ import java.util.Objects;
  * Represents a 2D texture stored on the graphics card for rendering.
  */
 public class Texture extends SFMLNativeObject implements ConstTexture {
+    private static final int maximumSize;
+
     static {
         SFMLNative.loadNativeLibraries();
+        maximumSize = nativeGetMaximumSize();
     }
+
+    private static native int nativeGetMaximumSize();
 
     /**
      * Gets the maximum texture size supported by the current hardware.
      *
      * @return the maximum texture size supported by the current hardware.
      */
-    public static native int getMaximumSize();
+    public static int getMaximumSize() {
+        return maximumSize;
+    }
 
     /**
      * Enumeation of texture coordinate types that can be used for rendering.
@@ -61,6 +69,11 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         bind(texture, CoordinateType.NORMALIZED);
     }
 
+    //cache
+    private Vector2i size = Vector2i.ZERO;
+    private boolean smooth = false;
+    private boolean repeated = false;
+
     /**
      * Constructs a new texture.
      */
@@ -71,6 +84,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     @SuppressWarnings("deprecation")
     Texture(long wrap) {
         super(wrap);
+        updateSize();
     }
 
     /**
@@ -82,6 +96,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     public Texture(ConstTexture other) {
         super(((Texture) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
+        updateSize();
     }
 
     @Override
@@ -112,11 +127,14 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws TextureCreationException if the texture could not be created.
      */
     public void create(int width, int height) throws TextureCreationException {
-        if (!nativeCreate(width, height))
+        if (!nativeCreate(width, height)) {
             throw new TextureCreationException("Failed to create texture.");
+        }
+
+        updateSize();
     }
 
-    private native boolean nativeLoadFromMemory(byte[] memory, IntRect area);
+    private native boolean nativeLoadFromMemory(byte[] memory, Buffer area);
 
     /**
      * Fully loads all available bytes from an {@link InputStream}
@@ -128,12 +146,16 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      */
     public void loadFromStream(InputStream in, IntRect area) throws IOException {
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(StreamUtil.readStream(in), Objects.requireNonNull(area));
+        final boolean success = nativeLoadFromMemory(
+                StreamUtil.readStream(in), IntercomHelper.encodeIntRect(area));
+
         final String msg = SFMLErrorCapture.finish();
 
         if (!success) {
             throw new IOException(msg);
         }
+
+        updateSize();
     }
 
     /**
@@ -143,7 +165,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param in the input stream to read from.
      * @throws IOException in case an I/O error occurs.
      */
-    public void loadFromStream(InputStream in) throws IOException {
+    public final void loadFromStream(InputStream in) throws IOException {
         loadFromStream(in, IntRect.EMPTY);
     }
 
@@ -156,12 +178,16 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      */
     public void loadFromFile(Path path, IntRect area) throws IOException {
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(StreamUtil.readFile(path), Objects.requireNonNull(area));
+        final boolean success = nativeLoadFromMemory(
+                StreamUtil.readFile(path), IntercomHelper.encodeIntRect(area));
+
         final String msg = SFMLErrorCapture.finish();
 
         if (!success) {
             throw new IOException(msg);
         }
+
+        updateSize();
     }
 
     /**
@@ -174,7 +200,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         loadFromFile(path, IntRect.EMPTY);
     }
 
-    private native boolean nativeLoadFromImage(Image image, IntRect area);
+    private native boolean nativeLoadFromImage(Image image, Buffer area);
 
     /**
      * Attempts to load the texture from a source image portion.
@@ -185,8 +211,13 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      */
     public void loadFromImage(Image image, IntRect area)
             throws TextureCreationException {
-        if (!nativeLoadFromImage(Objects.requireNonNull(image), Objects.requireNonNull(area)))
+        if (!nativeLoadFromImage(
+                Objects.requireNonNull(image), IntercomHelper.encodeIntRect(area))) {
+
             throw new TextureCreationException("Failed to load texture from image.");
+        }
+
+        updateSize();
     }
 
     /**
@@ -199,12 +230,20 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         loadFromImage(image, IntRect.EMPTY);
     }
 
+    private native long nativeGetSize();
+
+    private void updateSize() {
+        size = IntercomHelper.decodeVector2i(nativeGetSize());
+    }
+
     /**
      * Gets the dimensions of the texture.
      *
      * @return the dimensions of the texture.
      */
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return size;
+    }
 
     private native long nativeCopyToImage();
 
@@ -251,6 +290,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         update(window, 0, 0);
     }
 
+    private native void nativeSetSmooth(boolean smooth);
+
     /**
      * Enables or disables the smooth filter.
      * <p/>
@@ -258,10 +299,17 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      *
      * @param smooth {@code true} to enable, {@code false} to disable.
      */
-    public native void setSmooth(boolean smooth);
+    public void setSmooth(boolean smooth) {
+        nativeSetSmooth(smooth);
+        this.smooth = smooth;
+    }
 
     @Override
-    public native boolean isSmooth();
+    public boolean isSmooth() {
+        return smooth;
+    }
+
+    private native void nativeSetRepeated(boolean repeated);
 
     /**
      * Enables or disables texture repeating.
@@ -270,8 +318,13 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      *
      * @param repeated {@code true} to enable, {@code false} to disable.
      */
-    public native void setRepeated(boolean repeated);
+    public void setRepeated(boolean repeated) {
+        nativeSetRepeated(repeated);
+        this.repeated = repeated;
+    }
 
     @Override
-    public native boolean isRepeated();
+    public boolean isRepeated() {
+        return repeated;
+    }
 }

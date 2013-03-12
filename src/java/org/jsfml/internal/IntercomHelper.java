@@ -1,6 +1,7 @@
 package org.jsfml.internal;
 
 import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2i;
 
 import java.nio.*;
 
@@ -37,6 +38,20 @@ public final class IntercomHelper {
      */
     public static int encodeColor(Color color) {
         return (color.r << 24) | (color.g << 16) | (color.b << 8) | color.a;
+    }
+
+    /**
+     * Decodes an integer vector from a 64-bit integer.
+     *
+     * @param vec the encoded vector.
+     * @return the decoded vector.
+     */
+    public static Vector2i decodeVector2i(long vec) {
+        if (vec == 0) {
+            return Vector2i.ZERO;
+        } else {
+            return new Vector2i((int) vec, (int) (vec >> 32));
+        }
     }
 
     /**

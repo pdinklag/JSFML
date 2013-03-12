@@ -19,6 +19,10 @@ namespace JSFML {
             //sf::Color
             static sf::Color decodeColor(jint code);
             
+            //sf::Vector2i
+            static jlong encodeVector2i(sf::Vector2i& v);
+            static jlong encodeVector2u(sf::Vector2u& v);
+            
             //sf::IntRect
             static sf::IntRect decodeIntRect(JNIEnv *env, jobject code);
             
