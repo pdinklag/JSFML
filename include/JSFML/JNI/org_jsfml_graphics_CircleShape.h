@@ -33,26 +33,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_CircleShape
- * Method:    setRadius
+ * Method:    nativeSetRadius
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setRadius
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetRadius
   (JNIEnv *, jobject, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_CircleShape
- * Method:    getRadius
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_CircleShape_getRadius
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_CircleShape
- * Method:    setPointCount
+ * Method:    nativeSetPointCount
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_setPointCount
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_CircleShape_nativeSetPointCount
   (JNIEnv *, jobject, jint);
 
 #ifdef __cplusplus

@@ -34,18 +34,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeDelete
 /*
  * Class:     org_jsfml_graphics_RectangleShape
  * Method:    nativeSetSize
- * Signature: (Lorg/jsfml/system/Vector2f;)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetSize
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RectangleShape
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getSize
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jfloat, jfloat);
 
 #ifdef __cplusplus
 }

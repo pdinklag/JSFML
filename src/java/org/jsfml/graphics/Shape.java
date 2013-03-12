@@ -1,14 +1,31 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.system.Vector2f;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Objects;
 
 /**
  * Abstract base class for (optionally) textured shapes with (optional) outlines.
  */
 public abstract class Shape extends SFMLNativeTransformable implements Drawable {
+    //cache
+    private Color fillColor = Color.WHITE;
+    private Color outlineColor = Color.WHITE;
+    private float outlineThickness = 0;
+    private IntRect textureRect = IntRect.EMPTY;
     private ConstTexture texture = null;
+
+    protected boolean pointsNeedUpdate = true;
+    protected Vector2f[] points = null;
+
+    private boolean boundsNeedUpdate = true;
+    private FloatRect localBounds = null;
+    private FloatRect globalBounds = null;
 
     /**
      * Default constructor.
@@ -45,7 +62,7 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
         setTexture(texture, false);
     }
 
-    private native void nativeSetTextureRect(IntRect rect);
+    private native void nativeSetTextureRect(Buffer buffer);
 
     /**
      * Sets the portion of the texture that will be used for drawing.
@@ -59,10 +76,11 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param rect the texture portion.
      */
     public void setTextureRect(IntRect rect) {
-        nativeSetTextureRect(Objects.requireNonNull(rect));
+        nativeSetTextureRect(IntercomHelper.encodeIntRect(rect));
+        this.textureRect = rect;
     }
 
-    private native void nativeSetFillColor(Color color);
+    private native void nativeSetFillColor(int color);
 
     /**
      * Sets the fill color of the shape.
@@ -71,10 +89,11 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *              that the shape should not be filled.
      */
     public void setFillColor(Color color) {
-        nativeSetFillColor(Objects.requireNonNull(color));
+        nativeSetFillColor(IntercomHelper.encodeColor(color));
+        this.fillColor = color;
     }
 
-    private native void nativeSetOutlineColor(Color color);
+    private native void nativeSetOutlineColor(int color);
 
     /**
      * Sets the outline color of the shape.
@@ -82,8 +101,11 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param color the new outline color of the shape.
      */
     public void setOutlineColor(Color color) {
-        nativeSetOutlineColor(Objects.requireNonNull(color));
+        nativeSetOutlineColor(IntercomHelper.encodeColor(color));
+        this.outlineColor = color;
     }
+
+    private native void nativeSetOutlineThickness(float thickness);
 
     /**
      * Sets the thickness of the shape's outline.
@@ -91,7 +113,10 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @param thickness the thickness of the shape's outline, or 0 to indicate that no
      *                  outline should be drawn.
      */
-    public native void setOutlineThickness(float thickness);
+    public void setOutlineThickness(float thickness) {
+        nativeSetOutlineThickness(thickness);
+        this.outlineThickness = thickness;
+    }
 
     /**
      * Gets the shape's current texture.
@@ -107,35 +132,69 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      *
      * @return the shape's current texture portion.
      */
-    public native IntRect getTextureRect();
+    public IntRect getTextureRect() {
+        return textureRect;
+    }
 
     /**
      * Gets the shape's current fill color.
      *
      * @return the shape's current fill color.
      */
-    public native Color getFillColor();
+    public Color getFillColor() {
+        return fillColor;
+    }
 
     /**
      * Gets the shape's current outline color.
      *
      * @return the shape's current outline color.
      */
-    public native Color getOutlineColor();
+    public Color getOutlineColor() {
+        return outlineColor;
+    }
 
     /**
      * Gets the shape's current outline thickness.
      *
      * @return the shape's current outline thickness.
      */
-    public native float getOutlineThickness();
+    public float getOutlineThickness() {
+        return outlineThickness;
+    }
+
+    private native int nativeGetPointCount();
+
+    private native void nativeGetPoints(int n, Buffer buffer);
+
+    private void updatePoints() {
+        if (pointsNeedUpdate) {
+            final int n = nativeGetPointCount();
+            final FloatBuffer buffer = ByteBuffer.allocateDirect(2 * n * 4).order(
+                    ByteOrder.nativeOrder()).asFloatBuffer();
+
+            nativeGetPoints(n, buffer);
+            points = new Vector2f[n];
+            for (int i = 0; i < n; i++) {
+                points[i] = new Vector2f(buffer.get(2 * i), buffer.get(2 * i + 1));
+            }
+
+            pointsNeedUpdate = false;
+        }
+    }
 
     /**
      * Gets the amount of points that defines this shape.
      *
      * @return the amount of points that defines this shape.
      */
-    public native int getPointCount();
+    public int getPointCount() {
+        if (pointsNeedUpdate) {
+            updatePoints();
+        }
+
+        return points.length;
+    }
 
     private native Vector2f nativeGetPoint(int i);
 
@@ -146,10 +205,11 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
      * @return the point at the given index.
      */
     public Vector2f getPoint(int i) {
-        if (i < 0 || i >= getPointCount())
-            throw new IndexOutOfBoundsException(Integer.toString(i));
+        if (pointsNeedUpdate) {
+            updatePoints();
+        }
 
-        return nativeGetPoint(i);
+        return points[i];
     }
 
     /**
@@ -161,29 +221,79 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
         int n = getPointCount();
         Vector2f[] points = new Vector2f[n];
 
-        for (int i = 0; i < n; i++)
-            points[i] = nativeGetPoint(i);
-
+        System.arraycopy(this.points, 0, points, 0, n);
         return points;
     }
 
-    /**
-     * Gets the shape's local bounding rectangle,
-     * <i>not</i> taking the shape's transformation into account.
-     *
-     * @return the shape's local bounding rectangle.
-     * @see org.jsfml.graphics.Shape#getGlobalBounds()
-     */
-    public native FloatRect getLocalBounds();
+    private native void nativeGetLocalBounds(Buffer buf);
+
+    private native void nativeGetGlobalBounds(Buffer buf);
+
+    private void updateBounds() {
+        if(boundsNeedUpdate) {
+            nativeGetLocalBounds(IntercomHelper.getBuffer());
+            localBounds = IntercomHelper.decodeFloatRect();
+
+            nativeGetGlobalBounds(IntercomHelper.getBuffer());
+            globalBounds = IntercomHelper.decodeFloatRect();
+
+            boundsNeedUpdate = false;
+        }
+    }
 
     /**
-     * Gets the shape's global bounding rectangle in the scene,
-     * taking the shape's transformation into account.
+     * Gets the text's local bounding rectangle,
+     * <i>not</i> taking the text's transformation into account.
      *
-     * @return the shape's global bounding rectangle.
-     * @see org.jsfml.graphics.Shape#getLocalBounds()
+     * @return the text's local bounding rectangle.
+     * @see org.jsfml.graphics.Sprite#getGlobalBounds()
      */
-    public native FloatRect getGlobalBounds();
+    public FloatRect getLocalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return localBounds;
+    }
+
+    /**
+     * Gets the text's global bounding rectangle in the scene,
+     * taking the text's transformation into account.
+     *
+     * @return the text's global bounding rectangle.
+     * @see org.jsfml.graphics.Text#getLocalBounds()
+     */
+    public FloatRect getGlobalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return globalBounds;
+    }
+
+    @Override
+    public void setPosition(Vector2f v) {
+        super.setPosition(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setRotation(float angle) {
+        super.setRotation(angle);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setScale(Vector2f v) {
+        super.setScale(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setOrigin(Vector2f v) {
+        super.setOrigin(v);
+        boundsNeedUpdate = true;
+    }
 
     @Override
     public void draw(RenderTarget target, RenderStates states) {

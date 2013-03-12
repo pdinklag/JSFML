@@ -33,19 +33,19 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_ConvexShape
- * Method:    nativeSetPoint
- * Signature: (ILorg/jsfml/system/Vector2f;)V
+ * Method:    nativeSetPointCount
+ * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPoint
-  (JNIEnv *, jobject, jint, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPointCount
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_ConvexShape
- * Method:    setPointCount
- * Signature: (I)V
+ * Method:    nativeSetPoint
+ * Signature: (IFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPointCount
-  (JNIEnv *, jobject, jint);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPoint
+  (JNIEnv *, jobject, jint, jfloat, jfloat);
 
 #ifdef __cplusplus
 }
