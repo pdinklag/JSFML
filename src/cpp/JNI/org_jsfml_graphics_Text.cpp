@@ -1,10 +1,8 @@
 #include <JSFML/JNI/org_jsfml_graphics_Text.h>
 
-#include <JSFML/Intercom/Color.hpp>
 #include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -66,10 +64,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetFont
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    setCharacterSize
+ * Method:    nativeSetCharacterSize
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setCharacterSize
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetCharacterSize
     (JNIEnv *env, jobject obj, jint size) {
 
     THIS(sf::Text)->setCharacterSize(size);
@@ -77,10 +75,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setCharacterSize
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    setStyle
+ * Method:    nativeSetStyle
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setStyle
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetStyle
     (JNIEnv *env, jobject obj, jint style) {
 
     THIS(sf::Text)->setStyle(style);
@@ -89,53 +87,26 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setStyle
 /*
  * Class:     org_jsfml_graphics_Text
  * Method:    nativeSetColor
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::Text)->setColor(JSFML::Color::ToSFML(env, color));
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor (JNIEnv *env, jobject obj, jint color) {
+    THIS(sf::Text)->setColor(JSFML::Intercom::decodeColor(color));
 }
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    getCharacterSize
- * Signature: ()I
+ * Method:    nativeGetLocalBounds
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getCharacterSize (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->getCharacterSize();
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeGetLocalBounds (JNIEnv *env, jobject obj, jobject r) {
+    JSFML::Intercom::encodeFloatRect(env, THIS(sf::Text)->getLocalBounds(), r);
 }
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    getStyle
- * Signature: ()I
+ * Method:    nativeGetGlobalBounds
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getStyle (JNIEnv *env, jobject obj) {
-    return THIS(sf::Text)->getStyle();
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getColor
- * Signature: ()Lorg/jsfml/graphics/Color;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getColor (JNIEnv *env, jobject obj) {
-    return JSFML::Color::FromSFML(env, THIS(sf::Text)->getColor());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getLocalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getLocalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->getLocalBounds());
-}
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getGlobalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getGlobalBounds (JNIEnv *env, jobject obj) {
-    return JSFML::FloatRect::FromSFML(env, THIS(sf::Text)->getGlobalBounds());
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeGetGlobalBounds (JNIEnv *env, jobject obj, jobject r) {
+    JSFML::Intercom::encodeFloatRect(env, THIS(sf::Text)->getGlobalBounds(), r);
 }

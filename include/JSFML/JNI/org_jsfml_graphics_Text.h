@@ -49,51 +49,27 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetFont
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    setCharacterSize
+ * Method:    nativeSetCharacterSize
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setCharacterSize
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetCharacterSize
   (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    setStyle
+ * Method:    nativeSetStyle
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_setStyle
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetStyle
   (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Text
  * Method:    nativeSetColor
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getCharacterSize
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getCharacterSize
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getStyle
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Text_getStyle
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Text
- * Method:    getColor
- * Signature: ()Lorg/jsfml/graphics/Color;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getColor
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Text
@@ -105,19 +81,19 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_nativeFindCharacterPos
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    getLocalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
+ * Method:    nativeGetLocalBounds
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getLocalBounds
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeGetLocalBounds
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Text
- * Method:    getGlobalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
+ * Method:    nativeGetGlobalBounds
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_getGlobalBounds
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeGetGlobalBounds
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

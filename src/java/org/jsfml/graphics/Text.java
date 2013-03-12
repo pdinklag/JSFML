@@ -1,7 +1,9 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.system.Vector2f;
 
+import java.nio.Buffer;
 import java.util.Objects;
 
 /**
@@ -13,6 +15,13 @@ import java.util.Objects;
 public class Text extends SFMLNativeTransformable implements Drawable, TextStyle {
     private ConstFont font = null;
     private String string = "";
+    private Color color = Color.WHITE;
+    private int style = TextStyle.REGULAR;
+    private int characterSize = 30;
+
+    private boolean boundsNeedUpdate = true;
+    private FloatRect localBounds = null;
+    private FloatRect globalBounds = null;
 
     /**
      * Creates a new empty text.
@@ -72,6 +81,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
     public void setString(String string) {
         this.string = Objects.requireNonNull(string);
         nativeSetString(string);
+        boundsNeedUpdate = true;
     }
 
     private native void nativeSetFont(Font font);
@@ -84,14 +94,23 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
     public void setFont(ConstFont font) {
         this.font = Objects.requireNonNull(font);
         nativeSetFont((Font) font);
+        boundsNeedUpdate = true;
     }
+
+    private native void nativeSetCharacterSize(int characterSize);
 
     /**
      * Sets the font size for this text.
      *
      * @param characterSize The font size for this text.
      */
-    public native void setCharacterSize(int characterSize);
+    public void setCharacterSize(int characterSize) {
+        nativeSetCharacterSize(characterSize);
+        this.characterSize = characterSize;
+        boundsNeedUpdate = true;
+    }
+
+    private native void nativeSetStyle(int style);
 
     /**
      * Sets the font drawing style.
@@ -101,9 +120,13 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *              {@link TextStyle#UNDERLINED}, or {@link TextStyle#REGULAR} for the
      *              regular style.
      */
-    public native void setStyle(int style);
+    public void setStyle(int style) {
+        nativeSetStyle(style);
+        this.style = style;
+        boundsNeedUpdate = true;
+    }
 
-    private native void nativeSetColor(Color color);
+    private native void nativeSetColor(int color);
 
     /**
      * Sets the font color for this text.
@@ -111,7 +134,8 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param color The font color for this text.
      */
     public void setColor(Color color) {
-        nativeSetColor(Objects.requireNonNull(color));
+        nativeSetColor(IntercomHelper.encodeColor(color));
+        this.color = color;
     }
 
     /**
@@ -137,7 +161,9 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @return The text's current font size.
      */
-    public native int getCharacterSize();
+    public int getCharacterSize() {
+        return characterSize;
+    }
 
     /**
      * Gets the text's current font style.
@@ -145,14 +171,18 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @return The text's current font style.
      * @see Text#setStyle(int)
      */
-    public native int getStyle();
+    public int getStyle() {
+        return style;
+    }
 
     /**
      * Gets the text's current font color.
      *
      * @return The text's current font color.
      */
-    public native Color getColor();
+    public Color getColor() {
+        return color;
+    }
 
     private native Vector2f nativeFindCharacterPos(int i);
 
@@ -169,21 +199,75 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
         return nativeFindCharacterPos(i);
     }
 
-    /**
-     * Gets the sprite's local bounding rectangle, <i>not</i> taking the sprite's transformation into account.
-     *
-     * @return The sprite's local bounding rectangle.
-     * @see org.jsfml.graphics.Sprite#getGlobalBounds()
-     */
-    public native FloatRect getLocalBounds();
+    private native void nativeGetLocalBounds(Buffer buf);
+
+    private native void nativeGetGlobalBounds(Buffer buf);
+
+    private void updateBounds() {
+        if(boundsNeedUpdate) {
+            nativeGetLocalBounds(IntercomHelper.getBuffer());
+            localBounds = IntercomHelper.decodeFloatRect();
+
+            nativeGetGlobalBounds(IntercomHelper.getBuffer());
+            globalBounds = IntercomHelper.decodeFloatRect();
+
+            boundsNeedUpdate = false;
+        }
+    }
 
     /**
-     * Gets the sprite's global bounding rectangle, taking the sprite's transformation into account.
+     * Gets the text's local bounding rectangle,
+     * <i>not</i> taking the text's transformation into account.
      *
-     * @return The sprite's global bounding rectangle.
-     * @see org.jsfml.graphics.Sprite#getLocalBounds()
+     * @return the text's local bounding rectangle.
+     * @see org.jsfml.graphics.Sprite#getGlobalBounds()
      */
-    public native FloatRect getGlobalBounds();
+    public FloatRect getLocalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return localBounds;
+    }
+
+    /**
+     * Gets the text's global bounding rectangle in the scene,
+     * taking the text's transformation into account.
+     *
+     * @return the text's global bounding rectangle.
+     * @see org.jsfml.graphics.Text#getLocalBounds()
+     */
+    public FloatRect getGlobalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return globalBounds;
+    }
+
+    @Override
+    public void setPosition(Vector2f v) {
+        super.setPosition(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setRotation(float angle) {
+        super.setRotation(angle);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setScale(Vector2f v) {
+        super.setScale(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setOrigin(Vector2f v) {
+        super.setOrigin(v);
+        boundsNeedUpdate = true;
+    }
 
     @Override
     public void draw(RenderTarget target, RenderStates states) {
