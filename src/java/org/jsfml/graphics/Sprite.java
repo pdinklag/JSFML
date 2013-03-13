@@ -215,7 +215,7 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
 
     @Override
     public void draw(RenderTarget target, RenderStates states) {
-        DrawableNativeImpl.draw(this,
+        SFMLNativeDrawer.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));
     }

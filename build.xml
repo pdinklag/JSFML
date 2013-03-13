@@ -63,12 +63,12 @@
 			<!-- graphics -->
 			<class name="${jsfml.package}.graphics.CircleShape" />
 			<class name="${jsfml.package}.graphics.ConvexShape" />
-			<class name="${jsfml.package}.graphics.DrawableNativeImpl" />
 			<class name="${jsfml.package}.graphics.Font" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RectangleShape" />
 			<class name="${jsfml.package}.graphics.RenderTexture" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
+            <class name="${jsfml.package}.graphics.SFMLNativeDrawer" />
 			<class name="${jsfml.package}.graphics.SFMLNativeTransformable" />
 			<class name="${jsfml.package}.graphics.Shader" />
 			<class name="${jsfml.package}.graphics.Shape" />

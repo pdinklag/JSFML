@@ -89,14 +89,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsTo
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw
-  (JNIEnv *, jobject, jobjectArray, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    pushGLStates
  * Signature: ()V
  */

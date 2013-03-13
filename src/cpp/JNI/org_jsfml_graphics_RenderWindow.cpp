@@ -19,9 +19,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
 
-#define VERTEX_BUFSIZE_RWINDOW 0x400
-sf::Vertex sfVertexBuffer_RenderWindow[VERTEX_BUFSIZE_RWINDOW];
-
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeCreate
@@ -139,27 +136,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsTo
             THIS(sf::RenderWindow)->mapCoordsToPixel(
                 JSFML::Vector2f::ToSFML(env, point),
                 *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
-    }
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw
-    (JNIEnv *env, jobject obj, jobjectArray vertices, jobject type, jobject renderStates) {
-
-    jint num = env->GetArrayLength(vertices);
-    if(num > 0) {
-        for(jint i = 0; i < num; i++)
-            sfVertexBuffer_RenderWindow[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
-
-        THIS(sf::RenderWindow)->draw(
-            sfVertexBuffer_RenderWindow,
-            num,
-            (sf::PrimitiveType)JavaEnum::ordinal(env, type),
-            JSFML::RenderStates::ToSFML(env, renderStates));
     }
 }
 

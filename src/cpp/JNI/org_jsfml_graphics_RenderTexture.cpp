@@ -14,9 +14,6 @@
 
 #include <SFML/Graphics/RenderTexture.hpp>
 
-#define VERTEX_BUFSIZE_RTEXTURE 0x400
-sf::Vertex sfVertexBuffer_RenderTexture[VERTEX_BUFSIZE_RTEXTURE];
-
 /*
  * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeCreate
@@ -205,27 +202,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapCoordsT
             THIS(sf::RenderTexture)->mapCoordsToPixel(
                 JSFML::Vector2f::ToSFML(env, point),
                 *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
-    }
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw
-    (JNIEnv *env, jobject obj, jobjectArray vertices, jobject type, jobject renderStates) {
-
-    jint num = env->GetArrayLength(vertices);
-    if(num > 0) {
-        for(jint i = 0; i < num; i++)
-            sfVertexBuffer_RenderTexture[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
-
-        THIS(sf::RenderTexture)->draw(
-            sfVertexBuffer_RenderTexture,
-            num,
-            (sf::PrimitiveType)JavaEnum::ordinal(env, type),
-            JSFML::RenderStates::ToSFML(env, renderStates));
     }
 }
 

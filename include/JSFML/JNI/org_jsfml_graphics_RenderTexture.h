@@ -153,14 +153,6 @@ JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapCoordsT
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw
-  (JNIEnv *, jobject, jobjectArray, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    pushGLStates
  * Signature: ()V
  */

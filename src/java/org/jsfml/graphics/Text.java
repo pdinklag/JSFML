@@ -271,7 +271,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
 
     @Override
     public void draw(RenderTarget target, RenderStates states) {
-        DrawableNativeImpl.draw(this,
+        SFMLNativeDrawer.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));
     }

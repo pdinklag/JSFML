@@ -214,15 +214,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         draw(vertices, type, RenderStates.DEFAULT);
     }
 
-    private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
-
     @Override
     public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
-        //TODO deep null check of the vertices array
-        nativeDraw(
-                Objects.requireNonNull(vertices),
-                Objects.requireNonNull(type),
-                Objects.requireNonNull(states));
+        SFMLNativeDrawer.drawVertices(vertices, type, this, states);
     }
 
     @Override
