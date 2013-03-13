@@ -211,9 +211,10 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      */
     public void loadFromImage(Image image, IntRect area)
             throws TextureCreationException {
-        if (!nativeLoadFromImage(
-                Objects.requireNonNull(image), IntercomHelper.encodeIntRect(area))) {
 
+        image.commit();
+
+        if (!nativeLoadFromImage(image, IntercomHelper.encodeIntRect(area))) {
             throw new TextureCreationException("Failed to load texture from image.");
         }
 
@@ -265,7 +266,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @param y     the Y offset inside the texture.
      */
     public void update(Image image, int x, int y) {
-        nativeUpdate(Objects.requireNonNull(image), x, y);
+        image.commit();
+        nativeUpdate(image, x, y);
     }
 
     private native void nativeUpdate(Window window, int x, int y);

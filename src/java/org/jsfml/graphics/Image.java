@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.internal.StreamUtil;
@@ -7,13 +8,39 @@ import org.jsfml.system.Vector2i;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.nio.file.Path;
-import java.util.Objects;
 
 /**
  * Provides methods for loading, manipulating and saving images.
  */
 public class Image extends SFMLNativeObject {
+    private static int srcBlend(int s, int d) {
+        final int sa = (s >> 24) & 0xFF;
+        final int sb = (s >> 16) & 0xFF;
+        final int sg = (s >> 8) & 0xFF;
+        final int sr = s & 0xFF;
+
+        final int da = (d >> 24) & 0xFF;
+        final int db = (d >> 16) & 0xFF;
+        final int dg = (d >> 8) & 0xFF;
+        final int dr = d & 0xFF;
+
+        final int r = (sr * sa + dr * (255 - sa)) / 255;
+        final int g = (sg * sa + dg * (255 - sa)) / 255;
+        final int b = (sb * sa + db * (255 - sa)) / 255;
+        final int a = (sa + da * (255 - sa)) / 255;
+
+        return (a << 24) | (b << 16) | (g << 8) | r;
+    }
+
+    private Vector2i size = Vector2i.ZERO;
+    private IntBuffer pixels = null;
+    private boolean changed = true;
+
     /**
      * Constructs a new empty image.
      */
@@ -24,6 +51,7 @@ public class Image extends SFMLNativeObject {
     @SuppressWarnings("deprecation")
     Image(long wrap) {
         super(wrap);
+        sync();
     }
 
     @Override
@@ -42,8 +70,6 @@ public class Image extends SFMLNativeObject {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native void nativeCreate(int width, int height, Color color);
-
     /**
      * Generates a new image and fills it with a color.
      *
@@ -52,7 +78,22 @@ public class Image extends SFMLNativeObject {
      * @param color  the fill color of the image.
      */
     public void create(int width, int height, Color color) {
-        nativeCreate(width, height, Objects.requireNonNull(color));
+        if (width < 0 || height < 0) {
+            throw new IllegalArgumentException("width: " + width + ", height: " + height);
+        }
+
+        size = new Vector2i(width, height);
+
+        if (width > 0 && height > 0) {
+            pixels = ByteBuffer.allocateDirect(4 * width * height).order(
+                    ByteOrder.LITTLE_ENDIAN).asIntBuffer();
+        } else {
+            pixels = null;
+        }
+
+        if (!color.equals(Color.BLACK)) {
+            fill(color);
+        }
     }
 
     /**
@@ -82,6 +123,8 @@ public class Image extends SFMLNativeObject {
         if (!success) {
             throw new IOException(err);
         }
+
+        sync();
     }
 
     /**
@@ -98,6 +141,8 @@ public class Image extends SFMLNativeObject {
         if (!success) {
             throw new IOException(err);
         }
+
+        sync();
     }
 
     private native boolean nativeSaveToFile(String fileName);
@@ -109,6 +154,8 @@ public class Image extends SFMLNativeObject {
      * @throws IOException in case an I/O error occurs.
      */
     public void saveToFile(Path path) throws IOException {
+        commit();
+
         SFMLErrorCapture.start();
         final boolean success = nativeSaveToFile(path.toAbsolutePath().toString());
         final String err = SFMLErrorCapture.finish();
@@ -118,14 +165,49 @@ public class Image extends SFMLNativeObject {
         }
     }
 
+    private native long nativeGetSize();
+
+    private native void nativeSync(int width, int height, Buffer buffer);
+
+    final void sync() {
+        size = IntercomHelper.decodeVector2i(nativeGetSize());
+        create(size.x, size.y);
+
+        if (size.x > 0 && size.y > 0) {
+            nativeSync(size.x, size.y, pixels);
+        }
+
+        changed = false;
+    }
+
+    private native void nativeCommit(int width, int height, Buffer buffer);
+
+    final void commit() {
+        if (changed) {
+            nativeCommit(size.x, size.y, pixels);
+            changed = false;
+        }
+    }
+
+    private int pixel(int x, int y) {
+        return y * size.x + x;
+    }
+
     /**
      * Gets the size of the image.
      *
      * @return the size of the image.
      */
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return size;
+    }
 
-    private native void nativeCreateMaskFromColor(Color color, int alpha);
+    private void fill(Color color) {
+        final int c = IntercomHelper.encodeColor(color);
+        for (int i = 0; i < size.x * size.y; i++) {
+            pixels.put(i, c);
+        }
+    }
 
     /**
      * Creates a transparency mask from the given color.
@@ -134,7 +216,17 @@ public class Image extends SFMLNativeObject {
      * @param alpha the alpha value to assign to pixels matching the color key.
      */
     public void createMaskFromColor(Color color, int alpha) {
-        nativeCreateMaskFromColor(Objects.requireNonNull(color), alpha);
+        final int c = IntercomHelper.encodeColor(color);
+        final int a = alpha << 24;
+
+        for (int i = 0; i < size.x * size.y; i++) {
+            final int s = pixels.get(i);
+            if (pixels.get(i) == c) {
+                pixels.put(i, a | (s & 0xFFFFFF));
+            }
+        }
+
+        changed = true;
     }
 
     /**
@@ -146,8 +238,6 @@ public class Image extends SFMLNativeObject {
         createMaskFromColor(color, 0);
     }
 
-    private native void nativeCopy(Image source, int destX, int destY, IntRect sourceRect, boolean applyAlpha);
-
     /**
      * Copies a portion of another image onto this image.
      *
@@ -158,11 +248,68 @@ public class Image extends SFMLNativeObject {
      * @param applyAlpha {@code true} to copy alpha values as well, {@code false} to leave the destination alpha.
      */
     public void copy(Image source, int destX, int destY, IntRect sourceRect, boolean applyAlpha) {
-        nativeCopy(
-                Objects.requireNonNull(source),
-                destX, destY,
-                Objects.requireNonNull(sourceRect),
-                applyAlpha);
+        //Code partially translated from SFML
+
+        //Make sure both images are valid
+        if (size.x == 0 || size.y == 0 || source.size.x == 0 || source.size.y == 0) {
+            return;
+        }
+
+        //Adjust source rectangle
+        int left, top, width, height;
+
+        if (sourceRect.width == 0 || sourceRect.height == 0) {
+            left = 0;
+            top = 0;
+            width = source.size.x;
+            height = source.size.y;
+        } else {
+            left = Math.max(0, sourceRect.top);
+            top = Math.max(0, sourceRect.top);
+            width = Math.min(sourceRect.width, source.size.x - left);
+            height = Math.min(sourceRect.height, source.size.y - top);
+        }
+
+        //Adjust destination rectangle
+        if (destX + width > size.x) width = size.x - destX;
+        if (destY + height > size.y) height = size.y - destY;
+
+        //Validate
+        if (width <= 0 || height <= 0) {
+            return;
+        }
+
+        //Copy
+        if (applyAlpha) {
+            //Pixel by pixel...
+            for (int y = 0; y < height; y++) {
+                int src = source.pixel(left, top + y);
+                int dst = pixel(destX, destY + y);
+
+                for (int x = 0; x < width; x++) {
+                    final int s = source.pixels.get(src);
+                    final int d = pixels.get(dst);
+
+                    //Blend
+                    pixels.put(dst, srcBlend(s, d));
+
+                    src++;
+                    dst++;
+                }
+            }
+        } else {
+            //"lines"
+            final int[] buffer = new int[width];
+            for (int y = 0; y < height; y++) {
+                source.pixels.position(source.pixel(left, top + y));
+                source.pixels.get(buffer, 0, width);
+
+                pixels.position(pixel(destX, destY + y));
+                pixels.put(buffer, 0, width);
+            }
+        }
+
+        changed = true;
     }
 
     /**
@@ -188,8 +335,6 @@ public class Image extends SFMLNativeObject {
         copy(source, destX, destY, IntRect.EMPTY, false);
     }
 
-    private native void nativeSetPixel(int x, int y, Color color);
-
     /**
      * Sets the color of a certain pixel.
      *
@@ -198,15 +343,13 @@ public class Image extends SFMLNativeObject {
      * @param color the color to apply to the pixel.
      */
     public void setPixel(int x, int y, Color color) {
-        final Vector2i size = getSize();
         if (x < 0 || y < 0 || x >= size.x || y >= size.y) {
             throw new PixelOutOfBoundsException(x, y);
         }
 
-        nativeSetPixel(x, y, Objects.requireNonNull(color));
+        pixels.put(y * size.x + x, IntercomHelper.encodeColor(color));
+        changed = true;
     }
-
-    private native Color nativeGetPixel(int x, int y);
 
     /**
      * Gets the color of a certain pixel.
@@ -216,23 +359,50 @@ public class Image extends SFMLNativeObject {
      * @return the pixel's color.
      */
     public Color getPixel(int x, int y) {
-        final Vector2i size = getSize();
         if (x < 0 || y < 0 || x >= size.x || y >= size.y) {
             throw new PixelOutOfBoundsException(x, y);
         }
 
-        return nativeGetPixel(x, y);
+        return IntercomHelper.decodeColor(pixels.get(y * size.x + x));
     }
 
     /**
      * Flips the image horizontally.
      */
-    public native void flipHorizontally();
+    public void flipHorizontally() {
+        for (int y = 0; y < size.y; y++) {
+            for (int x = 0; x < size.x / 2; x++) {
+                final int i1 = y * size.x + x;
+                final int i2 = y * size.x + size.x - 1 - x;
+
+                if (i1 != i2) {
+                    final int t = pixels.get(i1);
+                    pixels.put(i1, pixels.get(i2));
+                    pixels.put(i2, t);
+                }
+            }
+        }
+        changed = true;
+    }
 
     /**
      * Flips the image vertically.
      */
-    public native void flipVertically();
+    public void flipVertically() {
+        for (int x = 0; x < size.x; x++) {
+            for (int y = 0; y < size.y / 2; y++) {
+                final int i1 = y * size.x + x;
+                final int i2 = (size.y - 1 - y) * size.x + x;
+
+                if (i1 != i2) {
+                    final int t = pixels.get(i1);
+                    pixels.put(i1, pixels.get(i2));
+                    pixels.put(i2, t);
+                }
+            }
+        }
+        changed = true;
+    }
 
     /**
      * Thrown if a non-existing pixel is being accessed by either {@link #getPixel(int, int)}

@@ -37,7 +37,21 @@ public final class IntercomHelper {
      * @return the encoded color.
      */
     public static int encodeColor(Color color) {
-        return (color.r << 24) | (color.g << 16) | (color.b << 8) | color.a;
+        return (color.a << 24) | (color.b << 16) | (color.g << 8) | color.r;
+    }
+
+    /**
+     * Decodes a color from a 32-bit integer.
+     *
+     * @param code the encoded color.
+     * @return the decoded color.
+     */
+    public static Color decodeColor(int code) {
+        final int a = (code >> 24) & 0xFF;
+        final int b = (code >> 16) & 0xFF;
+        final int g = (code >> 8) & 0xFF;
+        final int r = code & 0xFF;
+        return new Color(r, g, b, a);
     }
 
     /**
