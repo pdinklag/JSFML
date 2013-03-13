@@ -13,8 +13,8 @@ import java.util.Objects;
  * Provides a window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
-    private final ConstView defaultView;
-    private ConstView view;
+    private ConstView defaultView = null;
+    private ConstView view = null;
 
     /**
      * Constructs a new render window without actually creating (opening) it.
@@ -23,9 +23,6 @@ public class RenderWindow extends Window implements RenderTarget {
      */
     public RenderWindow() {
         super();
-
-        defaultView = new View(nativeGetDefaultView());
-        view = defaultView;
     }
 
     @Deprecated
@@ -89,6 +86,17 @@ public class RenderWindow extends Window implements RenderTarget {
     @Deprecated
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
+
+    @Override
+    public void create(VideoMode mode, String title, int style, ContextSettings settings) {
+        super.create(mode, title, style, settings);
+
+        defaultView = new View(nativeGetDefaultView());
+
+        if (view == null) {
+            view = defaultView;
+        }
+    }
 
     private native long nativeCapture();
 

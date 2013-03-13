@@ -10,7 +10,7 @@ import java.util.Objects;
  * Provides a render target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-    private final ConstView defaultView;
+    private ConstView defaultView;
     private ConstView view;
     private final ConstTexture texture;
 
@@ -21,8 +21,6 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         super();
         SFMLNative.ensureDisplay();
 
-        defaultView = new View(nativeGetDefaultView());
-        view = defaultView;
         texture = new Texture(nativeGetTexture());
     }
 
@@ -61,6 +59,12 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
 
         if (!success)
             throw new TextureCreationException(msg);
+
+        defaultView = new View(nativeGetDefaultView());
+
+        if(view == null) {
+            view = defaultView;
+        }
     }
 
     /**
