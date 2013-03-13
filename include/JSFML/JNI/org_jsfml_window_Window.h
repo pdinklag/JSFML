@@ -105,19 +105,19 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeGetSettings
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    pollEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
+ * Method:    nativePollEvent
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_pollEvent
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativePollEvent
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    waitEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
+ * Method:    nativeWaitEvent
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeWaitEvent
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window

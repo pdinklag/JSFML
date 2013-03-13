@@ -6,7 +6,7 @@ import org.jsfml.internal.JSFMLError;
 import org.jsfml.internal.SFMLNative;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2i;
-import org.jsfml.window.event.Event;
+import org.jsfml.window.event.*;
 
 import java.nio.Buffer;
 import java.nio.IntBuffer;
@@ -20,6 +20,79 @@ import java.util.Objects;
  * to the constants provided by it.
  */
 public class Window extends SFMLNativeObject implements WindowStyle {
+    private static Event decodeEvent(IntBuffer ints) {
+        final Event e;
+        final int typeId = ints.get(0);
+        if (typeId >= 0) {
+            final Event.Type type = Event.Type.values()[typeId];
+            switch (type) {
+                case CLOSED:
+                case GAINED_FOCUS:
+                case LOST_FOCUS:
+                    e = new Event(typeId);
+                    break;
+
+                case RESIZED:
+                    e = new SizeEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case TEXT_ENTERED:
+                    e = new TextEvent(typeId, ints.get(1));
+                    break;
+
+                case KEY_PRESSED:
+                case KEY_RELEASED:
+                    final int keyCode = ints.get(1);
+                    final int flags = ints.get(2);
+                    e = new KeyEvent(typeId, keyCode,
+                            (flags & 0x01) != 0,
+                            (flags & 0x02) != 0,
+                            (flags & 0x04) != 0,
+                            (flags & 0x08) != 0);
+
+                    break;
+
+                case MOUSE_WHEEL_MOVED:
+                    e = new MouseWheelEvent(typeId, ints.get(1), ints.get(2), ints.get(3));
+                    break;
+
+                case MOUSE_BUTTON_PRESSED:
+                case MOUSE_BUTTON_RELEASED:
+                    e = new MouseButtonEvent(typeId, ints.get(1), ints.get(2), ints.get(3));
+                    break;
+
+                case MOUSE_MOVED:
+                case MOUSE_LEFT:
+                case MOUSE_ENTERED:
+                    e = new MouseEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case JOYSTICK_BUTTON_PRESSED:
+                case JOYSTICK_BUTTON_RELEASED:
+                    e = new JoystickButtonEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case JOYSTICK_MOVED:
+                    e = new JoystickMoveEvent(typeId, ints.get(1), ints.get(2),
+                            Float.intBitsToFloat(ints.get(3)));
+                    break;
+
+                case JOYSTICK_CONNECETED:
+                case JOYSTICK_DISCONNECTED:
+                    e = new JoystickEvent(typeId, ints.get(1));
+                    break;
+
+                default:
+                    e = null;
+                    break;
+            }
+        } else {
+            e = null;
+        }
+
+        return e;
+    }
+
     /**
      * The current window icon image.
      * <p/>
@@ -271,6 +344,8 @@ public class Window extends SFMLNativeObject implements WindowStyle {
                 settings.get(4));
     }
 
+    private native void nativePollEvent(Buffer buffer);
+
     /**
      * Pops the event on top of the event stack, if any, and returns it.
      * <p/>
@@ -280,7 +355,28 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @return the event currently on top of the event stack, or {@code null} if there is none.
      * @see #waitEvent()
      */
-    public native Event pollEvent();
+    public Event pollEvent() {
+        final IntBuffer buffer = IntercomHelper.getIntBuffer();
+        nativePollEvent(buffer);
+        return decodeEvent(buffer);
+    }
+
+    private native void nativeWaitEvent(Buffer buffer);
+
+    /**
+     * Pops the event on top of the event stack and returns it, or, if there is none,
+     * waits until an event occurs and then returns it.
+     * <p/>
+     * This method will block the program flow until an event is returned.
+     *
+     * @return the event currently on top of the event stack, or the next event that will occur.
+     * @see #pollEvent()
+     */
+    public Event waitEvent() {
+        final IntBuffer buffer = IntercomHelper.getIntBuffer();
+        nativeWaitEvent(buffer);
+        return decodeEvent(buffer);
+    }
 
     /**
      * Returns an {@link Iterable} that consecutively calls {@link #pollEvent()} and
@@ -316,17 +412,6 @@ public class Window extends SFMLNativeObject implements WindowStyle {
             }
         };
     }
-
-    /**
-     * Pops the event on top of the event stack and returns it, or, if there is none,
-     * waits until an event occurs and then returns it.
-     * <p/>
-     * This method will block the program flow until an event is returned.
-     *
-     * @return the event currently on top of the event stack, or the next event that will occur.
-     * @see #pollEvent()
-     */
-    public native Event waitEvent();
 
     /**
      * Enables or disables vertical synchronization (VSync).

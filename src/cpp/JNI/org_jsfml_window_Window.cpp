@@ -1,16 +1,11 @@
 #include <JSFML/JNI/org_jsfml_window_Window.h>
 
-#include <JSFML/Intercom/ContextSettings.hpp>
-#include <JSFML/Intercom/Event.hpp>
 #include <JSFML/Intercom/Intercom.hpp>
-#include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2i.hpp>
-#include <JSFML/Intercom/Vector2u.hpp>
-#include <JSFML/Intercom/VideoMode.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/Image.hpp>
 
@@ -156,32 +151,96 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeGetSettings (JNIEnv *e
     s[4] = settings.minorVersion;
 }
 
-/*
- * Class:     org_jsfml_window_Window
- * Method:    pollEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_pollEvent (JNIEnv *env, jobject obj) {
-    sf::Event event;
+void encodeEvent(const sf::Event& event, jint *data) {
+    data[0] = (jint)event.type;
 
-    if(SF_WINDOW->pollEvent(event))
-        return JSFML::Event::FromSFML(env, event);
-    else
-        return NULL;
+    switch(event.type) {
+        case sf::Event::Resized:
+            data[1] = event.size.width;
+            data[2] = event.size.height;
+            break;
+
+        case sf::Event::TextEntered:
+            data[1] = (jint)event.text.unicode;
+            break;
+
+        case sf::Event::KeyPressed:
+        case sf::Event::KeyReleased:
+            data[1] = event.key.code;
+            data[2] = 0;
+            if(event.key.alt)     data[2] |= 0x01;
+            if(event.key.shift)   data[2] |= 0x02;
+            if(event.key.control) data[2] |= 0x04;
+            if(event.key.system)  data[2] |= 0x08;
+            break;
+
+        case sf::Event::MouseMoved:
+            data[1] = event.mouseMove.x;
+            data[2] = event.mouseMove.y;
+            break;
+
+        case sf::Event::MouseButtonPressed:
+        case sf::Event::MouseButtonReleased:
+            data[1] = event.mouseButton.x;
+            data[2] = event.mouseButton.y;
+            data[3] = event.mouseButton.button;
+            break;
+
+        case sf::Event::MouseWheelMoved:
+            data[1] = event.mouseWheel.x;
+            data[2] = event.mouseWheel.y;
+            data[3] = event.mouseWheel.delta;
+            break;
+
+        case sf::Event::JoystickButtonPressed:
+        case sf::Event::JoystickButtonReleased:
+            data[1] = event.joystickButton.joystickId;
+            data[2] = event.joystickButton.button;
+            break;
+
+        case sf::Event::JoystickMoved:
+            data[1] = event.joystickMove.joystickId;
+            data[2] = event.joystickMove.axis;
+            ((float*)data)[3] = event.joystickMove.position;
+            break;
+
+        case sf::Event::JoystickConnected:
+        case sf::Event::JoystickDisconnected:
+            data[1] = event.joystickConnect.joystickId;
+            break;
+    }
 }
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    waitEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
+ * Method:    nativePollEvent
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent (JNIEnv *env, jobject obj) {
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativePollEvent (JNIEnv *env, jobject obj, jobject buffer) {
+    jint *data = (jint*)env->GetDirectBufferAddress(buffer);
     sf::Event event;
 
-    if(SF_WINDOW->waitEvent(event))
-        return JSFML::Event::FromSFML(env, event);
-    else
-        return NULL;
+    if(SF_WINDOW->pollEvent(event)) {
+        encodeEvent(event, data);
+    } else {
+        data[0] = -1;
+    }
+}
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    nativeWaitEvent
+ * Signature: (Ljava/nio/Buffer;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeWaitEvent (JNIEnv *env, jobject obj, jobject buffer) {
+    jint *data = (jint*)env->GetDirectBufferAddress(buffer);
+    sf::Event event;
+
+    if(SF_WINDOW->waitEvent(event)) {
+        encodeEvent(event, data);
+    } else {
+        data[0] = -1;
+    }
 }
 
 /*
