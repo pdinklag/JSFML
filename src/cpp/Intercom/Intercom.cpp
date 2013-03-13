@@ -35,10 +35,10 @@ sf::String JSFML::Intercom::decodeUtf32(JNIEnv *env, jstring str) {
 }
 
 sf::Color JSFML::Intercom::decodeColor(jint code) {
-    sf::Uint8 r = (code >> 24) & 0xFF;
-    sf::Uint8 g = (code >> 16) & 0xFF;
-    sf::Uint8 b = (code >> 8) & 0xFF;
-    sf::Uint8 a = code & 0xFF;
+    sf::Uint8 a = (code >> 24) & 0xFF;
+    sf::Uint8 b = (code >> 16) & 0xFF;
+    sf::Uint8 g = (code >> 8) & 0xFF;
+    sf::Uint8 r = code & 0xFF;
     return sf::Color(r, g, b, a);
 }
 
