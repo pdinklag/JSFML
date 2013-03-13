@@ -75,19 +75,6 @@ void JSFML::Intercom::encodeTransform(JNIEnv *env, const sf::Transform& xform, j
     buf[8] = data[15];
 }
 
-void JSFML::Intercom::encodeGlyph(JNIEnv *env, const sf::Glyph glyph, jobject out) {
-    jint *buf = (jint*)env->GetDirectBufferAddress(out);
-    buf[0] = glyph.advance;
-    buf[1] = glyph.bounds.left;
-    buf[2] = glyph.bounds.top;
-    buf[3] = glyph.bounds.width;
-    buf[4] = glyph.bounds.height;
-    buf[5] = glyph.textureRect.left;
-    buf[6] = glyph.textureRect.top;
-    buf[7] = glyph.textureRect.width;
-    buf[8] = glyph.textureRect.height;
-}
-
 jlong JSFML::Intercom::encodeVector2i(const sf::Vector2i& v) {
     jlong vec = (jlong)v.y << 32;
     vec |= v.x;

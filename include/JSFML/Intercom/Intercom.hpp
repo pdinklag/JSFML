@@ -3,7 +3,6 @@
 
 #include <jni.h>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Glyph.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Transform.hpp>
 #include <SFML/System/String.hpp>
@@ -33,9 +32,6 @@ namespace JSFML {
             
             //sf::Transform
             static void encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out);
-            
-            //sf::Glyph
-            static void encodeGlyph(JNIEnv *env, const sf::Glyph glyph, jobject out);
     };
 }
 

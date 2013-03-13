@@ -5,6 +5,7 @@ import org.jsfml.internal.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.Buffer;
+import java.nio.IntBuffer;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.TreeMap;
@@ -145,8 +146,14 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
         Glyph glyph = glyphMap.get(unicode);
         if (glyph == null) {
-            nativeGetGlyph(unicode, characterSize, bold, IntercomHelper.getBuffer());
-            glyph = IntercomHelper.decodeGlyph();
+            final IntBuffer buf = IntercomHelper.getIntBuffer();
+
+            nativeGetGlyph(unicode, characterSize, bold, buf);
+            glyph = new Glyph(
+                    buf.get(0),
+                    new IntRect(buf.get(1), buf.get(2), buf.get(3), buf.get(4)),
+                    new IntRect(buf.get(5), buf.get(6), buf.get(7), buf.get(8)));
+
             glyphMap.put(unicode, glyph);
         }
 
