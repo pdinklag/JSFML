@@ -1,10 +1,15 @@
 package org.jsfml.window;
 
 import org.jsfml.graphics.Image;
-import org.jsfml.internal.*;
+import org.jsfml.internal.IntercomHelper;
+import org.jsfml.internal.JSFMLError;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
+import java.nio.Buffer;
+import java.nio.IntBuffer;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -99,7 +104,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
+    private native void nativeCreateWindow(Buffer buffer, String title);
 
     /**
      * Checks whether the current native thread is eligibile for creating a window.
@@ -139,11 +144,19 @@ public class Window extends SFMLNativeObject implements WindowStyle {
         if ((style & FULLSCREEN) != 0 && !mode.isValid())
             throw new IllegalArgumentException("Invalid video mode for a fullscreen window.");
 
-        nativeCreate(
-                Objects.requireNonNull(mode),
-                Objects.requireNonNull(title),
-                style,
-                Objects.requireNonNull(settings));
+        title = Objects.requireNonNull(title);
+
+        final IntBuffer params = IntercomHelper.getIntBuffer();
+        params.put(0, mode.width);
+        params.put(1, mode.height);
+        params.put(2, mode.bpp);
+        params.put(3, style);
+        params.put(4, settings.depthBits);
+        params.put(5, settings.stencilBits);
+        params.put(6, settings.antialiasingLevel);
+        params.put(7, settings.majorVersion);
+        params.put(8, settings.minorVersion);
+        nativeCreateWindow(params, title);
     }
 
     /**
@@ -195,14 +208,18 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      */
     public native boolean isOpen();
 
+    private native long nativeGetPosition();
+
     /**
      * Gets the absolute position of the window's top left corner on the screen.
      *
      * @return the absolute position of the window's top left corner on the screen.
      */
-    public native Vector2i getPosition();
+    public Vector2i getPosition() {
+        return IntercomHelper.decodeVector2i(nativeGetPosition());
+    }
 
-    protected native void nativeSetPosition(Vector2i v);
+    private native void nativeSetPosition(int x, int y);
 
     /**
      * Sets the absolute position of the window's top left corner on the screen.
@@ -210,17 +227,21 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param position the new absolute position of the window's top left corner on the screen.
      */
     public void setPosition(Vector2i position) {
-        nativeSetPosition(Objects.requireNonNull(position));
+        nativeSetPosition(position.x, position.y);
     }
+
+    private native long nativeGetSize();
 
     /**
      * Gets the size of the window.
      *
      * @return the size of the window.
      */
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return IntercomHelper.decodeVector2i(nativeGetSize());
+    }
 
-    protected native void nativeSetSize(Vector2i v);
+    private native void nativeSetSize(int x, int y);
 
     /**
      * Sets the size of the window.
@@ -228,15 +249,27 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param size the new size of the window.
      */
     public void setSize(Vector2i size) {
-        nativeSetPosition(Objects.requireNonNull(size));
+        nativeSetPosition(size.x, size.y);
     }
+
+    private native void nativeGetSettings(Buffer buffer);
 
     /**
      * Retrieves the context settings for the window's OpenGL context.
      *
      * @return the context settings for the window's OpenGL context.
      */
-    public native ContextSettings getSettings();
+    public ContextSettings getSettings() {
+        final IntBuffer settings = IntercomHelper.getIntBuffer();
+        nativeGetSettings(settings);
+
+        return new ContextSettings(
+                settings.get(0),
+                settings.get(1),
+                settings.get(2),
+                settings.get(3),
+                settings.get(4));
+    }
 
     /**
      * Pops the event on top of the event stack, if any, and returns it.
@@ -348,7 +381,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      */
     public native void setKeyRepeatEnabled(boolean enable);
 
-    protected native void nativeSetIcon(Image image);
+    private native void nativeSetIcon(Image image);
 
     /**
      * Sets the icon of the window.

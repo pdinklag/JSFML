@@ -5,8 +5,6 @@
 #include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/IntRect.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/JavaEnum.hpp>
-#include <JSFML/Intercom/RenderStates.hpp>
 #include <JSFML/Intercom/Vector2i.hpp>
 #include <JSFML/Intercom/Vector2u.hpp>
 #include <JSFML/Intercom/VideoMode.hpp>
@@ -30,7 +28,7 @@
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__ (JNIEnv *env, jobject obj) {
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate (JNIEnv *env, jobject obj) {
     return (jlong)new sf::Window();
 }
 
@@ -54,17 +52,19 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeDelete (JNIEnv *env, j
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    nativeCreate
- * Signature: (Lorg/jsfml/window/VideoMode;Ljava/lang/String;ILorg/jsfml/window/ContextSettings;)V
+ * Method:    nativeCreateWindow
+ * Signature: (Ljava/nio/Buffer;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_window_VideoMode_2Ljava_lang_String_2ILorg_jsfml_window_ContextSettings_2
-    (JNIEnv *env, jobject obj, jobject videoMode, jstring title, jint style, jobject settings) {
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreateWindow
+    (JNIEnv *env, jobject obj, jobject paramsBuffer, jstring title) {
+
+    jint *params = (jint*)env->GetDirectBufferAddress(paramsBuffer);
 
     SF_WINDOW->create(
-        JSFML::VideoMode::ToSFML(env, videoMode),
+        sf::VideoMode(params[0], params[1], params[2]),
         JSFML::Intercom::decodeUtf32(env, title),
-        (sf::Uint32)style,
-        JSFML::ContextSettings::ToSFML(env, settings));
+        (sf::Uint32)params[3],
+        sf::ContextSettings(params[4], params[5], params[6], params[7], params[8]));
 }
 
 /*
@@ -102,53 +102,58 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isOpen (JNIEnv *env, job
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetPosition
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getPosition (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2i::FromSFML(env, SF_WINDOW->getPosition());
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeGetPosition (JNIEnv *env, jobject obj) {
+    return JSFML::Intercom::encodeVector2i(SF_WINDOW->getPosition());
 }
 
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetPosition
-    (JNIEnv *env, jobject obj, jobject position) {
+    (JNIEnv *env, jobject obj, jint x, jint y) {
 
-    SF_WINDOW->setPosition(JSFML::Vector2i::ToSFML(env, position));
+    SF_WINDOW->setPosition(sf::Vector2i(x, y));
 }
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetSize
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSize (JNIEnv *env, jobject obj) {
-	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
-	return JSFML::Vector2u::FromSFML(env, SF_WINDOW->getSize());
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeGetSize (JNIEnv *env, jobject obj) {
+	return JSFML::Intercom::encodeVector2u(SF_WINDOW->getSize());
 }
 
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeSetSize
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetSize
-    (JNIEnv *env, jobject obj, jobject size) {
+    (JNIEnv *env, jobject obj, jint x, jint y) {
 
-	//don't be confused, JSFML::Vector2u maps to Vector2i, because there are no unsigned types in Java
-    SF_WINDOW->setSize(JSFML::Vector2u::ToSFML(env, size));
+    SF_WINDOW->setSize(sf::Vector2u(x, y));
 }
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getSettings
- * Signature: ()Lorg/jsfml/window/ContextSettings;
+ * Method:    nativeGetSettings
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSettings (JNIEnv *env, jobject obj) {
-    return JSFML::ContextSettings::FromSFML(env, SF_WINDOW->getSettings());
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeGetSettings (JNIEnv *env, jobject obj, jobject buf) {
+    const sf::ContextSettings& settings = SF_WINDOW->getSettings();
+    jint *s = (jint*)env->GetDirectBufferAddress(buf);
+    
+    s[0] = settings.depthBits;
+    s[1] = settings.stencilBits;
+    s[2] = settings.antialiasingLevel;
+    s[3] = settings.majorVersion;
+    s[4] = settings.minorVersion;
 }
 
 /*

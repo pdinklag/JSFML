@@ -21,15 +21,21 @@ public final class IntercomHelper {
 
     /**
      * Gets the current thread-local buffer.
-     * <p/>
-     * The buffer can store up to 256 bytes.
      *
-     * @return the current thread-local float buffer.
+     * @return the current thread-local buffer.
      */
     public static Buffer getBuffer() {
         return BUFFER.get();
     }
 
+    /**
+     * Gets the current thread-local buffer as an integer buffer.
+     *
+     * @return the current thread-local buffer.
+     */
+    public static IntBuffer getIntBuffer() {
+        return BUFFER.get().asIntBuffer();
+    }
 
     /**
      * Encodes a color into a 32-bit integer.
