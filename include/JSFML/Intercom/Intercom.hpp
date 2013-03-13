@@ -20,14 +20,16 @@ namespace JSFML {
             static sf::Color decodeColor(jint code);
             
             //sf::Vector2i
-            static jlong encodeVector2i(sf::Vector2i& v);
-            static jlong encodeVector2u(sf::Vector2u& v);
+            static jlong encodeVector2i(const sf::Vector2i& v);
+            static jlong encodeVector2u(const sf::Vector2u& v);
+            static jlong encodeVector2f(const sf::Vector2f& v);
             
             //sf::IntRect
             static sf::IntRect decodeIntRect(JNIEnv *env, jobject code);
             
             //sf::FloatRect
             static void encodeFloatRect(JNIEnv *env, const sf::FloatRect& rect, jobject out);
+            static sf::FloatRect decodeFloatRect(JNIEnv *env, jobject code);
             
             //sf::Transform
             static void encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out);

@@ -55,6 +55,11 @@ void JSFML::Intercom::encodeFloatRect(JNIEnv *env, const sf::FloatRect& rect, jo
     buf[3] = rect.height;
 }
 
+sf::FloatRect JSFML::Intercom::decodeFloatRect(JNIEnv *env, jobject code) {
+    jint *buf = (jint*)env->GetDirectBufferAddress(code);
+    return sf::FloatRect(buf[0], buf[1], buf[2], buf[3]);
+}
+
 void JSFML::Intercom::encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out) {
     jfloat *buf = (jfloat*)env->GetDirectBufferAddress(out);
     const float *data = xform.getMatrix();
@@ -83,14 +88,24 @@ void JSFML::Intercom::encodeGlyph(JNIEnv *env, const sf::Glyph glyph, jobject ou
     buf[8] = glyph.textureRect.height;
 }
 
-jlong JSFML::Intercom::encodeVector2i(sf::Vector2i& v) {
+jlong JSFML::Intercom::encodeVector2i(const sf::Vector2i& v) {
     jlong vec = (jlong)v.y << 32;
     vec |= v.x;
     return vec;
 }
 
-jlong JSFML::Intercom::encodeVector2u(sf::Vector2u& v) {
+jlong JSFML::Intercom::encodeVector2u(const sf::Vector2u& v) {
     jlong vec = (jlong)v.y << 32;
     vec |= v.x;
+    return vec;
+}
+
+jlong JSFML::Intercom::encodeVector2f(const sf::Vector2f& v) {
+    int x, y;
+    *((jfloat*)&x) = v.x;
+    *((jfloat*)&y) = v.y;
+    
+    jlong vec = (jlong)y << 32;
+    vec |= x;
     return vec;
 }

@@ -1,14 +1,25 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 
-import java.util.Objects;
+import java.nio.Buffer;
 
 /**
  * Represents a 2D camera which defines the region of the scene that is visible.
  */
 public class View extends SFMLNativeObject implements ConstView {
+    //Cache
+    private Vector2f size = new Vector2f(1000, 1000);
+    private Vector2f center = new Vector2f(500, 500);
+    private float rotation = 0;
+    private FloatRect viewport = new FloatRect(0, 0, 1, 1);
+
+    private boolean transformNeedsUpdate = true;
+    private Transform transformCache = null;
+    private Transform inverseTransformCache = null;
+
     /**
      * Constructs a new view for the area of (0, 0, 1000, 1000).
      */
@@ -19,6 +30,7 @@ public class View extends SFMLNativeObject implements ConstView {
     @SuppressWarnings("deprecation")
     View(long wrap) {
         super(wrap);
+        sync();
     }
 
     /**
@@ -59,22 +71,30 @@ public class View extends SFMLNativeObject implements ConstView {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
+    private native void nativeSetCenter(float x, float y);
+
     /**
      * Sets the center of the view.
      *
      * @param x the new X coordinate of the view's center.
      * @param y the new Y coordinate of the view's center.
      */
-    public native void setCenter(float x, float y);
+    public final void setCenter(float x, float y) {
+        setCenter(new Vector2f(x, y));
+    }
 
     /**
      * Sets the center of the view.
      *
      * @param v the new center of the view.
      */
-    public final void setCenter(Vector2f v) {
-        setCenter(v.x, v.y);
+    public void setCenter(Vector2f v) {
+        nativeSetCenter(v.x, v.y);
+        this.center = v;
+        transformNeedsUpdate = true;
     }
+
+    private native void nativeSetSize(float width, float height);
 
     /**
      * Sets the dimensions of the view.
@@ -82,25 +102,35 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param width  the new width of the view in pixels.
      * @param height the new height of the view in pixels.
      */
-    public native void setSize(float width, float height);
+    public void setSize(float width, float height) {
+        setSize(new Vector2f(width, height));
+    }
 
     /**
      * Sets the dimensions of the view.
      *
      * @param v the new size of the view in pixels.
      */
-    public final void setSize(Vector2f v) {
-        setSize(v.x, v.y);
+    public void setSize(Vector2f v) {
+        nativeSetSize(v.x, v.y);
+        this.size = v;
+        transformNeedsUpdate = true;
     }
+
+    private native void nativeSetRotation(float angle);
 
     /**
      * Sets the rotation of the view around its center.
      *
      * @param angle the new rotation angle in degrees.
      */
-    public native void setRotation(float angle);
+    public void setRotation(float angle) {
+        nativeSetRotation(angle);
+        this.rotation = angle;
+        transformNeedsUpdate = true;
+    }
 
-    private native void nativeSetViewport(FloatRect rect);
+    private native void nativeSetViewport(Buffer buffer);
 
     /**
      * Sets the viewport rectangle of this view.
@@ -113,10 +143,11 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param rect the new viewport rectangle.
      */
     public void setViewport(FloatRect rect) {
-        nativeSetViewport(Objects.requireNonNull(rect));
+        nativeSetViewport(IntercomHelper.encodeFloatRect(rect));
+        this.viewport = rect;
     }
 
-    private native void nativeReset(FloatRect rect);
+    private native void nativeReset(Buffer buffer);
 
     /**
      * Resets the view to a certain viewport rectangle, resetting the rotation angle in the process.
@@ -124,27 +155,55 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param rect the viewport rectangle.
      */
     public void reset(FloatRect rect) {
-        nativeReset(Objects.requireNonNull(rect));
+        nativeReset(IntercomHelper.encodeFloatRect(rect));
+        sync();
+    }
+
+    private native void nativeGetViewport(Buffer buffer);
+
+    private native long nativeGetSize();
+
+    private native long nativeGetCenter();
+
+    private native float nativeGetRotation();
+
+    private void sync() {
+        nativeGetViewport(IntercomHelper.getBuffer());
+        this.viewport = IntercomHelper.decodeFloatRect();
+        this.size = IntercomHelper.decodeVector2f(nativeGetSize());
+        this.center = IntercomHelper.decodeVector2f(nativeGetCenter());
+        this.rotation = nativeGetRotation();
+        transformNeedsUpdate = true;
     }
 
     @Override
-    public native Vector2f getCenter();
+    public Vector2f getCenter() {
+        return center;
+    }
 
     @Override
-    public native Vector2f getSize();
+    public Vector2f getSize() {
+        return size;
+    }
 
     @Override
-    public native float getRotation();
+    public float getRotation() {
+        return rotation;
+    }
 
     @Override
-    public native FloatRect getViewport();
+    public FloatRect getViewport() {
+        return viewport;
+    }
 
     /**
      * Rotates the view around its center.
      *
      * @param angle the angle to rotate by, in degrees.
      */
-    public native void rotate(float angle);
+    public final void rotate(float angle) {
+        setRotation(rotation + angle);
+    }
 
     /**
      * Moves the center of the view.
@@ -152,7 +211,9 @@ public class View extends SFMLNativeObject implements ConstView {
      * @param x the X offset to move the view's center by.
      * @param y the Y offset to move the view's center by.
      */
-    public native void move(float x, float y);
+    public final void move(float x, float y) {
+        setCenter(new Vector2f(center.x + x, center.y + y));
+    }
 
     /**
      * Moves the center of the view.
@@ -168,11 +229,36 @@ public class View extends SFMLNativeObject implements ConstView {
      *
      * @param factor the zoom factor.
      */
-    public native void zoom(float factor);
+    public final void zoom(float factor) {
+        setSize(size.x * factor, size.y * factor);
+    }
+
+    private native void nativeGetTransform(Buffer buf);
+
+    private void updateTransform() {
+        if (transformNeedsUpdate) {
+            nativeGetTransform(IntercomHelper.getBuffer());
+            transformCache = IntercomHelper.decodeTransform();
+            inverseTransformCache = transformCache.getInverse();
+            transformNeedsUpdate = false;
+        }
+    }
 
     @Override
-    public native Transform getTransform();
+    public Transform getTransform() {
+        if (transformNeedsUpdate) {
+            updateTransform();
+        }
+
+        return transformCache;
+    }
 
     @Override
-    public native Transform getInverseTransform();
+    public Transform getInverseTransform() {
+        if (transformNeedsUpdate) {
+            updateTransform();
+        }
+
+        return inverseTransformCache;
+    }
 }

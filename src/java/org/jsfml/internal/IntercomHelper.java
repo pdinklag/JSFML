@@ -1,6 +1,7 @@
 package org.jsfml.internal;
 
 import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import java.nio.*;
@@ -66,6 +67,18 @@ public final class IntercomHelper {
         } else {
             return new Vector2i((int) vec, (int) (vec >> 32));
         }
+    }
+
+    /**
+     * Decodes a float vector from a 64-bit integer.
+     *
+     * @param vec the encoded vector.
+     * @return the decoded vector.
+     */
+    public static Vector2f decodeVector2f(long vec) {
+        return new Vector2f(
+                Float.intBitsToFloat((int) vec),
+                Float.intBitsToFloat((int) (vec >> 32)));
     }
 
     /**
