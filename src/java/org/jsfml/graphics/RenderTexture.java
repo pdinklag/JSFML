@@ -11,12 +11,10 @@ import java.util.Objects;
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     private Vector2i size = Vector2i.ZERO;
-    private boolean smooth = false;
-    private boolean repeated = false;
 
     private ConstView defaultView;
     private ConstView view;
-    private final ConstTexture texture;
+    private final Texture texture;
 
     /**
      * Constructs a new render texture.
@@ -86,16 +84,13 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         create(width, height, false);
     }
 
-    private native void nativeSetSmooth(boolean  b);
-
     /**
      * Enables or disables textures smoothing.
      *
      * @param smooth {@code true} to enable, {@code false} to disable.
      */
     public void setSmooth(boolean smooth) {
-        nativeSetSmooth(smooth);
-        this.smooth = smooth;
+        texture.setSmooth(smooth);
     }
 
     /**
@@ -104,10 +99,8 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      * @return {@code true} if enabled, {@code false} if not.
      */
     public boolean isSmooth() {
-        return smooth;
+        return texture.isSmooth();
     }
-
-    private native void nativeSetRepeated(boolean b);
 
     /**
      * Enables or disables texture repeating for the underlying texture.
@@ -117,8 +110,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      * @param repeated {@code true} to enable, {@code false} to disable.
      */
     public void setRepeated(boolean repeated) {
-        nativeSetRepeated(repeated);
-        this.repeated = repeated;
+        texture.setRepeated(repeated);
     }
 
     /**
@@ -127,7 +119,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      * @return {@code true} if enabled, {@code false} if disabled.
      */
     public boolean isRepeated() {
-        return repeated;
+        return texture.isRepeated();
     }
 
     /**

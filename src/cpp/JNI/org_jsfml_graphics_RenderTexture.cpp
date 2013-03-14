@@ -48,24 +48,6 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreateTex
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeSetSmooth
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetSmooth (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderTexture)->setSmooth(b);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeSetRepeated
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeSetRepeated (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::RenderTexture)->setRepeated(b);
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    setActive
  * Signature: (Z)V
  */
