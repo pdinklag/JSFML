@@ -1,5 +1,6 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -115,18 +116,18 @@ public class RenderWindow extends Window implements RenderTarget {
         return image;
     }
 
-    private native void nativeClear(Color color);
+    private native void nativeClear(int color);
 
     @Override
     public void clear(Color color) {
-        nativeClear(Objects.requireNonNull(color));
+        nativeClear(IntercomHelper.encodeColor(color));
     }
 
     /**
      * Clears the target with black.
      */
     public void clear() {
-        nativeClear(Color.BLACK);
+        nativeClear(0xFF000000);
     }
 
     private native void nativeSetView(View view);
@@ -149,35 +150,42 @@ public class RenderWindow extends Window implements RenderTarget {
         return defaultView;
     }
 
-    private native IntRect nativeGetViewport(View view);
-
     @Override
-    public IntRect getViewport(View view) {
-        return nativeGetViewport(Objects.requireNonNull(view));
+    public IntRect getViewport(ConstView view) {
+        final FloatRect viewport = view.getViewport();
+        final Vector2i size = getSize();
+
+        return new IntRect(
+                (int) (0.5f + viewport.left * size.x),
+                (int) (0.5f + viewport.top * size.y),
+                (int) (viewport.width * size.x),
+                (int) (viewport.height * size.y));
     }
 
-    private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
+    private native long nativeMapPixelToCoords(long point, ConstView view);
 
     @Override
     public final Vector2f mapPixelToCoords(Vector2i point) {
-        return mapPixelToCoords(point, null); //null is handled in C code
+        return mapPixelToCoords(point, view);
     }
 
     @Override
-    public Vector2f mapPixelToCoords(Vector2i point, View view) {
-        return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
+    public Vector2f mapPixelToCoords(Vector2i point, ConstView view) {
+        return IntercomHelper.decodeVector2f(
+                nativeMapPixelToCoords(IntercomHelper.encodeVector2i(point), view));
     }
 
-    private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
+    private native long nativeMapCoordsToPixel(long point, ConstView view);
 
     @Override
     public final Vector2i mapCoordsToPixel(Vector2f point) {
-        return mapCoordsToPixel(point, null); //null is handled in C code
+        return mapCoordsToPixel(point, view);
     }
 
     @Override
-    public Vector2i mapCoordsToPixel(Vector2f point, View view) {
-        return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
+    public Vector2i mapCoordsToPixel(Vector2f point, ConstView view) {
+        return IntercomHelper.decodeVector2i(
+                nativeMapCoordsToPixel(IntercomHelper.encodeVector2f(point), view));
     }
 
     @Override

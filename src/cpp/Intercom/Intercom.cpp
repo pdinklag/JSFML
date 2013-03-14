@@ -42,6 +42,14 @@ sf::Color JSFML::Intercom::decodeColor(jint code) {
     return sf::Color(r, g, b, a);
 }
 
+void JSFML::Intercom::encodeIntRect(JNIEnv *env, const sf::IntRect& rect, jobject out) {
+    jint *buf = (jint*)env->GetDirectBufferAddress(out);
+    buf[0] = rect.left;
+    buf[1] = rect.top;
+    buf[2] = rect.width;
+    buf[3] = rect.height;
+}
+
 sf::IntRect JSFML::Intercom::decodeIntRect(JNIEnv *env, jobject code) {
     jint *buf = (jint*)env->GetDirectBufferAddress(code);
     return sf::IntRect(buf[0], buf[1], buf[2], buf[3]);
@@ -95,4 +103,14 @@ jlong JSFML::Intercom::encodeVector2f(const sf::Vector2f& v) {
     jlong vec = (jlong)y << 32;
     vec |= x;
     return vec;
+}
+
+sf::Vector2i JSFML::Intercom::decodeVector2i(jlong v) {
+    return sf::Vector2i((int)(v & 0xFFFFFFFF), (int)(v >> 32));
+}
+
+sf::Vector2f JSFML::Intercom::decodeVector2f(jlong v) {
+    int x = v & 0xFFFFFFFF;
+    int y = v >> 32;
+    return sf::Vector2f(*((jfloat*)&x), *((jfloat*)&y));
 }

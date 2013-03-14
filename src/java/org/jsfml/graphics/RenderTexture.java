@@ -10,6 +10,10 @@ import java.util.Objects;
  * Provides a render target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
+    private Vector2i size = Vector2i.ZERO;
+    private boolean smooth = false;
+    private boolean repeated = false;
+
     private ConstView defaultView;
     private ConstView view;
     private final ConstTexture texture;
@@ -39,7 +43,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native boolean nativeCreate(int width, int height, boolean depthBuffer);
+    private native boolean nativeCreateTexture(int width, int height, boolean depthBuffer);
 
     /**
      * Sets up the render texture.
@@ -53,8 +57,10 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     public void create(int width, int height, boolean depthBuffer)
             throws TextureCreationException {
 
+        size = Vector2i.ZERO;
+
         SFMLErrorCapture.start();
-        final boolean success = nativeCreate(width, height, depthBuffer);
+        final boolean success = nativeCreateTexture(width, height, depthBuffer);
         final String msg = SFMLErrorCapture.finish();
 
         if (!success)
@@ -65,6 +71,8 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         if(view == null) {
             view = defaultView;
         }
+
+        size = new Vector2i(width, height);
     }
 
     /**
@@ -78,19 +86,28 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         create(width, height, false);
     }
 
+    private native void nativeSetSmooth(boolean  b);
+
     /**
      * Enables or disables textures smoothing.
      *
      * @param smooth {@code true} to enable, {@code false} to disable.
      */
-    public native void setSmooth(boolean smooth);
+    public void setSmooth(boolean smooth) {
+        nativeSetSmooth(smooth);
+        this.smooth = smooth;
+    }
 
     /**
      * Checks whether texture smoothing is enabled.
      *
      * @return {@code true} if enabled, {@code false} if not.
      */
-    public native boolean isSmooth();
+    public boolean isSmooth() {
+        return smooth;
+    }
+
+    private native void nativeSetRepeated(boolean b);
 
     /**
      * Enables or disables texture repeating for the underlying texture.
@@ -99,14 +116,19 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      *
      * @param repeated {@code true} to enable, {@code false} to disable.
      */
-    public native void setRepeated(boolean repeated);
+    public void setRepeated(boolean repeated) {
+        nativeSetRepeated(repeated);
+        this.repeated = repeated;
+    }
 
     /**
      * Checks whether texture repeating is enabled for the underlying texture.
      *
      * @return {@code true} if enabled, {@code false} if disabled.
      */
-    public native boolean isRepeated();
+    public boolean isRepeated() {
+        return repeated;
+    }
 
     /**
      * Activates or deactivates the render texture for rendering.
@@ -132,20 +154,22 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return size;
+    }
 
-    private native void nativeClear(Color color);
+    private native void nativeClear(int color);
 
     @Override
     public void clear(Color color) {
-        nativeClear(Objects.requireNonNull(color));
+        nativeClear(IntercomHelper.encodeColor(color));
     }
 
     /**
      * Clears the target with black.
      */
     public void clear() {
-        nativeClear(Color.BLACK);
+        nativeClear(0xFF000000);
     }
 
     private native void nativeSetView(View view);
@@ -168,35 +192,42 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         return defaultView;
     }
 
-    private native IntRect nativeGetViewport(View view);
-
     @Override
-    public IntRect getViewport(View view) {
-        return nativeGetViewport(Objects.requireNonNull(view));
+    public IntRect getViewport(ConstView view) {
+        final FloatRect viewport = view.getViewport();
+        final Vector2i size = getSize();
+
+        return new IntRect(
+                (int) (0.5f + viewport.left * size.x),
+                (int) (0.5f + viewport.top * size.y),
+                (int) (viewport.width * size.x),
+                (int) (viewport.height * size.y));
     }
 
-    private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
+    private native long nativeMapPixelToCoords(long point, ConstView view);
 
     @Override
     public final Vector2f mapPixelToCoords(Vector2i point) {
-        return mapPixelToCoords(point, null); //null is handled in C code
+        return mapPixelToCoords(point, view);
     }
 
     @Override
-    public Vector2f mapPixelToCoords(Vector2i point, View view) {
-        return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
+    public Vector2f mapPixelToCoords(Vector2i point, ConstView view) {
+        return IntercomHelper.decodeVector2f(
+                nativeMapPixelToCoords(IntercomHelper.encodeVector2i(point), view));
     }
 
-    private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
+    private native long nativeMapCoordsToPixel(long point, ConstView view);
 
     @Override
     public final Vector2i mapCoordsToPixel(Vector2f point) {
-        return mapCoordsToPixel(point, null); //null is handled in C code
+        return mapCoordsToPixel(point, view);
     }
 
     @Override
-    public Vector2i mapCoordsToPixel(Vector2f point, View view) {
-        return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
+    public Vector2i mapCoordsToPixel(Vector2f point, ConstView view) {
+        return IntercomHelper.decodeVector2i(
+                nativeMapCoordsToPixel(IntercomHelper.encodeVector2f(point), view));
     }
 
     @Override

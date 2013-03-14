@@ -62,6 +62,30 @@ public final class IntercomHelper {
     }
 
     /**
+     * Encodes an integer vector into a 64-bit integer.
+     *
+     * @param vec the vector.
+     * @return the encoded vector.
+     */
+    public static long encodeVector2i(Vector2i vec) {
+        long v = ((long) vec.y) << 32;
+        v |= vec.x;
+        return v;
+    }
+
+    /**
+     * Encodes a float vector into a 64-bit integer.
+     *
+     * @param vec the vector.
+     * @return the encoded vector.
+     */
+    public static long encodeVector2f(Vector2f vec) {
+        long v = ((long) Float.floatToIntBits(vec.y)) << 32;
+        v |= Float.floatToIntBits(vec.x);
+        return v;
+    }
+
+    /**
      * Decodes an integer vector from a 64-bit integer.
      *
      * @param vec the encoded vector.
@@ -88,6 +112,20 @@ public final class IntercomHelper {
     }
 
     /**
+     * Decodes an integer rectangle from the current float buffer content.
+     *
+     * @return the decoded rectangle.
+     */
+    public static IntRect decodeIntRect() {
+        final IntBuffer buf = BUFFER.get().asIntBuffer();
+        return new IntRect(
+                buf.get(0),
+                buf.get(1),
+                buf.get(2),
+                buf.get(3));
+    }
+
+    /**
      * Encodes an integer rectangle into the current integer buffer.
      *
      * @param r the rectangle to encode.
@@ -103,7 +141,7 @@ public final class IntercomHelper {
     }
 
     /**
-     * Decodes an float rectangle from the current float buffer content.
+     * Decodes a float rectangle from the current float buffer content.
      *
      * @return the decoded rectangle.
      */
