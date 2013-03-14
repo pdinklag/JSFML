@@ -138,11 +138,33 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
 
 /*
  * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeIsSmooth
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsSmooth
+    (JNIEnv *env, jobject obj) {
+    
+    return THIS(sf::Texture)->isSmooth();
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
  * Method:    nativeSetSmooth
  * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeSetSmooth (JNIEnv *env, jobject obj, jboolean b) {
     THIS(sf::Texture)->setSmooth(b);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeIsRepeated
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsRepeated
+    (JNIEnv *env, jobject obj) {
+    
+    return THIS(sf::Texture)->isRepeated();
 }
 
 /*

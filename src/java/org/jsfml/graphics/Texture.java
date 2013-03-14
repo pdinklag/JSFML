@@ -85,6 +85,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     Texture(long wrap) {
         super(wrap);
         updateSize();
+        smooth = nativeIsSmooth();
+        repeated = nativeIsRepeated();
     }
 
     /**
@@ -97,6 +99,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         super(((Texture) other).nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
         updateSize();
+        smooth = nativeIsSmooth();
+        repeated = nativeIsRepeated();
     }
 
     @Override
@@ -306,6 +310,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         this.smooth = smooth;
     }
 
+    private native boolean nativeIsSmooth();
+
     @Override
     public boolean isSmooth() {
         return smooth;
@@ -324,6 +330,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         nativeSetRepeated(repeated);
         this.repeated = repeated;
     }
+
+    private native boolean nativeIsRepeated();
 
     @Override
     public boolean isRepeated() {
