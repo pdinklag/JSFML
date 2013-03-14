@@ -29,9 +29,7 @@ abstract class SFMLNativeTransformable extends SFMLNativeObject implements Trans
 
     @Override
     public final void setPosition(float x, float y) {
-        position = new Vector2f(x, y);
-        nativeSetPosition(x, y);
-        transformNeedsUpdate = true;
+        setPosition(new Vector2f(x, y));
     }
 
     @Override
@@ -54,9 +52,7 @@ abstract class SFMLNativeTransformable extends SFMLNativeObject implements Trans
 
     @Override
     public final void setScale(float x, float y) {
-        scale = new Vector2f(x, y);
-        nativeSetScale(x, y);
-        transformNeedsUpdate = true;
+        setScale(new Vector2f(x, y));
     }
 
     @Override
@@ -70,9 +66,7 @@ abstract class SFMLNativeTransformable extends SFMLNativeObject implements Trans
 
     @Override
     public final void setOrigin(float x, float y) {
-        origin = new Vector2f(x, y);
-        nativeSetOrigin(x, y);
-        transformNeedsUpdate = true;
+        setOrigin(new Vector2f(x, y));
     }
 
     @Override
@@ -104,7 +98,7 @@ abstract class SFMLNativeTransformable extends SFMLNativeObject implements Trans
 
     @Override
     public final void move(float x, float y) {
-        setPosition(position.x + x, position.y + y);
+        setPosition(new Vector2f(position.x + x, position.y + y));
     }
 
     @Override
@@ -119,7 +113,7 @@ abstract class SFMLNativeTransformable extends SFMLNativeObject implements Trans
 
     @Override
     public final void scale(float x, float y) {
-        setScale(scale.x * x, scale.y * y);
+        setScale(new Vector2f(scale.x * x, scale.y * y));
     }
 
     @Override
