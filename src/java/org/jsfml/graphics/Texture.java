@@ -2,6 +2,7 @@ package org.jsfml.graphics;
 
 import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
+import org.jsfml.window.Context;
 import org.jsfml.window.Window;
 
 import java.io.IOException;
@@ -131,6 +132,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws TextureCreationException if the texture could not be created.
      */
     public void create(int width, int height) throws TextureCreationException {
+        new Context(); //make sure there is an OpenGL context
+
         if (!nativeCreate(width, height)) {
             throw new TextureCreationException("Failed to create texture.");
         }
@@ -149,6 +152,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, IntRect area) throws IOException {
+        new Context(); //make sure there is an OpenGL context
+
         SFMLErrorCapture.start();
         final boolean success = nativeLoadFromMemory(
                 StreamUtil.readStream(in), IntercomHelper.encodeIntRect(area));
@@ -181,6 +186,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(Path path, IntRect area) throws IOException {
+        new Context(); //make sure there is an OpenGL context
+
         SFMLErrorCapture.start();
         final boolean success = nativeLoadFromMemory(
                 StreamUtil.readFile(path), IntercomHelper.encodeIntRect(area));
