@@ -73,6 +73,11 @@ public class Sprite extends SFMLNativeTransformable implements Drawable {
     public void setTexture(ConstTexture texture, boolean resetRect) {
         nativeSetTexture((Texture) Objects.requireNonNull(texture), resetRect);
         this.texture = texture;
+
+        if(resetRect) {
+            textureRect = IntRect.EMPTY;
+        }
+
         boundsNeedUpdate = true;
     }
 
