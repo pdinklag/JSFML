@@ -6,7 +6,6 @@ import org.jsfml.internal.SFMLNative;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
-import org.jsfml.window.Context;
 
 import java.util.Objects;
 
@@ -58,8 +57,6 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      */
     public void create(int width, int height, boolean depthBuffer)
             throws TextureCreationException {
-
-        new Context(); //make sure there is an OpenGL context
 
         size = Vector2i.ZERO;
 

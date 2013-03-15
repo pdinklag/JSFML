@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.*;
-import org.jsfml.window.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,8 +93,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws java.io.IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in) throws IOException {
-        new Context(); //make sure there is an OpenGL context
-
         SFMLErrorCapture.start();
         memoryRef.initialize(StreamUtil.readStream(in));
         final String msg = SFMLErrorCapture.finish();
@@ -112,8 +109,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(Path path) throws IOException {
-        new Context(); //make sure there is an OpenGL context
-
         SFMLErrorCapture.start();
         memoryRef.initialize(StreamUtil.readFile(path));
         final String msg = SFMLErrorCapture.finish();

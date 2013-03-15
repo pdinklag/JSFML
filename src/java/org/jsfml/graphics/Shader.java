@@ -1,9 +1,11 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.*;
+import org.jsfml.internal.SFMLErrorCapture;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
+import org.jsfml.internal.StreamUtil;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector3f;
-import org.jsfml.window.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -115,8 +117,6 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     public void loadFromSource(String source, Type shaderType)
             throws IOException, ShaderSourceException {
 
-        new Context(); //make sure there is an OpenGL context
-
         SFMLErrorCapture.start();
         final boolean result = nativeLoadFromSource1(
                 Objects.requireNonNull(source),
@@ -139,8 +139,6 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      */
     public void loadFromSource(String vertexShaderSource, String fragmentShaderSource)
             throws IOException, ShaderSourceException {
-
-        new Context(); //make sure there is an OpenGL context
 
         SFMLErrorCapture.start();
         final boolean result = nativeLoadFromSource2(
