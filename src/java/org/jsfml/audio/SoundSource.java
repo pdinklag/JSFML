@@ -1,7 +1,12 @@
 package org.jsfml.audio;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector3f;
+
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 
 /**
  * Abstract base class for playable sound sources.
@@ -27,6 +32,14 @@ public abstract class SoundSource extends SFMLNativeObject {
         PLAYING
     }
 
+    //cache
+    private float volume = 100;
+    private float pitch = 1;
+    private Vector3f position = Vector3f.ZERO;
+    private boolean relativeToListener = false;
+    private float minDistance = 1;
+    private float attenuation = 1;
+
     /**
      * Constructs a sound source.
      */
@@ -38,7 +51,23 @@ public abstract class SoundSource extends SFMLNativeObject {
     @SuppressWarnings("deprecation")
     SoundSource(long wrap) {
         super(wrap);
+
+        final ByteBuffer buffer = IntercomHelper.getBuffer();
+        final FloatBuffer floats = IntercomHelper.getBuffer().asFloatBuffer();
+
+        nativeGetData(buffer);
+        this.relativeToListener = (buffer.get(0) == 1);
+        this.volume = floats.get(1);
+        this.pitch = floats.get(2);
+        this.position = new Vector3f(floats.get(3), floats.get(4), floats.get(5));
+        this.minDistance = floats.get(6);
+        this.attenuation = floats.get(7);
+
     }
+
+    private native void nativeGetData(Buffer buffer);
+
+    private native void nativeSetPitch(float pitch);
 
     /**
      * Sets the pitch factor of the sound.
@@ -49,7 +78,12 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @param pitch the new pitch factor of the sound.
      */
-    public native void setPitch(float pitch);
+    public void setPitch(float pitch) {
+        nativeSetPitch(pitch);
+        this.pitch = pitch;
+    }
+
+    private native void nativeSetVolume(float volume);
 
     /**
      * Sets the volume of the sound.
@@ -59,7 +93,12 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @param volume the new volume of the sound, ranging between 0 and 100.
      */
-    public native void setVolume(float volume);
+    public void setVolume(float volume) {
+        nativeSetVolume(volume);
+        this.volume = volume;
+    }
+
+    private native void nativeSetPosition(float x, float y, float z);
 
     /**
      * Sets the position of the sound in the scene.
@@ -78,7 +117,9 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param z the sound's new Z coordinate.
      * @see #setRelativeToListener(boolean)
      */
-    public native void setPosition(float x, float y, float z);
+    public final void setPosition(float x, float y, float z) {
+        setPosition(new Vector3f(x, y, z));
+    }
 
     /**
      * Sets the position of the sound in the scene.
@@ -95,9 +136,12 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param v the sound's new position.
      * @see #setRelativeToListener(boolean)
      */
-    public final void setPosition(Vector3f v) {
-        setPosition(v.x, v.y, v.z);
+    public void setPosition(Vector3f v) {
+        nativeSetPosition(v.x, v.y, v.z);
+        this.position = v;
     }
+
+    private native void nativeSetRelativeToListener(boolean relative);
 
     /**
      * Determines whether the sound position is bound to be relative to the {@link Listener}
@@ -109,7 +153,12 @@ public abstract class SoundSource extends SFMLNativeObject {
      *                 {@code false} to make it absolute.
      * @see SoundSource#setPosition(float, float, float)
      */
-    public native void setRelativeToListener(boolean relative);
+    public void setRelativeToListener(boolean relative) {
+        nativeSetRelativeToListener(relative);
+        this.relativeToListener = relative;
+    }
+
+    private native void nativeSetMinDistance(float distance);
 
     /**
      * Sets the minimum distance of the sound before attenuation kicks in.
@@ -123,7 +172,12 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @param distance the minimum distance before attenuation in world units.
      * @see SoundSource#setAttenuation(float)
      */
-    public native void setMinDistance(float distance);
+    public void setMinDistance(float distance) {
+        nativeSetMinDistance(distance);
+        this.minDistance = distance;
+    }
+
+    private native void nativeSetAttenuation(float att);
 
     /**
      * Sets the sound's attenuation factor.
@@ -138,7 +192,10 @@ public abstract class SoundSource extends SFMLNativeObject {
      *            and 100 (instant attenuation).
      * @see SoundSource#setMinDistance(float)
      */
-    public native void setAttenuation(float att);
+    public void setAttenuation(float att) {
+        nativeSetAttenuation(att);
+        this.attenuation = att;
+    }
 
     /**
      * Gets the sound's current pitch factor.
@@ -148,7 +205,9 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @return the sound's current pitch factor.
      */
-    public native float getPitch();
+    public float getPitch() {
+        return pitch;
+    }
 
     /**
      * Gets the sound's current volume.
@@ -157,14 +216,18 @@ public abstract class SoundSource extends SFMLNativeObject {
      *
      * @return the sound's current volume, ranging between 0 (silence) and 100 (full volume).
      */
-    public native float getVolume();
+    public float getVolume() {
+        return volume;
+    }
 
     /**
      * Gets the sound's current position in the scene.
      *
      * @return the sound's current position in the scene.
      */
-    public native Vector3f getPosition();
+    public Vector3f getPosition() {
+        return position;
+    }
 
     /**
      * Returns whether the sound's position is relative to the {@link Listener}.
@@ -173,7 +236,9 @@ public abstract class SoundSource extends SFMLNativeObject {
      *         it is absolute.
      * @see SoundSource#setRelativeToListener(boolean)
      */
-    public native boolean isRelativeToListener();
+    public boolean isRelativeToListener() {
+        return relativeToListener;
+    }
 
     /**
      * Gets the sound's minimum distance from the {@link Listener} before attenuation sets in.
@@ -181,7 +246,9 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @return the sound's minimum distance before attenuation sets in.
      * @see SoundSource#setMinDistance(float)
      */
-    public native float getMinDistance();
+    public float getMinDistance() {
+        return minDistance;
+    }
 
     /**
      * Gets the sound's attenuation factor.
@@ -192,7 +259,9 @@ public abstract class SoundSource extends SFMLNativeObject {
      * @return the sound's attenuation factor.
      * @see SoundSource#setAttenuation(float)
      */
-    public native float getAttenuation();
+    public float getAttenuation() {
+        return attenuation;
+    }
 
     abstract int nativeGetStatus();
 

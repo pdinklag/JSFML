@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_audio_SoundSource.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector3f.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -11,55 +10,51 @@
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    getPitch
- * Signature: ()F
+ * Method:    nativeGetData
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_SoundSource_getPitch (JNIEnv *env, jobject obj) {
-	return SOUND_SOURCE->getPitch();
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeGetData
+    (JNIEnv *env, jobject obj, jobject buffer) {
+
+    sf::SoundSource *src = SOUND_SOURCE;
+    void *data = env->GetDirectBufferAddress(buffer);
+    
+    ((jbyte*)data)[0] = src->isRelativeToListener() ? 1 : 0;
+    ((jfloat*)data)[1] = src->getVolume();
+    ((jfloat*)data)[2] = src->getPitch();
+    
+    sf::Vector3f pos = src->getPosition();
+    ((jfloat*)data)[3] = pos.x;
+    ((jfloat*)data)[4] = pos.y;
+    ((jfloat*)data)[5] = pos.z;
+    ((jfloat*)data)[6] = src->getMinDistance();
+    ((jfloat*)data)[7] = src->getAttenuation();
 }
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    setPitch
+ * Method:    nativeSetPitch
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setPitch (JNIEnv *env, jobject obj, jfloat f) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetPitch (JNIEnv *env, jobject obj, jfloat f) {
 	SOUND_SOURCE->setPitch(f);
 }
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    getVolume
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_SoundSource_getVolume (JNIEnv *env, jobject obj) {
-	return SOUND_SOURCE->getVolume();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    setVolume
+ * Method:    nativeSetVolume
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setVolume (JNIEnv *env, jobject obj, jfloat f) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetVolume (JNIEnv *env, jobject obj, jfloat f) {
 	SOUND_SOURCE->setVolume(f);
 }
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector3f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundSource_getPosition (JNIEnv *env, jobject obj) {
-	return JSFML::Vector3f::FromSFML(env, SOUND_SOURCE->getPosition());
-}
-
-/*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setPosition
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetPosition
     (JNIEnv *env, jobject obj, jfloat x, jfloat y, jfloat z) {
 
 	SOUND_SOURCE->setPosition(x, y, z);
@@ -67,19 +62,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setPosition
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    isRelativeToListener
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundSource_isRelativeToListener (JNIEnv *env, jobject obj) {
-	return SOUND_SOURCE->isRelativeToListener();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    setRelativeToListener
+ * Method:    nativeSetRelativeToListener
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setRelativeToListener
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetRelativeToListener
     (JNIEnv *env, jobject obj, jboolean b) {
 
 	SOUND_SOURCE->setRelativeToListener(b);
@@ -87,36 +73,18 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setRelativeToListener
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    getMinDistance
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_SoundSource_getMinDistance (JNIEnv *env, jobject obj) {
-	return SOUND_SOURCE->getMinDistance();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    setMinDistance
+ * Method:    nativeSetMinDistance
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setMinDistance (JNIEnv *env, jobject obj, jfloat f) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetMinDistance (JNIEnv *env, jobject obj, jfloat f) {
 	SOUND_SOURCE->setMinDistance(f);
 }
 
 /*
  * Class:     org_jsfml_audio_SoundSource
- * Method:    getAttenuation
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_SoundSource_getAttenuation (JNIEnv *env, jobject obj) {
-	return SOUND_SOURCE->getAttenuation();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    setAttenuation
+ * Method:    nativeSetAttenuation
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_setAttenuation (JNIEnv *env, jobject obj, jfloat f) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundSource_nativeSetAttenuation (JNIEnv *env, jobject obj, jfloat f) {
 	SOUND_SOURCE->setAttenuation(f);
 }
