@@ -5,6 +5,7 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Window/Context.hpp>
 
 /*
  * Class:     org_jsfml_graphics_Texture
@@ -61,6 +62,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopy (JNIEnv *env,
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
   (JNIEnv *env, jobject obj, jint width, jint height) {
 
+    sf::Context ctx;
     return THIS(sf::Texture)->create(width, height);
 }
 
@@ -71,6 +73,8 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
     (JNIEnv *env, jobject obj, jbyteArray arr, jobject area) {
+
+    sf::Context ctx;
 
     std::size_t n = (std::size_t)env->GetArrayLength(arr);
     jbyte* mem = env->GetByteArrayElements(arr, 0);
@@ -122,6 +126,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage (JNIEn
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_graphics_Image_2II
     (JNIEnv *env, jobject obj, jobject image, jint x, jint y) {
 
+    sf::Context ctx;
     THIS(sf::Texture)->update(*JSFML::NativeObject::GetPointer<sf::Image>(env, image), x, y);
 }
 
