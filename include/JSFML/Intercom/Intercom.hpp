@@ -36,6 +36,7 @@ namespace JSFML {
             
             //sf::Transform
             static void encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out);
+            static sf::Transform decodeTransform(JNIEnv *env, jobject code);
     };
 }
 

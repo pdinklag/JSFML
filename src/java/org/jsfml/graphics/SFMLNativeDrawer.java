@@ -24,7 +24,10 @@ final class SFMLNativeDrawer {
             Buffer vbuf,
             int type,
             RenderTarget target,
-            RenderStates states);
+            int blendMode,
+            Buffer xform,
+            ConstTexture texture,
+            ConstShader shader);
 
     static void drawVertices(Vertex[] vertices, PrimitiveType type, RenderTarget target, RenderStates states) {
         final ByteBuffer vbuf = vertexBuffer.get();
@@ -44,8 +47,32 @@ final class SFMLNativeDrawer {
             vfloats.put(x + 4, v.texCoords.y);
         }
 
-        nativeDrawVertices(vertices.length, vbuf, type.ordinal(), target, states);
+        nativeDrawVertices(
+                vertices.length,
+                vbuf,
+                type.ordinal(),
+                target,
+                states.blendMode.ordinal(),
+                IntercomHelper.encodeTransform(states.transform),
+                states.texture,
+                states.shader);
     }
 
-    static native void draw(Drawable drawable, RenderTarget target, RenderStates states);
+    private static native void nativeDrawDrawable(
+            Drawable drawable,
+            RenderTarget target,
+            int blendMode,
+            Buffer xform,
+            ConstTexture texture,
+            ConstShader shader);
+
+    static void draw(Drawable drawable, RenderTarget target, RenderStates states) {
+        nativeDrawDrawable(
+                drawable,
+                target,
+                states.blendMode.ordinal(),
+                IntercomHelper.encodeTransform(states.transform),
+                states.texture,
+                states.shader);
+    }
 }

@@ -168,16 +168,32 @@ public final class IntercomHelper {
     public static Transform decodeTransform() {
         final FloatBuffer buf = BUFFER.get().asFloatBuffer();
         return new Transform(
-                buf.get(0),
-                buf.get(1),
-                buf.get(2),
-                buf.get(3),
-                buf.get(4),
-                buf.get(5),
-                buf.get(6),
-                buf.get(7),
-                buf.get(8)
+                buf.get(0), buf.get(1), buf.get(2),
+                buf.get(3), buf.get(4), buf.get(5),
+                buf.get(6), buf.get(7), buf.get(8)
         );
+    }
+
+    /**
+     * Encodes a transformation matrix into the current float buffer.
+     *
+     * @param xform the transformation matrix to encode.
+     * @return A reference to the float buffer.
+     */
+    public static Buffer encodeTransform(Transform xform) {
+        final FloatBuffer buf = BUFFER.get().asFloatBuffer();
+        final float[] data = xform.getMatrix();
+
+        buf.put(0, data[0]);
+        buf.put(1, data[4]);
+        buf.put(2, data[12]);
+        buf.put(3, data[1]);
+        buf.put(4, data[5]);
+        buf.put(5, data[13]);
+        buf.put(6, data[3]);
+        buf.put(7, data[7]);
+        buf.put(8, data[15]);
+        return buf;
     }
 
     private IntercomHelper() {

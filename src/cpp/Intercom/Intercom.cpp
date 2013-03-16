@@ -83,6 +83,14 @@ void JSFML::Intercom::encodeTransform(JNIEnv *env, const sf::Transform& xform, j
     buf[8] = data[15];
 }
 
+sf::Transform JSFML::Intercom::decodeTransform(JNIEnv *env, jobject code) {
+    jfloat *buf = (jfloat*)env->GetDirectBufferAddress(code);
+    return sf::Transform(
+        buf[0], buf[1], buf[2],
+        buf[3], buf[4], buf[5],
+        buf[6], buf[7], buf[8]);
+}
+
 jlong JSFML::Intercom::encodeVector2i(const sf::Vector2i& v) {
     jlong vec = (jlong)v.y << 32;
     vec |= v.x;
