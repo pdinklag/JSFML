@@ -1,8 +1,7 @@
 #include <JSFML/JNI/org_jsfml_window_Mouse.h>
 
-#include <JSFML/Intercom/JavaEnum.hpp>
+#include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2i.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -11,48 +10,53 @@
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeIsButtonPressed
- * Signature: (Lorg/jsfml/window/Mouse$Button;)Z
+ * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed (JNIEnv* env, jclass cls, jobject button) {
-	return sf::Mouse::isButtonPressed((sf::Mouse::Button)JavaEnum::ordinal(env, button));
-}
-
-/*
- * Class:     org_jsfml_window_Mouse
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2i;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition (JNIEnv* env, jclass cls) {
-	return JSFML::Vector2i::FromSFML(env, sf::Mouse::getPosition());
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed (JNIEnv* env, jclass cls, jint button) {
+	return sf::Mouse::isButtonPressed((sf::Mouse::Button)button);
 }
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeGetPosition
- * Signature: (Lorg/jsfml/window/Window;)Lorg/jsfml/system/Vector2i;
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition (JNIEnv* env, jclass cls, jobject relativeTo) {
-	return JSFML::Vector2i::FromSFML(env,
-	    sf::Mouse::getPosition(
-	        *JSFML::NativeObject::GetExPointer<sf::Window>(env, relativeTo, org_jsfml_internal_ExPtr_WINDOW)));
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition__ (JNIEnv* env, jclass cls) {
+	return JSFML::Intercom::encodeVector2i(sf::Mouse::getPosition());
+}
+
+/*
+ * Class:     org_jsfml_window_Mouse
+ * Method:    nativeGetPosition
+ * Signature: (Lorg/jsfml/window/Window;)J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition__Lorg_jsfml_window_Window_2
+    (JNIEnv* env, jclass cls, jobject relativeTo) {
+    
+	return JSFML::Intercom::encodeVector2i(sf::Mouse::getPosition(
+        *JSFML::NativeObject::GetExPointer<sf::Window>(env, relativeTo, org_jsfml_internal_ExPtr_WINDOW)));
 }
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2 (JNIEnv* env, jclass cls, jobject position) {
-	sf::Mouse::setPosition(JSFML::Vector2i::ToSFML(env, position));
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__J
+    (JNIEnv* env, jclass cls, jlong position) {
+    
+	sf::Mouse::setPosition(JSFML::Intercom::decodeVector2i(position));
 }
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/window/Window;)V
+ * Signature: (JLorg/jsfml/window/Window;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2Lorg_jsfml_window_Window_2 (JNIEnv* env, jclass cls, jobject position, jobject relativeTo) {
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__JLorg_jsfml_window_Window_2
+    (JNIEnv* env, jclass cls, jlong position, jobject relativeTo) {
+    
 	sf::Mouse::setPosition(
-	    JSFML::Vector2i::ToSFML(env, position),
+	    JSFML::Intercom::decodeVector2i(position),
 	    *JSFML::NativeObject::GetExPointer<sf::Window>(env, relativeTo,org_jsfml_internal_ExPtr_WINDOW));
 }
