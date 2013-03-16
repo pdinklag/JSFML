@@ -219,7 +219,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
 
         title = Objects.requireNonNull(title);
 
-        final IntBuffer params = IntercomHelper.getIntBuffer();
+        final IntBuffer params = IntercomHelper.getBuffer().asIntBuffer();
         params.put(0, mode.width);
         params.put(1, mode.height);
         params.put(2, mode.bpp);
@@ -333,7 +333,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @return the context settings for the window's OpenGL context.
      */
     public ContextSettings getSettings() {
-        final IntBuffer settings = IntercomHelper.getIntBuffer();
+        final IntBuffer settings = IntercomHelper.getBuffer().asIntBuffer();
         nativeGetSettings(settings);
 
         return new ContextSettings(
@@ -356,7 +356,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see #waitEvent()
      */
     public Event pollEvent() {
-        final IntBuffer buffer = IntercomHelper.getIntBuffer();
+        final IntBuffer buffer = IntercomHelper.getBuffer().asIntBuffer();
         nativePollEvent(buffer);
         return decodeEvent(buffer);
     }
@@ -373,7 +373,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see #pollEvent()
      */
     public Event waitEvent() {
-        final IntBuffer buffer = IntercomHelper.getIntBuffer();
+        final IntBuffer buffer = IntercomHelper.getBuffer().asIntBuffer();
         nativeWaitEvent(buffer);
         return decodeEvent(buffer);
     }

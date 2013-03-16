@@ -146,7 +146,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
         Glyph glyph = glyphMap.get(unicode);
         if (glyph == null) {
-            final IntBuffer buf = IntercomHelper.getIntBuffer();
+            final IntBuffer buf = IntercomHelper.getBuffer().asIntBuffer();
 
             nativeGetGlyph(unicode, characterSize, bold, buf);
             glyph = new Glyph(

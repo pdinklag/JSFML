@@ -24,17 +24,8 @@ public final class IntercomHelper {
      *
      * @return the current thread-local buffer.
      */
-    public static Buffer getBuffer() {
+    public static ByteBuffer getBuffer() {
         return BUFFER.get();
-    }
-
-    /**
-     * Gets the current thread-local buffer as an integer buffer.
-     *
-     * @return the current thread-local buffer.
-     */
-    public static IntBuffer getIntBuffer() {
-        return BUFFER.get().asIntBuffer();
     }
 
     /**
