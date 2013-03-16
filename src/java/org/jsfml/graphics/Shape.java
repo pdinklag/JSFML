@@ -196,8 +196,6 @@ public abstract class Shape extends SFMLNativeTransformable implements Drawable 
         return points.length;
     }
 
-    private native Vector2f nativeGetPoint(int i);
-
     /**
      * Gets a point of the shape.
      *

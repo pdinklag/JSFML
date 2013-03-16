@@ -65,14 +65,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeGetPoints
 
 /*
  * Class:     org_jsfml_graphics_Shape
- * Method:    nativeGetPoint
- * Signature: (I)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_nativeGetPoint
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     org_jsfml_graphics_Shape
  * Method:    nativeGetLocalBounds
  * Signature: (Ljava/nio/Buffer;)V
  */
