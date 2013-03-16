@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -8,20 +7,17 @@ import java.io.Serializable;
 /**
  * Defines a shape point with position, color and texture coordinates information.
  */
-@Intercom
 public final class Vertex implements Serializable {
     private static final long serialVersionUID = -5749297453247575018L;
 
     /**
      * The vertex position.
      */
-    @Intercom
     public final Vector2f position;
 
     /**
      * The vertex color.
      */
-    @Intercom
     public final Color color;
 
     /**
@@ -31,7 +27,6 @@ public final class Vertex implements Serializable {
      * texture will be bound. By the default, the {@link Texture.CoordinateType#NORMALIZED}
      * coordinate type is used.
      */
-    @Intercom
     public final Vector2f texCoords;
 
     /**

@@ -1,13 +1,10 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
-
 import java.util.Objects;
 
 /**
  * Defines drawing properties when drawing objects to a {@link RenderTarget}.
  */
-@Intercom
 public final class RenderStates {
     /**
      * Pre-defined instance holding the default render states using
@@ -19,25 +16,21 @@ public final class RenderStates {
     /**
      * The blending mode used for drawing.
      */
-    @Intercom
     public final BlendMode blendMode;
 
     /**
      * The transformation matrix used for drawing.
      */
-    @Intercom
     public final Transform transform;
 
     /**
      * The texture used for drawing.
      */
-    @Intercom
     public final ConstTexture texture;
 
     /**
      * The shader used for drawing.
      */
-    @Intercom
     public final ConstShader shader;
 
     /**

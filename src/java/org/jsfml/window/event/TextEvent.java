@@ -1,7 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
-
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -12,7 +10,6 @@ import java.nio.charset.Charset;
  * Objects of this class are created for events of type
  * {@link Event.Type#TEXT_ENTERED}.
  */
-@Intercom
 public final class TextEvent extends Event {
     private final static Charset utf32 = Charset.forName("UTF-32");
 
@@ -33,7 +30,6 @@ public final class TextEvent extends Event {
      *                This must be a valid ordinal in the {@link Event.Type} enumeration.
      * @param unicode the UTF-32 code of the character that was entered.
      */
-    @Intercom
     public TextEvent(int type, int unicode) {
         super(type);
 

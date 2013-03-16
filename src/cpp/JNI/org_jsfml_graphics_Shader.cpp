@@ -1,6 +1,5 @@
 #include <JSFML/JNI/org_jsfml_graphics_Shader.h>
 
-#include <JSFML/Intercom/Color.hpp>
 #include <JSFML/Intercom/JavaEnum.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/Transform.hpp>

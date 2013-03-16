@@ -1,6 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2i;
 
 /**
@@ -14,7 +13,6 @@ import org.jsfml.system.Vector2i;
  * {@link Event.Type#MOUSE_BUTTON_PRESSED} or
  * {@link Event.Type#MOUSE_BUTTON_RELEASED}.
  */
-@Intercom
 public class MouseEvent extends Event {
     /**
      * The position of the mouse pointer in pixels, relative to the window's top left corner.
@@ -30,7 +28,6 @@ public class MouseEvent extends Event {
      * @param x    the X coordinate of the mouse cursor relative to the window.
      * @param y    the Y coordinate of the mouse cursor relative to the window.
      */
-    @Intercom
     public MouseEvent(int type, int x, int y) {
         super(type);
         this.position = new Vector2i(x, y);

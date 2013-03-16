@@ -1,7 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
-
 /**
  * Represents joystick or gamepad button events.
  * <p/>
@@ -9,7 +7,6 @@ import org.jsfml.internal.Intercom;
  * {@link Event.Type#JOYSTICK_BUTTON_PRESSED} or
  * {@link Event.Type#JOYSTICK_BUTTON_RELEASED}.
  */
-@Intercom
 public final class JoystickButtonEvent extends JoystickEvent {
     /**
      * The index of the button that was pressed or released.
@@ -27,7 +24,6 @@ public final class JoystickButtonEvent extends JoystickEvent {
      * @param joystickId the joystick ID.
      * @param button     the index of the button that was pressed.
      */
-    @Intercom
     public JoystickButtonEvent(int type, int joystickId, int button) {
         super(type, joystickId);
         this.button = button;

@@ -1,14 +1,11 @@
 package org.jsfml.system;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
  * Represents two-dimensional vectors using floating point coordinates and provides
  * arithmetic operations on floating point 2D vectors.
  */
-@Intercom
 public final strictfp class Vector2f implements Serializable {
     private static final long serialVersionUID = -2082611034304583379L;
 
@@ -96,14 +93,12 @@ public final strictfp class Vector2f implements Serializable {
     /**
      * The vector's X coordinate.
      */
-    @Intercom
     public final float x;
 
     /**
      * The vector's Y coordinate.
      */
-    @Intercom
-    public final float y;
+   public final float y;
 
     /**
      * Constructs a new vector with the given coordinates.
@@ -111,7 +106,6 @@ public final strictfp class Vector2f implements Serializable {
      * @param x the X coordinate.
      * @param y the Y coordinate.
      */
-    @Intercom
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;

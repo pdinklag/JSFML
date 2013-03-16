@@ -1,6 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.window.Joystick;
 
 /**
@@ -9,7 +8,6 @@ import org.jsfml.window.Joystick;
  * Objects of this class are created for events of type
  * {@link Event.Type#JOYSTICK_MOVED}.
  */
-@Intercom
 public final class JoystickMoveEvent extends JoystickEvent {
     /**
      * The joystick or gamepad axis that was moved.
@@ -32,7 +30,6 @@ public final class JoystickMoveEvent extends JoystickEvent {
      *                   enumeration.
      * @param position   the position that the axis was moved to.
      */
-    @Intercom
     public JoystickMoveEvent(int type, int joystickId, int joyAxis, float position) {
         super(type, joystickId);
         this.joyAxis = Joystick.Axis.values()[joyAxis];

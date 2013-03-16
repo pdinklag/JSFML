@@ -28,7 +28,6 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2i;
 
 import java.io.Serializable;
@@ -36,7 +35,6 @@ import java.io.Serializable;
 /**
  * Represents an axis-aligned rectangle using integer coordinates.
  */
-@Intercom
 public final class IntRect implements Serializable {
     private static final long serialVersionUID = -4430448425788537785L;
 
@@ -48,25 +46,21 @@ public final class IntRect implements Serializable {
     /**
      * The X coordinate of the rectangle's left edge.
      */
-    @Intercom
     public final int left;
 
     /**
      * The Y coordinate of the rectangle's top edge.
      */
-    @Intercom
     public final int top;
 
     /**
      * The width of the rectangle.
      */
-    @Intercom
     public final int width;
 
     /**
      * The height of the rectangle.
      */
-    @Intercom
     public final int height;
 
     /**

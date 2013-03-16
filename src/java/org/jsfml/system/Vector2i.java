@@ -1,14 +1,11 @@
 package org.jsfml.system;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
  * Represents two-dimensional vectors using integer coordinates and provides
  * arithmetic operations on integral 2D vectors.
  */
-@Intercom
 public final class Vector2i implements Serializable {
     private static final long serialVersionUID = 4059550337913883695L;
 
@@ -97,13 +94,11 @@ public final class Vector2i implements Serializable {
     /**
      * The vector's X coordinate.
      */
-    @Intercom
     public final int x;
 
     /**
      * The vector's Y coordinate.
      */
-    @Intercom
     public final int y;
 
     /**
@@ -112,7 +107,6 @@ public final class Vector2i implements Serializable {
      * @param x the X coordinate.
      * @param y the Y coordinate.
      */
-    @Intercom
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;

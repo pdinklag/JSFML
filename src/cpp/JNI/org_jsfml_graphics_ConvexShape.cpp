@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_ConvexShape.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 

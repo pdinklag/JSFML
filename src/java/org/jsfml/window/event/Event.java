@@ -1,7 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
-
 /**
  * Base class for window events.
  * <p/>
@@ -17,7 +15,6 @@ import org.jsfml.internal.Intercom;
  * @see org.jsfml.window.Window#pollEvents()
  * @see Type
  */
-@Intercom
 public class Event {
     /**
      * Enumeration of available window event types.
@@ -173,7 +170,6 @@ public class Event {
      * @param type the type of the event.
      *             This must be a valid ordinal in the {@link Event.Type} enumeration.
      */
-    @Intercom
     public Event(int type) {
         this.type = Type.values()[type];
     }
