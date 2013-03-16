@@ -47,18 +47,19 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         PIXELS
     }
 
-    private static native void nativeBind(Texture texture, CoordinateType coordinateType);
+    private static native void nativeBind(Texture texture, int coordinateType);
 
     /**
      * Activates a texture for rendering with the specified coordinate type.
      * <p/>
      * This is required only if you wish to use JSFML textures in custom OpenGL code.
      *
-     * @param texture        the texture to bind.
+     * @param texture        the texture to bind, or {@code null} to indicate that
+     *                       no texture is to be used..
      * @param coordinateType the coordinate type to use.
      */
     public static void bind(ConstTexture texture, CoordinateType coordinateType) {
-        nativeBind((Texture) texture, Objects.requireNonNull(coordinateType));
+        nativeBind((Texture) texture, coordinateType.ordinal());
     }
 
     /**

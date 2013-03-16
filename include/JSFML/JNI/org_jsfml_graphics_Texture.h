@@ -18,10 +18,10 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_nativeGetMaximumSize
 /*
  * Class:     org_jsfml_graphics_Texture
  * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture;Lorg/jsfml/graphics/Texture/CoordinateType;)V
+ * Signature: (Lorg/jsfml/graphics/Texture;I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
-  (JNIEnv *, jclass, jobject, jobject);
+  (JNIEnv *, jclass, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Texture
