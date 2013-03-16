@@ -74,9 +74,9 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor
 /*
  * Class:     org_jsfml_graphics_Text
  * Method:    nativeFindCharacterPos
- * Signature: (I)Lorg/jsfml/system/Vector2f;
+ * Signature: (I)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Text_nativeFindCharacterPos
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Text_nativeFindCharacterPos
   (JNIEnv *, jobject, jint);
 
 /*

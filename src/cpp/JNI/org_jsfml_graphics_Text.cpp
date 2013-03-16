@@ -1,12 +1,10 @@
 #include <JSFML/JNI/org_jsfml_graphics_Text.h>
 
-#include <JSFML/Intercom/FloatRect.hpp>
 #include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
 
 /*
@@ -91,6 +89,15 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetStyle
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Text_nativeSetColor (JNIEnv *env, jobject obj, jint color) {
     THIS(sf::Text)->setColor(JSFML::Intercom::decodeColor(color));
+}
+
+/*
+ * Class:     org_jsfml_graphics_Text
+ * Method:    nativeFindCharacterPos
+ * Signature: (I)J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Text_nativeFindCharacterPos (JNIEnv *env, jobject obj, jint pos) {
+    return JSFML::Intercom::encodeVector2f(THIS(sf::Text)->findCharacterPos(pos));
 }
 
 /*

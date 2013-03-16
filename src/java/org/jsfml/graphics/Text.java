@@ -184,7 +184,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
         return color;
     }
 
-    private native Vector2f nativeFindCharacterPos(int i);
+    private native long nativeFindCharacterPos(int i);
 
     /**
      * Returns the position of a character inside the string.
@@ -194,9 +194,9 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      */
     public Vector2f findCharacterPos(int i) {
         if (i < 0 || i >= string.length())
-            throw new IndexOutOfBoundsException(Integer.toString(i));
+            throw new StringIndexOutOfBoundsException(Integer.toString(i));
 
-        return nativeFindCharacterPos(i);
+        return IntercomHelper.decodeVector2f(nativeFindCharacterPos(i));
     }
 
     private native void nativeGetLocalBounds(Buffer buf);
