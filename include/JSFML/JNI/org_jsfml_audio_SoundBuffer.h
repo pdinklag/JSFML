@@ -42,10 +42,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromMemory
 /*
  * Class:     org_jsfml_audio_SoundBuffer
  * Method:    nativeLoadFromSamples
- * Signature: ([SII)Z
+ * Signature: (Ljava/nio/Buffer;III)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSamples
-  (JNIEnv *, jobject, jshortArray, jint, jint);
+  (JNIEnv *, jobject, jobject, jint, jint, jint);
 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
@@ -57,43 +57,19 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeSaveToFile
 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSamples
- * Signature: ()[S
+ * Method:    nativeGetData
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jshortArray JNICALL Java_org_jsfml_audio_SoundBuffer_getSamples
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBuffer_nativeGetData
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSampleCount
- * Signature: ()I
+ * Method:    nativeGetSamples
+ * Signature: (ILjava/nio/Buffer;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleCount
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSampleRate
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleRate
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getChannelCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getDuration
- * Signature: ()Lorg/jsfml/system/Time;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBuffer_nativeGetSamples
+  (JNIEnv *, jobject, jint, jobject);
 
 #ifdef __cplusplus
 }

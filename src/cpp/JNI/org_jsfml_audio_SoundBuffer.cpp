@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_audio_SoundBuffer.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Time.hpp>
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
@@ -50,19 +49,13 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromMemory
 /*
  * Class:     org_jsfml_audio_SoundBuffer
  * Method:    nativeLoadFromSamples
- * Signature: ([SII)Z
+ * Signature: (Ljava/nio/Buffer;III)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeLoadFromSamples
-    (JNIEnv *env, jobject obj, jshortArray arr, jint channelCount, jint sampleRate) {
+    (JNIEnv *env, jobject obj, jobject buffer, jint sampleCount, jint channelCount, jint sampleRate) {
 
-    std::size_t n = (std::size_t)env->GetArrayLength(arr);
-    jshort* samples = env->GetShortArrayElements(arr, 0);
-
-    jboolean result = THIS(sf::SoundBuffer)->loadFromSamples(
-        (sf::Int16*)samples, n, channelCount, sampleRate);
-
-    env->ReleaseShortArrayElements(arr, samples, JNI_ABORT);
-    return result;
+    sf::Int16 *samples = (sf::Int16*)env->GetDirectBufferAddress(buffer);
+    return THIS(sf::SoundBuffer)->loadFromSamples(samples, sampleCount, channelCount, sampleRate);
 }
 
 /*
@@ -81,55 +74,31 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundBuffer_nativeSaveToFile (JN
 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSamples
- * Signature: ()[S
+ * Method:    nativeGetData
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jshortArray JNICALL Java_org_jsfml_audio_SoundBuffer_getSamples (JNIEnv *env, jobject obj) {
-    sf::SoundBuffer* soundBuffer = THIS(sf::SoundBuffer);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBuffer_nativeGetData
+    (JNIEnv *env, jobject obj, jobject buffer) {
+    
+    sf::SoundBuffer *soundBuffer = THIS(sf::SoundBuffer);
+    void *data = env->GetDirectBufferAddress(buffer);
 
-    std::size_t n = soundBuffer->getSampleCount();
-    const sf::Int16* samples = soundBuffer->getSamples();
-
-    jshortArray arr = env->NewShortArray(n);
-    env->SetShortArrayRegion(arr, 0, n, (jshort*)samples);
-
-    //memory leak tested, all good
-
-    return arr;
+    ((jint*)data)[0] = (jint)soundBuffer->getSampleCount();
+    ((jint*)data)[1] = (jint)soundBuffer->getSampleRate();
+    ((jint*)data)[2] = (jint)soundBuffer->getChannelCount();
+    ((jlong*)data)[3] = (jlong)soundBuffer->getDuration().asMicroseconds();
 }
 
 /*
  * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSampleCount
- * Signature: ()I
+ * Method:    nativeGetSamples
+ * Signature: (ILjava/nio/Buffer;)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleCount (JNIEnv *env, jobject obj) {
-    return THIS(sf::SoundBuffer)->getSampleCount();
-}
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBuffer_nativeGetSamples
+    (JNIEnv *env, jobject obj, jint num, jobject buffer) {
 
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getSampleRate
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getSampleRate (JNIEnv *env, jobject obj) {
-    return THIS(sf::SoundBuffer)->getSampleRate();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getChannelCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundBuffer_getChannelCount (JNIEnv *env, jobject obj) {
-   return THIS(sf::SoundBuffer)->getChannelCount();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundBuffer
- * Method:    getDuration
- * Signature: ()Lorg.jsfml.system.Time
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundBuffer_getDuration (JNIEnv *env, jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::SoundBuffer)->getDuration());
+    const sf::Int16 *samples = THIS(sf::SoundBuffer)->getSamples();
+    jshort *jsamples = (jshort*)env->GetDirectBufferAddress(buffer);
+    
+    std::memcpy(jsamples, samples, 2 * num);
 }
