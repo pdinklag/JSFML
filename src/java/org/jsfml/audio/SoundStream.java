@@ -222,7 +222,6 @@ public abstract class SoundStream extends SoundSource {
      *         To stop playback immediately, {@code null} may be returned.
      * @see Chunk
      */
-    @Intercom
     protected abstract Chunk onGetData();
 
     @Intercom
