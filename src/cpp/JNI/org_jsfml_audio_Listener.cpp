@@ -1,15 +1,13 @@
 #include <JSFML/JNI/org_jsfml_audio_Listener.h>
 
-#include <JSFML/Intercom/Vector3f.hpp>
-
 #include <SFML/Audio/Listener.hpp>
 
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    setGlobalVolume
+ * Method:    nativeSetGlobalVolume
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setGlobalVolume
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetGlobalVolume
     (JNIEnv *env, jclass cls, jfloat vol) {
 
     sf::Listener::setGlobalVolume(vol);
@@ -17,19 +15,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setGlobalVolume
 
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    getGlobalVolume
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Listener_getGlobalVolume (JNIEnv *env, jclass cls) {
-    return sf::Listener::getGlobalVolume();
-}
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setPosition
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetPosition
     (JNIEnv *env , jclass cls, jfloat x, jfloat y, jfloat z) {
 
     sf::Listener::setPosition(x, y, z);
@@ -37,29 +26,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setPosition
 
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector3f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getPosition (JNIEnv *env, jclass cls) {
-    return JSFML::Vector3f::FromSFML(env, sf::Listener::getPosition());
-}
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    setDirection
+ * Method:    nativeSetDirection
  * Signature: (FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setDirection
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetDirection
     (JNIEnv *env , jclass cls, jfloat x, jfloat y, jfloat z) {
 
     sf::Listener::setDirection(x, y, z);
-}
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    getDirection
- * Signature: ()Lorg/jsfml/system/Vector3f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getDirection (JNIEnv *env, jclass cls) {
-    return JSFML::Vector3f::FromSFML(env, sf::Listener::getDirection());
 }

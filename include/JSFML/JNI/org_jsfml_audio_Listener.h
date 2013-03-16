@@ -9,51 +9,27 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    setGlobalVolume
+ * Method:    nativeSetGlobalVolume
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setGlobalVolume
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetGlobalVolume
   (JNIEnv *, jclass, jfloat);
 
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    getGlobalVolume
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_audio_Listener_getGlobalVolume
-  (JNIEnv *, jclass);
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setPosition
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetPosition
   (JNIEnv *, jclass, jfloat, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_audio_Listener
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector3f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getPosition
-  (JNIEnv *, jclass);
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    setDirection
+ * Method:    nativeSetDirection
  * Signature: (FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_setDirection
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetDirection
   (JNIEnv *, jclass, jfloat, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_audio_Listener
- * Method:    getDirection
- * Signature: ()Lorg/jsfml/system/Vector3f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Listener_getDirection
-  (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }

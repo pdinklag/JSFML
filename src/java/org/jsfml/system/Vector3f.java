@@ -1,14 +1,11 @@
 package org.jsfml.system;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
  * Represents three-dimensional vectors using floating point coordinates and provides
  * arithmetic operations on floating point 3D vectors.
  */
-@Intercom
 public final strictfp class Vector3f implements Serializable {
     private static final long serialVersionUID = -2176250005619169432L;
 
@@ -114,19 +111,16 @@ public final strictfp class Vector3f implements Serializable {
     /**
      * The vector's X coordinate.
      */
-    @Intercom
     public final float x;
 
     /**
      * The vector's Y coordinate.
      */
-    @Intercom
     public final float y;
 
     /**
      * The vector's Z coordinate.
      */
-    @Intercom
     public final float z;
 
     /**
@@ -136,7 +130,6 @@ public final strictfp class Vector3f implements Serializable {
      * @param y the Y coordinate.
      * @param z the Z coordinate.
      */
-    @Intercom
     public Vector3f(float x, float y, float z) {
         this.x = x;
         this.y = y;
