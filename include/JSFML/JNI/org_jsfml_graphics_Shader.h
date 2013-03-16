@@ -42,10 +42,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeDelete
 /*
  * Class:     org_jsfml_graphics_Shader
  * Method:    nativeLoadFromSource1
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader/Type;)Z
+ * Signature: (Ljava/lang/String;I)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource1
-  (JNIEnv *, jobject, jstring, jobject);
+  (JNIEnv *, jobject, jstring, jint);
 
 /*
  * Class:     org_jsfml_graphics_Shader
@@ -57,50 +57,50 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource2
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterFloat
  * Signature: (Ljava/lang/String;F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2F
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterFloat
   (JNIEnv *, jobject, jstring, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec2
  * Signature: (Ljava/lang/String;FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec2
   (JNIEnv *, jobject, jstring, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec3
  * Signature: (Ljava/lang/String;FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FFF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec3
   (JNIEnv *, jobject, jstring, jfloat, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec4
  * Signature: (Ljava/lang/String;FFFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FFFF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec4
   (JNIEnv *, jobject, jstring, jfloat, jfloat, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Transform;)V
+ * Method:    nativeSetParameterMat4
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2Lorg_jsfml_graphics_Transform_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterMat4
   (JNIEnv *, jobject, jstring, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterSampler2d
  * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Texture;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2Lorg_jsfml_graphics_Texture_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterSampler2d
   (JNIEnv *, jobject, jstring, jobject);
 
 /*
