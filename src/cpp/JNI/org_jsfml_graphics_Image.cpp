@@ -89,6 +89,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSync
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCommit
     (JNIEnv *env, jobject obj, jint width, jint height, jobject buffer) {
     
-    const sf::Uint8 *pixels = (const sf::Uint8*)env->GetDirectBufferAddress(buffer);
-    THIS(sf::Image)->create(width, height, pixels);   
+    if(width == 0 || height == 0) {
+        THIS(sf::Image)->create(0, 0);
+    } else {
+        const sf::Uint8 *pixels = (const sf::Uint8*)env->GetDirectBufferAddress(buffer);
+        THIS(sf::Image)->create(width, height, pixels);
+    }
 }
