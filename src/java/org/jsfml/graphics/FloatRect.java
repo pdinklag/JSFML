@@ -28,7 +28,6 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -36,7 +35,6 @@ import java.io.Serializable;
 /**
  * Represents an axis-aligned rectangle using floating point coordinates.
  */
-@Intercom
 public final strictfp class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
@@ -48,25 +46,21 @@ public final strictfp class FloatRect implements Serializable {
     /**
      * The X coordinate of the rectangle's left edge.
      */
-    @Intercom
     public final float left;
 
     /**
      * The Y coordinate of the rectangle's top edge.
      */
-    @Intercom
     public final float top;
 
     /**
      * The width of the rectangle.
      */
-    @Intercom
     public final float width;
 
     /**
      * The height of the rectangle.
      */
-    @Intercom
     public final float height;
 
     /**
@@ -77,7 +71,6 @@ public final strictfp class FloatRect implements Serializable {
      * @param width  the rectangle's width.
      * @param height the rectangle's height.
      */
-    @Intercom
     public FloatRect(float left, float top, float width, float height) {
         this.left = left;
         this.top = top;

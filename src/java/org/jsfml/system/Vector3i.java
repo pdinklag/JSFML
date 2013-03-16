@@ -1,7 +1,5 @@
 package org.jsfml.system;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
@@ -113,19 +111,16 @@ public final class Vector3i implements Serializable {
     /**
      * The vector's X coordinate.
      */
-    @Intercom
     public final int x;
 
     /**
      * The vector's Y coordinate.
      */
-    @Intercom
     public final int y;
 
     /**
      * The vector's Z coordinate.
      */
-    @Intercom
     public final int z;
 
     /**
@@ -135,7 +130,6 @@ public final class Vector3i implements Serializable {
      * @param y the Y coordinate.
      * @param z the Z coordinate.
      */
-    @Intercom
     public Vector3i(int x, int y, int z) {
         this.x = x;
         this.y = y;
