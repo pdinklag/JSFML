@@ -6,10 +6,8 @@
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/NativeRef.hpp>
 
-#include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
 
-#include <JSFML/Intercom/Chunk.hpp>
 #include <JSFML/Intercom/SoundRecorder.hpp>
 #include <JSFML/Intercom/SoundStream.hpp>
 
@@ -25,10 +23,8 @@ JNIEXPORT void JNICALL Java_org_jsfml_internal_SFMLNative_nativeInit (JNIEnv *en
     JSFML::NativeObject::Init(env);
     JSFML::NativeRef::Init(env);
 
-    JSFML::Time::Init(env);
     JSFML::Vector3f::Init(env);
 
-    JSFML::Chunk::Init(env);
     JSFML::SoundRecorder::Init(env);
     JSFML::SoundStream::Init(env);
 }

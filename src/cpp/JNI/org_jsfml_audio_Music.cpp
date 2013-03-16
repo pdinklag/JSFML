@@ -3,7 +3,6 @@
 #include <JSFML/Intercom/InputStream.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/NativeRef.hpp>
-#include <JSFML/Intercom/Time.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -54,9 +53,14 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromStream
 
 /*
  * Class:     org_jsfml_audio_Music
- * Method:    getDuration
- * Signature: ()Lorg/jsfml/system/Time
+ * Method:    nativeGetData
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration (JNIEnv *env, jobject obj) {
-    return JSFML::Time::FromSFML(env, THIS(sf::Music)->getDuration());
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeGetData
+    (JNIEnv *env, jobject obj, jobject buffer) {
+
+    void *data = env->GetDirectBufferAddress(buffer);
+    ((jlong*)data)[0] = (jlong)THIS(sf::Music)->getDuration().asMicroseconds();
+    ((jint*)data)[2] = THIS(sf::Music)->getChannelCount();
+    ((jint*)data)[3] = THIS(sf::Music)->getSampleRate();
 }

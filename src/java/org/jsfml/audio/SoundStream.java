@@ -3,6 +3,10 @@ package org.jsfml.audio;
 import org.jsfml.internal.Intercom;
 import org.jsfml.system.Time;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 import java.util.Objects;
 
 /**
@@ -24,12 +28,8 @@ public abstract class SoundStream extends SoundSource {
      * Represents a chunk of audio data provided by a {@code SoundStream} when
      * new data is requested.
      */
-    @Intercom
     public static class Chunk {
-        @Intercom
         private final short[] data;
-
-        @Intercom
         private final boolean last;
 
         /**
@@ -44,28 +44,13 @@ public abstract class SoundStream extends SoundSource {
             this.data = Objects.requireNonNull(data);
             this.last = last;
         }
-
-        /**
-         * Gets the 16-bit audio sample data in this chunk.
-         *
-         * @return the audio sample data in this chunk.
-         */
-        public short[] getData() {
-            return data;
-        }
-
-        /**
-         * Tests whether this chunk is the last chunk of data in the stream.
-         * <p/>
-         * If this is {@code true}, the audio stream will stop playing after this chunk.
-         *
-         * @return {@code true} if the chunk is marked as the last one, {@code false}
-         *         otherwise.
-         */
-        public boolean isLast() {
-            return last;
-        }
     }
+
+    //Cache
+    private int channelCount = 0;
+    private int sampleRate = 0;
+    private boolean loop = false;
+    private Time playingOffset = Time.ZERO;
 
     /**
      * Constructs a sound stream.
@@ -109,16 +94,20 @@ public abstract class SoundStream extends SoundSource {
      *
      * @return the amount of audio channels of this stream.
      */
-    public native int getChannelCount();
+    public int getChannelCount() {
+        return channelCount;
+    }
 
     /**
      * Gets the sample rate of this stream.
      *
      * @return the sample rate of this stream in samples per second.
      */
-    public native int getSampleRate();
+    public int getSampleRate() {
+        return sampleRate;
+    }
 
-    private native void nativeSetPlayingOffset(Time offset);
+    private native void nativeSetPlayingOffset(long offset);
 
     /**
      * Sets the current playing offset at which to play from the stream.
@@ -126,7 +115,8 @@ public abstract class SoundStream extends SoundSource {
      * @param offset the playing offset at which to play from the stream.
      */
     public final void setPlayingOffset(Time offset) {
-        nativeSetPlayingOffset(Objects.requireNonNull(offset));
+        nativeSetPlayingOffset(offset.asMicroseconds());
+        this.playingOffset = offset;
     }
 
     /**
@@ -134,7 +124,11 @@ public abstract class SoundStream extends SoundSource {
      *
      * @return the playing offset at which to play from the stream.
      */
-    public native Time getPlayingOffset();
+    public Time getPlayingOffset() {
+        return playingOffset;
+    }
+
+    private native void nativeSetLoop(boolean loop);
 
     /**
      * Enables or disables repeated looping of the sound stream playback.
@@ -144,7 +138,10 @@ public abstract class SoundStream extends SoundSource {
      *
      * @param loop {@code true} to enable looping, {@code false} to disable.
      */
-    public native void setLoop(boolean loop);
+    public void setLoop(boolean loop) {
+        nativeSetLoop(loop);
+        this.loop = loop;
+    }
 
     /**
      * Returns whether or not the sound stream playback is looping.
@@ -154,7 +151,9 @@ public abstract class SoundStream extends SoundSource {
      *
      * @return {@code true} if it is looping, {@code false} if not.
      */
-    public native boolean isLoop();
+    public boolean isLoop() {
+        return loop;
+    }
 
     @Override
     native int nativeGetStatus();
@@ -164,6 +163,13 @@ public abstract class SoundStream extends SoundSource {
         return super.getStatus();
     }
 
+    final void setData(int channelCount, int sampleRate) {
+        this.channelCount = channelCount;
+        this.sampleRate = sampleRate;
+    }
+
+    private native void nativeInitialize(int channelCount, int sampleRate);
+
     /**
      * Defines the audio stream parameters.
      * <p/>
@@ -172,7 +178,35 @@ public abstract class SoundStream extends SoundSource {
      * @param channelCount the amount of audio channels (e.g. 1 for mono, 2 for stereo).
      * @param sampleRate   the sample rate in samples per second.
      */
-    protected native void initialize(int channelCount, int sampleRate);
+    protected void initialize(int channelCount, int sampleRate) {
+        nativeInitialize(channelCount, sampleRate);
+        setData(channelCount, sampleRate);
+    }
+
+    @Intercom
+    @SuppressWarnings("unused")
+    private Buffer onGetDataInternal() {
+        final Chunk chunk = onGetData();
+        if (chunk != null && chunk.data.length > 0) {
+            final ByteBuffer buffer = ByteBuffer.allocateDirect(4 + 2 * chunk.data.length).order(
+                    ByteOrder.nativeOrder());
+
+            int header = chunk.data.length & 0x7FFFFFFF;
+            if (chunk.last) {
+                header |= 0x80000000;
+            }
+
+            buffer.asIntBuffer().put(header);
+
+            final ShortBuffer samples = buffer.asShortBuffer();
+            samples.position(2);
+            samples.put(chunk.data);
+
+            return buffer;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Requests a new chunk of audio data.
@@ -191,6 +225,12 @@ public abstract class SoundStream extends SoundSource {
     @Intercom
     protected abstract Chunk onGetData();
 
+    @Intercom
+    @SuppressWarnings("unused")
+    private void onSeekInternal(long time) {
+        onSeek(Time.getMicroseconds(time));
+    }
+
     /**
      * Re-positions the stream's current playing offset.
      * <p/>
@@ -201,6 +241,5 @@ public abstract class SoundStream extends SoundSource {
      *
      * @param time the time offset to jump to.
      */
-    @Intercom
     protected abstract void onSeek(Time time);
 }

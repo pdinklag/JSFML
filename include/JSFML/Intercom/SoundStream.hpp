@@ -2,7 +2,6 @@
 #define JSFML_SOUNDSTREAM_H_
 
 #include <jni.h>
-#include <JSFML/Intercom/Chunk.hpp>
 #include <SFML/Audio/SoundStream.hpp>
 
 namespace JSFML {
@@ -13,12 +12,10 @@ namespace JSFML {
             static jmethodID m_onGetData;
             static jmethodID m_onSeek;
 
-            jobject javaRef;
-            JSFML::Chunk *buffer;
+            jobject javaRef;        //global ref to the org.jsfml.audio.SoundStream
+            jobject currentSamples; //global ref to a java.nio.Buffer holding the currently playing chunk data
 
         protected:
-            void clearBuffer();
-
             //overrides
             virtual bool onGetData(sf::SoundStream::Chunk& data);
             virtual void onSeek(sf::Time timeOffset);
