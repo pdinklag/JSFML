@@ -222,7 +222,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
         final IntBuffer params = IntercomHelper.getBuffer().asIntBuffer();
         params.put(0, mode.width);
         params.put(1, mode.height);
-        params.put(2, mode.bpp);
+        params.put(2, mode.bitsPerPixel);
         params.put(3, style);
         params.put(4, settings.depthBits);
         params.put(5, settings.stencilBits);

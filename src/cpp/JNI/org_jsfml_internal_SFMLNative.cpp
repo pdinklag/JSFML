@@ -10,8 +10,6 @@
 #include <JSFML/Intercom/Time.hpp>
 #include <JSFML/Intercom/Vector3f.hpp>
 
-#include <JSFML/Intercom/VideoMode.hpp>
-
 #include <JSFML/Intercom/Transform.hpp>
 
 #include <JSFML/Intercom/Chunk.hpp>
@@ -33,9 +31,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_internal_SFMLNative_nativeInit (JNIEnv *en
 
     JSFML::Time::Init(env);
     JSFML::Vector3f::Init(env);
-
-    JSFML::VideoMode::Init(env);
-
+    
     JSFML::Transform::Init(env);
 
     JSFML::Chunk::Init(env);
