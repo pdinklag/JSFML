@@ -52,17 +52,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
         super();
     }
 
-    /**
-     * Constructs a new font by copying another font.
-     *
-     * @param other the font to copy.
-     */
-    @SuppressWarnings("deprecation")
-    public Font(ConstFont other) {
-        super(((Font) other).nativeCopy());
-        UnsafeOperations.manageSFMLObject(this, true);
-    }
-
     @Override
     @Deprecated
     @SuppressWarnings("deprecation")
@@ -78,8 +67,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
     @Deprecated
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
-
-    private native long nativeCopy();
 
     private native long nativeLoadFromMemory(byte[] memory);
 

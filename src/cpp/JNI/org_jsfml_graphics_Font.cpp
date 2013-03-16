@@ -25,15 +25,6 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCreate (JNIEnv *env, 
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    nativeCopy
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCopy (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::Font(*THIS(sf::Font));
-}
-
-/*
- * Class:     org_jsfml_graphics_Font
  * Method:    nativeLoadFromMemory
  * Signature: ([B)J
  */
