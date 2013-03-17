@@ -1,7 +1,9 @@
 #include <JSFML/JNI/org_jsfml_graphics_Texture.h>
 
+#include <JSFML/Intercom/InputStream.hpp>
 #include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
+#include <JSFML/Intercom/NativeRef.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Context.hpp>
@@ -69,20 +71,29 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeLoadFromMemory
- * Signature: ([BLjava/nio/Buffer;)Z
+ * Method:    nativeLoadFromStream
+ * Signature: (Lorg/jsfml/internal/SFMLInputStream/NativeStreamRef;Ljava/nio/Buffer;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
-    (JNIEnv *env, jobject obj, jbyteArray arr, jobject area) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromStream
+    (JNIEnv *env, jobject obj, jobject stream, jobject area) {
 
-    sf::Context ctx;
+    return THIS(sf::Texture)->loadFromStream(
+        *JSFML::NativeRef::GetPointer<JSFML::InputStream>(env, stream),
+        JSFML::Intercom::decodeIntRect(env, area));
+}
 
-    std::size_t n = (std::size_t)env->GetArrayLength(arr);
-    jbyte* mem = env->GetByteArrayElements(arr, 0);
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromFile
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromFile
+    (JNIEnv *env, jobject obj, jstring jpath, jobject area) {
 
-    jboolean result = THIS(sf::Texture)->loadFromMemory(mem, n, JSFML::Intercom::decodeIntRect(env, area));
-
-    env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
+    const char *path = env->GetStringUTFChars(jpath, NULL);
+    jboolean result = THIS(sf::Texture)->loadFromFile(std::string(path), JSFML::Intercom::decodeIntRect(env, area));
+    
+    env->ReleaseStringUTFChars(jpath, path);
     return result;
 }
 

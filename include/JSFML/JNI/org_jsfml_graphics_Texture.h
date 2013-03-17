@@ -57,11 +57,19 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeLoadFromMemory
- * Signature: ([BLjava/nio/Buffer;)Z
+ * Method:    nativeLoadFromStream
+ * Signature: (Lorg/jsfml/internal/SFMLInputStream/NativeStreamRef;Ljava/nio/Buffer;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
-  (JNIEnv *, jobject, jbyteArray, jobject);
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromStream
+  (JNIEnv *, jobject, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromFile
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromFile
+  (JNIEnv *, jobject, jstring, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture

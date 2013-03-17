@@ -2,6 +2,7 @@ package org.jsfml.graphics;
 
 import org.jsfml.internal.*;
 import org.jsfml.system.Vector2i;
+import org.jsfml.window.Context;
 import org.jsfml.window.Window;
 
 import java.io.IOException;
@@ -139,7 +140,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         updateSize();
     }
 
-    private native boolean nativeLoadFromMemory(byte[] memory, Buffer area);
+    private native boolean nativeLoadFromStream(
+            SFMLInputStream.NativeStreamRef stm, Buffer area);
 
     /**
      * Fully loads all available bytes from an {@link InputStream}
@@ -150,9 +152,16 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromStream(InputStream in, IntRect area) throws IOException {
+        Context.getContext();
+
+        final SFMLInputStream.NativeStreamRef streamRef =
+                new SFMLInputStream.NativeStreamRef();
+
+        streamRef.initialize(new SFMLInputStream(Objects.requireNonNull(in)));
+
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(
-                StreamUtil.readStream(in), IntercomHelper.encodeIntRect(area));
+        final boolean success = nativeLoadFromStream(
+                streamRef, IntercomHelper.encodeIntRect(area));
 
         final String msg = SFMLErrorCapture.finish();
 
@@ -174,6 +183,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
         loadFromStream(in, IntRect.EMPTY);
     }
 
+    private native boolean nativeLoadFromFile(String path, Buffer area);
+
     /**
      * Attempts to load the texture from a file.
      *
@@ -182,9 +193,13 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * @throws IOException in case an I/O error occurs.
      */
     public void loadFromFile(Path path, IntRect area) throws IOException {
+        Context.getContext();
+
         SFMLErrorCapture.start();
-        final boolean success = nativeLoadFromMemory(
-                StreamUtil.readFile(path), IntercomHelper.encodeIntRect(area));
+
+        final boolean success = nativeLoadFromFile(
+                path.toAbsolutePath().toString(),
+                IntercomHelper.encodeIntRect(area));
 
         final String msg = SFMLErrorCapture.finish();
 
