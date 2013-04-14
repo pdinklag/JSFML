@@ -234,6 +234,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
 
         image.commit();
 
+        Context.getContext();
+
         if (!nativeLoadFromImage(image, IntercomHelper.encodeIntRect(area))) {
             throw new TextureCreationException("Failed to load texture from image.");
         }
