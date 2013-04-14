@@ -6,6 +6,7 @@ import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.internal.StreamUtil;
 import org.jsfml.system.Vector2i;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.Buffer;
@@ -35,6 +36,12 @@ public class Image extends SFMLNativeObject {
         final int a = (sa + da * (255 - sa)) / 255;
 
         return (a << 24) | (b << 16) | (g << 8) | r;
+    }
+
+    private static int swapRB(int s) {
+        return (s & 0xFF00FF00) |
+                ((s & 0xFF) << 16) |
+                ((s >> 16) & 0xFF);
     }
 
     private Vector2i size = Vector2i.ZERO;
@@ -104,6 +111,31 @@ public class Image extends SFMLNativeObject {
      */
     public final void create(int width, int height) {
         create(width, height, Color.BLACK);
+    }
+
+    /**
+     * Creates a new image by converting an AWT {@link BufferedImage}.
+     *
+     * @param image the AWT buffered image to convert.
+     */
+    public void create(BufferedImage image) {
+        final int w = image.getWidth();
+        final int h = image.getHeight();
+
+        create(w, h);
+
+        if (w > 0 && h > 0) {
+            final int[] data = new int[w * h];
+            image.getRGB(0, 0, w, h, data, 0, w);
+
+            //Pixels are in ARGB, we need ABGR
+            for (int i = 0; i < data.length; i++) {
+                data[i] = swapRB(data[i]);
+            }
+
+            pixels.rewind();
+            pixels.put(data);
+        }
     }
 
     private native boolean nativeLoadFromMemory(byte[] memory);
@@ -364,6 +396,44 @@ public class Image extends SFMLNativeObject {
         }
 
         return IntercomHelper.decodeColor(pixels.get(y * size.x + x));
+    }
+
+    /**
+     * Retrieves a copy of all the pixels of the image in 32-bit ARGB color format.
+     * <p/>
+     * The retrieved image data is compatible to the {@link BufferedImage#TYPE_INT_ARGB}
+     * color format.
+     *
+     * @return a copy of all the pixels of the image in 32-bit ARGB color format.
+     */
+    public int[] getPixels() {
+        final int[] data = new int[pixels.capacity()];
+
+        //Pixels are in ABGR, we promise ARGB
+        for (int i = 0; i < data.length; i++) {
+            data[i] = swapRB(pixels.get(i));
+        }
+
+        return data;
+    }
+
+    /**
+     * Converts this image to an AWT {@link BufferedImage}.
+     * <p/>
+     * The resulting buffered image will be of {@link BufferedImage#TYPE_INT_ARGB}
+     * color format.
+     *
+     * @return the resulting buffered image.
+     */
+    public BufferedImage toBufferedImage() {
+        final BufferedImage bufferedImage = new BufferedImage(
+                size.x, size.y, BufferedImage.TYPE_INT_ARGB);
+
+        if (size.x > 0 && size.y > 0) {
+            bufferedImage.setRGB(0, 0, size.x, size.y, getPixels(), 0, size.x);
+        }
+
+        return bufferedImage;
     }
 
     /**
