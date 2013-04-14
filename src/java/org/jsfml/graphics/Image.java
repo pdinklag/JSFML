@@ -122,19 +122,36 @@ public class Image extends SFMLNativeObject {
         final int w = image.getWidth();
         final int h = image.getHeight();
 
-        create(w, h);
+        final int[] data = new int[w * h];
+        create(w, h, image.getRGB(0, 0, w, h, data, 0, w));
+    }
 
-        if (w > 0 && h > 0) {
-            final int[] data = new int[w * h];
-            image.getRGB(0, 0, w, h, data, 0, w);
+    /**
+     * Creates a new image from the given pixel data.
+     * <p/>
+     * The pixel data is expected to be in the {@link BufferedImage#TYPE_INT_ARGB}
+     * color format.
+     *
+     * @param width  the image's width.
+     * @param height the image's height.
+     * @param pixels the image's pixel data in 32-bit ARGB format.
+     */
+    public void create(int width, int height, int[] pixels) {
+        if (pixels.length != width * height) {
+            throw new IllegalArgumentException(
+                    "pixel buffer size does not fit the specified dimensions");
+        }
 
+        create(width, height);
+
+        if (width > 0 && height > 0) {
             //Pixels are in ARGB, we need ABGR
-            for (int i = 0; i < data.length; i++) {
-                data[i] = swapRB(data[i]);
+            for (int i = 0; i < pixels.length; i++) {
+                pixels[i] = swapRB(pixels[i]);
             }
 
-            pixels.rewind();
-            pixels.put(data);
+            this.pixels.rewind();
+            this.pixels.put(pixels);
         }
     }
 
