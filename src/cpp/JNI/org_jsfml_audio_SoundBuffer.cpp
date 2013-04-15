@@ -1,3 +1,4 @@
+#include <string.h>
 #include <JSFML/JNI/org_jsfml_audio_SoundBuffer.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
@@ -100,5 +101,5 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundBuffer_nativeGetSamples
     const sf::Int16 *samples = THIS(sf::SoundBuffer)->getSamples();
     jshort *jsamples = (jshort*)env->GetDirectBufferAddress(buffer);
     
-    std::memcpy(jsamples, samples, 2 * num);
+    memcpy(jsamples, samples, 2 * num);
 }
