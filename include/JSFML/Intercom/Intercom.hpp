@@ -11,9 +11,8 @@
 namespace JSFML {
     class Intercom {
         public:
-            //sf::String
-            static sf::String decodeUtf8(JNIEnv *env, jstring str);
-            static sf::String decodeUtf32(JNIEnv *env, jstring str);
+            //std::wstring
+            static std::wstring decodeUtf32(JNIEnv *env, jstring str);
             
             //sf::Color
             static sf::Color decodeColor(jint code);
