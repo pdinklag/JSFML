@@ -68,7 +68,7 @@ public final class Mouse {
      *
      * @return the absolute position of the mouse cursor on the screen.
      */
-    public static Vector2i getPoisition() {
+    public static Vector2i getPosition() {
         return IntercomHelper.decodeVector2i(nativeGetPosition());
     }
 
