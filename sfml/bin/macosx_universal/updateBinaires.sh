@@ -17,10 +17,12 @@ error() {
     exit 1
 }
 
-audio="libsfml-audio.2.0.dylib"
-graphics="libsfml-graphics.2.0.dylib"
-system="libsfml-system.2.0.dylib"
-window="libsfml-window.2.0.dylib"
+version='2.1'
+
+audio="libsfml-audio.$version.dylib"
+graphics="libsfml-graphics.$version.dylib"
+system="libsfml-system.$version.dylib"
+window="libsfml-window.$version.dylib"
 
 if [ ! -f "$audio" ] || [ ! -f "$graphics" ] || [ ! -f "$system" ] || [ ! -f "$window" ] ;
 then

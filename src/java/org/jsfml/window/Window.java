@@ -210,7 +210,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
     public void create(VideoMode mode, String title, int style, ContextSettings settings) {
         if (!isLegalWindowThread()) {
             throw new JSFMLError("This thread is not allowed to create a window on this system. " +
-                    "If you are running on Mac OS X, you MUST run your" +
+                    "If you are running on Mac OS X, you MUST run your " +
                     "application with the -XstartOnFirstThread command line argument!");
         }
 
