@@ -309,6 +309,13 @@
 		
 		<ant target="windows.build" />
 	</target>
+    
+    <!-- MD5 -->
+    <target name="md5" description="Calculate MD5 checksums for all production files and generate the corresponding files.">
+        <checksum>
+            <fileset dir="${cpp.out}" includes="**/*.dll **/*.so **/*.jnilib **/*.dylib" />
+        </checksum>
+    </target>
 	
 	<!-- Jar -->
 	<target name="jar" description="Generate the JAR file." depends="compile">
