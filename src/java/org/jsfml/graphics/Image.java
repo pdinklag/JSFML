@@ -313,7 +313,7 @@ public class Image extends SFMLNativeObject {
             width = source.size.x;
             height = source.size.y;
         } else {
-            left = Math.max(0, sourceRect.top);
+            left = Math.max(0, sourceRect.left);
             top = Math.max(0, sourceRect.top);
             width = Math.min(sourceRect.width, source.size.x - left);
             height = Math.min(sourceRect.height, source.size.y - top);
