@@ -56,7 +56,7 @@ void JSFML::Intercom::encodeFloatRect(JNIEnv *env, const sf::FloatRect& rect, jo
 }
 
 sf::FloatRect JSFML::Intercom::decodeFloatRect(JNIEnv *env, jobject code) {
-    jint *buf = (jint*)env->GetDirectBufferAddress(code);
+    jfloat *buf = (jfloat*)env->GetDirectBufferAddress(code);
     return sf::FloatRect(buf[0], buf[1], buf[2], buf[3]);
 }
 
