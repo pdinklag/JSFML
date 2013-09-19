@@ -129,9 +129,9 @@ public final strictfp class Vector2f implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
-        result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
-        return result;
+        final int ix = x != 0.0f ? Float.floatToIntBits(x) : 0;
+        final int iy = y != 0.0f ? Float.floatToIntBits(y) : 0;
+        return (ix * 0x1F1F1F1F) ^ iy;
     }
 
     @Override

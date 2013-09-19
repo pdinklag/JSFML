@@ -130,9 +130,7 @@ public final class Vector2i implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
-        result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
-        return result;
+        return (x * 0x1F1F1F1F) ^ y;
     }
 
     @Override

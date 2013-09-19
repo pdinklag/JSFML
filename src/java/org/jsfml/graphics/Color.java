@@ -175,11 +175,7 @@ public final class Color implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = r;
-        result = 31 * result + g;
-        result = 31 * result + b;
-        result = 31 * result + a;
-        return result;
+        return (r * 0x2F2F2F2F) ^ (g * 0x1F1F1F1F) ^ (b * 0x0F0F0F0F) ^ a;
     }
 
     @Override

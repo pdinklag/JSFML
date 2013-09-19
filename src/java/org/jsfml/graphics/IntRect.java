@@ -186,11 +186,7 @@ public final class IntRect implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = left;
-        result = 31 * result + top;
-        result = 31 * result + width;
-        result = 31 * result + height;
-        return result;
+        return (left * 0x2F2F2F2F) ^ (top * 0x1F1F1F1F) ^ (width * 0x0F0F0F0F) ^ height;
     }
 
     @Override

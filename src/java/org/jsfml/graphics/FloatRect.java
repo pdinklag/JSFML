@@ -186,11 +186,11 @@ public final strictfp class FloatRect implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (left != +0.0f ? Float.floatToIntBits(left) : 0);
-        result = 31 * result + (top != +0.0f ? Float.floatToIntBits(top) : 0);
-        result = 31 * result + (width != +0.0f ? Float.floatToIntBits(width) : 0);
-        result = 31 * result + (height != +0.0f ? Float.floatToIntBits(height) : 0);
-        return result;
+        final int ileft = left != 0.0f ? Float.floatToIntBits(left) : 0;
+        final int itop = top != 0.0f ? Float.floatToIntBits(top) : 0;
+        final int iwidth = width != 0.0f ? Float.floatToIntBits(width) : 0;
+        final int iheight = height != 0.0f ? Float.floatToIntBits(height) : 0;
+        return (ileft * 0x2F2F2F2F) ^ (itop * 0x1F1F1F1F) ^ (iwidth * 0x0F0F0F0F) ^ iheight;
     }
 
     @Override

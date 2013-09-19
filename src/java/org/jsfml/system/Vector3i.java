@@ -155,10 +155,7 @@ public final class Vector3i implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        result = 31 * result + z;
-        return result;
+        return (x * 0x1F1F1F1F) ^ (y * 0x0F0F0F0F) ^ z;
     }
 
     @Override
