@@ -224,4 +224,8 @@ public final class SFMLNative {
         if (GraphicsEnvironment.isHeadless())
             throw new HeadlessException("This JSFML feature is not available in a headless environment");
     }
+
+    private SFMLNative() {
+        //disallow instantiation
+    }
 }
