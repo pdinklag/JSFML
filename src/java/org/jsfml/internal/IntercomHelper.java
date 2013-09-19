@@ -60,7 +60,7 @@ public final class IntercomHelper {
      */
     public static long encodeVector2i(Vector2i vec) {
         long v = ((long) vec.y) << 32;
-        v |= vec.x;
+        v |= (long) vec.x & 0xFFFFFFFFL;
         return v;
     }
 
@@ -72,7 +72,7 @@ public final class IntercomHelper {
      */
     public static long encodeVector2f(Vector2f vec) {
         long v = ((long) Float.floatToIntBits(vec.y)) << 32;
-        v |= Float.floatToIntBits(vec.x);
+        v |= (long) Float.floatToIntBits(vec.x) & 0xFFFFFFFFL;
         return v;
     }
 

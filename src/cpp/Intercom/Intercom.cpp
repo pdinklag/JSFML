@@ -91,7 +91,7 @@ jlong JSFML::Intercom::encodeVector2i(const sf::Vector2i& v) {
 
 jlong JSFML::Intercom::encodeVector2u(const sf::Vector2u& v) {
     jlong vec = (jlong)v.y << 32;
-    vec |= v.x;
+    vec |= v.x & 0xFFFFFFFF;
     return vec;
 }
 
@@ -101,7 +101,7 @@ jlong JSFML::Intercom::encodeVector2f(const sf::Vector2f& v) {
     *((jfloat*)&y) = v.y;
     
     jlong vec = (jlong)y << 32;
-    vec |= x;
+    vec |= x & 0xFFFFFFFF;
     return vec;
 }
 
