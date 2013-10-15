@@ -10,14 +10,22 @@ import java.nio.*;
  */
 final class SFMLNativeDrawer {
     private static final int NATIVE_VERTEX_SIZE = 20;
-    private static final int MAX_VERTICES = 1024;
 
-    private static final ThreadLocal<ByteBuffer> vertexBuffer = new ThreadLocal<ByteBuffer>() {
-        @Override
-        protected ByteBuffer initialValue() {
-            return ByteBuffer.allocateDirect(MAX_VERTICES * NATIVE_VERTEX_SIZE).order(ByteOrder.nativeOrder());
+    private static final ThreadLocal<ByteBuffer> vertexBuffer = new ThreadLocal<ByteBuffer>();
+
+    static {
+        ensureBuffer(1024);
+    }
+
+    private static ByteBuffer ensureBuffer(int numVertices) {
+        ByteBuffer buffer = vertexBuffer.get();
+        if(buffer == null || (buffer.capacity() / NATIVE_VERTEX_SIZE) < numVertices) {
+            buffer = ByteBuffer.allocateDirect(numVertices * NATIVE_VERTEX_SIZE).order(ByteOrder.nativeOrder());
+            vertexBuffer.set(buffer);
         }
-    };
+
+        return buffer;
+    }
 
     private static native void nativeDrawVertices(
             int num,
@@ -30,7 +38,7 @@ final class SFMLNativeDrawer {
             ConstShader shader);
 
     static void drawVertices(Vertex[] vertices, PrimitiveType type, RenderTarget target, RenderStates states) {
-        final ByteBuffer vbuf = vertexBuffer.get();
+        final ByteBuffer vbuf = ensureBuffer(vertices.length);
         final FloatBuffer vfloats = vbuf.asFloatBuffer();
         final IntBuffer vints = vbuf.asIntBuffer();
 
