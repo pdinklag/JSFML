@@ -9,8 +9,6 @@ extern "C" {
 #endif
 #undef org_jsfml_graphics_SFMLNativeDrawer_NATIVE_VERTEX_SIZE
 #define org_jsfml_graphics_SFMLNativeDrawer_NATIVE_VERTEX_SIZE 20L
-#undef org_jsfml_graphics_SFMLNativeDrawer_MAX_VERTICES
-#define org_jsfml_graphics_SFMLNativeDrawer_MAX_VERTICES 1024L
 /*
  * Class:     org_jsfml_graphics_SFMLNativeDrawer
  * Method:    nativeDrawVertices
