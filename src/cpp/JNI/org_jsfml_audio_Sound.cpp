@@ -44,21 +44,6 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeCopy (JNIEnv *env, jobj
 }
 
 /*
- * Class:     org_jsfml_audio_SoundSource
- * Method:    nativeGetData
- * Signature: (Ljava/nio/Buffer;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeGetData
-    (JNIEnv *env, jobject obj, jobject buffer) {
-
-    sf::Sound *sound = THIS(sf::Sound);
-    void *data = env->GetDirectBufferAddress(buffer);
-    
-    ((jbyte*)data)[0] = sound->getLoop() ? 1 : 0;
-    ((jlong*)data)[1] = (jlong)sound->getPlayingOffset().asMicroseconds();
-}
-
-/*
  * Class:     org_jsfml_audio_Sound
  * Method:    play
  * Signature: ()V
@@ -114,6 +99,17 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetPlayingOffset
     (JNIEnv *env, jobject obj, jlong time) {
 
 	THIS(sf::Sound)->setPlayingOffset(sf::microseconds((sf::Int64)time));
+}
+
+/*
+ * Class:     org_jsfml_audio_Sound
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeGetPlayingOffset
+    (JNIEnv *env, jobject obj) {
+    
+    return (jlong)THIS(sf::Sound)->getPlayingOffset().asMicroseconds();
 }
 
 /*

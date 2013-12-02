@@ -89,6 +89,17 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetPlayingOffset
 
 /*
  * Class:     org_jsfml_audio_SoundStream
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeGetPlayingOffset
+    (JNIEnv *env, jobject obj) {
+    
+    return (jlong)SOUND_STREAM->getPlayingOffset().asMicroseconds();
+}
+
+/*
+ * Class:     org_jsfml_audio_SoundStream
  * Method:    nativeGetStatus
  * Signature: ()I
  */

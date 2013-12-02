@@ -50,7 +50,6 @@ public abstract class SoundStream extends SoundSource {
     private int channelCount = 0;
     private int sampleRate = 0;
     private boolean loop = false;
-    private Time playingOffset = Time.ZERO;
 
     /**
      * Constructs a sound stream.
@@ -110,22 +109,23 @@ public abstract class SoundStream extends SoundSource {
     private native void nativeSetPlayingOffset(long offset);
 
     /**
-     * Sets the current playing offset at which to play from the stream.
+     * Sets the playing position of the stream.
      *
-     * @param offset the playing offset at which to play from the stream.
+     * @param offset the new playing position of the stream.
      */
     public final void setPlayingOffset(Time offset) {
         nativeSetPlayingOffset(offset.asMicroseconds());
-        this.playingOffset = offset;
     }
 
+    private native long nativeGetPlayingOffset();
+
     /**
-     * Gets the playing offset at which to play from the stream.
+     * Gets the currently playing position of the stream.
      *
-     * @return the playing offset at which to play from the stream.
+     * @return the currently playing position of the stream.
      */
     public Time getPlayingOffset() {
-        return playingOffset;
+        return Time.getMicroseconds(nativeGetPlayingOffset());
     }
 
     private native void nativeSetLoop(boolean loop);
