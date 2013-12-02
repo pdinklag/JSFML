@@ -1,6 +1,6 @@
 package org.jsfml.window;
 
-import org.jsfml.internal.NotNull;
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLNative;
 import org.jsfml.system.Vector2i;
 
@@ -48,7 +48,7 @@ public final class Mouse {
         XBUTTON2,
     }
 
-    private static native boolean nativeIsButtonPressed(Button button);
+    private static native boolean nativeIsButtonPressed(int button);
 
     /**
      * Checks if a mouse button is currently pressed.
@@ -57,18 +57,22 @@ public final class Mouse {
      * @return {@code true} if the button is currently being pressed,
      *         {@code false} otherwise.
      */
-    public static boolean isButtonPressed(@NotNull Button button) {
-        return nativeIsButtonPressed(Objects.requireNonNull(button));
+    public static boolean isButtonPressed(Button button) {
+        return nativeIsButtonPressed(button.ordinal());
     }
+
+    private static native long nativeGetPosition();
 
     /**
      * Retrieves the absolute position of the mouse cursor on the screen.
      *
      * @return the absolute position of the mouse cursor on the screen.
      */
-    public static native Vector2i getPosition();
+    public static Vector2i getPosition() {
+        return IntercomHelper.decodeVector2i(nativeGetPosition());
+    }
 
-    private static native Vector2i nativeGetPosition(Window relativeTo);
+    private static native long nativeGetPosition(Window relativeTo);
 
     /**
      * Retrieves the position of the mouse cursor relative to a window.
@@ -76,22 +80,23 @@ public final class Mouse {
      * @param relativeTo the window in question.
      * @return the position of the mouse cursor relative to the window's top left corner.
      */
-    public static Vector2i getPosition(@NotNull Window relativeTo) {
-        return nativeGetPosition(Objects.requireNonNull(relativeTo));
+    public static Vector2i getPosition(Window relativeTo) {
+        return IntercomHelper.decodeVector2i(
+                nativeGetPosition(Objects.requireNonNull(relativeTo)));
     }
 
-    private static native void nativeSetPosition(Vector2i position);
+    private static native void nativeSetPosition(long position);
 
     /**
      * Sets the absolute position of the mouse cursor on the screen.
      *
      * @param position the new absolute position of the mouse cursor on the screen.
      */
-    public static void setPosition(@NotNull Vector2i position) {
-        nativeSetPosition(Objects.requireNonNull(position));
+    public static void setPosition(Vector2i position) {
+        nativeSetPosition(IntercomHelper.encodeVector2i(position));
     }
 
-    private static native void nativeSetPosition(Vector2i position, Window relativeTo);
+    private static native void nativeSetPosition(long position, Window relativeTo);
 
     /**
      * Sets the position of the mouse cursor relative to a window.
@@ -100,8 +105,10 @@ public final class Mouse {
      *                   to the window's top left corner.
      * @param relativeTo the window in question.
      */
-    public static void setPosition(@NotNull Vector2i position, @NotNull Window relativeTo) {
-        nativeSetPosition(Objects.requireNonNull(position), Objects.requireNonNull(relativeTo));
+    public static void setPosition(Vector2i position, Window relativeTo) {
+        nativeSetPosition(
+                IntercomHelper.encodeVector2i(position),
+                Objects.requireNonNull(relativeTo));
     }
 
     //cannot instantiate

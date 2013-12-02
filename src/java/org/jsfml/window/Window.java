@@ -1,10 +1,15 @@
 package org.jsfml.window;
 
 import org.jsfml.graphics.Image;
-import org.jsfml.internal.*;
+import org.jsfml.internal.IntercomHelper;
+import org.jsfml.internal.JSFMLError;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2i;
-import org.jsfml.window.event.Event;
+import org.jsfml.window.event.*;
 
+import java.nio.Buffer;
+import java.nio.IntBuffer;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -15,6 +20,79 @@ import java.util.Objects;
  * to the constants provided by it.
  */
 public class Window extends SFMLNativeObject implements WindowStyle {
+    private static Event decodeEvent(IntBuffer ints) {
+        final Event e;
+        final int typeId = ints.get(0);
+        if (typeId >= 0) {
+            final Event.Type type = Event.Type.values()[typeId];
+            switch (type) {
+                case CLOSED:
+                case GAINED_FOCUS:
+                case LOST_FOCUS:
+                    e = new Event(typeId);
+                    break;
+
+                case RESIZED:
+                    e = new SizeEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case TEXT_ENTERED:
+                    e = new TextEvent(typeId, ints.get(1));
+                    break;
+
+                case KEY_PRESSED:
+                case KEY_RELEASED:
+                    final int keyCode = ints.get(1);
+                    final int flags = ints.get(2);
+                    e = new KeyEvent(typeId, keyCode,
+                            (flags & 0x01) != 0,
+                            (flags & 0x02) != 0,
+                            (flags & 0x04) != 0,
+                            (flags & 0x08) != 0);
+
+                    break;
+
+                case MOUSE_WHEEL_MOVED:
+                    e = new MouseWheelEvent(typeId, ints.get(1), ints.get(2), ints.get(3));
+                    break;
+
+                case MOUSE_BUTTON_PRESSED:
+                case MOUSE_BUTTON_RELEASED:
+                    e = new MouseButtonEvent(typeId, ints.get(1), ints.get(2), ints.get(3));
+                    break;
+
+                case MOUSE_MOVED:
+                case MOUSE_LEFT:
+                case MOUSE_ENTERED:
+                    e = new MouseEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case JOYSTICK_BUTTON_PRESSED:
+                case JOYSTICK_BUTTON_RELEASED:
+                    e = new JoystickButtonEvent(typeId, ints.get(1), ints.get(2));
+                    break;
+
+                case JOYSTICK_MOVED:
+                    e = new JoystickMoveEvent(typeId, ints.get(1), ints.get(2),
+                            Float.intBitsToFloat(ints.get(3)));
+                    break;
+
+                case JOYSTICK_CONNECETED:
+                case JOYSTICK_DISCONNECTED:
+                    e = new JoystickEvent(typeId, ints.get(1));
+                    break;
+
+                default:
+                    e = null;
+                    break;
+            }
+        } else {
+            e = null;
+        }
+
+        return e;
+    }
+
     /**
      * The current window icon image.
      * <p/>
@@ -54,7 +132,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param settings the settings for the OpenGL context.
      * @see #create(VideoMode, String, int, ContextSettings)
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public Window(VideoMode mode, String title, int style, ContextSettings settings) {
         this();
         create(mode, title, style, settings);
     }
@@ -67,7 +145,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param title the window title.
      * @param style the window style.
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public Window(VideoMode mode, String title, int style) {
         this();
         create(mode, title, style, new ContextSettings());
     }
@@ -79,7 +157,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param mode  the window's video mode.
      * @param title the window title.
      */
-    public Window(@NotNull VideoMode mode, @NotNull String title) {
+    public Window(VideoMode mode, String title) {
         this();
         create(mode, title, WindowStyle.DEFAULT, new ContextSettings());
     }
@@ -99,7 +177,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native void nativeCreate(VideoMode mode, String title, int style, ContextSettings settings);
+    private native void nativeCreateWindow(Buffer buffer, String title);
 
     /**
      * Checks whether the current native thread is eligibile for creating a window.
@@ -129,21 +207,29 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see WindowStyle
      * @see ContextSettings
      */
-    public void create(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public void create(VideoMode mode, String title, int style, ContextSettings settings) {
         if (!isLegalWindowThread()) {
             throw new JSFMLError("This thread is not allowed to create a window on this system. " +
-                    "If you are running on Mac OS X, you MUST run your" +
+                    "If you are running on Mac OS X, you MUST run your " +
                     "application with the -XstartOnFirstThread command line argument!");
         }
 
         if ((style & FULLSCREEN) != 0 && !mode.isValid())
             throw new IllegalArgumentException("Invalid video mode for a fullscreen window.");
 
-        nativeCreate(
-                Objects.requireNonNull(mode),
-                Objects.requireNonNull(title),
-                style,
-                Objects.requireNonNull(settings));
+        title = Objects.requireNonNull(title);
+
+        final IntBuffer params = IntercomHelper.getBuffer().asIntBuffer();
+        params.put(0, mode.width);
+        params.put(1, mode.height);
+        params.put(2, mode.bitsPerPixel);
+        params.put(3, style);
+        params.put(4, settings.depthBits);
+        params.put(5, settings.stencilBits);
+        params.put(6, settings.antialiasingLevel);
+        params.put(7, settings.majorVersion);
+        params.put(8, settings.minorVersion);
+        nativeCreateWindow(params, title);
     }
 
     /**
@@ -161,7 +247,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @see org.jsfml.window.VideoMode#isValid()
      * @see WindowStyle
      */
-    public final void create(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public final void create(VideoMode mode, String title, int style) {
         create(mode, title, style, new ContextSettings());
     }
 
@@ -173,7 +259,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param mode  the video mode that determines the window's size.
      * @param title the window title.
      */
-    public final void create(@NotNull VideoMode mode, @NotNull String title) {
+    public final void create(VideoMode mode, String title) {
         create(mode, title, DEFAULT, new ContextSettings());
     }
 
@@ -195,48 +281,70 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      */
     public native boolean isOpen();
 
+    private native long nativeGetPosition();
+
     /**
      * Gets the absolute position of the window's top left corner on the screen.
      *
      * @return the absolute position of the window's top left corner on the screen.
      */
-    public native Vector2i getPosition();
+    public Vector2i getPosition() {
+        return IntercomHelper.decodeVector2i(nativeGetPosition());
+    }
 
-    protected native void nativeSetPosition(Vector2i v);
+    private native void nativeSetPosition(int x, int y);
 
     /**
      * Sets the absolute position of the window's top left corner on the screen.
      *
      * @param position the new absolute position of the window's top left corner on the screen.
      */
-    public void setPosition(@NotNull Vector2i position) {
-        nativeSetPosition(Objects.requireNonNull(position));
+    public void setPosition(Vector2i position) {
+        nativeSetPosition(position.x, position.y);
     }
+
+    private native long nativeGetSize();
 
     /**
      * Gets the size of the window.
      *
      * @return the size of the window.
      */
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return IntercomHelper.decodeVector2i(nativeGetSize());
+    }
 
-    protected native void nativeSetSize(Vector2i v);
+    private native void nativeSetSize(int x, int y);
 
     /**
      * Sets the size of the window.
      *
      * @param size the new size of the window.
      */
-    public void setSize(@NotNull Vector2i size) {
-        nativeSetPosition(Objects.requireNonNull(size));
+    public void setSize(Vector2i size) {
+        nativeSetPosition(size.x, size.y);
     }
+
+    private native void nativeGetSettings(Buffer buffer);
 
     /**
      * Retrieves the context settings for the window's OpenGL context.
      *
      * @return the context settings for the window's OpenGL context.
      */
-    public native ContextSettings getSettings();
+    public ContextSettings getSettings() {
+        final IntBuffer settings = IntercomHelper.getBuffer().asIntBuffer();
+        nativeGetSettings(settings);
+
+        return new ContextSettings(
+                settings.get(0),
+                settings.get(1),
+                settings.get(2),
+                settings.get(3),
+                settings.get(4));
+    }
+
+    private native void nativePollEvent(Buffer buffer);
 
     /**
      * Pops the event on top of the event stack, if any, and returns it.
@@ -247,7 +355,28 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @return the event currently on top of the event stack, or {@code null} if there is none.
      * @see #waitEvent()
      */
-    public native Event pollEvent();
+    public Event pollEvent() {
+        final IntBuffer buffer = IntercomHelper.getBuffer().asIntBuffer();
+        nativePollEvent(buffer);
+        return decodeEvent(buffer);
+    }
+
+    private native void nativeWaitEvent(Buffer buffer);
+
+    /**
+     * Pops the event on top of the event stack and returns it, or, if there is none,
+     * waits until an event occurs and then returns it.
+     * <p/>
+     * This method will block the program flow until an event is returned.
+     *
+     * @return the event currently on top of the event stack, or the next event that will occur.
+     * @see #pollEvent()
+     */
+    public Event waitEvent() {
+        final IntBuffer buffer = IntercomHelper.getBuffer().asIntBuffer();
+        nativeWaitEvent(buffer);
+        return decodeEvent(buffer);
+    }
 
     /**
      * Returns an {@link Iterable} that consecutively calls {@link #pollEvent()} and
@@ -256,7 +385,6 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @return an {@code Iterable} over all pending events.
      * @see #pollEvent()
      */
-    @JSFML
     public Iterable<Event> pollEvents() {
         return new Iterable<Event>() {
             @Override
@@ -284,17 +412,6 @@ public class Window extends SFMLNativeObject implements WindowStyle {
             }
         };
     }
-
-    /**
-     * Pops the event on top of the event stack and returns it, or, if there is none,
-     * waits until an event occurs and then returns it.
-     * <p/>
-     * This method will block the program flow until an event is returned.
-     *
-     * @return the event currently on top of the event stack, or the next event that will occur.
-     * @see #pollEvent()
-     */
-    public native Event waitEvent() throws InterruptedException;
 
     /**
      * Enables or disables vertical synchronization (VSync).
@@ -326,7 +443,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      *
      * @param title the window's new title.
      */
-    public void setTitle(@NotNull String title) {
+    public void setTitle(String title) {
         nativeSetTitle(Objects.requireNonNull(title));
     }
 
@@ -349,14 +466,14 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      */
     public native void setKeyRepeatEnabled(boolean enable);
 
-    protected native void nativeSetIcon(Image image);
+    private native void nativeSetIcon(Image image);
 
     /**
      * Sets the icon of the window.
      *
      * @param icon the icon image.
      */
-    public void setIcon(@NotNull Image icon) {
+    public void setIcon(Image icon) {
         this.icon = Objects.requireNonNull(icon); //keep a local reference
         nativeSetIcon(icon);
     }

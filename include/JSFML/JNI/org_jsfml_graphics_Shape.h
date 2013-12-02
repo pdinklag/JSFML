@@ -18,7 +18,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetTexture
 /*
  * Class:     org_jsfml_graphics_Shape
  * Method:    nativeSetTextureRect
- * Signature: (Lorg/jsfml/graphics/IntRect;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetTextureRect
   (JNIEnv *, jobject, jobject);
@@ -26,90 +26,58 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetTextureRect
 /*
  * Class:     org_jsfml_graphics_Shape
  * Method:    nativeSetFillColor
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetFillColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    nativeSetOutlineColor
- * Signature: (Lorg/jsfml/graphics/Color;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetOutlineColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    setOutlineThickness
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_setOutlineThickness
-  (JNIEnv *, jobject, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    getTextureRect
- * Signature: ()Lorg/jsfml/graphics/IntRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_getTextureRect
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    getFillColor
- * Signature: ()Lorg/jsfml/graphics/Color;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_getFillColor
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    getOutlineColor
- * Signature: ()Lorg/jsfml/graphics/Color;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_getOutlineColor
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    getOutlineThickness
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Shape_getOutlineThickness
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    getPointCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Shape_getPointCount
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Shape
- * Method:    nativeGetPoint
- * Signature: (I)Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_nativeGetPoint
   (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Shape
- * Method:    getLocalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
+ * Method:    nativeSetOutlineColor
+ * Signature: (I)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_getLocalBounds
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetOutlineColor
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Shape
+ * Method:    nativeSetOutlineThickness
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeSetOutlineThickness
+  (JNIEnv *, jobject, jfloat);
+
+/*
+ * Class:     org_jsfml_graphics_Shape
+ * Method:    nativeGetPointCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Shape_nativeGetPointCount
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Shape
- * Method:    getGlobalBounds
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
+ * Method:    nativeGetPoints
+ * Signature: (ILjava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Shape_getGlobalBounds
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeGetPoints
+  (JNIEnv *, jobject, jint, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Shape
+ * Method:    nativeGetLocalBounds
+ * Signature: (Ljava/nio/Buffer;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeGetLocalBounds
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Shape
+ * Method:    nativeGetGlobalBounds
+ * Signature: (Ljava/nio/Buffer;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shape_nativeGetGlobalBounds
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

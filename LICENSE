@@ -47,7 +47,7 @@ contributed to SFML.
 The following libraries are distributed along with this software in binary
 form, for the reasons of convenience and/or higher stability:
 
-- SFML 2.0, provided under the zlib/png license
+- SFML 2.1, provided under the zlib/png license
   (http://www.sfml-dev.org/license.php)
 - GLEW 1.6, provided under various open source compatible licenses
   (http://glew.sourceforge.net/credits.html)

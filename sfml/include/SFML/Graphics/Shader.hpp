@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2012 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2013 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -448,19 +448,27 @@ public :
     void setParameter(const std::string& name, CurrentTextureType);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Bind the shader for rendering (activate it)
+    /// \brief Bind a shader for rendering
     ///
-    /// This function is normally for internal use only, unless
-    /// you want to use the shader with a custom OpenGL rendering
-    /// instead of a SFML drawable.
+    /// This function is not part of the graphics API, it mustn't be
+    /// used when drawing SFML entities. It must be used only if you
+    /// mix sf::Shader with OpenGL code.
+    ///
     /// \code
-    /// window.setActive();
-    /// shader.bind();
-    /// ... render OpenGL geometry ...
+    /// sf::Shader s1, s2;
+    /// ...
+    /// sf::Shader::bind(&s1);
+    /// // draw OpenGL stuff that use s1...
+    /// sf::Shader::bind(&s2);
+    /// // draw OpenGL stuff that use s2...
+    /// sf::Shader::bind(NULL);
+    /// // draw OpenGL stuff that use no shader...
     /// \endcode
     ///
+    /// \param shader Shader to bind, can be null to use no shader
+    ///
     ////////////////////////////////////////////////////////////
-    void bind() const;
+    static void bind(const Shader* shader);
 
     ////////////////////////////////////////////////////////////
     /// \brief Tell whether or not the system supports shaders
@@ -500,9 +508,20 @@ private :
     void bindTextures() const;
 
     ////////////////////////////////////////////////////////////
+    /// \brief Get the location ID of a shader parameter
+    ///
+    /// \param name Name of the parameter to search
+    ///
+    /// \return Location ID of the parameter, or -1 if not found
+    ///
+    ////////////////////////////////////////////////////////////
+    int getParamLocation(const std::string& name);
+
+    ////////////////////////////////////////////////////////////
     // Types
     ////////////////////////////////////////////////////////////
     typedef std::map<int, const Texture*> TextureTable;
+    typedef std::map<std::string, int> ParamTable;
 
     ////////////////////////////////////////////////////////////
     // Member data
@@ -510,6 +529,7 @@ private :
     unsigned int m_shaderProgram;  ///< OpenGL identifier for the program
     int          m_currentTexture; ///< Location of the current texture in the shader
     TextureTable m_textures;       ///< Texture variables in the shader, mapped to their location
+    ParamTable   m_params;         ///< Parameters location cache
 };
 
 } // namespace sf
@@ -607,9 +627,9 @@ private :
 /// sf::Shader can also be used directly as a raw shader for
 /// custom OpenGL geometry.
 /// \code
-/// window.setActive();
-/// shader.bind();
+/// sf::Shader::bind(&shader);
 /// ... render OpenGL geometry ...
+/// sf::Shader::bind(NULL);
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////

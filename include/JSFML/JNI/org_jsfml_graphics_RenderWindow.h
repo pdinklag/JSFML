@@ -42,10 +42,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCapture
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeClear
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -65,35 +65,19 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetDefaultVie
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeGetViewport
- * Signature: (Lorg/jsfml/graphics/View;)Lorg/jsfml/graphics/IntRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeMapPixelToCoords
- * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (JLorg/jsfml/graphics/ConstView;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapPixelToCoords
-  (JNIEnv *, jobject, jobject, jobject);
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapPixelToCoords
+  (JNIEnv *, jobject, jlong, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeMapCoordsToPixel
- * Signature: (Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2i;
+ * Signature: (JLorg/jsfml/graphics/ConstView;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsToPixel
-  (JNIEnv *, jobject, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw
-  (JNIEnv *, jobject, jobjectArray, jobject, jobject);
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsToPixel
+  (JNIEnv *, jobject, jlong, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow

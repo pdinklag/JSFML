@@ -12,7 +12,7 @@ extern "C" {
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate__
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeCreate
   (JNIEnv *, jobject);
 
 /*
@@ -33,11 +33,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeDelete
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    nativeCreate
- * Signature: (Lorg/jsfml/window/VideoMode;Ljava/lang/String;ILorg/jsfml/window/ContextSettings;)V
+ * Method:    nativeCreateWindow
+ * Signature: (Ljava/nio/Buffer;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreate__Lorg_jsfml_window_VideoMode_2Ljava_lang_String_2ILorg_jsfml_window_ContextSettings_2
-  (JNIEnv *, jobject, jobject, jstring, jint, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeCreateWindow
+  (JNIEnv *, jobject, jobject, jstring);
 
 /*
  * Class:     org_jsfml_window_Window
@@ -65,59 +65,59 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_isOpen
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetPosition
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getPosition
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeGetPosition
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetPosition
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jint, jint);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetSize
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSize
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Window_nativeGetSize
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
  * Method:    nativeSetSize
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (II)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeSetSize
+  (JNIEnv *, jobject, jint, jint);
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    nativeGetSettings
+ * Signature: (Ljava/nio/Buffer;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeGetSettings
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    getSettings
- * Signature: ()Lorg/jsfml/window/ContextSettings;
+ * Method:    nativePollEvent
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_getSettings
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativePollEvent
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window
- * Method:    pollEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
+ * Method:    nativeWaitEvent
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_pollEvent
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_window_Window
- * Method:    waitEvent
- * Signature: ()Lorg/jsfml/window/event/Event;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Window_waitEvent
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_nativeWaitEvent
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_window_Window

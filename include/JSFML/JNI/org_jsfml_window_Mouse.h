@@ -10,42 +10,42 @@ extern "C" {
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeIsButtonPressed
- * Signature: (Lorg/jsfml/window/Mouse/Button;)Z
+ * Signature: (I)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Mouse_nativeIsButtonPressed
-  (JNIEnv *, jclass, jobject);
+  (JNIEnv *, jclass, jint);
 
 /*
  * Class:     org_jsfml_window_Mouse
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetPosition
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_getPosition
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition__
   (JNIEnv *, jclass);
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeGetPosition
- * Signature: (Lorg/jsfml/window/Window;)Lorg/jsfml/system/Vector2i;
+ * Signature: (Lorg/jsfml/window/Window;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition
+JNIEXPORT jlong JNICALL Java_org_jsfml_window_Mouse_nativeGetPosition__Lorg_jsfml_window_Window_2
   (JNIEnv *, jclass, jobject);
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;)V
+ * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2
-  (JNIEnv *, jclass, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__J
+  (JNIEnv *, jclass, jlong);
 
 /*
  * Class:     org_jsfml_window_Mouse
  * Method:    nativeSetPosition
- * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/window/Window;)V
+ * Signature: (JLorg/jsfml/window/Window;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__Lorg_jsfml_system_Vector2i_2Lorg_jsfml_window_Window_2
-  (JNIEnv *, jclass, jobject, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_window_Mouse_nativeSetPosition__JLorg_jsfml_window_Window_2
+  (JNIEnv *, jclass, jlong, jobject);
 
 #ifdef __cplusplus
 }

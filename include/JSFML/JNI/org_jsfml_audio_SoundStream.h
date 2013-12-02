@@ -57,51 +57,27 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_stop
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    getChannelCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_getChannelCount
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundStream
- * Method:    getSampleRate
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_getSampleRate
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_SoundStream
  * Method:    nativeSetPlayingOffset
- * Signature: (Lorg/jsfml/system/Time;)V
+ * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetPlayingOffset
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    getPlayingOffset
- * Signature: ()Lorg/jsfml/system/Time;
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundStream_getPlayingOffset
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeGetPlayingOffset
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    setLoop
+ * Method:    nativeSetLoop
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_setLoop
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetLoop
   (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     org_jsfml_audio_SoundStream
- * Method:    isLoop
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundStream_isLoop
-  (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_audio_SoundStream
@@ -113,10 +89,10 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_nativeGetStatus
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    initialize
+ * Method:    nativeInitialize
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_initialize
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeInitialize
   (JNIEnv *, jobject, jint, jint);
 
 #ifdef __cplusplus

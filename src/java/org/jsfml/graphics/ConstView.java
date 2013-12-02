@@ -1,7 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.Const;
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -15,7 +14,6 @@ import org.jsfml.system.Vector2f;
  *
  * @see Const
  */
-@JSFML
 public interface ConstView extends Const {
     /**
      * Gets the current center of the view.

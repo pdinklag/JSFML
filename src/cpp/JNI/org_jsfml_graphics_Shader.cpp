@@ -1,11 +1,18 @@
 #include <JSFML/JNI/org_jsfml_graphics_Shader.h>
 
-#include <JSFML/Intercom/Color.hpp>
-#include <JSFML/Intercom/JavaEnum.hpp>
+#include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Transform.hpp>
 
 #include <SFML/Graphics/Shader.hpp>
+
+/*
+ * Class:     org_jsfml_graphics_Shader
+ * Method:    bind
+ * Signature: (Lorg/jsfml/graphics/ConstShader;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind (JNIEnv *env, jclass cls, jobject jshader) {
+    sf::Shader::bind(JSFML::NativeObject::GetPointer<sf::Shader>(env, jshader));
+}
 
 /*
  * Class:     org_jsfml_graphics_Shader
@@ -37,16 +44,16 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Shader_nativeCreate (JNIEnv *env
 /*
  * Class:     org_jsfml_graphics_Shader
  * Method:    nativeLoadFromSource1
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Shader/Type;)Z
+ * Signature: (Ljava/lang/String;I)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource1
-    (JNIEnv *env, jobject obj, jstring source, jobject type) {
+    (JNIEnv *env, jobject obj, jstring source, jint type) {
 
     const char *utf8 = env->GetStringUTFChars(source, NULL);
 
     jboolean result = THIS(sf::Shader)->loadFromMemory(
         std::string(utf8),
-        (sf::Shader::Type)JavaEnum::ordinal(env, type));
+        (sf::Shader::Type)type);
 
     env->ReleaseStringUTFChars(source, utf8);
     return result;
@@ -74,10 +81,10 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Shader_nativeLoadFromSource2
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterFloat
  * Signature: (Ljava/lang/String;F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2F
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterFloat
     (JNIEnv *env, jobject obj, jstring name, jfloat x) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
@@ -87,10 +94,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec2
  * Signature: (Ljava/lang/String;FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec2
     (JNIEnv *env, jobject obj, jstring name, jfloat x, jfloat y) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
@@ -100,10 +107,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec3
  * Signature: (Ljava/lang/String;FFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FFF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec3
     (JNIEnv *env, jobject obj, jstring name, jfloat x, jfloat y, jfloat z) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
@@ -113,10 +120,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterVec4
  * Signature: (Ljava/lang/String;FFFF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2FFFF
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterVec4
     (JNIEnv *env, jobject obj, jstring name, jfloat x, jfloat y, jfloat z, jfloat w) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
@@ -126,26 +133,26 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
- * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Transform;)V
+ * Method:    nativeSetParameterMat4
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2Lorg_jsfml_graphics_Transform_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterMat4
     (JNIEnv *env, jobject obj, jstring name, jobject xform) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
     THIS(sf::Shader)->setParameter(
         std::string(utf8),
-        JSFML::Transform::ToSFML(env, xform));
+        JSFML::Intercom::decodeTransform(env, xform));
 
     env->ReleaseStringUTFChars(name, utf8);
 }
 
 /*
  * Class:     org_jsfml_graphics_Shader
- * Method:    nativeSetParameter
+ * Method:    nativeSetParameterSampler2d
  * Signature: (Ljava/lang/String;Lorg/jsfml/graphics/Texture;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameter__Ljava_lang_String_2Lorg_jsfml_graphics_Texture_2
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterSampler2d
     (JNIEnv *env, jobject obj, jstring name, jobject texture) {
 
     const char *utf8 = env->GetStringUTFChars(name, NULL);
@@ -170,13 +177,4 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_nativeSetParameterCurrentT
         sf::Shader::CurrentTexture);
 
     env->ReleaseStringUTFChars(name, utf8);
-}
-
-/*
- * Class:     org_jsfml_graphics_Shader
- * Method:    bind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Shader_bind (JNIEnv *env, jobject obj) {
-    THIS(sf::Shader)->bind();
 }

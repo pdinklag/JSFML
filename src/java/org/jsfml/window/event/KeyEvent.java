@@ -1,6 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.window.Keyboard;
 
 /**
@@ -10,7 +9,6 @@ import org.jsfml.window.Keyboard;
  * {@link Event.Type#KEY_PRESSED} or
  * {@link Event.Type#KEY_RELEASED}.
  */
-@Intercom
 public final class KeyEvent extends Event {
     /**
      * The code of the key that was pressed or released.
@@ -54,7 +52,6 @@ public final class KeyEvent extends Event {
      * @param control {@code true} to indicate that a {@code CTRL} key was pressed.
      * @param system  {@code true} to indicate that a system key was pressed.
      */
-    @Intercom
     public KeyEvent(int type, int keyCode, boolean alt, boolean shift, boolean control, boolean system) {
         super(type);
         this.key = Keyboard.Key.values()[keyCode + 1];

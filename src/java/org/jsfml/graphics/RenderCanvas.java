@@ -1,12 +1,14 @@
 package org.jsfml.graphics;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.JSFMLError;
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLNative;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.window.ContextSettings;
 
 import java.awt.*;
+import java.nio.Buffer;
+import java.nio.IntBuffer;
 
 /**
  * An AWT canvas that contains a {@link RenderWindow}.
@@ -61,7 +63,7 @@ public final class RenderCanvas extends Canvas {
      * @param settings the OpenGL context settings.
      * @see Runner
      */
-    public RenderCanvas(Runner runner, @NotNull ContextSettings settings) {
+    public RenderCanvas(Runner runner, ContextSettings settings) {
         SFMLNative.ensureDisplay();
         SFMLNative.loadNativeLibraries();
 
@@ -85,7 +87,7 @@ public final class RenderCanvas extends Canvas {
         }
     }
 
-    private native long nativeCreateRenderWindow(ContextSettings settings);
+    private native long nativeCreateRenderWindow(Buffer buffer);
 
     @Override
     public void paint(Graphics g) {
@@ -100,7 +102,14 @@ public final class RenderCanvas extends Canvas {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    long ptr = nativeCreateRenderWindow(settings);
+                    final IntBuffer params = IntercomHelper.getBuffer().asIntBuffer();
+                    params.put(0, settings.depthBits);
+                    params.put(1, settings.stencilBits);
+                    params.put(2, settings.antialiasingLevel);
+                    params.put(3, settings.majorVersion);
+                    params.put(4, settings.minorVersion);
+
+                    long ptr = nativeCreateRenderWindow(params);
                     if (ptr == 0) {
                         throw new JSFMLError("Failed to initialize RenderCanvas");
                     } else {

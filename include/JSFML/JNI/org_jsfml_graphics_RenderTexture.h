@@ -12,7 +12,7 @@ extern "C" {
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate
   (JNIEnv *, jobject);
 
 /*
@@ -33,27 +33,11 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeCreate
+ * Method:    nativeCreateTexture
  * Signature: (IIZ)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreate__IIZ
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_nativeCreateTexture
   (JNIEnv *, jobject, jint, jint, jboolean);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    setSmooth
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_setSmooth
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    isSmooth
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_RenderTexture_isSmooth
-  (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
@@ -81,19 +65,11 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetTexture
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_getSize
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeClear
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeClear
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
@@ -113,35 +89,19 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetDefaultVi
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeGetViewport
- * Signature: (Lorg/jsfml/graphics/View;)Lorg/jsfml/graphics/IntRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeGetViewport
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeMapPixelToCoords
- * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (JLorg/jsfml/graphics/ConstView;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapPixelToCoords
-  (JNIEnv *, jobject, jobject, jobject);
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapPixelToCoords
+  (JNIEnv *, jobject, jlong, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture
  * Method:    nativeMapCoordsToPixel
- * Signature: (Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2i;
+ * Signature: (JLorg/jsfml/graphics/ConstView;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapCoordsToPixel
-  (JNIEnv *, jobject, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_RenderTexture
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderTexture_nativeDraw
-  (JNIEnv *, jobject, jobjectArray, jobject, jobject);
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderTexture_nativeMapCoordsToPixel
+  (JNIEnv *, jobject, jlong, jobject);
 
 /*
  * Class:     org_jsfml_graphics_RenderTexture

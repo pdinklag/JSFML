@@ -1,19 +1,33 @@
 #include <JSFML/JNI/org_jsfml_graphics_Texture.h>
 
-#include <JSFML/Intercom/IntRect.hpp>
-#include <JSFML/Intercom/JavaEnum.hpp>
+#include <JSFML/Intercom/InputStream.hpp>
+#include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2u.hpp>
+#include <JSFML/Intercom/NativeRef.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Window/Context.hpp>
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getMaximumSize
+ * Method:    nativeGetMaximumSize
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize (JNIEnv *env, jclass cls) {
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_nativeGetMaximumSize (JNIEnv *env, jclass cls) {
     return (jint)sf::Texture::getMaximumSize();
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeBind
+ * Signature: (Lorg/jsfml/graphics/Texture;I)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
+    (JNIEnv *env, jclass cls, jobject jtex, jint coordType) {
+    
+    sf::Texture::bind(
+        JSFML::NativeObject::GetPointer<sf::Texture>(env, jtex),
+        (sf::Texture::CoordinateType)coordType);
 }
 
 /*
@@ -51,46 +65,58 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopy (JNIEnv *env,
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
   (JNIEnv *env, jobject obj, jint width, jint height) {
 
+    sf::Context ctx;
     return THIS(sf::Texture)->create(width, height);
 }
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeLoadFromMemory
- * Signature: ([BLorg/jsfml/graphics/IntRect;)Z
+ * Method:    nativeLoadFromStream
+ * Signature: (Lorg/jsfml/internal/SFMLInputStream/NativeStreamRef;Ljava/nio/Buffer;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
-    (JNIEnv *env, jobject obj, jbyteArray arr, jobject area) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromStream
+    (JNIEnv *env, jobject obj, jobject stream, jobject area) {
 
-    std::size_t n = (std::size_t)env->GetArrayLength(arr);
-    jbyte* mem = env->GetByteArrayElements(arr, 0);
+    return THIS(sf::Texture)->loadFromStream(
+        *JSFML::NativeRef::GetPointer<JSFML::InputStream>(env, stream),
+        JSFML::Intercom::decodeIntRect(env, area));
+}
 
-    jboolean result = THIS(sf::Texture)->loadFromMemory(mem, n, JSFML::IntRect::ToSFML(env, area));
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromFile
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromFile
+    (JNIEnv *env, jobject obj, jstring jpath, jobject area) {
 
-    env->ReleaseByteArrayElements(arr, mem, JNI_ABORT);
+    const char *path = env->GetStringUTFChars(jpath, NULL);
+    jboolean result = THIS(sf::Texture)->loadFromFile(std::string(path), JSFML::Intercom::decodeIntRect(env, area));
+    
+    env->ReleaseStringUTFChars(jpath, path);
     return result;
 }
 
 /*
  * Class:     org_jsfml_graphics_Texture
  * Method:    nativeLoadFromImage
- * Signature: (Lorg/jsfml/graphics/Image;Lorg/jsfml/graphics/IntRect;)Z
+ * Signature: (Lorg/jsfml/graphics/Image;Ljava/nio/Buffer;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
     (JNIEnv *env, jobject obj, jobject image, jobject area) {
 
     return THIS(sf::Texture)->loadFromImage(
         *JSFML::NativeObject::GetPointer<sf::Image>(env, image),
-        JSFML::IntRect::ToSFML(env, area));
+        JSFML::Intercom::decodeIntRect(env, area));
 }
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetSize
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Texture_getSize (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2u::FromSFML(env, THIS(sf::Texture)->getSize());
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeGetSize (JNIEnv *env, jobject obj) {
+    return JSFML::Intercom::encodeVector2u(THIS(sf::Texture)->getSize());
 }
 
 /*
@@ -112,6 +138,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeCopyToImage (JNIEn
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_graphics_Image_2II
     (JNIEnv *env, jobject obj, jobject image, jint x, jint y) {
 
+    sf::Context ctx;
     THIS(sf::Texture)->update(*JSFML::NativeObject::GetPointer<sf::Image>(env, image), x, y);
 }
 
@@ -128,45 +155,40 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture$CoordinateType;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind (JNIEnv *env, jobject obj, jobject coordType) {
-    THIS(sf::Texture)->bind((sf::Texture::CoordinateType)JavaEnum::ordinal(env, coordType));
-}
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    setSmooth
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_setSmooth (JNIEnv *env, jobject obj, jboolean b) {
-    THIS(sf::Texture)->setSmooth(b);
-}
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    isSmooth
+ * Method:    nativeIsSmooth
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_isSmooth (JNIEnv *env, jobject obj) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsSmooth
+    (JNIEnv *env, jobject obj) {
+    
     return THIS(sf::Texture)->isSmooth();
 }
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    setRepeated
+ * Method:    nativeSetSmooth
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_setRepeated (JNIEnv *env, jobject obj, jboolean b) {
-  THIS(sf::Texture)->setRepeated(b);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeSetSmooth (JNIEnv *env, jobject obj, jboolean b) {
+    THIS(sf::Texture)->setSmooth(b);
 }
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    isRepeated
+ * Method:    nativeIsRepeated
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_isRepeated (JNIEnv *env, jobject obj) {
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsRepeated
+    (JNIEnv *env, jobject obj) {
+    
     return THIS(sf::Texture)->isRepeated();
+}
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeSetRepeated
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeSetRepeated (JNIEnv *env, jobject obj, jboolean b) {
+  THIS(sf::Texture)->setRepeated(b);
 }

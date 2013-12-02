@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  * Pipe for enabling stream from a Java {@link InputStream} into a {@code sf::InputStream}.
@@ -25,6 +26,8 @@ public class SFMLInputStream {
     private long pos;
 
     public SFMLInputStream(InputStream stream) {
+        Objects.requireNonNull(stream);
+
         if (stream.markSupported()) {
             this.stream = stream;
         } else {

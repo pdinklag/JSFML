@@ -9,11 +9,19 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getMaximumSize
+ * Method:    nativeGetMaximumSize
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_getMaximumSize
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Texture_nativeGetMaximumSize
   (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeBind
+ * Signature: (Lorg/jsfml/graphics/Texture;I)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
+  (JNIEnv *, jclass, jobject, jint);
 
 /*
  * Class:     org_jsfml_graphics_Texture
@@ -49,26 +57,34 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeCreate__II
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeLoadFromMemory
- * Signature: ([BLorg/jsfml/graphics/IntRect;)Z
+ * Method:    nativeLoadFromStream
+ * Signature: (Lorg/jsfml/internal/SFMLInputStream/NativeStreamRef;Ljava/nio/Buffer;)Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromMemory
-  (JNIEnv *, jobject, jbyteArray, jobject);
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromStream
+  (JNIEnv *, jobject, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Texture
+ * Method:    nativeLoadFromFile
+ * Signature: (Ljava/lang/String;Ljava/nio/Buffer;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromFile
+  (JNIEnv *, jobject, jstring, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture
  * Method:    nativeLoadFromImage
- * Signature: (Lorg/jsfml/graphics/Image;Lorg/jsfml/graphics/IntRect;)Z
+ * Signature: (Lorg/jsfml/graphics/Image;Ljava/nio/Buffer;)Z
  */
 JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeLoadFromImage
   (JNIEnv *, jobject, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetSize
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Texture_getSize
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Texture_nativeGetSize
   (JNIEnv *, jobject);
 
 /*
@@ -97,42 +113,34 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeUpdate__Lorg_jsfml_
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    nativeBind
- * Signature: (Lorg/jsfml/graphics/Texture/CoordinateType;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeBind
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Texture
- * Method:    setSmooth
+ * Method:    nativeSetSmooth
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_setSmooth
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeSetSmooth
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    isSmooth
+ * Method:    nativeIsSmooth
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_isSmooth
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsSmooth
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    setRepeated
+ * Method:    nativeSetRepeated
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_setRepeated
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Texture_nativeSetRepeated
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_graphics_Texture
- * Method:    isRepeated
+ * Method:    nativeIsRepeated
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_isRepeated
+JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Texture_nativeIsRepeated
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

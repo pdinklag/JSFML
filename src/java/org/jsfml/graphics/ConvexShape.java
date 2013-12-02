@@ -1,7 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 import java.util.Objects;
@@ -38,8 +36,7 @@ public class ConvexShape extends Shape {
      *
      * @param points the points of the polygon.
      */
-    @JSFML
-    public ConvexShape(@NotNull Vector2f... points) {
+    public ConvexShape(Vector2f... points) {
         this();
         setPoints(points);
     }
@@ -59,7 +56,23 @@ public class ConvexShape extends Shape {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native void nativeSetPoint(int i, Vector2f v);
+    private native void nativeSetPointCount(int count);
+
+    private native void nativeSetPoint(int i, float x, float y);
+
+    /**
+     * Sets the amount of points that belong to the polygon.
+     *
+     * @param pointCount the amount of points of the polygon.
+     */
+    public void setPointCount(int pointCount) {
+        nativeSetPointCount(pointCount);
+
+        points = new Vector2f[pointCount];
+        for (int i = 0; i < pointCount; i++) {
+            points[i] = Vector2f.ZERO;
+        }
+    }
 
     /**
      * Sets a point of the polygon.
@@ -69,19 +82,13 @@ public class ConvexShape extends Shape {
      *          using {@link ConvexShape#setPointCount(int)} first.
      * @param v the point to set at the given index.
      */
-    public void setPoint(int i, @NotNull Vector2f v) {
-        if (i < 0 || i >= getPointCount())
+    public void setPoint(int i, Vector2f v) {
+        if (points == null || i < 0 || i >= points.length)
             throw new IndexOutOfBoundsException(Integer.toString(i));
 
-        nativeSetPoint(i, Objects.requireNonNull(v));
+        nativeSetPoint(i, v.x, v.y);
+        points[i] = v;
     }
-
-    /**
-     * Sets the amount of points that belong to the polygon.
-     *
-     * @param pointCount the amount of points of the polygon.
-     */
-    public native void setPointCount(int pointCount);
 
     /**
      * Sets the points of the polygon.
@@ -92,17 +99,24 @@ public class ConvexShape extends Shape {
      *
      * @param points the points of the polygon.
      */
-    @JSFML
-    public void setPoints(@NotNull Vector2f... points) {
-        setPointCount(points.length);
+    public void setPoints(Vector2f... points) {
+        this.points = Objects.requireNonNull(points);
+        nativeSetPointCount(points.length);
 
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) {
                 setPointCount(0);
+                this.points = null;
                 throw new NullPointerException("point " + i + " is null.");
             }
 
-            nativeSetPoint(i, points[i]);
+            nativeSetPoint(i, points[i].x, points[i].y);
         }
+    }
+
+    @Override
+    public Vector2f[] getPoints() {
+        pointsNeedUpdate = false;
+        return super.getPoints();
     }
 }

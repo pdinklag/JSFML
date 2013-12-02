@@ -6,6 +6,7 @@ import org.jsfml.system.Vector3f;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -36,6 +37,16 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @see Shader#setParameter(String, org.jsfml.graphics.Shader.CurrentTextureType)
      */
     public static final CurrentTextureType CURRENT_TEXTURE = new CurrentTextureType();
+
+    /**
+     * Activates a shader for rendering.
+     * <p/>
+     * This is required only if you wish to use JSFML shaders in custom OpenGL code.
+     *
+     * @param shader the shader to activate, or {@code null} to indicate that no shader
+     *               is to be used.
+     */
+    public static native void bind(ConstShader shader);
 
     /**
      * Checks if shaders are available on this system.
@@ -82,7 +93,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native boolean nativeLoadFromSource1(String source, Type shaderType);
+    private native boolean nativeLoadFromSource1(String source, int shaderType);
 
     private native boolean nativeLoadFromSource2(String vertSource, String fragSource);
 
@@ -102,13 +113,12 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromSource(@NotNull String source, @NotNull Type shaderType)
+    public void loadFromSource(String source, Type shaderType)
             throws IOException, ShaderSourceException {
 
         SFMLErrorCapture.start();
         final boolean result = nativeLoadFromSource1(
-                Objects.requireNonNull(source),
-                Objects.requireNonNull(shaderType));
+                Objects.requireNonNull(source), shaderType.ordinal());
 
         final String msg = SFMLErrorCapture.finish();
 
@@ -125,7 +135,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromSource(@NotNull String vertexShaderSource, @NotNull String fragmentShaderSource)
+    public void loadFromSource(String vertexShaderSource, String fragmentShaderSource)
             throws IOException, ShaderSourceException {
 
         SFMLErrorCapture.start();
@@ -149,7 +159,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromStream(InputStream in, @NotNull Type shaderType)
+    public void loadFromStream(InputStream in, Type shaderType)
             throws IOException, ShaderSourceException {
 
         loadFromSource(new String(StreamUtil.readStream(in)), Objects.requireNonNull(shaderType));
@@ -180,7 +190,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @throws IOException           in case an I/O error occurs.
      * @throws ShaderSourceException in case the shader could not be compiled or linked.
      */
-    public void loadFromFile(Path path, @NotNull Type shaderType)
+    public void loadFromFile(Path path, Type shaderType)
             throws IOException, ShaderSourceException {
 
         loadFromSource(new String(StreamUtil.readFile(path)), Objects.requireNonNull(shaderType));
@@ -202,19 +212,19 @@ public class Shader extends SFMLNativeObject implements ConstShader {
                 new String(StreamUtil.readFile(fragmentShaderFile)));
     }
 
-    private native void nativeSetParameter(String name, float x);
+    private native void nativeSetParameterFloat(String name, float x);
 
     /**
      * Sets a float parameter ({@code float}) value in the shader.
      *
-     * @param name the parameter's name.
-     * @param x    the parameter's value.
+     * @param name  the parameter's name.
+     * @param value the parameter's value.
      */
-    public void setParameter(@NotNull String name, float x) {
-        nativeSetParameter(Objects.requireNonNull(name), x);
+    public void setParameter(String name, float value) {
+        nativeSetParameterFloat(Objects.requireNonNull(name), value);
     }
 
-    private native void nativeSetParameter(String name, float x, float y);
+    private native void nativeSetParameterVec2(String name, float x, float y);
 
     /**
      * Sets a 2-component-float ({@code vec2}) parameter value in the shader.
@@ -223,8 +233,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param x    the parameter's value.
      * @param y    the parameter's value.
      */
-    public void setParameter(@NotNull String name, float x, float y) {
-        nativeSetParameter(Objects.requireNonNull(name), x, y);
+    public void setParameter(String name, float x, float y) {
+        nativeSetParameterVec2(Objects.requireNonNull(name), x, y);
     }
 
     /**
@@ -237,7 +247,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
         setParameter(name, v.x, v.y);
     }
 
-    private native void nativeSetParameter(String name, float x, float y, float z);
+    private native void nativeSetParameterVec3(String name, float x, float y, float z);
 
     /**
      * Sets a 3-component-float ({@code vec3}) parameter value in the shader.
@@ -247,8 +257,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param y    the parameter's value.
      * @param z    the parameter's value.
      */
-    public void setParameter(@NotNull String name, float x, float y, float z) {
-        nativeSetParameter(Objects.requireNonNull(name), x, y, z);
+    public void setParameter(String name, float x, float y, float z) {
+        nativeSetParameterVec3(Objects.requireNonNull(name), x, y, z);
     }
 
     /**
@@ -261,7 +271,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
         setParameter(name, v.x, v.y, v.z);
     }
 
-    private native void nativeSetParameter(String name, float x, float y, float z, float w);
+    private native void nativeSetParameterVec4(String name, float x, float y, float z, float w);
 
     /**
      * Sets a 4-component-float ({@code vec4}) parameter value in the shader.
@@ -272,8 +282,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param z    the parameter's value.
      * @param w    the parameter's value.
      */
-    public void setParameter(@NotNull String name, float x, float y, float z, float w) {
-        nativeSetParameter(Objects.requireNonNull(name), x, y, z, w);
+    public void setParameter(String name, float x, float y, float z, float w) {
+        nativeSetParameterVec4(Objects.requireNonNull(name), x, y, z, w);
     }
 
     /**
@@ -290,7 +300,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
                 (float) color.a / 255.0f);
     }
 
-    private native void nativeSetParameter(String name, Transform xform);
+    private native void nativeSetParameterMat4(String name, Buffer xform);
 
     /**
      * Sets a matrix (mat4) parameter value in the shader.
@@ -298,11 +308,13 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param name  the parameter's name.
      * @param xform the parameter's value.
      */
-    public void setParameter(@NotNull String name, @NotNull Transform xform) {
-        nativeSetParameter(Objects.requireNonNull(name), Objects.requireNonNull(xform));
+    public void setParameter(String name, Transform xform) {
+        nativeSetParameterMat4(
+                Objects.requireNonNull(name),
+                IntercomHelper.encodeTransform(xform));
     }
 
-    private native void nativeSetParameter(String name, Texture texture);
+    private native void nativeSetParameterSampler2d(String name, Texture texture);
 
     /**
      * Sets a texture (sampler2D) parameter value in the shader.
@@ -310,8 +322,8 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param name    the parameter's name.
      * @param texture the parameter's value.
      */
-    public void setParameter(@NotNull String name, @NotNull ConstTexture texture) {
-        nativeSetParameter(Objects.requireNonNull(name), (Texture) Objects.requireNonNull(texture));
+    public void setParameter(String name, ConstTexture texture) {
+        nativeSetParameterSampler2d(Objects.requireNonNull(name), (Texture) Objects.requireNonNull(texture));
     }
 
     private native void nativeSetParameterCurrentTexture(String name);
@@ -326,10 +338,7 @@ public class Shader extends SFMLNativeObject implements ConstShader {
      * @param name           the parameter's name.
      * @param currentTexture should be {@link Shader#CURRENT_TEXTURE}.
      */
-    public void setParameter(@NotNull String name, CurrentTextureType currentTexture) {
+    public void setParameter(String name, CurrentTextureType currentTexture) {
         nativeSetParameterCurrentTexture(Objects.requireNonNull(name));
     }
-
-    @Override
-    public native void bind();
 }

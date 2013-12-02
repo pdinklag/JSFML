@@ -28,7 +28,6 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -36,7 +35,6 @@ import java.io.Serializable;
 /**
  * Represents an axis-aligned rectangle using floating point coordinates.
  */
-@Intercom
 public final strictfp class FloatRect implements Serializable {
     private static final long serialVersionUID = -8603980852893951558L;
 
@@ -48,25 +46,21 @@ public final strictfp class FloatRect implements Serializable {
     /**
      * The X coordinate of the rectangle's left edge.
      */
-    @Intercom
     public final float left;
 
     /**
      * The Y coordinate of the rectangle's top edge.
      */
-    @Intercom
     public final float top;
 
     /**
      * The width of the rectangle.
      */
-    @Intercom
     public final float width;
 
     /**
      * The height of the rectangle.
      */
-    @Intercom
     public final float height;
 
     /**
@@ -77,7 +71,6 @@ public final strictfp class FloatRect implements Serializable {
      * @param width  the rectangle's width.
      * @param height the rectangle's height.
      */
-    @Intercom
     public FloatRect(float left, float top, float width, float height) {
         this.left = left;
         this.top = top;
@@ -118,7 +111,13 @@ public final strictfp class FloatRect implements Serializable {
      *         {@code false} otherwise.
      */
     public boolean contains(float x, float y) {
-        return (x >= left) && (x < left + width) && (y >= top) && (y < top + height);
+        //direct port of SFML code
+        final float minX = Math.min(left, left + width);
+        final float maxX = Math.max(left, left + width);
+        final float minY = Math.min(top, top + height);
+        final float maxY = Math.max(top, top + height);
+
+        return (x >= minX) && (x < maxX) && (y >= minY) && (y < maxY);
     }
 
     /**
@@ -140,13 +139,33 @@ public final strictfp class FloatRect implements Serializable {
      * @return the intersection rectangle, or {@code null} if the rectangles do not intersect.
      */
     public FloatRect intersection(FloatRect rect) {
-        float left = Math.max(this.left, rect.left);
-        float top = Math.max(this.top, rect.top);
-        float right = Math.min(this.left + this.width, rect.left + rect.width);
-        float bottom = Math.min(this.top + this.height, rect.top + rect.height);
+        //direct port of SFML code
 
-        if (left < right && top < bottom) {
-            return new FloatRect(left, top, right - left, bottom - top);
+        // Compute the min and max of the first rectangle on both axes
+        final float r1MinX = Math.min(left, left + width);
+        final float r1MaxX = Math.max(left, left + width);
+        final float r1MinY = Math.min(top, top + height);
+        final float r1MaxY = Math.max(top, top + height);
+
+        // Compute the min and max of the second rectangle on both axes
+        final float r2MinX = Math.min(rect.left, rect.left + rect.width);
+        final float r2MaxX = Math.max(rect.left, rect.left + rect.width);
+        final float r2MinY = Math.min(rect.top, rect.top + rect.height);
+        final float r2MaxY = Math.max(rect.top, rect.top + rect.height);
+
+        // Compute the intersection boundaries
+        final float interLeft = Math.max(r1MinX, r2MinX);
+        final float interTop = Math.max(r1MinY, r2MinY);
+        final float interRight = Math.min(r1MaxX, r2MaxX);
+        final float interBottom = Math.min(r1MaxY, r2MaxY);
+
+        // If the intersection is valid (positive non zero area), then there is an intersection
+        if ((interLeft < interRight) && (interTop < interBottom)) {
+            return new FloatRect(
+                    interLeft,
+                    interTop,
+                    interRight - interLeft,
+                    interBottom - interTop);
         } else {
             return null;
         }
@@ -167,11 +186,11 @@ public final strictfp class FloatRect implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (left != +0.0f ? Float.floatToIntBits(left) : 0);
-        result = 31 * result + (top != +0.0f ? Float.floatToIntBits(top) : 0);
-        result = 31 * result + (width != +0.0f ? Float.floatToIntBits(width) : 0);
-        result = 31 * result + (height != +0.0f ? Float.floatToIntBits(height) : 0);
-        return result;
+        final int ileft = left != 0.0f ? Float.floatToIntBits(left) : 0;
+        final int itop = top != 0.0f ? Float.floatToIntBits(top) : 0;
+        final int iwidth = width != 0.0f ? Float.floatToIntBits(width) : 0;
+        final int iheight = height != 0.0f ? Float.floatToIntBits(height) : 0;
+        return (ileft * 0x2F2F2F2F) ^ (itop * 0x1F1F1F1F) ^ (iwidth * 0x0F0F0F0F) ^ iheight;
     }
 
     @Override

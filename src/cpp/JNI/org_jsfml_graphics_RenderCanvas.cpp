@@ -23,9 +23,6 @@
 
 #include <SFML/Graphics.hpp>
 
-//Intercom
-#include <JSFML/Intercom/ContextSettings.hpp>
-
 #if defined(SFML_SYSTEM_WINDOWS)
 	/**
 	* On Windows, there is a conflict between SFML and the Java AWT since they both use the
@@ -118,11 +115,14 @@ sf::WindowHandle getCanvasHandle(JNIEnv *env, jobject canvas) {
 /*
  * Class:     org_jsfml_graphics_RenderCanvas
  * Method:    nativeCreateRenderWindow
- * Signature: (Lorg/jsfml/window/ContextSettings;)J
+ * Signature: (Ljava/nio/Buffer;)J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderCanvas_nativeCreateRenderWindow
-    (JNIEnv *env, jobject obj, jobject context) {
-
+    (JNIEnv *env, jobject obj, jobject paramsBuffer) {
+    
+    jint *params = (jint*)env->GetDirectBufferAddress(paramsBuffer);
+    sf::ContextSettings context(params[0], params[1], params[2], params[3], params[4]);
+    
 	sf::WindowHandle handle = getCanvasHandle(env, obj);
 
 	if(handle) {
@@ -136,8 +136,7 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderCanvas_nativeCreateRenderW
 			SetWindowLongPtr(handle, GWLP_WNDPROC, (LONG_PTR)&NoOpWindowProc); //make SFML use the NoOp as "myCallback"
 		#endif
 
-		sf::RenderWindow* window = new sf::RenderWindow(
-		    handle, JSFML::ContextSettings::ToSFML(env, context));
+		sf::RenderWindow* window = new sf::RenderWindow(handle, context);
 
 		#if defined(SFML_SYSTEM_WINDOWS)
 			proc->sfmlUserData = GetWindowLongPtr(handle, GWLP_USERDATA);

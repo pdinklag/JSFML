@@ -1,8 +1,6 @@
 package org.jsfml.graphics;
 
 import org.jsfml.internal.Const;
-import org.jsfml.internal.JSFML;
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2i;
 
 /**
@@ -16,7 +14,6 @@ import org.jsfml.system.Vector2i;
  *
  * @see Const
  */
-@JSFML
 public interface ConstTexture extends Const {
     /**
      * Gets the dimensions of the texture.
@@ -31,19 +28,6 @@ public interface ConstTexture extends Const {
      * @return the image that contains a coyp of the texure's contents.
      */
     public Image copyToImage();
-
-    /**
-     * Activates the texture for rendering.
-     *
-     * @param coordinateType the coordinate type to use.
-     */
-    public void bind(@NotNull Texture.CoordinateType coordinateType);
-
-    /**
-     * Activates the texture for rendering, using the
-     * {@link Texture.CoordinateType#NORMALIZED} coordinate type..
-     */
-    public void bind();
 
     /**
      * Checks whether the smooth filter is enabled.

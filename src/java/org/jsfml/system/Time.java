@@ -1,14 +1,11 @@
 package org.jsfml.system;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
  * Represents a time period and provides functionality to convert between
  * various time units, as well as arithmetic operations on time intervals.
  */
-@Intercom
 public final strictfp class Time implements Comparable<Time>, Serializable {
     private static final long serialVersionUID = 7038088548302750096L;
 
@@ -102,10 +99,8 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
         return (float) a.microseconds / (float) b.microseconds;
     }
 
-    @Intercom
     private final long microseconds;
 
-    @Intercom
     private Time(long microseconds) {
         this.microseconds = microseconds;
     }

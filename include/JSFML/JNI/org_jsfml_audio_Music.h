@@ -41,11 +41,11 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Music_nativeOpenFromStream
 
 /*
  * Class:     org_jsfml_audio_Music
- * Method:    getDuration
- * Signature: ()Lorg/jsfml/system/Time;
+ * Method:    nativeGetData
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Music_getDuration
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Music_nativeGetData
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

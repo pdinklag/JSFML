@@ -1,26 +1,12 @@
 #include <JSFML/JNI/org_jsfml_graphics_RenderWindow.h>
 
-#include <JSFML/Intercom/Color.hpp>
-#include <JSFML/Intercom/ContextSettings.hpp>
-#include <JSFML/Intercom/Event.hpp>
-#include <JSFML/Intercom/IntRect.hpp>
+#include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/JavaEnum.hpp>
-#include <JSFML/Intercom/RenderStates.hpp>
-#include <JSFML/Intercom/Time.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
-#include <JSFML/Intercom/Vector2i.hpp>
-#include <JSFML/Intercom/Vector2u.hpp>
-#include <JSFML/Intercom/Vertex.hpp>
-#include <JSFML/Intercom/VideoMode.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
-
-#define VERTEX_BUFSIZE_RWINDOW 0x400
-sf::Vertex sfVertexBuffer_RenderWindow[VERTEX_BUFSIZE_RWINDOW];
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
@@ -67,10 +53,10 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeCapture (JNIE
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeClear
- * Signature: (Lorg/jsfml/graphics/Color;)V
+ * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeClear (JNIEnv *env, jobject obj, jobject color) {
-    THIS(sf::RenderWindow)->clear(JSFML::Color::ToSFML(env, color));
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeClear (JNIEnv *env, jobject obj, jint color) {
+    THIS(sf::RenderWindow)->clear(JSFML::Intercom::decodeColor(color));
 }
 
 /*
@@ -93,74 +79,28 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetDefaultVie
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeGetViewport
- * Signature: (Lorg/jsfml/graphics/View;)Lorg/jsfml/graphics/IntRect;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeGetViewport (JNIEnv *env, jobject obj, jobject view) {
-    return JSFML::IntRect::FromSFML(
-        env,
-        THIS(sf::RenderWindow)->getViewport(*JSFML::NativeObject::GetPointer<sf::View>(env, view)));
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeMapPixelToCoords
- * Signature: (Lorg/jsfml/system/Vector2i;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2f;
+ * Signature: (JLorg/jsfml/graphics/View;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapPixelToCoords
-    (JNIEnv *env, jobject obj, jobject point, jobject view) {
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapPixelToCoords
+    (JNIEnv *env, jobject obj, jlong point, jobject view) {
 
-    if(view == NULL) {
-        return JSFML::Vector2f::FromSFML(env,
-            THIS(sf::RenderWindow)->mapPixelToCoords(
-                JSFML::Vector2i::ToSFML(env, point)));
-    } else {
-        return JSFML::Vector2f::FromSFML(env,
-            THIS(sf::RenderWindow)->mapPixelToCoords(
-                JSFML::Vector2i::ToSFML(env, point),
-                *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
-    }
+    return JSFML::Intercom::encodeVector2f(THIS(sf::RenderWindow)->mapPixelToCoords(
+            JSFML::Intercom::decodeVector2i(point),
+            *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
 }
 
 /*
  * Class:     org_jsfml_graphics_RenderWindow
  * Method:    nativeMapCoordsToPixel
- * Signature: (Lorg/jsfml/system/Vector2f;Lorg/jsfml/graphics/View;)Lorg/jsfml/system/Vector2i;
+ * Signature: (JLorg/jsfml/graphics/View;)J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsToPixel
-    (JNIEnv *env, jobject obj, jobject point, jobject view) {
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderWindow_nativeMapCoordsToPixel
+    (JNIEnv *env, jobject obj, jlong point, jobject view) {
 
-    if(view == NULL) {
-        return JSFML::Vector2i::FromSFML(env,
-            THIS(sf::RenderWindow)->mapCoordsToPixel(
-                JSFML::Vector2f::ToSFML(env, point)));
-    } else {
-        return JSFML::Vector2i::FromSFML(env,
-            THIS(sf::RenderWindow)->mapCoordsToPixel(
-                JSFML::Vector2f::ToSFML(env, point),
-                *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
-    }
-}
-
-/*
- * Class:     org_jsfml_graphics_RenderWindow
- * Method:    nativeDraw
- * Signature: ([Lorg/jsfml/graphics/Vertex;Lorg/jsfml/graphics/PrimitiveType;Lorg/jsfml/graphics/RenderStates;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_RenderWindow_nativeDraw
-    (JNIEnv *env, jobject obj, jobjectArray vertices, jobject type, jobject renderStates) {
-
-    jint num = env->GetArrayLength(vertices);
-    if(num > 0) {
-        for(jint i = 0; i < num; i++)
-            sfVertexBuffer_RenderWindow[i] = JSFML::Vertex::ToSFML(env, env->GetObjectArrayElement(vertices, i));
-
-        THIS(sf::RenderWindow)->draw(
-            sfVertexBuffer_RenderWindow,
-            num,
-            (sf::PrimitiveType)JavaEnum::ordinal(env, type),
-            JSFML::RenderStates::ToSFML(env, renderStates));
-    }
+    return JSFML::Intercom::encodeVector2i(THIS(sf::RenderWindow)->mapCoordsToPixel(
+            JSFML::Intercom::decodeVector2f(point),
+            *JSFML::NativeObject::GetPointer<sf::View>(env, view)));
 }
 
 /*

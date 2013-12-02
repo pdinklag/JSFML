@@ -1,7 +1,5 @@
 package org.jsfml.window;
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
@@ -15,38 +13,32 @@ import java.io.Serializable;
  * feature is not supported by the hardware, the respective setting will be ignored and a supported
  * default is used instead.
  */
-@Intercom
 public final class ContextSettings implements Serializable {
     private static final long serialVersionUID = -3658200233541780345L;
 
     /**
      * The amount of depth buffer bits.
      */
-    @Intercom
     public final int depthBits;
 
     /**
      * The amount of stencil buffer bits.
      */
-    @Intercom
     public final int stencilBits;
 
     /**
      * The level of anti-aliasing.
      */
-    @Intercom
     public final int antialiasingLevel;
 
     /**
      * The desired major OpenGL version number.
      */
-    @Intercom
     public final int majorVersion;
 
     /**
      * The desired minor OpenGL version number.
      */
-    @Intercom
     public final int minorVersion;
 
     /**
@@ -99,7 +91,6 @@ public final class ContextSettings implements Serializable {
      * @param majorVersion      the desired major OpenGL version number.
      * @param minorVersion      the desired minor OpenGL version number.
      */
-    @Intercom
     public ContextSettings(int depthBits, int stencilBits, int antialiasingLevel, int majorVersion, int minorVersion) {
         this.depthBits = depthBits;
         this.stencilBits = stencilBits;

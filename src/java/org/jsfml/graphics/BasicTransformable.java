@@ -1,6 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.JSFML;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -9,7 +8,6 @@ import org.jsfml.system.Vector2f;
  * Classes can inherit from this in order to provide the {@link Transformable} interface.
  * The implementation equals that of the original SFML implementation.
  */
-@JSFML
 public class BasicTransformable implements Transformable {
     private Vector2f origin = Vector2f.ZERO;
     private Vector2f position = Vector2f.ZERO;

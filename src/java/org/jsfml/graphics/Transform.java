@@ -28,7 +28,6 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2f;
 
 import java.io.Serializable;
@@ -37,7 +36,6 @@ import java.util.Arrays;
 /**
  * Defines a 3x3 transformation matrix for 2D transformations.
  */
-@Intercom
 public final strictfp class Transform implements Serializable {
     private static final long serialVersionUID = 3796964163848107663L;
 
@@ -201,7 +199,6 @@ public final strictfp class Transform implements Serializable {
         return scale(t, factors.x, factors.y, center.x, center.y);
     }
 
-    @Intercom
     private final float[] data = new float[16];
 
     /**
@@ -230,7 +227,6 @@ public final strictfp class Transform implements Serializable {
      * @param a21 Matrix component.
      * @param a22 Matrix component.
      */
-    @Intercom
     public Transform(
             float a00, float a01, float a02,
             float a10, float a11, float a12,
@@ -355,7 +351,7 @@ public final strictfp class Transform implements Serializable {
 
     @Override
     public int hashCode() {
-        return data != null ? Arrays.hashCode(data) : 0;
+        return Arrays.hashCode(data);
     }
 
     @Override

@@ -12,7 +12,7 @@ extern "C" {
  * Method:    nativeCreate
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Image_nativeCreate__
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Image_nativeCreate
   (JNIEnv *, jobject);
 
 /*
@@ -22,14 +22,6 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Image_nativeCreate__
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeDelete
   (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    nativeCreate
- * Signature: (IILorg/jsfml/graphics/Color;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCreate__IILorg_jsfml_graphics_Color_2
-  (JNIEnv *, jobject, jint, jint, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Image
@@ -49,59 +41,27 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_graphics_Image_nativeSaveToFile
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2i;
+ * Method:    nativeGetSize
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getSize
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Image_nativeGetSize
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    nativeCreateMaskFromColor
- * Signature: (Lorg/jsfml/graphics/Color;I)V
+ * Method:    nativeSync
+ * Signature: (IILjava/nio/Buffer;)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCreateMaskFromColor
-  (JNIEnv *, jobject, jobject, jint);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    nativeCopy
- * Signature: (Lorg/jsfml/graphics/Image;IILorg/jsfml/graphics/IntRect;Z)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCopy
-  (JNIEnv *, jobject, jobject, jint, jint, jobject, jboolean);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    nativeSetPixel
- * Signature: (IILorg/jsfml/graphics/Color;)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSetPixel
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeSync
   (JNIEnv *, jobject, jint, jint, jobject);
 
 /*
  * Class:     org_jsfml_graphics_Image
- * Method:    getPixel
- * Signature: (II)Lorg/jsfml/graphics/Color;
+ * Method:    nativeCommit
+ * Signature: (IILjava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Image_getPixel
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    flipHorizontally
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_flipHorizontally
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Image
- * Method:    flipVertically
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_flipVertically
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Image_nativeCommit
+  (JNIEnv *, jobject, jint, jint, jobject);
 
 #ifdef __cplusplus
 }

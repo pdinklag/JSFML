@@ -1,7 +1,5 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
-
 /**
  * Interface for objects that can be drawn to a render target.
  * <p/>
@@ -15,5 +13,5 @@ public interface Drawable {
      * @param target the target to draw this object on.
      * @param states the current render states.
      */
-    void draw(@NotNull RenderTarget target, @NotNull RenderStates states);
+    void draw(RenderTarget target, RenderStates states);
 }

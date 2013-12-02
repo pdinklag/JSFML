@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_ConvexShape.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -45,20 +44,20 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeDelete (JNIEnv 
 /*
  * Class:     org_jsfml_graphics_ConvexShape
  * Method:    nativeSetPoint
- * Signature: (ILorg/jsfml/system/Vector2f;)V
+ * Signature: (IFF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPoint
-    (JNIEnv *env, jobject obj, jint i, jobject v) {
+    (JNIEnv *env, jobject obj, jint i, jfloat x, jfloat y) {
 
-    THIS(sf::ConvexShape)->setPoint(i, JSFML::Vector2f::ToSFML(env, v));
+    THIS(sf::ConvexShape)->setPoint(i, sf::Vector2f(x, y));
 }
 
 /*
  * Class:     org_jsfml_graphics_ConvexShape
- * Method:    setPointCount
+ * Method:    nativeSetPointCount
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_setPointCount
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_ConvexShape_nativeSetPointCount
     (JNIEnv *env, jobject obj, jint count) {
 
     THIS(sf::ConvexShape)->setPointCount(count);

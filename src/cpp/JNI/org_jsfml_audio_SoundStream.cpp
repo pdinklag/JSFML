@@ -2,7 +2,6 @@
 
 #include <JSFML/Intercom/NativeObject.hpp>
 #include <JSFML/Intercom/SoundStream.hpp>
-#include <JSFML/Intercom/Time.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -70,58 +69,33 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_stop (JNIEnv *env, jobje
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    getSampleRate
- * Signature: ()Ig
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_getSampleRate (JNIEnv *env, jobject obj) {
-    return SOUND_STREAM->getSampleRate();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundStream
- * Method:    getChannelCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_getChannelCount (JNIEnv *env, jobject obj) {
-   return SOUND_STREAM->getChannelCount();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundStream
- * Method:    setLoop
+ * Method:    nativeSetLoop
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_setLoop (JNIEnv *env, jobject obj, jboolean b) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetLoop (JNIEnv *env, jobject obj, jboolean b) {
 	SOUND_STREAM->setLoop(b);
 }
 
 /*
  * Class:     org_jsfml_audio_SoundStream
  * Method:    nativeSetPlayingOffset
- * Signature: (Lorg/jsfml/system/Time;)V
+ * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeSetPlayingOffset
-    (JNIEnv *env, jobject obj, jobject offset) {
+    (JNIEnv *env, jobject obj, jlong offset) {
 
-	SOUND_STREAM->setPlayingOffset(JSFML::Time::ToSFML(env, offset));
+	SOUND_STREAM->setPlayingOffset(sf::microseconds(offset));
 }
 
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    isLoop
- * Signature: ()Z
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundStream_isLoop (JNIEnv *env, jobject obj) {
-	return SOUND_STREAM->getLoop();
-}
-
-/*
- * Class:     org_jsfml_audio_SoundStream
- * Method:    getPlayingOffset
- * Signature: ()Lorg/jsfml/system/Time;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_SoundStream_getPlayingOffset (JNIEnv *env, jobject obj) {
-	return JSFML::Time::FromSFML(env, SOUND_STREAM->getPlayingOffset());
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_SoundStream_nativeGetPlayingOffset
+    (JNIEnv *env, jobject obj) {
+    
+    return (jlong)SOUND_STREAM->getPlayingOffset().asMicroseconds();
 }
 
 /*
@@ -133,13 +107,12 @@ JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundStream_nativeGetStatus (JNIEnv 
 	return (jint)SOUND_STREAM->getStatus();
 }
 
-
 /*
  * Class:     org_jsfml_audio_SoundStream
- * Method:    initialize
+ * Method:    nativeInitialize
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_initialize
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundStream_nativeInitialize
     (JNIEnv *env, jobject obj, jint channelCount, jint sampleRate) {
 
     THIS(JSFML::SoundStream)->initialize(channelCount, sampleRate);

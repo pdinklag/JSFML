@@ -41,7 +41,7 @@ public interface RenderTarget {
      * @param view the view.
      * @return the viewport of the given view applied to this render target.
      */
-    public IntRect getViewport(View view);
+    public IntRect getViewport(ConstView view);
 
     /**
      * Converts a point from target coordinates to world coordinates using the target's
@@ -59,7 +59,7 @@ public interface RenderTarget {
      * @param view  the view to use for conversion.
      * @return the matching point in the world.
      */
-    public Vector2f mapPixelToCoords(Vector2i point, View view);
+    public Vector2f mapPixelToCoords(Vector2i point, ConstView view);
 
     /**
      * Converts a point from world coordinates to target coordinates using the target's
@@ -77,7 +77,7 @@ public interface RenderTarget {
      * @param view  the view to use for conversion.
      * @return the matching point on the render target.
      */
-    public Vector2i mapCoordsToPixel(Vector2f point, View view);
+    public Vector2i mapCoordsToPixel(Vector2f point, ConstView view);
 
     /**
      * Draws a drawable object to the render target using the default render states.

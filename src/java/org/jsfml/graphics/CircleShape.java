@@ -4,6 +4,9 @@ package org.jsfml.graphics;
  * A specialized shape representing a circle.
  */
 public class CircleShape extends Shape {
+    //cache
+    private float radius = 0;
+
     /**
      * Constructs a new circle shape with a zero radius, approximated using 30 points.
      */
@@ -48,19 +51,29 @@ public class CircleShape extends Shape {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
+    private native void nativeSetRadius(float radius);
+
     /**
      * Sets the radius of this circle.
      *
      * @param radius the new radius of the circle shape.
      */
-    public native void setRadius(float radius);
+    public void setRadius(float radius) {
+        nativeSetRadius(radius);
+        this.radius = radius;
+        pointsNeedUpdate = true;
+    }
 
     /**
      * Gets the radius of this circle.
      *
      * @return the radius of this circle shape.
      */
-    public native float getRadius();
+    public float getRadius() {
+        return radius;
+    }
+
+    private native void nativeSetPointCount(int count);
 
     /**
      * Sets the amount of points the circle should be approximated with.
@@ -69,5 +82,8 @@ public class CircleShape extends Shape {
      *
      * @param count the amount of points used to approximate the circle.
      */
-    public native void setPointCount(int count);
+    public void setPointCount(int count) {
+        nativeSetPointCount(count);
+        pointsNeedUpdate = true;
+    }
 }

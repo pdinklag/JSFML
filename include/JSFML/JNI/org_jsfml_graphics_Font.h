@@ -25,14 +25,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    nativeCopy
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCopy
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_Font
  * Method:    nativeLoadFromMemory
  * Signature: ([B)J
  */
@@ -49,35 +41,35 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    getGlyph
- * Signature: (IIZ)Lorg/jsfml/graphics/Glyph;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Font_getGlyph
-  (JNIEnv *, jobject, jint, jint, jboolean);
-
-/*
- * Class:     org_jsfml_graphics_Font
- * Method:    getKerning
- * Signature: (III)I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getKerning
-  (JNIEnv *, jobject, jint, jint, jint);
-
-/*
- * Class:     org_jsfml_graphics_Font
- * Method:    getLineSpacing
- * Signature: (I)I
- */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getLineSpacing
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     org_jsfml_graphics_Font
  * Method:    nativeGetTexture
  * Signature: (I)J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetTexture
   (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetLineSpacing
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetGlyph
+ * Signature: (IIZLjava/nio/Buffer;)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeGetGlyph
+  (JNIEnv *, jobject, jint, jint, jboolean, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetKerning
+ * Signature: (III)I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
+  (JNIEnv *, jobject, jint, jint, jint);
 
 #ifdef __cplusplus
 }

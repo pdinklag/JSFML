@@ -1,14 +1,11 @@
 package org.jsfml.graphics;
 
 
-import org.jsfml.internal.Intercom;
-
 import java.io.Serializable;
 
 /**
  * Represents RGBA colors.
  */
-@Intercom
 public final class Color implements Serializable {
     private static final long serialVersionUID = -161207563051572152L;
 
@@ -109,25 +106,21 @@ public final class Color implements Serializable {
     /**
      * The red component of the color.
      */
-    @Intercom
     public final int r;
 
     /**
      * The green component of the color.
      */
-    @Intercom
     public final int g;
 
     /**
      * The blue component of the color.
      */
-    @Intercom
     public final int b;
 
     /**
      * The alpha component of the color, ranging between 0 (transparent) and 255 (fully opaque).
      */
-    @Intercom
     public final int a;
 
     /**
@@ -150,7 +143,6 @@ public final class Color implements Serializable {
      * @param b the color's blue component.
      * @param a the color's alpha component, ranging between 0 (transparent) and 255 (fully opaque).
      */
-    @Intercom
     public Color(int r, int g, int b, int a) {
         this.r = clamp(r);
         this.g = clamp(g);
@@ -183,11 +175,7 @@ public final class Color implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = r;
-        result = 31 * result + g;
-        result = 31 * result + b;
-        result = 31 * result + a;
-        return result;
+        return (r * 0x2F2F2F2F) ^ (g * 0x1F1F1F1F) ^ (b * 0x0F0F0F0F) ^ a;
     }
 
     @Override

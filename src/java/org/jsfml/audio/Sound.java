@@ -1,6 +1,5 @@
 package org.jsfml.audio;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Time;
 
@@ -10,7 +9,9 @@ import java.util.Objects;
  * Provides functionality to instantiate a {@code SoundBuffer} and play a buffered sound.
  */
 public class Sound extends SoundSource {
+    //cache
     private ConstSoundBuffer soundBuffer = null;
+    private boolean loop = false;
 
     /**
      * Constructs an empty sound.
@@ -38,6 +39,8 @@ public class Sound extends SoundSource {
     public Sound(Sound other) {
         super(other.nativeCopy());
         UnsafeOperations.manageSFMLObject(this, true);
+
+        this.loop = other.loop;
     }
 
     @Override
@@ -79,10 +82,12 @@ public class Sound extends SoundSource {
      *
      * @param soundBuffer the new sound buffer.
      */
-    public void setBuffer(@NotNull ConstSoundBuffer soundBuffer) {
+    public void setBuffer(ConstSoundBuffer soundBuffer) {
         this.soundBuffer = Objects.requireNonNull(soundBuffer);
         nativeSetBuffer((SoundBuffer) soundBuffer);
     }
+
+    private native void nativeSetLoop(boolean loop);
 
     /**
      * Enables or disables repeated looping of the sound.
@@ -92,17 +97,20 @@ public class Sound extends SoundSource {
      *
      * @param loop {@code true} to enable looping, {@code false} to disable.
      */
-    public native void setLoop(boolean loop);
+    public void setLoop(boolean loop) {
+        nativeSetLoop(loop);
+        this.loop = loop;
+    }
 
-    private native void nativeSetPlayingOffset(Time offset);
+    private native void nativeSetPlayingOffset(long offset);
 
     /**
-     * Sets the playing offset from where to play the underlying buffer.
+     * Sets the playing position within the underlying buffer.
      *
-     * @param offset the playing offset in the underlaying buffer.
+     * @param offset the new playing position within the underlying buffer.
      */
-    public void setPlayingOffset(@NotNull Time offset) {
-        nativeSetPlayingOffset(Objects.requireNonNull(offset));
+    public void setPlayingOffset(Time offset) {
+        nativeSetPlayingOffset(offset.asMicroseconds());
     }
 
     /**
@@ -119,14 +127,20 @@ public class Sound extends SoundSource {
      *
      * @return {@code true} if this sound is looping, {@code false} if not.
      */
-    public native boolean isLoop();
+    public boolean isLoop() {
+        return loop;
+    }
+
+    private native long nativeGetPlayingOffset();
 
     /**
-     * Gets the playing offset from where to start playing the underlying buffer.
+     * Gets the currently playing position within the underlying buffer.
      *
-     * @return the playing offset from where to start playing the underlying buffer.
+     * @return the currently playing position within the underlying buffer.
      */
-    public native Time getPlayingOffset();
+    public Time getPlayingOffset() {
+        return Time.getMicroseconds(nativeGetPlayingOffset());
+    }
 
     @Override
     native int nativeGetStatus();

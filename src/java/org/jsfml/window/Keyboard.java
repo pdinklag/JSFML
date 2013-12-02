@@ -1,9 +1,6 @@
 package org.jsfml.window;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.internal.SFMLNative;
-
-import java.util.Objects;
 
 /**
  * Provides access to the the real-time state of the keyboard.
@@ -563,7 +560,7 @@ public final class Keyboard {
         PAUSE
     }
 
-    private static native boolean nativeIsKeyPressed(Key key);
+    private static native boolean nativeIsKeyPressed(int key);
 
     /**
      * Checks if a certain key is currently pressed on the keyboard.
@@ -572,8 +569,8 @@ public final class Keyboard {
      * @return {@code true} if the key is currently being pressed,
      *         {@code false} otherwise.
      */
-    public static boolean isKeyPressed(@NotNull Key key) {
-        return nativeIsKeyPressed(Objects.requireNonNull(key));
+    public static boolean isKeyPressed(Key key) {
+        return nativeIsKeyPressed(key.ordinal() - 1);
     }
 
     //cannot instantiate

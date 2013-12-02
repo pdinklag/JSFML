@@ -17,10 +17,12 @@ error() {
     exit 1
 }
 
-audio="libsfml-audio.2.0.dylib"
-graphics="libsfml-graphics.2.0.dylib"
-system="libsfml-system.2.0.dylib"
-window="libsfml-window.2.0.dylib"
+version='2.1'
+
+audio="libsfml-audio.$version.dylib"
+graphics="libsfml-graphics.$version.dylib"
+system="libsfml-system.$version.dylib"
+window="libsfml-window.$version.dylib"
 
 if [ ! -f "$audio" ] || [ ! -f "$graphics" ] || [ ! -f "$system" ] || [ ! -f "$window" ] ;
 then
@@ -55,6 +57,7 @@ install_name_tool -id "$audio" \
 install_name_tool -id "$graphics" \
                   -change /usr/local/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
                   -change /usr/X11/lib/libfreetype.6.dylib @loader_path/libfreetype.dylib \
+                  -change @executable_path/../Frameworks/freetype.framework/Versions/A/freetype @loader_path/libfreetype.dylib \
                   -change @executable_path/../Frameworks/libsfml-window.2.dylib @loader_path/"$window" \
                   -change @executable_path/../Frameworks/libsfml-system.2.dylib @loader_path/"$system" \
                   "$graphics"

@@ -51,7 +51,7 @@ public class JavaFrame extends JFrame implements ActionListener, RenderCanvas.Ru
         //Try and apply an icon to the frame
         try {
             BufferedImage image = ImageIO.read(Standalone.class.getResourceAsStream(
-                    "/resources/jsfml-icon.png"));
+                    "/jsfml-icon.png"));
 
             setIconImage(image);
         } catch (IOException ex) {

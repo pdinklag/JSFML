@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_audio_Sound.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Time.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -84,40 +83,33 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetBuffer
 
 /*
  * Class:     org_jsfml_audio_Sound
- * Method:    setLoop
+ * Method:    nativeSetLoop
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_setLoop (JNIEnv *env, jobject obj, jboolean b) {
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetLoop(JNIEnv *env, jobject obj, jboolean b) {
 	THIS(sf::Sound)->setLoop(b);
 }
 
 /*
  * Class:     org_jsfml_audio_Sound
  * Method:    nativeSetPlayingOffset
- * Signature: (Lorg/jsfml/system/Time;)V
+ * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetPlayingOffset
-    (JNIEnv *env, jobject obj, jobject time) {
+    (JNIEnv *env, jobject obj, jlong time) {
 
-	THIS(sf::Sound)->setPlayingOffset(JSFML::Time::ToSFML(env, time));
+	THIS(sf::Sound)->setPlayingOffset(sf::microseconds((sf::Int64)time));
 }
 
 /*
  * Class:     org_jsfml_audio_Sound
- * Method:    isLoop
- * Signature: ()Z
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Sound_isLoop (JNIEnv *env, jobject obj) {
-	return THIS(sf::Sound)->getLoop();
-}
-
-/*
- * Class:     org_jsfml_audio_Sound
- * Method:    getPlayingOffset
- * Signature: ()Lorg/jsfml/system/Time;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Sound_getPlayingOffset (JNIEnv *env, jobject obj) {
-	return JSFML::Time::FromSFML(env, THIS(sf::Sound)->getPlayingOffset());
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeGetPlayingOffset
+    (JNIEnv *env, jobject obj) {
+    
+    return (jlong)THIS(sf::Sound)->getPlayingOffset().asMicroseconds();
 }
 
 /*

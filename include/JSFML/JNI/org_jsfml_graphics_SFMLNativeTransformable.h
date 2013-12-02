@@ -9,107 +9,43 @@ extern "C" {
 #endif
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    setPosition
+ * Method:    nativeSetPosition
  * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_setPosition
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_nativeSetPosition
   (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    setRotation
+ * Method:    nativeSetRotation
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_setRotation
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_nativeSetRotation
   (JNIEnv *, jobject, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    setScale
+ * Method:    nativeSetScale
  * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_setScale
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_nativeSetScale
   (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    setOrigin
+ * Method:    nativeSetOrigin
  * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_setOrigin
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_nativeSetOrigin
   (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getPosition
- * Signature: ()Lorg/jsfml/system/Vector2f;
+ * Method:    nativeGetTransform
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getPosition
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getRotation
- * Signature: ()F
- */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getRotation
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getScale
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getScale
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getOrigin
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getOrigin
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    move
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_move
-  (JNIEnv *, jobject, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    rotate
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_rotate
-  (JNIEnv *, jobject, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    scale
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_scale
-  (JNIEnv *, jobject, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getTransform
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_SFMLNativeTransformable
- * Method:    getInverseTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_getInverseTransform
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeTransformable_nativeGetTransform
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

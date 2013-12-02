@@ -1,6 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.*;
+import org.jsfml.internal.IntercomHelper;
+import org.jsfml.internal.SFMLErrorCapture;
+import org.jsfml.internal.SFMLNative;
+import org.jsfml.internal.SFMLNativeObject;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
@@ -10,9 +13,11 @@ import java.util.Objects;
  * Provides a render target for off-screen 2D rendering into a texture.
  */
 public class RenderTexture extends SFMLNativeObject implements RenderTarget {
-    private final ConstView defaultView;
+    private Vector2i size = Vector2i.ZERO;
+
+    private ConstView defaultView;
     private ConstView view;
-    private final ConstTexture texture;
+    private final Texture texture;
 
     /**
      * Constructs a new render texture.
@@ -21,8 +26,6 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         super();
         SFMLNative.ensureDisplay();
 
-        defaultView = new View(nativeGetDefaultView());
-        view = defaultView;
         texture = new Texture(nativeGetTexture());
     }
 
@@ -41,7 +44,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native boolean nativeCreate(int width, int height, boolean depthBuffer);
+    private native boolean nativeCreateTexture(int width, int height, boolean depthBuffer);
 
     /**
      * Sets up the render texture.
@@ -55,12 +58,22 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     public void create(int width, int height, boolean depthBuffer)
             throws TextureCreationException {
 
+        size = Vector2i.ZERO;
+
         SFMLErrorCapture.start();
-        final boolean success = nativeCreate(width, height, depthBuffer);
+        final boolean success = nativeCreateTexture(width, height, depthBuffer);
         final String msg = SFMLErrorCapture.finish();
 
         if (!success)
             throw new TextureCreationException(msg);
+
+        defaultView = new View(nativeGetDefaultView());
+
+        if(view == null) {
+            view = defaultView;
+        }
+
+        size = new Vector2i(width, height);
     }
 
     /**
@@ -79,14 +92,38 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
      *
      * @param smooth {@code true} to enable, {@code false} to disable.
      */
-    public native void setSmooth(boolean smooth);
+    public void setSmooth(boolean smooth) {
+        texture.setSmooth(smooth);
+    }
 
     /**
      * Checks whether texture smoothing is enabled.
      *
      * @return {@code true} if enabled, {@code false} if not.
      */
-    public native boolean isSmooth();
+    public boolean isSmooth() {
+        return texture.isSmooth();
+    }
+
+    /**
+     * Enables or disables texture repeating for the underlying texture.
+     * <p/>
+     * Texture repeating is disabled by default.
+     *
+     * @param repeated {@code true} to enable, {@code false} to disable.
+     */
+    public void setRepeated(boolean repeated) {
+        texture.setRepeated(repeated);
+    }
+
+    /**
+     * Checks whether texture repeating is enabled for the underlying texture.
+     *
+     * @return {@code true} if enabled, {@code false} if disabled.
+     */
+    public boolean isRepeated() {
+        return texture.isRepeated();
+    }
 
     /**
      * Activates or deactivates the render texture for rendering.
@@ -112,26 +149,28 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public native Vector2i getSize();
+    public Vector2i getSize() {
+        return size;
+    }
 
-    private native void nativeClear(Color color);
+    private native void nativeClear(int color);
 
     @Override
-    public void clear(@NotNull Color color) {
-        nativeClear(Objects.requireNonNull(color));
+    public void clear(Color color) {
+        nativeClear(IntercomHelper.encodeColor(color));
     }
 
     /**
      * Clears the target with black.
      */
     public void clear() {
-        nativeClear(Color.BLACK);
+        nativeClear(0xFF000000);
     }
 
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull ConstView view) {
+    public void setView(ConstView view) {
         this.view = Objects.requireNonNull(view);
         nativeSetView((View) view);
     }
@@ -148,35 +187,42 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         return defaultView;
     }
 
-    private native IntRect nativeGetViewport(View view);
-
     @Override
-    public IntRect getViewport(@NotNull View view) {
-        return nativeGetViewport(Objects.requireNonNull(view));
+    public IntRect getViewport(ConstView view) {
+        final FloatRect viewport = view.getViewport();
+        final Vector2i size = getSize();
+
+        return new IntRect(
+                (int) (0.5f + viewport.left * size.x),
+                (int) (0.5f + viewport.top * size.y),
+                (int) (viewport.width * size.x),
+                (int) (viewport.height * size.y));
     }
 
-    private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
+    private native long nativeMapPixelToCoords(long point, ConstView view);
 
     @Override
-    public final Vector2f mapPixelToCoords(@NotNull Vector2i point) {
-        return mapPixelToCoords(point, null); //null is handled in C code
-    }
-
-    @Override
-    public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
-        return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
-    }
-
-    private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
-
-    @Override
-    public final Vector2i mapCoordsToPixel(@NotNull Vector2f point) {
-        return mapCoordsToPixel(point, null); //null is handled in C code
+    public final Vector2f mapPixelToCoords(Vector2i point) {
+        return mapPixelToCoords(point, view);
     }
 
     @Override
-    public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
-        return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
+    public Vector2f mapPixelToCoords(Vector2i point, ConstView view) {
+        return IntercomHelper.decodeVector2f(
+                nativeMapPixelToCoords(IntercomHelper.encodeVector2i(point), view));
+    }
+
+    private native long nativeMapCoordsToPixel(long point, ConstView view);
+
+    @Override
+    public final Vector2i mapCoordsToPixel(Vector2f point) {
+        return mapCoordsToPixel(point, view);
+    }
+
+    @Override
+    public Vector2i mapCoordsToPixel(Vector2f point, ConstView view) {
+        return IntercomHelper.decodeVector2i(
+                nativeMapCoordsToPixel(IntercomHelper.encodeVector2f(point), view));
     }
 
     @Override
@@ -185,7 +231,7 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
     }
 
     @Override
-    public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
+    public void draw(Drawable drawable, RenderStates renderStates) {
         drawable.draw(this, renderStates);
     }
 
@@ -194,14 +240,9 @@ public class RenderTexture extends SFMLNativeObject implements RenderTarget {
         draw(vertices, type, RenderStates.DEFAULT);
     }
 
-    private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
-
     @Override
-    public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
-        nativeDraw(
-                Objects.requireNonNull(vertices),
-                Objects.requireNonNull(type),
-                Objects.requireNonNull(states));
+    public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
+        SFMLNativeDrawer.drawVertices(vertices, type, this, states);
     }
 
     @Override

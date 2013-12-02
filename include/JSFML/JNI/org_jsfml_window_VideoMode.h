@@ -11,19 +11,27 @@ extern "C" {
 #define org_jsfml_window_VideoMode_serialVersionUID 8608938390916786270i64
 /*
  * Class:     org_jsfml_window_VideoMode
- * Method:    getDesktopMode
- * Signature: ()Lorg/jsfml/window/VideoMode;
+ * Method:    nativeGetDesktopMode
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_window_VideoMode_getDesktopMode
+JNIEXPORT void JNICALL Java_org_jsfml_window_VideoMode_nativeGetDesktopMode
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     org_jsfml_window_VideoMode
+ * Method:    nativeGetFullscreenModeCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_jsfml_window_VideoMode_nativeGetFullscreenModeCount
   (JNIEnv *, jclass);
 
 /*
  * Class:     org_jsfml_window_VideoMode
- * Method:    getFullscreenModes
- * Signature: ()[Lorg/jsfml/window/VideoMode;
+ * Method:    nativeGetFullscreenModes
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobjectArray JNICALL Java_org_jsfml_window_VideoMode_getFullscreenModes
-  (JNIEnv *, jclass);
+JNIEXPORT void JNICALL Java_org_jsfml_window_VideoMode_nativeGetFullscreenModes
+  (JNIEnv *, jclass, jobject);
 
 #ifdef __cplusplus
 }

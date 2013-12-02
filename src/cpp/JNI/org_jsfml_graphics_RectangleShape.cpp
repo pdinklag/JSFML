@@ -1,7 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_RectangleShape.h>
 
 #include <JSFML/Intercom/NativeObject.hpp>
-#include <JSFML/Intercom/Vector2f.hpp>
 
 #include <JSFML/JNI/org_jsfml_internal_ExPtr.h>
 
@@ -44,19 +43,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeDelete (JNIE
 /*
  * Class:     org_jsfml_graphics_RectangleShape
  * Method:    nativeSetSize
- * Signature: (Lorg/jsfml/system/Vector2f;)V
+ * Signature: (FF)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_RectangleShape_nativeSetSize
-    (JNIEnv *env, jobject obj, jobject size) {
+    (JNIEnv *env, jobject obj, jfloat w, jfloat h) {
 
-    THIS(sf::RectangleShape)->setSize(JSFML::Vector2f::ToSFML(env, size));
-}
-
-/*
- * Class:     org_jsfml_graphics_RectangleShape
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2f;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_RectangleShape_getSize (JNIEnv *env, jobject obj) {
-    return JSFML::Vector2f::FromSFML(env, THIS(sf::RectangleShape)->getSize());
+    THIS(sf::RectangleShape)->setSize(sf::Vector2f(w, h));
 }

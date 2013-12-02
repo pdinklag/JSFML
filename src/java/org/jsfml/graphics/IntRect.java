@@ -28,7 +28,6 @@
 
 package org.jsfml.graphics;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.system.Vector2i;
 
 import java.io.Serializable;
@@ -36,7 +35,6 @@ import java.io.Serializable;
 /**
  * Represents an axis-aligned rectangle using integer coordinates.
  */
-@Intercom
 public final class IntRect implements Serializable {
     private static final long serialVersionUID = -4430448425788537785L;
 
@@ -48,25 +46,21 @@ public final class IntRect implements Serializable {
     /**
      * The X coordinate of the rectangle's left edge.
      */
-    @Intercom
     public final int left;
 
     /**
      * The Y coordinate of the rectangle's top edge.
      */
-    @Intercom
     public final int top;
 
     /**
      * The width of the rectangle.
      */
-    @Intercom
     public final int width;
 
     /**
      * The height of the rectangle.
      */
-    @Intercom
     public final int height;
 
     /**
@@ -117,7 +111,13 @@ public final class IntRect implements Serializable {
      *         {@code false} otherwise.
      */
     public boolean contains(int x, int y) {
-        return (x >= left) && (x < left + width) && (y >= top) && (y < top + height);
+        //direct port of SFML code
+        final int minX = Math.min(left, left + width);
+        final int maxX = Math.max(left, left + width);
+        final int minY = Math.min(top, top + height);
+        final int maxY = Math.max(top, top + height);
+
+        return (x >= minX) && (x < maxX) && (y >= minY) && (y < maxY);
     }
 
     /**
@@ -139,13 +139,33 @@ public final class IntRect implements Serializable {
      * @return the intersection rectangle, or {@code null} if the rectangles do not intersect.
      */
     public IntRect intersection(IntRect rect) {
-        int left = Math.max(this.left, rect.left);
-        int top = Math.max(this.top, rect.top);
-        int right = Math.min(this.left + this.width, rect.left + rect.width);
-        int bottom = Math.min(this.top + this.height, rect.top + rect.height);
+        //direct port of SFML code
 
-        if (left < right && top < bottom) {
-            return new IntRect(left, top, right - left, bottom - top);
+        // Compute the min and max of the first rectangle on both axes
+        final int r1MinX = Math.min(left, left + width);
+        final int r1MaxX = Math.max(left, left + width);
+        final int r1MinY = Math.min(top, top + height);
+        final int r1MaxY = Math.max(top, top + height);
+
+        // Compute the min and max of the second rectangle on both axes
+        final int r2MinX = Math.min(rect.left, rect.left + rect.width);
+        final int r2MaxX = Math.max(rect.left, rect.left + rect.width);
+        final int r2MinY = Math.min(rect.top, rect.top + rect.height);
+        final int r2MaxY = Math.max(rect.top, rect.top + rect.height);
+
+        // Compute the intersection boundaries
+        final int interLeft = Math.max(r1MinX, r2MinX);
+        final int interTop = Math.max(r1MinY, r2MinY);
+        final int interRight = Math.min(r1MaxX, r2MaxX);
+        final int interBottom = Math.min(r1MaxY, r2MaxY);
+
+        // If the intersection is valid (positive non zero area), then there is an intersection
+        if ((interLeft < interRight) && (interTop < interBottom)) {
+            return new IntRect(
+                    interLeft,
+                    interTop,
+                    interRight - interLeft,
+                    interBottom - interTop);
         } else {
             return null;
         }
@@ -166,11 +186,7 @@ public final class IntRect implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = left;
-        result = 31 * result + top;
-        result = 31 * result + width;
-        result = 31 * result + height;
-        return result;
+        return (left * 0x2F2F2F2F) ^ (top * 0x1F1F1F1F) ^ (width * 0x0F0F0F0F) ^ height;
     }
 
     @Override

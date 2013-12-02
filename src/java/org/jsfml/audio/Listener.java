@@ -17,6 +17,13 @@ public final class Listener {
         SFMLNative.loadNativeLibraries();
     }
 
+    //cache
+    private static float volume = 100;
+    private static Vector3f position = Vector3f.ZERO;
+    private static Vector3f direction = Vector3f.ZERO;
+
+    private static native void nativeSetGlobalVolume(float volume);
+
     /**
      * Sets the global sound volume.
      * <p/>
@@ -24,14 +31,21 @@ public final class Listener {
      *
      * @param volume the global sound volume, ranging between 0 (silence) and 100 (full volume).
      */
-    public static native void setGlobalVolume(float volume);
+    public static void setGlobalVolume(float volume) {
+        nativeSetGlobalVolume(volume);
+        Listener.volume = volume;
+    }
 
     /**
      * Gets the global sound volume.
      *
      * @return the global sound volume, ranging between 0 (silence) and 100 (full volume).
      */
-    public static native float getGlobalVolume();
+    public static float getGlobalVolume() {
+        return volume;
+    }
+
+    private static native void nativeSetPosition(float x, float y, float z);
 
     /**
      * Sets the position of the listener in the scene.
@@ -43,7 +57,9 @@ public final class Listener {
      * @param z the Z coordinate of the listener's new position.
      * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
-    public static native void setPosition(float x, float y, float z);
+    public static void setPosition(float x, float y, float z) {
+        setPosition(new Vector3f(x, y, z));
+    }
 
     /**
      * Sets the position of the listener in the scene.
@@ -54,7 +70,8 @@ public final class Listener {
      * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static void setPosition(Vector3f v) {
-        setPosition(v.x, v.y, v.z);
+        nativeSetPosition(v.x, v.y, v.z);
+        Listener.position = v;
     }
 
     /**
@@ -62,7 +79,11 @@ public final class Listener {
      *
      * @return the listener's current position in the scene.
      */
-    public static native Vector3f getPosition();
+    public static Vector3f getPosition() {
+        return position;
+    }
+
+    private static native void nativeSetDirection(float x, float y, float z);
 
     /**
      * Sets the orientation or "view direction" of the listener in the scene.
@@ -75,7 +96,9 @@ public final class Listener {
      * @param z the Z component of the listener's new orientation.
      * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
-    public static native void setDirection(float x, float y, float z);
+    public static void setDirection(float x, float y, float z) {
+        setDirection(new Vector3f(x, y, z));
+    }
 
     /**
      * Sets the orientation or "view direction" of the listener in the scene.
@@ -87,7 +110,8 @@ public final class Listener {
      * @see SoundSource#setPosition(org.jsfml.system.Vector3f)
      */
     public static void setDirection(Vector3f v) {
-        setDirection(v.x, v.y, v.z);
+        nativeSetDirection(v.x, v.y, v.z);
+        Listener.direction = v;
     }
 
     /**
@@ -95,7 +119,9 @@ public final class Listener {
      *
      * @return the listener's current orientation in the scene.
      */
-    public static native Vector3f getDirection();
+    public static Vector3f getDirection() {
+        return direction;
+    }
 
     //cannot instantiate
     private Listener() {

@@ -1,12 +1,15 @@
 package org.jsfml.audio;
 
-import org.jsfml.internal.NotNull;
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLErrorCapture;
 import org.jsfml.internal.SFMLInputStream;
 import org.jsfml.system.Time;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -24,6 +27,8 @@ import java.util.Objects;
 public class Music extends SoundStream {
     private final SFMLInputStream.NativeStreamRef streamRef =
             new SFMLInputStream.NativeStreamRef();
+
+    private Time duration = Time.ZERO;
 
     /**
      * Constructs a music.
@@ -55,7 +60,7 @@ public class Music extends SoundStream {
      * @param in the input stream to stream from.
      * @throws java.io.IOException in case an I/O error occurs.
      */
-    public void openFromStream(@NotNull InputStream in) throws IOException {
+    public void openFromStream(InputStream in) throws IOException {
         streamRef.initialize(new SFMLInputStream(Objects.requireNonNull(in)));
 
         SFMLErrorCapture.start();
@@ -65,6 +70,8 @@ public class Music extends SoundStream {
         if (!success) {
             throw new IOException(msg);
         }
+
+        sync();
     }
 
     /**
@@ -77,12 +84,26 @@ public class Music extends SoundStream {
         openFromStream(Files.newInputStream(path));
     }
 
+    private native void nativeGetData(Buffer buffer);
+
+    private void sync() {
+        final ByteBuffer buffer = IntercomHelper.getBuffer();
+        nativeGetData(buffer);
+
+        this.duration = Time.getMicroseconds(buffer.asLongBuffer().get(0));
+
+        final IntBuffer ints = buffer.asIntBuffer();
+        setData(ints.get(2), ints.get(3));
+    }
+
     /**
      * Gets the total duration of the music.
      *
      * @return the total duration of the music.
      */
-    public native Time getDuration();
+    public Time getDuration() {
+        return duration;
+    }
 
     @Override
     protected final void initialize(int channelCount, int sampleRate) {

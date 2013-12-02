@@ -26,7 +26,7 @@ public class Standalone {
         //Try and apply an icon to the window
         try {
             Image icon = new Image();
-            icon.loadFromStream(Standalone.class.getResourceAsStream("/resources/jsfml-icon.png"));
+            icon.loadFromStream(Standalone.class.getResourceAsStream("/jsfml-icon.png"));
             window.setIcon(icon);
         } catch (IOException ex) {
             System.err.println("Failed to load icon resource!");

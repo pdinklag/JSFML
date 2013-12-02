@@ -10,6 +10,7 @@
 	<property name="jsfml.package" value="org.jsfml" />
 	<property name="jsfml.bin" value="jsfml" />
 	<property name="jsfml.out" location="./out" />
+	<property name="jsfml.lib" location="./lib" />
 	
 	<!-- SFML properties -->
 	<property name="sfml.bin" location="./sfml/bin" />
@@ -69,13 +70,13 @@
 			<!-- graphics -->
 			<class name="${jsfml.package}.graphics.CircleShape" />
 			<class name="${jsfml.package}.graphics.ConvexShape" />
-			<class name="${jsfml.package}.graphics.DrawableNativeImpl" />
 			<class name="${jsfml.package}.graphics.Font" />
 			<class name="${jsfml.package}.graphics.Image" />
 			<class name="${jsfml.package}.graphics.RectangleShape" />
 			<class name="${jsfml.package}.graphics.RenderCanvas" />
 			<class name="${jsfml.package}.graphics.RenderTexture" />
 			<class name="${jsfml.package}.graphics.RenderWindow" />
+            <class name="${jsfml.package}.graphics.SFMLNativeDrawer" />
 			<class name="${jsfml.package}.graphics.SFMLNativeTransformable" />
 			<class name="${jsfml.package}.graphics.Shader" />
 			<class name="${jsfml.package}.graphics.Shape" />
@@ -95,8 +96,17 @@
 			<class name="${jsfml.package}.audio.SoundStream" />
 		</javah>
 	</target>
+    
+    <!-- Validate that all JNI methods have an implementation -->
+    <target name="check">
+        <java fork="true" jar="${jsfml.lib}/SatisfiedLink.jar">
+            <arg path="${cpp.include}/JSFML/JNI"/>
+            <arg path="${cpp.src}/JNI"/>
+            <arg value="*.cpp"/>
+        </java>
+    </target>
 	
-	<!-- Compile C++ for Mac OS X - not to be used directly, use macosx64 -->
+	<!-- Compile C++ for Mac OS X - not to be used directly, use macosx -->
 	<target name="macosx.build">
 		<!-- Requires ${arch} -->
 		<delete file="${cpp.out}/${arch}/lib${jsfml.bin}.jnilib" />
@@ -155,7 +165,7 @@
 		</copy>
 		
 		<checksum>
-			<fileset dir="${cpp.out}/${arch}" includes="*.jnilib" />
+			<fileset dir="${cpp.out}/${arch}" includes="*.jnilib *.dylib" />
 		</checksum>
 	</target>
 	
@@ -187,11 +197,13 @@
 			<arg value="-I${sfml.include}" />
 			<arg value="-I${jdk}/include" />
 			<arg value="-I${jdk}/include/linux" />
+			<arg value="-L${jre.lib}" />
+			<arg value="-L${sfml.bin}/${arch}" />
 			<arg value="-shared" />
 			<arg value="-fPIC" />
 			<arg value="-o${cpp.out}/${arch}/lib${jsfml.bin}.so" />
 			<arg line="${cpp.src.files}" />
-			<arg value="-Wl,-no-undefined,-L${sfml.bin}/${arch},-L${jre.lib},-ljawt,-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system" />
+			<arg value="-Wl,-no-undefined,-lsfml-audio,-lsfml-graphics,-lsfml-window,-lsfml-system,-ljawt" />
 		</exec>
 
 		<copy todir="${cpp.out}/${arch}">
@@ -233,6 +245,7 @@
 		<!-- Requires ${arch}, ${cl}, ${link}, ${cwd}, ${winsdk.lib} and ${vs.lib} -->
 		<delete file="${cpp.out}/${arch}/${jsfml.bin}.dll" />
 		<mkdir dir="${cpp.obj}" />
+        <mkdir dir="${cpp.obj}/${arch}" />
 		<mkdir dir="${cpp.out}" />
 		<mkdir dir="${cpp.out}/${arch}" />
 		
@@ -250,7 +263,7 @@
 			<arg value="/I${jdk}/include/win32" />
 			<arg value="${cpp.src}/Intercom/*.cpp" />
 			<arg value="${cpp.src}/JNI/*.cpp" />
-			<arg value="/Fo${cpp.obj}/" />
+			<arg value="/Fo${cpp.obj}/${arch}/" />
 		</exec>
 
 		<!-- link -->
@@ -269,7 +282,7 @@
 			<arg value="sfml-window.lib" />
 			<arg value="sfml-graphics.lib" />
 			<arg value="sfml-audio.lib" />
-			<arg value="${cpp.obj}/*.obj" />
+			<arg value="${cpp.obj}/${arch}/*.obj" />
 		</exec>
 		
 		<delete file="${cpp.out}/${arch}/${jsfml.bin}.exp" />
@@ -313,6 +326,13 @@
 		
 		<ant target="windows.build" />
 	</target>
+    
+    <!-- MD5 -->
+    <target name="md5" description="Calculate MD5 checksums for all production files and generate the corresponding files.">
+        <checksum>
+            <fileset dir="${cpp.out}" includes="**/*.dll **/*.so **/*.jnilib **/*.dylib" />
+        </checksum>
+    </target>
 	
 	<!-- Jar -->
 	<target name="jar" description="Generate the JAR file." depends="compile">
@@ -385,6 +405,8 @@
 
 compile -- Compiles the Java sources to out/classes
 headers -- Generates JNI headers in include/JSFML/JNI.
+check   -- Invokes Satisfied Link to validate that all JNI methods
+           have an implementation.
 javadoc -- Generates the Javadoc in javadoc.
 win32   -- Compiles and links the C++ sources for Windows 32 bit.
 win64   -- Compiles and links the C++ sources for Windows 64 bit.

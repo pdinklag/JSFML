@@ -25,32 +25,32 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeDelete
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    setCenter
+ * Method:    nativeSetCenter
  * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setCenter
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetCenter
   (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    setSize
+ * Method:    nativeSetSize
  * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setSize
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetSize
   (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    setRotation
+ * Method:    nativeSetRotation
  * Signature: (F)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_setRotation
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetRotation
   (JNIEnv *, jobject, jfloat);
 
 /*
  * Class:     org_jsfml_graphics_View
  * Method:    nativeSetViewport
- * Signature: (Lorg/jsfml/graphics/FloatRect;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetViewport
   (JNIEnv *, jobject, jobject);
@@ -58,82 +58,50 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeSetViewport
 /*
  * Class:     org_jsfml_graphics_View
  * Method:    nativeReset
- * Signature: (Lorg/jsfml/graphics/FloatRect;)V
+ * Signature: (Ljava/nio/Buffer;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeReset
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    getCenter
- * Signature: ()Lorg/jsfml/system/Vector2f;
+ * Method:    nativeGetViewport
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getCenter
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeGetViewport
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_View
+ * Method:    nativeGetSize
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_View_nativeGetSize
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    getSize
- * Signature: ()Lorg/jsfml/system/Vector2f;
+ * Method:    nativeGetCenter
+ * Signature: ()J
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getSize
+JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_View_nativeGetCenter
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    getRotation
+ * Method:    nativeGetRotation
  * Signature: ()F
  */
-JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_View_getRotation
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_View_nativeGetRotation
   (JNIEnv *, jobject);
 
 /*
  * Class:     org_jsfml_graphics_View
- * Method:    getViewport
- * Signature: ()Lorg/jsfml/graphics/FloatRect;
+ * Method:    nativeGetTransform
+ * Signature: (Ljava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getViewport
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_View
- * Method:    rotate
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_rotate
-  (JNIEnv *, jobject, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_View
- * Method:    move
- * Signature: (FF)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_move
-  (JNIEnv *, jobject, jfloat, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_View
- * Method:    zoom
- * Signature: (F)V
- */
-JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_zoom
-  (JNIEnv *, jobject, jfloat);
-
-/*
- * Class:     org_jsfml_graphics_View
- * Method:    getTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getTransform
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_graphics_View
- * Method:    getInverseTransform
- * Signature: ()Lorg/jsfml/graphics/Transform;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_View_getInverseTransform
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_View_nativeGetTransform
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

@@ -85,7 +85,7 @@ public class ExampleScene implements Scene {
         background.add(new Vertex(new Vector2f(0, target.getSize().y), Color.YELLOW));
 
         //Load logo
-        jsfmlLogoTexture.loadFromStream(getClass().getResourceAsStream("/resources/jsfml-y_ex.png"));
+        jsfmlLogoTexture.loadFromStream(getClass().getResourceAsStream("/jsfml-y_ex.png"));
         jsfmlLogoTexture.setSmooth(true);
 
         //Setup logo sprite
@@ -95,10 +95,10 @@ public class ExampleScene implements Scene {
 
         //Load font
         nakadaiFont.loadFromStream(
-                getClass().getResourceAsStream("/resources/Nakadai.ttf"));
+                getClass().getResourceAsStream("/Nakadai.ttf"));
 
         freeSansFont.loadFromStream(
-                getClass().getResourceAsStream("/resources/FreeSans.ttf"));
+                getClass().getResourceAsStream("/FreeSans.ttf"));
 
         //Setup istructions text
         instructionsText.setFont(freeSansFont);
@@ -171,7 +171,7 @@ public class ExampleScene implements Scene {
         if (Shader.isAvailable()) {
             waveXShader = new Shader();
             waveXShader.loadFromStream(
-                    getClass().getResourceAsStream("/resources/wave-x.frag"), Shader.Type.FRAGMENT);
+                    getClass().getResourceAsStream("/wave-x.frag"), Shader.Type.FRAGMENT);
 
             waveXShader.setParameter("texture", Shader.CURRENT_TEXTURE);
             waveXShader.setParameter("amplitude", waveXAmp);

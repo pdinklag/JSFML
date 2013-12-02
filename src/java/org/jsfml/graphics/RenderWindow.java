@@ -1,6 +1,6 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.UnsafeOperations;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -14,8 +14,8 @@ import java.util.Objects;
  * Provides a window that can serve as a target for 2D drawing.
  */
 public class RenderWindow extends Window implements RenderTarget {
-    private final ConstView defaultView;
-    private ConstView view;
+    private ConstView defaultView = null;
+    private ConstView view = null;
 
     /**
      * Constructs a new render window without actually creating (opening) it.
@@ -24,9 +24,6 @@ public class RenderWindow extends Window implements RenderTarget {
      */
     public RenderWindow() {
         super();
-
-        defaultView = new View(nativeGetDefaultView());
-        view = defaultView;
     }
 
     @Deprecated
@@ -47,7 +44,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param settings the settings for the OpenGL context.
      * @see #create(org.jsfml.window.VideoMode, String, int, org.jsfml.window.ContextSettings)
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style, @NotNull ContextSettings settings) {
+    public RenderWindow(VideoMode mode, String title, int style, ContextSettings settings) {
         this();
         create(mode, title, style, settings);
     }
@@ -60,7 +57,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param style the window style.
      * @see #create(org.jsfml.window.VideoMode, String, int)
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title, int style) {
+    public RenderWindow(VideoMode mode, String title, int style) {
         this();
         create(mode, title, style, new ContextSettings());
     }
@@ -71,7 +68,7 @@ public class RenderWindow extends Window implements RenderTarget {
      * @param mode  The video mode to use for rendering.
      * @param title The window title.
      */
-    public RenderWindow(@NotNull VideoMode mode, @NotNull String title) {
+    public RenderWindow(VideoMode mode, String title) {
         this();
         create(mode, title, DEFAULT, new ContextSettings());
     }
@@ -91,6 +88,17 @@ public class RenderWindow extends Window implements RenderTarget {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
+    @Override
+    public void create(VideoMode mode, String title, int style, ContextSettings settings) {
+        super.create(mode, title, style, settings);
+
+        defaultView = new View(nativeGetDefaultView());
+
+        if (view == null) {
+            view = defaultView;
+        }
+    }
+
     private native long nativeCapture();
 
     /**
@@ -108,24 +116,24 @@ public class RenderWindow extends Window implements RenderTarget {
         return image;
     }
 
-    private native void nativeClear(Color color);
+    private native void nativeClear(int color);
 
     @Override
-    public void clear(@NotNull Color color) {
-        nativeClear(Objects.requireNonNull(color));
+    public void clear(Color color) {
+        nativeClear(IntercomHelper.encodeColor(color));
     }
 
     /**
      * Clears the target with black.
      */
     public void clear() {
-        nativeClear(Color.BLACK);
+        nativeClear(0xFF000000);
     }
 
     private native void nativeSetView(View view);
 
     @Override
-    public void setView(@NotNull ConstView view) {
+    public void setView(ConstView view) {
         this.view = Objects.requireNonNull(view);
         nativeSetView((View) view);
     }
@@ -142,35 +150,42 @@ public class RenderWindow extends Window implements RenderTarget {
         return defaultView;
     }
 
-    private native IntRect nativeGetViewport(View view);
-
     @Override
-    public IntRect getViewport(@NotNull View view) {
-        return nativeGetViewport(Objects.requireNonNull(view));
+    public IntRect getViewport(ConstView view) {
+        final FloatRect viewport = view.getViewport();
+        final Vector2i size = getSize();
+
+        return new IntRect(
+                (int) (0.5f + viewport.left * size.x),
+                (int) (0.5f + viewport.top * size.y),
+                (int) (viewport.width * size.x),
+                (int) (viewport.height * size.y));
     }
 
-    private native Vector2f nativeMapPixelToCoords(Vector2i point, View view);
+    private native long nativeMapPixelToCoords(long point, ConstView view);
 
     @Override
-    public final Vector2f mapPixelToCoords(@NotNull Vector2i point) {
-        return mapPixelToCoords(point, null); //null is handled in C code
-    }
-
-    @Override
-    public Vector2f mapPixelToCoords(@NotNull Vector2i point, View view) {
-        return nativeMapPixelToCoords(Objects.requireNonNull(point), view);
-    }
-
-    private native Vector2i nativeMapCoordsToPixel(Vector2f point, View view);
-
-    @Override
-    public final Vector2i mapCoordsToPixel(@NotNull Vector2f point) {
-        return mapCoordsToPixel(point, null); //null is handled in C code
+    public final Vector2f mapPixelToCoords(Vector2i point) {
+        return mapPixelToCoords(point, view);
     }
 
     @Override
-    public Vector2i mapCoordsToPixel(@NotNull Vector2f point, View view) {
-        return nativeMapCoordsToPixel(Objects.requireNonNull(point), view);
+    public Vector2f mapPixelToCoords(Vector2i point, ConstView view) {
+        return IntercomHelper.decodeVector2f(
+                nativeMapPixelToCoords(IntercomHelper.encodeVector2i(point), view));
+    }
+
+    private native long nativeMapCoordsToPixel(long point, ConstView view);
+
+    @Override
+    public final Vector2i mapCoordsToPixel(Vector2f point) {
+        return mapCoordsToPixel(point, view);
+    }
+
+    @Override
+    public Vector2i mapCoordsToPixel(Vector2f point, ConstView view) {
+        return IntercomHelper.decodeVector2i(
+                nativeMapCoordsToPixel(IntercomHelper.encodeVector2f(point), view));
     }
 
     @Override
@@ -179,7 +194,7 @@ public class RenderWindow extends Window implements RenderTarget {
     }
 
     @Override
-    public void draw(@NotNull Drawable drawable, @NotNull RenderStates renderStates) {
+    public void draw(Drawable drawable, RenderStates renderStates) {
         drawable.draw(this, renderStates);
     }
 
@@ -188,14 +203,9 @@ public class RenderWindow extends Window implements RenderTarget {
         draw(vertices, type, RenderStates.DEFAULT);
     }
 
-    private native void nativeDraw(Vertex[] vertices, PrimitiveType type, RenderStates states);
-
     @Override
-    public void draw(@NotNull Vertex[] vertices, @NotNull PrimitiveType type, @NotNull RenderStates states) {
-        nativeDraw(
-                Objects.requireNonNull(vertices),
-                Objects.requireNonNull(type),
-                Objects.requireNonNull(states));
+    public void draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
+        SFMLNativeDrawer.drawVertices(vertices, type, this, states);
     }
 
     @Override

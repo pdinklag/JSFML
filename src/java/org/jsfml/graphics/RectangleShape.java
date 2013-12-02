@@ -1,14 +1,14 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
 import org.jsfml.system.Vector2f;
-
-import java.util.Objects;
 
 /**
  * A specialized shape representing a rectangle.
  */
 public class RectangleShape extends Shape {
+    //cache
+    private Vector2f size = Vector2f.ZERO;
+
     /**
      * Constructs a new rectangle shape with no dimensions.
      */
@@ -41,15 +41,17 @@ public class RectangleShape extends Shape {
     @SuppressWarnings("deprecation")
     protected native void nativeDelete();
 
-    private native void nativeSetSize(Vector2f size);
+    private native void nativeSetSize(float w, float h);
 
     /**
      * Sets the dimensions of the rectangle.
      *
      * @param size the new dimensions of the rectangle.
      */
-    public void setSize(@NotNull Vector2f size) {
-        nativeSetSize(Objects.requireNonNull(size));
+    public void setSize(Vector2f size) {
+        nativeSetSize(size.x, size.y);
+        this.size = size;
+        pointsNeedUpdate = true;
     }
 
     /**
@@ -57,5 +59,7 @@ public class RectangleShape extends Shape {
      *
      * @return the dimensions of the rectangle.
      */
-    public native Vector2f getSize();
+    public Vector2f getSize() {
+        return size;
+    }
 }

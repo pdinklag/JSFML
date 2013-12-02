@@ -1,8 +1,9 @@
 package org.jsfml.graphics;
 
-import org.jsfml.internal.NotNull;
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.system.Vector2f;
 
+import java.nio.Buffer;
 import java.util.Objects;
 
 /**
@@ -14,6 +15,13 @@ import java.util.Objects;
 public class Text extends SFMLNativeTransformable implements Drawable, TextStyle {
     private ConstFont font = null;
     private String string = "";
+    private Color color = Color.WHITE;
+    private int style = TextStyle.REGULAR;
+    private int characterSize = 30;
+
+    private boolean boundsNeedUpdate = true;
+    private FloatRect localBounds = null;
+    private FloatRect globalBounds = null;
 
     /**
      * Creates a new empty text.
@@ -28,7 +36,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param string The text string.
      * @param font   The font to use.
      */
-    public Text(@NotNull String string, @NotNull ConstFont font) {
+    public Text(String string, ConstFont font) {
         this();
         setFont(font);
         setString(string);
@@ -41,7 +49,7 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @param font          The font to use.
      * @param characterSize The font size.
      */
-    public Text(@NotNull String string, @NotNull ConstFont font, int characterSize) {
+    public Text(String string, ConstFont font, int characterSize) {
         this();
         setCharacterSize(characterSize);
         setFont(font);
@@ -70,9 +78,10 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @param string The string to display.
      */
-    public void setString(@NotNull String string) {
+    public void setString(String string) {
         this.string = Objects.requireNonNull(string);
         nativeSetString(string);
+        boundsNeedUpdate = true;
     }
 
     private native void nativeSetFont(Font font);
@@ -82,17 +91,26 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @param font The text's font.
      */
-    public void setFont(@NotNull ConstFont font) {
+    public void setFont(ConstFont font) {
         this.font = Objects.requireNonNull(font);
         nativeSetFont((Font) font);
+        boundsNeedUpdate = true;
     }
+
+    private native void nativeSetCharacterSize(int characterSize);
 
     /**
      * Sets the font size for this text.
      *
      * @param characterSize The font size for this text.
      */
-    public native void setCharacterSize(int characterSize);
+    public void setCharacterSize(int characterSize) {
+        nativeSetCharacterSize(characterSize);
+        this.characterSize = characterSize;
+        boundsNeedUpdate = true;
+    }
+
+    private native void nativeSetStyle(int style);
 
     /**
      * Sets the font drawing style.
@@ -102,17 +120,22 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *              {@link TextStyle#UNDERLINED}, or {@link TextStyle#REGULAR} for the
      *              regular style.
      */
-    public native void setStyle(int style);
+    public void setStyle(int style) {
+        nativeSetStyle(style);
+        this.style = style;
+        boundsNeedUpdate = true;
+    }
 
-    private native void nativeSetColor(Color color);
+    private native void nativeSetColor(int color);
 
     /**
      * Sets the font color for this text.
      *
      * @param color The font color for this text.
      */
-    public void setColor(@NotNull Color color) {
-        nativeSetColor(Objects.requireNonNull(color));
+    public void setColor(Color color) {
+        nativeSetColor(IntercomHelper.encodeColor(color));
+        this.color = color;
     }
 
     /**
@@ -138,7 +161,9 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      *
      * @return The text's current font size.
      */
-    public native int getCharacterSize();
+    public int getCharacterSize() {
+        return characterSize;
+    }
 
     /**
      * Gets the text's current font style.
@@ -146,16 +171,20 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * @return The text's current font style.
      * @see Text#setStyle(int)
      */
-    public native int getStyle();
+    public int getStyle() {
+        return style;
+    }
 
     /**
      * Gets the text's current font color.
      *
      * @return The text's current font color.
      */
-    public native Color getColor();
+    public Color getColor() {
+        return color;
+    }
 
-    private native Vector2f nativeFindCharacterPos(int i);
+    private native long nativeFindCharacterPos(int i);
 
     /**
      * Returns the position of a character inside the string.
@@ -165,30 +194,84 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      */
     public Vector2f findCharacterPos(int i) {
         if (i < 0 || i >= string.length())
-            throw new IndexOutOfBoundsException(Integer.toString(i));
+            throw new StringIndexOutOfBoundsException(Integer.toString(i));
 
-        return nativeFindCharacterPos(i);
+        return IntercomHelper.decodeVector2f(nativeFindCharacterPos(i));
+    }
+
+    private native void nativeGetLocalBounds(Buffer buf);
+
+    private native void nativeGetGlobalBounds(Buffer buf);
+
+    private void updateBounds() {
+        if(boundsNeedUpdate) {
+            nativeGetLocalBounds(IntercomHelper.getBuffer());
+            localBounds = IntercomHelper.decodeFloatRect();
+
+            nativeGetGlobalBounds(IntercomHelper.getBuffer());
+            globalBounds = IntercomHelper.decodeFloatRect();
+
+            boundsNeedUpdate = false;
+        }
     }
 
     /**
-     * Gets the sprite's local bounding rectangle, <i>not</i> taking the sprite's transformation into account.
+     * Gets the text's local bounding rectangle,
+     * <i>not</i> taking the text's transformation into account.
      *
-     * @return The sprite's local bounding rectangle.
+     * @return the text's local bounding rectangle.
      * @see org.jsfml.graphics.Sprite#getGlobalBounds()
      */
-    public native FloatRect getLocalBounds();
+    public FloatRect getLocalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return localBounds;
+    }
 
     /**
-     * Gets the sprite's global bounding rectangle, taking the sprite's transformation into account.
+     * Gets the text's global bounding rectangle in the scene,
+     * taking the text's transformation into account.
      *
-     * @return The sprite's global bounding rectangle.
-     * @see org.jsfml.graphics.Sprite#getLocalBounds()
+     * @return the text's global bounding rectangle.
+     * @see org.jsfml.graphics.Text#getLocalBounds()
      */
-    public native FloatRect getGlobalBounds();
+    public FloatRect getGlobalBounds() {
+        if(boundsNeedUpdate) {
+            updateBounds();
+        }
+
+        return globalBounds;
+    }
 
     @Override
-    public void draw(@NotNull RenderTarget target, @NotNull RenderStates states) {
-        DrawableNativeImpl.draw(this,
+    public void setPosition(Vector2f v) {
+        super.setPosition(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setRotation(float angle) {
+        super.setRotation(angle);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setScale(Vector2f v) {
+        super.setScale(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void setOrigin(Vector2f v) {
+        super.setOrigin(v);
+        boundsNeedUpdate = true;
+    }
+
+    @Override
+    public void draw(RenderTarget target, RenderStates states) {
+        SFMLNativeDrawer.draw(this,
                 Objects.requireNonNull(target),
                 Objects.requireNonNull(states));
     }

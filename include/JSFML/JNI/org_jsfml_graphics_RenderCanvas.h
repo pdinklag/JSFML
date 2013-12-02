@@ -7,20 +7,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: focusLog */
-/* Inaccessible static: log */
-/* Inaccessible static: mixingLog */
 #undef org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_UNKNOWN
 #define org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_UNKNOWN 0L
 #undef org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_DEFAULT
 #define org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_DEFAULT 1L
 #undef org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_SET
 #define org_jsfml_graphics_RenderCanvas_FOCUS_TRAVERSABLE_SET 2L
-/* Inaccessible static: focusTraversalKeyPropertyNames */
-/* Inaccessible static: LOCK */
-/* Inaccessible static: dbg */
-/* Inaccessible static: isInc */
-/* Inaccessible static: incRate */
 #undef org_jsfml_graphics_RenderCanvas_TOP_ALIGNMENT
 #define org_jsfml_graphics_RenderCanvas_TOP_ALIGNMENT 0.0f
 #undef org_jsfml_graphics_RenderCanvas_CENTER_ALIGNMENT
@@ -33,11 +25,6 @@ extern "C" {
 #define org_jsfml_graphics_RenderCanvas_RIGHT_ALIGNMENT 1.0f
 #undef org_jsfml_graphics_RenderCanvas_serialVersionUID
 #define org_jsfml_graphics_RenderCanvas_serialVersionUID -7644114512714619750i64
-/* Inaccessible static: coalesceMap */
-/* Inaccessible static: coalesceEventsParams */
-/* Inaccessible static: requestFocusController */
-/* Inaccessible static: _00024assertionsDisabled */
-/* Inaccessible static: nameCounter */
 #undef org_jsfml_graphics_RenderCanvas_serialVersionUID
 #define org_jsfml_graphics_RenderCanvas_serialVersionUID -2284879212465893870i64
 #undef org_jsfml_graphics_RenderCanvas_serialVersionUID
@@ -45,7 +32,7 @@ extern "C" {
 /*
  * Class:     org_jsfml_graphics_RenderCanvas
  * Method:    nativeCreateRenderWindow
- * Signature: (Lorg/jsfml/window/ContextSettings;)J
+ * Signature: (Ljava/nio/Buffer;)J
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_RenderCanvas_nativeCreateRenderWindow
   (JNIEnv *, jobject, jobject);

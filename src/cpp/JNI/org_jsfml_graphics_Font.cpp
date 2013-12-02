@@ -1,6 +1,6 @@
 #include <JSFML/JNI/org_jsfml_graphics_Font.h>
 
-#include <JSFML/Intercom/Glyph.hpp>
+#include <JSFML/Intercom/Intercom.hpp>
 #include <JSFML/Intercom/NativeObject.hpp>
 
 #include <SFML/Graphics/Font.hpp>
@@ -21,15 +21,6 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeDelete (JNIEnv *env, j
  */
 JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCreate (JNIEnv *env, jobject obj) {
     return (jlong)new sf::Font();
-}
-
-/*
- * Class:     org_jsfml_graphics_Font
- * Method:    nativeCopy
- * Signature: ()J
- */
-JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeCopy (JNIEnv *env, jobject obj) {
-    return (jlong)new sf::Font(*THIS(sf::Font));
 }
 
 /*
@@ -64,21 +55,32 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    getGlyph
- * Signature: (IIZ)Lorg/jsfml/graphics/Glyph;
+ * Method:    nativeGetGlyph
+ * Signature: (IIZLjava/nio/Buffer;)V
  */
-JNIEXPORT jobject JNICALL Java_org_jsfml_graphics_Font_getGlyph
-    (JNIEnv *env, jobject obj, jint unicode, jint size, jboolean bold) {
-
-    return JSFML::Glyph::FromSFML(env, THIS(sf::Font)->getGlyph((sf::Uint32)unicode, size, bold));
+JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeGetGlyph
+    (JNIEnv *env, jobject obj, jint unicode, jint characterSize, jboolean bold, jobject buffer) {
+    
+    const sf::Glyph& glyph = THIS(sf::Font)->getGlyph((sf::Uint32)unicode, characterSize, bold);
+    
+    jint *buf = (jint*)env->GetDirectBufferAddress(buffer);
+    buf[0] = glyph.advance;
+    buf[1] = glyph.bounds.left;
+    buf[2] = glyph.bounds.top;
+    buf[3] = glyph.bounds.width;
+    buf[4] = glyph.bounds.height;
+    buf[5] = glyph.textureRect.left;
+    buf[6] = glyph.textureRect.top;
+    buf[7] = glyph.textureRect.width;
+    buf[8] = glyph.textureRect.height;
 }
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    getKerning
+ * Method:    nativeGetKerning
  * Signature: (III)I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getKerning
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
     (JNIEnv *env, jobject obj, jint first, jint second, jint size) {
 
     return THIS(sf::Font)->getKerning((sf::Uint32)first, (sf::Uint32)second, size);
@@ -86,10 +88,10 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getKerning
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    getLineSpacing
+ * Method:    nativeGetLineSpacing
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_getLineSpacing
+JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
     (JNIEnv *env, jobject obj, jint size) {
 
     return THIS(sf::Font)->getLineSpacing(size);

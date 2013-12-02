@@ -73,34 +73,26 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetBuffer
 
 /*
  * Class:     org_jsfml_audio_Sound
- * Method:    setLoop
+ * Method:    nativeSetLoop
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_setLoop
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetLoop
   (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     org_jsfml_audio_Sound
  * Method:    nativeSetPlayingOffset
- * Signature: (Lorg/jsfml/system/Time;)V
+ * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Sound_nativeSetPlayingOffset
-  (JNIEnv *, jobject, jobject);
+  (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     org_jsfml_audio_Sound
- * Method:    isLoop
- * Signature: ()Z
+ * Method:    nativeGetPlayingOffset
+ * Signature: ()J
  */
-JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_Sound_isLoop
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_jsfml_audio_Sound
- * Method:    getPlayingOffset
- * Signature: ()Lorg/jsfml/system/Time;
- */
-JNIEXPORT jobject JNICALL Java_org_jsfml_audio_Sound_getPlayingOffset
+JNIEXPORT jlong JNICALL Java_org_jsfml_audio_Sound_nativeGetPlayingOffset
   (JNIEnv *, jobject);
 
 /*

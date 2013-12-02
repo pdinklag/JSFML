@@ -42,19 +42,6 @@ final class AWTRenderWindow extends RenderWindow implements
     }
 
     @Override
-    public Event waitEvent() throws InterruptedException {
-        clearSFMLEventQueue();
-
-        Event e = queue.poll();
-        while (e == null) {
-            Thread.sleep(WAIT_EVENT_DURATION);
-            e = queue.poll();
-        }
-
-        return e;
-    }
-
-    @Override
     public Iterable<Event> pollEvents() {
         clearSFMLEventQueue();
 

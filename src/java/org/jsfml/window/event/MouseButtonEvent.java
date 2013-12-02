@@ -1,6 +1,5 @@
 package org.jsfml.window.event;
 
-import org.jsfml.internal.Intercom;
 import org.jsfml.window.Mouse;
 
 /**
@@ -10,7 +9,6 @@ import org.jsfml.window.Mouse;
  * {@link Event.Type#MOUSE_BUTTON_PRESSED} or
  * {@link Event.Type#MOUSE_BUTTON_RELEASED}.
  */
-@Intercom
 public final class MouseButtonEvent extends MouseEvent {
     /**
      * The mouse button that was pressed or released.
@@ -28,7 +26,6 @@ public final class MouseButtonEvent extends MouseEvent {
      *               This must be a valid ordinal in the {@link org.jsfml.window.Mouse.Button}
      *               enumeration.
      */
-    @Intercom
     public MouseButtonEvent(int type, int x, int y, int button) {
         super(type, x, y);
         this.button = Mouse.Button.values()[button];
