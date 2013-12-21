@@ -99,9 +99,21 @@ public final class Color implements Serializable {
                 (int) (color.a * f));
     }
 
+    /**
+     * Constructs a new color with the RGBA values stored in the given
+     * AWT Color.
+     *
+     * @param c The {@link java.awt.Color} to copy.
+     * @return The JSFML color equivalent to the argument.
+     */
+    public static Color fromAwtColor(java.awt.Color c) {
+        return new Color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+    }
+
     private static int clamp(int x) {
         return Math.max(0, Math.min(x, 255));
     }
+
 
     /**
      * The red component of the color.
@@ -186,5 +198,15 @@ public final class Color implements Serializable {
                 ", b=" + b +
                 ", a=" + a +
                 '}';
+    }
+
+
+    /**
+     * Constructs a {@link java.awt.Color} from this color.
+     *
+     * @return An AWT Color with this color's RGBA values.
+     */
+    public java.awt.Color toAwtColor() {
+        return new java.awt.Color(r, g, b, a);
     }
 }

@@ -30,6 +30,7 @@ package org.jsfml.graphics;
 
 import org.jsfml.system.Vector2i;
 
+import java.awt.Rectangle;
 import java.io.Serializable;
 
 /**
@@ -42,6 +43,16 @@ public final class IntRect implements Serializable {
      * An empty rectangle with no dimensions.
      */
     public static final IntRect EMPTY = new IntRect(0, 0, 0, 0);
+
+    /**
+     * Constructs an IntRect from an AWT rectangle.
+     *
+     * @param r The {@link java.awt.Rectangle} to convert.
+     * @return An IntRect with the coordinates of the argument copied.
+     */
+    public static FloatRect fromAwtRectangle(Rectangle r) {
+        return new FloatRect(r.x, r.y, r.width, r.height);
+    }
 
     /**
      * The X coordinate of the rectangle's left edge.
@@ -197,5 +208,14 @@ public final class IntRect implements Serializable {
                 ", width=" + width +
                 ", height=" + height +
                 '}';
+    }
+
+    /**
+     * Converts this IntRect to an equivalent AWT rectangle.
+     *
+     * @return A {@link java.awt.Rectangle} with the coordinate values of this rectangle.
+     */
+    public Rectangle toAwtRectangle() {
+        return new Rectangle(left, top, width, height);
     }
 }

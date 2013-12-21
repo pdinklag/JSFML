@@ -1,5 +1,6 @@
 package org.jsfml.system;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 /**
@@ -92,6 +93,16 @@ public final class Vector2i implements Serializable {
     }
 
     /**
+     * Constructs a new Vector2i instance from an AWT point.
+     *
+     * @param p The {@link java.awt.Point} to convert.
+     * @return A new Vector2i with the point's coordinates.
+     */
+    public static Vector2i fromAwtPoint(Point p) {
+        return new Vector2i(p.x, p.y);
+    }
+
+    /**
      * The vector's X coordinate.
      */
     public final int x;
@@ -140,4 +151,14 @@ public final class Vector2i implements Serializable {
                 ", y=" + y +
                 '}';
     }
+
+    /**
+     * Converts this point to a AWT point instance.
+     *
+     * @return A {@link java.awt.Point} with this vector's coordinates.
+     */
+    public Point toAwtPoint() {
+        return new Point(x, y);
+    }
+
 }
