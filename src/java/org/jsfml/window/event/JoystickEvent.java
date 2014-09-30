@@ -4,7 +4,7 @@ package org.jsfml.window.event;
  * Represents generic joystick or gamepad events.
  * <p/>
  * Objects of this class are created for events of type
- * {@link Event.Type#JOYSTICK_CONNECETED},
+ * {@link Event.Type#JOYSTICK_CONNECTED},
  * {@link Event.Type#JOYSTICK_DISCONNECTED},
  * {@link Event.Type#JOYSTICK_BUTTON_PRESSED},
  * {@link Event.Type#JOYSTICK_BUTTON_RELEASED} or
