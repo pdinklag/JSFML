@@ -22,56 +22,32 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef SFML_OPENGL_HPP
-#define SFML_OPENGL_HPP
+
+////////////////////////////////////////////////////////////
+template <typename T>
+String String::fromUtf8(T begin, T end)
+{
+    String string;
+    Utf8::toUtf32(begin, end, std::back_inserter(string.m_string));
+    return string;
+}
 
 
 ////////////////////////////////////////////////////////////
-/// Headers
-////////////////////////////////////////////////////////////
-#include <SFML/Config.hpp>
+template <typename T>
+String String::fromUtf16(T begin, T end)
+{
+    String string;
+    Utf16::toUtf32(begin, end, std::back_inserter(string.m_string));
+    return string;
+}
 
 
 ////////////////////////////////////////////////////////////
-/// This file just includes the OpenGL (GL and GLU) headers,
-/// which have actually different paths on each system
-////////////////////////////////////////////////////////////
-#if defined(SFML_SYSTEM_WINDOWS)
-
-    // The Visual C++ version of gl.h uses WINGDIAPI and APIENTRY but doesn't define them
-    #ifdef _MSC_VER
-        #include <windows.h>
-    #endif
-
-    #include <GL/gl.h>
-    #include <GL/glu.h>
-
-#elif defined(SFML_SYSTEM_LINUX) || defined(SFML_SYSTEM_FREEBSD)
-
-    #if defined(SFML_OPENGL_ES)
-        #include <GLES/gl.h>
-        #include <GLES/glext.h>
-    #else
-        #include <GL/gl.h>
-        #include <GL/glu.h>
-    #endif
-
-#elif defined(SFML_SYSTEM_MACOS)
-
-    #include <OpenGL/gl.h>
-    #include <OpenGL/glu.h>
-
-#elif defined (SFML_SYSTEM_IOS)
-
-    #include <OpenGLES/ES1/gl.h>
-    #include <OpenGLES/ES1/glext.h>
-
-#elif defined (SFML_SYSTEM_ANDROID)
-
-    #include <GLES/gl.h>
-    #include <GLES/glext.h>
-
-#endif
-
-
-#endif // SFML_OPENGL_HPP
+template <typename T>
+String String::fromUtf32(T begin, T end)
+{
+    String string;
+    string.m_string.assign(begin, end);
+    return string;
+}
