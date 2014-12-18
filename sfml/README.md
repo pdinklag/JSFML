@@ -9,13 +9,13 @@ Current Version
 ---------------
 The currently checked in version of SFML includes and binaries is:
 
-`2.1` [6c1899d0f70e4dc845d7f482b22c9d79f7cd4f2f](https://github.com/LaurentGomila/SFML/commit/6c1899d0f70e4dc845d7f482b22c9d79f7cd4f2f) as of July 21, 2013`.
+`2.2` [fc850ed99fc3e52e16c7d9d1bf71daf92cbe5f76](https://github.com/LaurentGomila/SFML/commit/fc850ed99fc3e52e16c7d9d1bf71daf92cbe5f76) as of December 18, 2014`.
 
 License
 -------
 The following license applies to the SFML headers:
 
-    SFML - Copyright (C) 2007-2013 Laurent Gomila - laurent.gom@gmail.com
+    SFML - Copyright (C) 2007-2014 Laurent Gomila - laurent.gom@gmail.com
 
     This software is provided 'as-is', without any express or
     implied warranty. In no event will the authors be held
