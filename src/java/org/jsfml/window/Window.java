@@ -77,7 +77,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
                             Float.intBitsToFloat(ints.get(3)));
                     break;
 
-                case JOYSTICK_CONNECETED:
+                case JOYSTICK_CONNECTED:
                 case JOYSTICK_DISCONNECTED:
                     e = new JoystickEvent(typeId, ints.get(1));
                     break;

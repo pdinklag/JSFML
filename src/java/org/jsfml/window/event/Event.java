@@ -146,7 +146,7 @@ public class Event {
          * Events of this type can be cast to {@link JoystickEvent} using the
          * {@link #asJoystickEvent()} method.
          */
-        JOYSTICK_CONNECETED,
+        JOYSTICK_CONNECTED,
 
         /**
          * Fired when a joystick or gamepad was disconnected.
@@ -189,7 +189,7 @@ public class Event {
      * Attempts to cast this event to a {@link JoystickEvent}.
      *
      * @return the event cast to a {@code JoystickEvent} if its type is one of
-     *         {@link Type#JOYSTICK_CONNECETED}, {@link Type#JOYSTICK_DISCONNECTED},
+     *         {@link Type#JOYSTICK_CONNECTED}, {@link Type#JOYSTICK_DISCONNECTED},
      *         {@link Type#JOYSTICK_BUTTON_PRESSED}, {@link Type#JOYSTICK_BUTTON_RELEASED} or
      *         {@link Type#JOYSTICK_MOVED}, {@code null} otherwise.
      */
