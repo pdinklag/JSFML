@@ -89,6 +89,28 @@ public final strictfp class Time implements Comparable<Time>, Serializable {
     }
 
     /**
+     * Computes the ratio between two time values.
+     *
+     * @param a the first operand.
+     * @param b the second operand.
+     * @return the ratio between the two time values.
+     */
+    public static float div(Time a, Time b) {
+        return a.asSeconds() / b.asSeconds();
+    }
+
+    /**
+     * Computes the remainder of a time value by performing a modulo operation.
+     *
+     * @param a the first operand.
+     * @param b the second operand.
+     * @return the remainder of the first time value.
+     */
+    public static Time mod(Time a, Time b) {
+        return new Time(a.microseconds % b.microseconds);
+    }
+
+    /**
      * Computes a time period's ratio of another time period.
      *
      * @param a The first time period.
