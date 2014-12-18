@@ -187,7 +187,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * line parameter.
      *
      * @return {@code true} if the current native thread may create a window,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     public static native boolean isLegalWindowThread();
 
@@ -508,6 +508,24 @@ public class Window extends SFMLNativeObject implements WindowStyle {
     public final void setActive() throws ContextActivationException {
         setActive(true);
     }
+
+    /**
+     * Requests this window to receive the input focus and become the foreground window.
+     * <p/>
+     * Note that this method merely dispatches a request to the operating system, which will decide whether
+     * the window will receive the focus. Thus, this is not guaranteed.
+     * <p/>
+     * The focus has nothing to do with the OpenGL rendering target, which is why this method
+     * must not be confused with {@link #setActive()}.
+     */
+    public native void requestFocus();
+
+    /**
+     * Tests whether this window currently has the input focus.
+     *
+     * @return {@code true} in case this windows currently has the focus, {@code false} otherwise.
+     */
+    public native boolean hasFocus();
 
     /**
      * Flushes the OpenGL pixel buffer to the screen.
