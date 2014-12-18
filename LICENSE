@@ -3,7 +3,7 @@
 =============
 
 JSFML - The Java binding to the Simple and Fast Multimedia Library (SFML)
-Copyright (c) 2011-2013 by Patrick Dinklage (pdinklag@googlemail.com)
+Copyright (c) 2011-2015 by Patrick Dinklage (pdinklag@googlemail.com)
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the
@@ -47,9 +47,9 @@ contributed to SFML.
 The following libraries are distributed along with this software in binary
 form, for the reasons of convenience and/or higher stability:
 
-- SFML 2.1, provided under the zlib/png license
+- SFML 2.2, provided under the zlib/png license
   (http://www.sfml-dev.org/license.php)
-- GLEW 1.6, provided under various open source compatible licenses
+- GLEW 1.5, provided under various open source compatible licenses
   (http://glew.sourceforge.net/credits.html)
 - libjpeg v8d, provided royalty-free by the Independent JPEG Group
   (http://www.ijg.org/)
