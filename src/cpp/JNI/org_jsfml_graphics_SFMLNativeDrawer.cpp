@@ -11,18 +11,18 @@
 /*
  * Class:     org_jsfml_graphics_SFMLNativeDrawer
  * Method:    nativeDrawVertices
- * Signature: (ILjava/nio/Buffer;ILorg/jsfml/graphics/RenderTarget;ILjava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
+ * Signature: (ILjava/nio/Buffer;ILorg/jsfml/graphics/RenderTarget;Ljava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawVertices
     (JNIEnv *env, jclass cls, jint num, jobject vbuf, jint type, jobject jtarget,
-        jint blendMode, jobject xform, jobject texture, jobject shader) {
+        jobject xformAndBlendMode, jobject texture, jobject shader) {
     
     sf::RenderTarget *target = JSFML::NativeObject::GetExPointer<sf::RenderTarget>(
         env, jtarget, org_jsfml_internal_ExPtr_RENDER_TARGET);
     sf::Vertex *verts = (sf::Vertex*)env->GetDirectBufferAddress(vbuf);
     
     target->draw(verts, num, (sf::PrimitiveType)type,
-        sf::RenderStates((sf::BlendMode)blendMode,
+        sf::RenderStates(JSFML::Intercom::decodeBlendModeOff(env, xformAndBlendMode),
                         JSFML::Intercom::decodeTransform(env, xform),
                         JSFML::NativeObject::GetPointer<sf::Texture>(env, texture),
                         JSFML::NativeObject::GetPointer<sf::Shader>(env, shader)));
@@ -31,15 +31,15 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawVertic
 /*
  * Class:     org_jsfml_graphics_SFMLNativeDrawer
  * Method:    nativeDrawDrawable
- * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;ILjava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
+ * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;Ljava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawDrawable
     (JNIEnv *env, jclass cls, jobject drawable, jobject target,
-        jint blendMode, jobject xform, jobject texture, jobject shader) {
+        jobject xformAndBlendMode, jobject texture, jobject shader) {
 
     JSFML::NativeObject::GetExPointer<sf::RenderTarget>(env, target, org_jsfml_internal_ExPtr_RENDER_TARGET)->draw(
         *JSFML::NativeObject::GetExPointer<sf::Drawable>(env, drawable, org_jsfml_internal_ExPtr_DRAWABLE),
-        sf::RenderStates((sf::BlendMode)blendMode,
+        sf::RenderStates(JSFML::Intercom::decodeBlendModeOff(env, xformAndBlendMode),
                 JSFML::Intercom::decodeTransform(env, xform),
                 JSFML::NativeObject::GetPointer<sf::Texture>(env, texture),
                 JSFML::NativeObject::GetPointer<sf::Shader>(env, shader)));

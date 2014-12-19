@@ -19,7 +19,7 @@ final class SFMLNativeDrawer {
 
     private static ByteBuffer ensureBuffer(int numVertices) {
         ByteBuffer buffer = vertexBuffer.get();
-        if(buffer == null || (buffer.capacity() / NATIVE_VERTEX_SIZE) < numVertices) {
+        if (buffer == null || (buffer.capacity() / NATIVE_VERTEX_SIZE) < numVertices) {
             buffer = ByteBuffer.allocateDirect(numVertices * NATIVE_VERTEX_SIZE).order(ByteOrder.nativeOrder());
             vertexBuffer.set(buffer);
         }
@@ -32,8 +32,7 @@ final class SFMLNativeDrawer {
             Buffer vbuf,
             int type,
             RenderTarget target,
-            int blendMode,
-            Buffer xform,
+            Buffer xformAndBlendMode,
             ConstTexture texture,
             ConstShader shader);
 
@@ -60,8 +59,7 @@ final class SFMLNativeDrawer {
                 vbuf,
                 type.ordinal(),
                 target,
-                states.blendMode.ordinal(),
-                IntercomHelper.encodeTransform(states.transform),
+                IntercomHelper.encodeTransformAndBlendMode(states.transform, states.blendMode),
                 states.texture,
                 states.shader);
     }
@@ -69,8 +67,7 @@ final class SFMLNativeDrawer {
     private static native void nativeDrawDrawable(
             Drawable drawable,
             RenderTarget target,
-            int blendMode,
-            Buffer xform,
+            Buffer xformAndBlendMode,
             ConstTexture texture,
             ConstShader shader);
 
@@ -78,8 +75,7 @@ final class SFMLNativeDrawer {
         nativeDrawDrawable(
                 drawable,
                 target,
-                states.blendMode.ordinal(),
-                IntercomHelper.encodeTransform(states.transform),
+                IntercomHelper.encodeTransformAndBlendMode(states.transform, states.blendMode),
                 states.texture,
                 states.shader);
     }

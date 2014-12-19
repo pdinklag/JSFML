@@ -83,6 +83,13 @@ sf::Transform JSFML::Intercom::decodeTransform(JNIEnv *env, jobject code) {
         buf[6], buf[7], buf[8]);
 }
 
+sf::BlendMode JSFML::Intercom::decodeBlendModeOff(JNIEnv *env, jobject code) {
+    jint *buf = (jint*)env->GetDirectBufferAddress(code);
+    return sf::BlendMode(
+        (sf::BlendMode::Factor)buf[9], (sf::BlendMode::Factor)buf[10], (sf::BlendMode::Equation)buf[11],
+        (sf::BlendMode::Factor)buf[12], (sf::BlendMode::Factor)buf[13], (sf::BlendMode::Equation)buf[14]);
+}
+
 jlong JSFML::Intercom::encodeVector2i(const sf::Vector2i& v) {
     jlong vec = (jlong)v.y << 32;
     vec |= v.x;

@@ -12,18 +12,18 @@ extern "C" {
 /*
  * Class:     org_jsfml_graphics_SFMLNativeDrawer
  * Method:    nativeDrawVertices
- * Signature: (ILjava/nio/Buffer;ILorg/jsfml/graphics/RenderTarget;ILjava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
+ * Signature: (ILjava/nio/Buffer;ILorg/jsfml/graphics/RenderTarget;Ljava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawVertices
-  (JNIEnv *, jclass, jint, jobject, jint, jobject, jint, jobject, jobject, jobject);
+  (JNIEnv *, jclass, jint, jobject, jint, jobject, jobject, jobject, jobject);
 
 /*
  * Class:     org_jsfml_graphics_SFMLNativeDrawer
  * Method:    nativeDrawDrawable
- * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;ILjava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
+ * Signature: (Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;Ljava/nio/Buffer;Lorg/jsfml/graphics/ConstTexture;Lorg/jsfml/graphics/ConstShader;)V
  */
 JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawDrawable
-  (JNIEnv *, jclass, jobject, jobject, jint, jobject, jobject, jobject);
+  (JNIEnv *, jclass, jobject, jobject, jobject, jobject, jobject);
 
 #ifdef __cplusplus
 }

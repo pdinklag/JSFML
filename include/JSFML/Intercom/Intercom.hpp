@@ -2,6 +2,7 @@
 #define JSFML_INTERCOM_H_
 
 #include <jni.h>
+#include <SFML/Graphics/BlendMode.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Transform.hpp>
@@ -36,6 +37,9 @@ namespace JSFML {
             //sf::Transform
             static void encodeTransform(JNIEnv *env, const sf::Transform& xform, jobject out);
             static sf::Transform decodeTransform(JNIEnv *env, jobject code);
+            
+            //sf::BlendMode
+            static sf::BlendMode decodeBlendModeOff(JNIEnv *env, jobject code);
     };
 }
 

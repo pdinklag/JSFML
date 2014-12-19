@@ -196,6 +196,29 @@ public final class IntercomHelper {
         return buf;
     }
 
+    /**
+     * Encodes a transformation matrix and a blending mode into the current buffer.
+     *
+     * @param xform     the transformation matrix to encode.
+     * @param blendMode the blending mode to encode.
+     * @return A reference to the mixed float and integer buffer.
+     */
+    public static Buffer encodeTransformAndBlendMode(Transform xform, BlendMode blendMode) {
+        //encode transform first
+        encodeTransform(xform);
+
+        //append blend mode
+        final IntBuffer buffer = BUFFER.get().asIntBuffer();
+        buffer.put(9, blendMode.colorSrcFactor.ordinal());
+        buffer.put(10, blendMode.colorDstFactor.ordinal());
+        buffer.put(11, blendMode.colorEquation.ordinal());
+        buffer.put(12, blendMode.alphaSrcFactor.ordinal());
+        buffer.put(13, blendMode.alphaDstFactor.ordinal());
+        buffer.put(14, blendMode.alphaEquation.ordinal());
+
+        return buffer;
+    }
+
     private IntercomHelper() {
     }
 }
