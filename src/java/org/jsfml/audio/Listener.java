@@ -20,7 +20,7 @@ public final class Listener {
     //cache
     private static float volume = 100;
     private static Vector3f position = Vector3f.ZERO;
-    private static Vector3f direction = Vector3f.ZERO;
+    private static Vector3f direction = new Vector3f(0.0f, 0.0f, -1.0f);
 
     private static native void nativeSetGlobalVolume(float volume);
 
