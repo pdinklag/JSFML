@@ -83,6 +83,42 @@ public final class Joystick {
         POV_Y
     }
 
+    /**
+     * Holds identification information about a joystick.
+     */
+    public static final class Identification implements Serializable {
+        private static final long serialVersionUID = 4831994862885876452L;
+        /**
+         * The name of the joystick.
+         */
+        public final String name;
+
+        /**
+         * The identifier of the joystick manufacturer.
+         */
+        public final int vendorId;
+
+        /**
+         * The identifier of the product.
+         */
+        public final int productId;
+
+        private Identification(String name, int vendorId, int productId) {
+            this.name = name;
+            this.vendorId = vendorId;
+            this.productId = productId;
+        }
+
+        @Override
+        public String toString() {
+            return "Identification{" +
+                    "name='" + name + '\'' +
+                    ", vendorId=" + vendorId +
+                    ", productId=" + productId +
+                    '}';
+        }
+    }
+
     private static native boolean nativeIsConnected(int joystick);
 
     /**
@@ -188,42 +224,6 @@ public final class Joystick {
      * created. Once there is a window, the states will be automatically updated in regular periods.
      */
     public static native void update();
-
-    /**
-     * Holds identification information about a joystick.
-     */
-    public static final class Identification implements Serializable {
-        private static final long serialVersionUID = 4831994862885876452L;
-        /**
-         * The name of the joystick.
-         */
-        public final String name;
-
-        /**
-         * The identifier of the joystick manufacturer.
-         */
-        public final int vendorId;
-
-        /**
-         * The identifier of the product.
-         */
-        public final int productId;
-
-        private Identification(String name, int vendorId, int productId) {
-            this.name = name;
-            this.vendorId = vendorId;
-            this.productId = productId;
-        }
-
-        @Override
-        public String toString() {
-            return "Identification{" +
-                    "name='" + name + '\'' +
-                    ", vendorId=" + vendorId +
-                    ", productId=" + productId +
-                    '}';
-        }
-    }
 
     private static native String nativeGetIdentification(int joystick, Buffer buffer);
 
