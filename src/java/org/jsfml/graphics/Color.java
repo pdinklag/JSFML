@@ -70,6 +70,21 @@ public final class Color implements Serializable {
     }
 
     /**
+     * Modulates two colors by performing a component-wise subtraction.
+     *
+     * @param a the first color.
+     * @param b the second color.
+     * @return the modulated color.
+     */
+    public static Color sub(Color a, Color b) {
+        return new Color(
+                a.r - b.r,
+                a.g - b.g,
+                a.b - b.b,
+                a.a - b.a);
+    }
+
+    /**
      * Modulates two colors by performing a component-wise multiplication.
      *
      * @param a the first color.
