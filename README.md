@@ -13,7 +13,7 @@ Graphics features require OpenGL, audio features require OpenAL.
 Furthermore, there are some platform-specific requirements that are listed below.
 
 ###Windows
-Windows XP SP2 or higher is required. Furthermore, the _Microsoft Visual C++ 2010 Redistributable Package_ needs to be installed.
+Windows XP SP2 or higher is required. Furthermore, the _Visual C++ Redistributable for Visual Studio 2013_ needs to be installed.
 
 ###Linux
 Generally, it is recommended to install the latest updates from your distribution's vendor. For windows, an X window environment is required.

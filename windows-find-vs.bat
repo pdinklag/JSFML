@@ -12,14 +12,6 @@ if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\Vi
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VS" "ProductDir" 2> NUL
 
-REM MSVC++ 2012 (11.0)
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\11.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\11.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\11.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\11.0\Setup\VS" "ProductDir" 2> NUL
-
 echo %RESULT%
 goto:eof
 
