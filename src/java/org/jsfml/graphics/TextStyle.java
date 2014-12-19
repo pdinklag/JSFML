@@ -26,4 +26,9 @@ public interface TextStyle {
      * Underlined drawing style.
      */
     public static final int UNDERLINED = 0x04;
+
+    /**
+     * Strike through drawing style.
+     */
+    public static final int STRIKE_THROUGH = 0x08;
 }

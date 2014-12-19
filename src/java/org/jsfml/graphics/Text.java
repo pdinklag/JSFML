@@ -116,9 +116,9 @@ public class Text extends SFMLNativeTransformable implements Drawable, TextStyle
      * Sets the font drawing style.
      *
      * @param style The font drawing style. This should be an combination ({@code OR})
-     *              of the style flags {@link TextStyle#BOLD}, {@link TextStyle#ITALIC} and
-     *              {@link TextStyle#UNDERLINED}, or {@link TextStyle#REGULAR} for the
-     *              regular style.
+     *              of the style flags {@link TextStyle#BOLD}, {@link TextStyle#ITALIC},
+     *              {@link TextStyle#UNDERLINED} and {@link TextStyle#STRIKE_THROUGH},
+     *              or {@link TextStyle#REGULAR} for the regular style.
      */
     public void setStyle(int style) {
         nativeSetStyle(style);
