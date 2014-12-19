@@ -15,16 +15,26 @@ import java.util.TreeMap;
  */
 public class Font extends SFMLNativeObject implements ConstFont {
     private class SizeInfo {
-        final int characterSize, lineSpacing;
+        final int characterSize;
+        final float lineSpacing;
+        final float underlinePosition, underlineThickness;
         final ConstTexture texture;
         final TreeMap<Long, Integer> kerning = new TreeMap<>();
         final TreeMap<Integer, Glyph> glyphs = new TreeMap<>();
         final TreeMap<Integer, Glyph> boldGlyphs = new TreeMap<>();
 
-        SizeInfo(int characterSize, int lineSpacing, ConstTexture texture) {
+        SizeInfo(
+                int characterSize,
+                float lineSpacing,
+                float underlinePosition,
+                float underlineThickness,
+                ConstTexture texture) {
+
             this.characterSize = characterSize;
             this.lineSpacing = lineSpacing;
             this.texture = texture;
+            this.underlinePosition = underlinePosition;
+            this.underlineThickness = underlineThickness;
         }
     }
 
@@ -44,20 +54,6 @@ public class Font extends SFMLNativeObject implements ConstFont {
             nativeReleaseMemory(ref, ptr);
         }
     };
-
-    /**
-     * Holds information about a font.
-     */
-    public final class Info {
-        /**
-         * The font family.
-         */
-        public final String family;
-
-        private Info(String family) {
-            this.family = family;
-        }
-    }
 
     private Info info = null;
 
@@ -127,11 +123,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
     private native String nativeGetInfo();
 
-    /**
-     * Gets information about the font.
-     *
-     * @return information about the font.
-     */
+    @Override
     public Info getInfo() {
         if (info == null) {
             info = new Info(nativeGetInfo());
@@ -141,7 +133,11 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
     private native long nativeGetTexture(int characterSize);
 
-    private native int nativeGetLineSpacing(int characterSize);
+    private native float nativeGetLineSpacing(int characterSize);
+
+    private native float nativeGetUnderlinePosition(int characterSize);
+
+    private native float nativeGetUnderlineThickness(int characterSize);
 
     private native void nativeGetGlyph(int unicode, int characterSize, boolean bold, Buffer buf);
 
@@ -150,11 +146,13 @@ public class Font extends SFMLNativeObject implements ConstFont {
     private SizeInfo getSizeInfo(int characterSize) {
         SizeInfo info = sizeInfos.get(characterSize);
         if (info == null) {
-            final int lineSpacing = nativeGetLineSpacing(characterSize);
+            final float lineSpacing = nativeGetLineSpacing(characterSize);
+            final float underlinePosition = nativeGetUnderlinePosition(characterSize);
+            final float underlineThickness = nativeGetUnderlineThickness(characterSize);
             final long p = nativeGetTexture(characterSize);
             final ConstTexture tex = (p != 0) ? new Texture(p) : null;
 
-            info = new SizeInfo(characterSize, lineSpacing, tex);
+            info = new SizeInfo(characterSize, lineSpacing, underlinePosition, underlineThickness, tex);
             sizeInfos.put(characterSize, info);
         }
         return info;
@@ -182,7 +180,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
     }
 
     @Override
-    public int getKerning(int first, int second, int characterSize) {
+    public float getKerning(int first, int second, int characterSize) {
         final SizeInfo info = getSizeInfo(characterSize);
         final long x = ((long) first << 32) | (long) second;
         Integer kerning = info.kerning.get(x);
@@ -195,8 +193,18 @@ public class Font extends SFMLNativeObject implements ConstFont {
     }
 
     @Override
-    public int getLineSpacing(int characterSize) {
+    public float getLineSpacing(int characterSize) {
         return getSizeInfo(characterSize).lineSpacing;
+    }
+
+    @Override
+    public float getUnderlinePosition(int characterSize) {
+        return getSizeInfo(characterSize).underlinePosition;
+    }
+
+    @Override
+    public float getUnderlineThickness(int characterSize) {
+        return getSizeInfo(characterSize).underlineThickness;
     }
 
     @Override

@@ -15,6 +15,27 @@ import org.jsfml.internal.Const;
  */
 public interface ConstFont extends Const {
     /**
+     * Holds information about a font.
+     */
+    public final class Info {
+        /**
+         * The font family.
+         */
+        public final String family;
+
+        protected Info(String family) {
+            this.family = family;
+        }
+    }
+
+    /**
+     * Gets information about the font.
+     *
+     * @return information about the font.
+     */
+    public Info getInfo();
+
+    /**
      * Gets a glyph information structure from the font.
      *
      * @param unicode       the unicode (UTF-32) of the character to retrieve the glyph for.
@@ -33,7 +54,7 @@ public interface ConstFont extends Const {
      * @param characterSize the character size in question.
      * @return the kerning offset between the two glyphs.
      */
-    public int getKerning(int first, int second, int characterSize);
+    public float getKerning(int first, int second, int characterSize);
 
     /**
      * Gets the line spacing of the font.
@@ -41,7 +62,25 @@ public interface ConstFont extends Const {
      * @param characterSize the character size in question.
      * @return the line spacing of the font.
      */
-    public int getLineSpacing(int characterSize);
+    public float getLineSpacing(int characterSize);
+
+    /**
+     * Gets the underline position of the font.
+     *
+     * The underline position is the vertical offset to apply between the baseline and the underline.
+     *
+     * @param characterSize the character size in question.
+     * @return the underline position of the font.
+     */
+    public float getUnderlinePosition(int characterSize);
+
+    /**
+     * Gets the underline thickness of the font.
+     *
+     * @param characterSize the character size in question.
+     * @return the underline thickness of the font.
+     */
+    public float getUnderlineThickness(int characterSize);
 
     /**
      * Retrieves the texture containing the font's glyphs.
