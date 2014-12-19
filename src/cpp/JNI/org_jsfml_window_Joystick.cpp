@@ -54,3 +54,18 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_nativeGetAxisPosition (J
 JNIEXPORT void JNICALL Java_org_jsfml_window_Joystick_update (JNIEnv* env, jclass cls) {
 	return sf::Joystick::update();
 }
+
+/*
+ * Class:     org_jsfml_window_Joystick
+ * Method:    nativeGetIdentification
+ * Signature: (ILjava/nio/Buffer;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_jsfml_window_Joystick_nativeGetIdentification(JNIEnv *env, jclass cls, jint joy, jobject out) {
+    sf::Joystick::Identification id = sf::Joystick::getIdentification(joy);
+
+    jint *buf = (jint*)env->GetDirectBufferAddress(out);
+    buf[0] = id.vendorId;
+    buf[1] = id.productId;
+    
+    return env->NewStringUTF((const char *)id.name.getData());
+}

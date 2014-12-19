@@ -31,6 +31,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetPosition
 JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetDirection
   (JNIEnv *, jclass, jfloat, jfloat, jfloat);
 
+/*
+ * Class:     org_jsfml_audio_Listener
+ * Method:    nativeSetUpVector
+ * Signature: (FFF)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetUpVector
+  (JNIEnv *, jclass, jfloat, jfloat, jfloat);
+
 #ifdef __cplusplus
 }
 #endif

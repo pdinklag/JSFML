@@ -11,7 +11,14 @@
 
 namespace JSFML {
     class Intercom {
+        private:
+            static jclass stringClass;
+            static jstring emptyString;
+    
         public:
+            //General
+            static jobjectArray newStringArray(JNIEnv *env, int length);
+        
             //std::wstring
             static std::wstring decodeUtf32(JNIEnv *env, jstring str);
             

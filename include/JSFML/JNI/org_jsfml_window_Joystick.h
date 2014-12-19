@@ -59,6 +59,14 @@ JNIEXPORT jfloat JNICALL Java_org_jsfml_window_Joystick_nativeGetAxisPosition
 JNIEXPORT void JNICALL Java_org_jsfml_window_Joystick_update
   (JNIEnv *, jclass);
 
+/*
+ * Class:     org_jsfml_window_Joystick
+ * Method:    nativeGetIdentification
+ * Signature: (ILjava/nio/Buffer;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_jsfml_window_Joystick_nativeGetIdentification
+  (JNIEnv *, jclass, jint, jobject);
+
 #ifdef __cplusplus
 }
 #endif

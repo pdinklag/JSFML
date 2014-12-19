@@ -318,6 +318,28 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_nativeSetActive
 
 /*
  * Class:     org_jsfml_window_Window
+ * Method:    requestFocus
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_window_Window_requestFocus
+    (JNIEnv *env, jobject obj) {
+
+    SF_WINDOW->requestFocus();
+}
+
+/*
+ * Class:     org_jsfml_window_Window
+ * Method:    hasFocus
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_window_Window_hasFocus
+    (JNIEnv *env, jobject obj) {
+
+    return SF_WINDOW->hasFocus();
+}
+
+/*
+ * Class:     org_jsfml_window_Window
  * Method:    display
  * Signature: ()V
  */

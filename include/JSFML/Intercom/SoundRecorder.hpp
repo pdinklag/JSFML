@@ -3,6 +3,7 @@
 
 #include <jni.h>
 #include <SFML/Audio/SoundRecorder.hpp>
+#include <SFML/System/Time.hpp>
 
 namespace JSFML {
     class SoundRecorder : public sf::SoundRecorder {
@@ -26,6 +27,8 @@ namespace JSFML {
 
             SoundRecorder(JNIEnv* env, jobject obj);
             ~SoundRecorder();
+            
+            void setProcessingInterval(sf::Time interval);
     };
 }
 

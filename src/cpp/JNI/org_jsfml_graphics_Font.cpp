@@ -77,10 +77,21 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeGetGlyph
 
 /*
  * Class:     org_jsfml_graphics_Font
- * Method:    nativeGetKerning
- * Signature: (III)I
+ * Method:    nativeGetInfo
+ * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
+JNIEXPORT jstring JNICALL Java_org_jsfml_graphics_Font_nativeGetInfo
+    (JNIEnv *env, jobject obj) {
+
+    return env->NewStringUTF(THIS(sf::Font)->getInfo().family.c_str());
+}
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetKerning
+ * Signature: (III)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
     (JNIEnv *env, jobject obj, jint first, jint second, jint size) {
 
     return THIS(sf::Font)->getKerning((sf::Uint32)first, (sf::Uint32)second, size);
@@ -89,12 +100,34 @@ JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeGetLineSpacing
- * Signature: (I)I
+ * Signature: (I)F
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
     (JNIEnv *env, jobject obj, jint size) {
 
     return THIS(sf::Font)->getLineSpacing(size);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetUnderlinePosition
+ * Signature: (I)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetUnderlinePosition
+    (JNIEnv *env, jobject obj, jint size) {
+
+    return THIS(sf::Font)->getUnderlinePosition(size);
+}
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetUnderlineThickness
+ * Signature: (I)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetUnderlineThickness
+    (JNIEnv *env, jobject obj, jint size) {
+
+    return THIS(sf::Font)->getUnderlineThickness(size);
 }
 
 /*

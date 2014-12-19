@@ -68,3 +68,7 @@ void JSFML::SoundRecorder::onStop() {
         JVM::Detach(&env);
     }
 }
+
+void JSFML::SoundRecorder::setProcessingInterval(sf::Time interval) {
+    sf::SoundRecorder::setProcessingInterval(interval);
+}

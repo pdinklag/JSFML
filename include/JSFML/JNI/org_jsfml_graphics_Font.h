@@ -41,6 +41,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeReleaseMemory
 
 /*
  * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetInfo
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_jsfml_graphics_Font_nativeGetInfo
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_jsfml_graphics_Font
  * Method:    nativeGetTexture
  * Signature: (I)J
  */
@@ -50,9 +58,25 @@ JNIEXPORT jlong JNICALL Java_org_jsfml_graphics_Font_nativeGetTexture
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeGetLineSpacing
- * Signature: (I)I
+ * Signature: (I)F
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetLineSpacing
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetUnderlinePosition
+ * Signature: (I)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetUnderlinePosition
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     org_jsfml_graphics_Font
+ * Method:    nativeGetUnderlineThickness
+ * Signature: (I)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetUnderlineThickness
   (JNIEnv *, jobject, jint);
 
 /*
@@ -66,9 +90,9 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_Font_nativeGetGlyph
 /*
  * Class:     org_jsfml_graphics_Font
  * Method:    nativeGetKerning
- * Signature: (III)I
+ * Signature: (III)F
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
+JNIEXPORT jfloat JNICALL Java_org_jsfml_graphics_Font_nativeGetKerning
   (JNIEnv *, jobject, jint, jint, jint);
 
 #ifdef __cplusplus

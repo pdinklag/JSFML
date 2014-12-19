@@ -23,7 +23,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawVertic
     
     target->draw(verts, num, (sf::PrimitiveType)type,
         sf::RenderStates(JSFML::Intercom::decodeBlendModeOff(env, xformAndBlendMode),
-                        JSFML::Intercom::decodeTransform(env, xform),
+                        JSFML::Intercom::decodeTransform(env, xformAndBlendMode),
                         JSFML::NativeObject::GetPointer<sf::Texture>(env, texture),
                         JSFML::NativeObject::GetPointer<sf::Shader>(env, shader)));
 }
@@ -40,7 +40,7 @@ JNIEXPORT void JNICALL Java_org_jsfml_graphics_SFMLNativeDrawer_nativeDrawDrawab
     JSFML::NativeObject::GetExPointer<sf::RenderTarget>(env, target, org_jsfml_internal_ExPtr_RENDER_TARGET)->draw(
         *JSFML::NativeObject::GetExPointer<sf::Drawable>(env, drawable, org_jsfml_internal_ExPtr_DRAWABLE),
         sf::RenderStates(JSFML::Intercom::decodeBlendModeOff(env, xformAndBlendMode),
-                JSFML::Intercom::decodeTransform(env, xform),
+                JSFML::Intercom::decodeTransform(env, xformAndBlendMode),
                 JSFML::NativeObject::GetPointer<sf::Texture>(env, texture),
                 JSFML::NativeObject::GetPointer<sf::Shader>(env, shader)));
 }

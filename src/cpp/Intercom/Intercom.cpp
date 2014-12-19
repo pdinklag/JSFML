@@ -1,6 +1,18 @@
 #include <JSFML/Intercom/Intercom.hpp>
 #include <SFML/Config.hpp>
 
+jclass JSFML::Intercom::stringClass = NULL;
+jstring JSFML::Intercom::emptyString = NULL;
+
+jobjectArray JSFML::Intercom::newStringArray(JNIEnv *env, int length) {
+    if(JSFML::Intercom::stringClass == NULL) {
+        JSFML::Intercom::stringClass = env->FindClass("java/lang/String");
+        JSFML::Intercom::emptyString = env->NewStringUTF("");
+    }
+    
+    return (jobjectArray)env->NewObjectArray(length, JSFML::Intercom::stringClass, JSFML::Intercom::emptyString);
+}
+
 std::wstring JSFML::Intercom::decodeUtf32(JNIEnv *env, jstring jstr) {
     const jchar *jchars = env->GetStringChars(jstr, NULL);
     std::wstring s;

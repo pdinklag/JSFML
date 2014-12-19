@@ -17,6 +17,22 @@ JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundRecorder_isAvailable
 
 /*
  * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    getAvailableDevices
+ * Signature: ()[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_org_jsfml_audio_SoundRecorder_getAvailableDevices
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    getDefaultDevice
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_jsfml_audio_SoundRecorder_getDefaultDevice
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
  * Method:    nativeCreate
  * Signature: ()J
  */
@@ -41,10 +57,10 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_nativeDelete
 
 /*
  * Class:     org_jsfml_audio_SoundRecorder
- * Method:    start
- * Signature: (I)V
+ * Method:    nativeStart
+ * Signature: (I)Z
  */
-JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_start
+JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundRecorder_nativeStart
   (JNIEnv *, jobject, jint);
 
 /*
@@ -57,11 +73,19 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_stop
 
 /*
  * Class:     org_jsfml_audio_SoundRecorder
- * Method:    getSampleRate
- * Signature: ()I
+ * Method:    nativeSetProcessingInterval
+ * Signature: (J)V
  */
-JNIEXPORT jint JNICALL Java_org_jsfml_audio_SoundRecorder_getSampleRate
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_org_jsfml_audio_SoundRecorder_nativeSetProcessingInterval
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     org_jsfml_audio_SoundRecorder
+ * Method:    nativeSetDevice
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_jsfml_audio_SoundRecorder_nativeSetDevice
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

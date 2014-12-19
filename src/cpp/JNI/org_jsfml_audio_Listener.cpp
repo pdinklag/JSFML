@@ -34,3 +34,14 @@ JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetDirection
 
     sf::Listener::setDirection(x, y, z);
 }
+
+/*
+ * Class:     org_jsfml_audio_Listener
+ * Method:    nativeSetUpVector
+ * Signature: (FFF)V
+ */
+JNIEXPORT void JNICALL Java_org_jsfml_audio_Listener_nativeSetUpVector
+    (JNIEnv *env , jclass cls, jfloat x, jfloat y, jfloat z) {
+
+    sf::Listener::setUpVector(x, y, z);
+}
