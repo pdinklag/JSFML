@@ -46,6 +46,22 @@ public class Font extends SFMLNativeObject implements ConstFont {
     };
 
     /**
+     * Holds information about a font.
+     */
+    public final class Info {
+        /**
+         * The font family.
+         */
+        public final String family;
+
+        private Info(String family) {
+            this.family = family;
+        }
+    }
+
+    private Info info = null;
+
+    /**
      * Constructs a new font.
      */
     public Font() {
@@ -87,6 +103,8 @@ public class Font extends SFMLNativeObject implements ConstFont {
         if (!memoryRef.hasNonZeroPointer()) {
             throw new IOException(msg);
         }
+
+        info = null; //invalidate cache
     }
 
     /**
@@ -103,6 +121,22 @@ public class Font extends SFMLNativeObject implements ConstFont {
         if (!memoryRef.hasNonZeroPointer()) {
             throw new IOException(msg);
         }
+
+        info = null; //invalidate cache
+    }
+
+    private native String nativeGetInfo();
+
+    /**
+     * Gets information about the font.
+     *
+     * @return information about the font.
+     */
+    public Info getInfo() {
+        if (info == null) {
+            info = new Info(nativeGetInfo());
+        }
+        return info;
     }
 
     private native long nativeGetTexture(int characterSize);
