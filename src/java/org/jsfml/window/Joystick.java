@@ -1,6 +1,11 @@
 package org.jsfml.window;
 
+import org.jsfml.internal.IntercomHelper;
 import org.jsfml.internal.SFMLNative;
+
+import java.io.Serializable;
+import java.nio.Buffer;
+import java.nio.IntBuffer;
 
 /**
  * Provides access to the the real-time states of joysticks and gamepads.
@@ -87,7 +92,7 @@ public final class Joystick {
      *                 This value must range between 0 (inclusive) and
      *                 {@code #JOYSTICK_COUNT} (exclusive).
      * @return {@code true} if the joystick or gamepad is currently connected,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     public static boolean isConnected(int joystick) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -123,7 +128,7 @@ public final class Joystick {
      *                 {@code #JOYSTICK_COUNT} (exclusive).
      * @param axis     the axis to look for.
      * @return {@code true} if the joystick or gamepad supports the given axis,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     public static boolean hasAxis(int joystick, Axis axis) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -144,7 +149,7 @@ public final class Joystick {
      *                 This value must range between 0 (inclusive) and
      *                 {@code #BUTTON_COUNT} (exclusive).
      * @return {@code true} if the button is currently pressed on the joystick or gamepad,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     public static boolean isButtonPressed(int joystick, int button) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -166,8 +171,8 @@ public final class Joystick {
      *                 {@code #JOYSTICK_COUNT} (exclusive).
      * @param axis     the axis in question.
      * @return a floating point number ranging between -100 and 100,
-     *         denoting the current position of the axis. If the joystick or gamepad is
-     *         not connected or does not support the specified axis, 0 is returned.
+     * denoting the current position of the axis. If the joystick or gamepad is
+     * not connected or does not support the specified axis, 0 is returned.
      */
     public static float getAxisPosition(int joystick, Axis axis) {
         if (joystick < 0 || joystick >= JOYSTICK_COUNT)
@@ -183,6 +188,62 @@ public final class Joystick {
      * created. Once there is a window, the states will be automatically updated in regular periods.
      */
     public static native void update();
+
+    /**
+     * Holds identification information about a joystick.
+     */
+    public static class Identification implements Serializable {
+        private static final long serialVersionUID = 4831994862885876452L;
+        /**
+         * The name of the joystick.
+         */
+        public final String name;
+
+        /**
+         * The identifier of the joystick manufacturer.
+         */
+        public final int vendorId;
+
+        /**
+         * The identifier of the product.
+         */
+        public final int productId;
+
+        private Identification(String name, int vendorId, int productId) {
+            this.name = name;
+            this.vendorId = vendorId;
+            this.productId = productId;
+        }
+
+        @Override
+        public String toString() {
+            return "Identification{" +
+                    "name='" + name + '\'' +
+                    ", vendorId=" + vendorId +
+                    ", productId=" + productId +
+                    '}';
+        }
+    }
+
+    private static native String nativeGetIdentification(int joystick, Buffer buffer);
+
+    /**
+     * Retrieves the specified joystick's identification information.
+     *
+     * @param joystick the index of the joystick in question.
+     *                 This value must range between 0 (inclusive) and
+     *                 {@code #JOYSTICK_COUNT} (exclusive).
+     * @return the joystick's identification information.
+     */
+    public static Identification getIdentification(int joystick) {
+        if (joystick < 0 || joystick >= JOYSTICK_COUNT)
+            throw new IllegalArgumentException("joystick must be between 0 and " + JOYSTICK_COUNT);
+
+        final IntBuffer buffer = IntercomHelper.getBuffer().asIntBuffer();
+        final String name = nativeGetIdentification(joystick, buffer);
+
+        return new Identification(name, buffer.get(0), buffer.get(1));
+    }
 
     //cannot instantiate
     private Joystick() {
