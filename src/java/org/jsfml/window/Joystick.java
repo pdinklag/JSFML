@@ -192,7 +192,7 @@ public final class Joystick {
     /**
      * Holds identification information about a joystick.
      */
-    public static class Identification implements Serializable {
+    public static final class Identification implements Serializable {
         private static final long serialVersionUID = 4831994862885876452L;
         /**
          * The name of the joystick.
