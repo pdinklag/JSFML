@@ -4,29 +4,21 @@ REM This batch file is used by the Windows build targets to automatically find t
 set UNKNOWN="?"
 set RESULT=%UNKNOWN%
 
-REM MSVC++ 2010 (10.0)
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\10.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\10.0\Setup\VS" "ProductDir" 2> NUL
+REM MSVC++ 2013 (12.0)
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VS" "ProductDir" 2> NUL
 
-REM MSVC++ 2008 (9.0)
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\9.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\9.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\9.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\9.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\9.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\9.0\Setup\VS" "ProductDir" 2> NUL
-
-REM MSVC++ 2005 (8.0)
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\8.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\8.0\Setup\VC" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\8.0\Setup\VS" "ProductDir" 2> NUL
-if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\8.0\Setup\VS" "ProductDir" 2> NUL
+REM MSVC++ 2012 (11.0)
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\11.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\11.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\Setup\VC" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VCExpress\11.0\Setup\VS" "ProductDir" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VCExpress\11.0\Setup\VS" "ProductDir" 2> NUL
 
 echo %RESULT%
 goto:eof

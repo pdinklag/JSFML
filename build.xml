@@ -298,9 +298,9 @@
 	
 	<!-- Compile C++ for Windows 64 -->
 	<target name="win64" description="Build the C++ sources for Windows 64 bit." depends="windows.find.paths">
-		<property name="cl" value="${path.vs}/VC/bin/amd64/cl.exe" />
-		<property name="link" value="${path.vs}/VC/bin/amd64/link.exe" />
-		<property name="cwd" value="${path.vs}/VC/bin/amd64" />
+		<property name="cl" value="${path.vs}/VC/bin/x86_amd64/cl.exe" />
+		<property name="link" value="${path.vs}/VC/bin/x86_amd64/link.exe" />
+		<property name="cwd" value="${path.vs}/VC/bin" />
 		
 		<property name="vs.lib" value="${path.vs}/VC/lib/amd64" />
 		<property name="winsdk.lib" value="${path.winsdk}/Lib/x64" />
