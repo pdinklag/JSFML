@@ -21,6 +21,7 @@ public final class Listener {
     private static float volume = 100;
     private static Vector3f position = Vector3f.ZERO;
     private static Vector3f direction = new Vector3f(0.0f, 0.0f, -1.0f);
+    private static Vector3f upVector = new Vector3f(0.0f, 1.0f, 0.0f);
 
     private static native void nativeSetGlobalVolume(float volume);
 
@@ -121,6 +122,38 @@ public final class Listener {
      */
     public static Vector3f getDirection() {
         return direction;
+    }
+
+    private static native void nativeSetUpVector(float x, float y, float z);
+
+    /**
+     * Sets the upward vector of the listener in the scene.
+     *
+     * @param x the X component of the listener's new up vector.
+     * @param y the Y component of the listener's new up vector.
+     * @param z the Z component of the listener's new up vector.
+     */
+    public static void setUpVector(float x, float y, float z) {
+        setUpVector(new Vector3f(x, y, z));
+    }
+
+    /**
+     * Sets the upward vector of the listener in the scene.
+     *
+     * @param v the new upward vector of the listener in the scene.
+     */
+    public static void setUpVector(Vector3f v) {
+        nativeSetUpVector(v.x, v.y, v.z);
+        Listener.upVector = v;
+    }
+
+    /**
+     * Gets the current upward vector of the listener in the scene.
+     *
+     * @return the current upward vector of the listener in the scene.
+     */
+    public static Vector3f getUpVector() {
+        return upVector;
     }
 
     //cannot instantiate
