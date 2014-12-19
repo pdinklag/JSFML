@@ -19,7 +19,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
         final float lineSpacing;
         final float underlinePosition, underlineThickness;
         final ConstTexture texture;
-        final TreeMap<Long, Integer> kerning = new TreeMap<>();
+        final TreeMap<Long, Float> kerning = new TreeMap<>();
         final TreeMap<Integer, Glyph> glyphs = new TreeMap<>();
         final TreeMap<Integer, Glyph> boldGlyphs = new TreeMap<>();
 
@@ -141,7 +141,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
 
     private native void nativeGetGlyph(int unicode, int characterSize, boolean bold, Buffer buf);
 
-    private native int nativeGetKerning(int first, int second, int characterSize);
+    private native float nativeGetKerning(int first, int second, int characterSize);
 
     private SizeInfo getSizeInfo(int characterSize) {
         SizeInfo info = sizeInfos.get(characterSize);
@@ -183,7 +183,7 @@ public class Font extends SFMLNativeObject implements ConstFont {
     public float getKerning(int first, int second, int characterSize) {
         final SizeInfo info = getSizeInfo(characterSize);
         final long x = ((long) first << 32) | (long) second;
-        Integer kerning = info.kerning.get(x);
+        Float kerning = info.kerning.get(x);
         if (kerning == null) {
             kerning = nativeGetKerning(first, second, characterSize);
             info.kerning.put(x, kerning);
