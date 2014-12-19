@@ -145,7 +145,7 @@ public abstract class SoundRecorder extends SFMLNativeObject {
      *
      * @param processingInterval the new processing interval.
      */
-    public final void setProcessingInterval(Time processingInterval) {
+    protected final void setProcessingInterval(Time processingInterval) {
         nativeSetProcessingInterval(processingInterval.asMicroseconds());
     }
 
