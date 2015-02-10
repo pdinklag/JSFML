@@ -166,7 +166,7 @@ public class SoundBuffer extends SFMLNativeObject implements ConstSoundBuffer {
             sampleCount = ints.get(0);
             sampleRate = ints.get(1);
             channelCount = ints.get(2);
-            duration = Time.getMicroseconds(longs.get(2));
+            duration = Time.getMicroseconds(longs.get(3));
 
             needsSync = false;
         }
