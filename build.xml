@@ -7,12 +7,14 @@
 	<property environment="env" />
 	
 	<!-- JSFML properties -->
+    <property name="jsfml.version" value="2.2-J6"/>
 	<property name="jsfml.package" value="org.jsfml" />
 	<property name="jsfml.bin" value="jsfml" />
 	<property name="jsfml.out" location="./out" />
 	<property name="jsfml.lib" location="./lib" />
 	
 	<!-- SFML properties -->
+	<property name="sfml.version" value="2.2" />
 	<property name="sfml.bin" location="./sfml/bin" />
 	<property name="sfml.lib" location="./sfml/lib" />
 	<property name="sfml.include" location="./sfml/include" />
@@ -327,10 +329,10 @@
 				<attribute name="Built-By" value="${user.name}"/>
 				<section name="common">
 					<attribute name="Specification-Title" value="JSFML" />
-					<attribute name="Specification-Version" value="2.2" />
+					<attribute name="Specification-Version" value="${sfml.version}" />
 					<attribute name="Specification-Vendor" value="Patrick Dinklage" />
 					<attribute name="Implementation-Title" value="org.jsfml" />
-					<attribute name="Implementation-Version" value="6" />
+					<attribute name="Implementation-Version" value="${jsfml.version}" />
 					<attribute name="Implementation-Vendor" value="Patrick Dinklage" />
 				</section>
 				<section name="org/jsfml/">
@@ -370,9 +372,12 @@
 		<javadoc
 			sourcepath="${java.src}"
 			destdir="${javadoc.out}"
-			windowtitle="JSFML API"
-			link="http://docs.oracle.com/javase/7/docs/api/"
-			/>
+			windowtitle="JSFML API - ${jsfml.version}"
+			link="http://docs.oracle.com/javase/8/docs/api/">
+            
+            <!-- Disable the warning about self-closing paragraphs. -->
+            <arg value="-Xdoclint:none"/>
+        </javadoc>
 	</target>
 	
 	<!-- Clean everything -->
