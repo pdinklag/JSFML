@@ -79,6 +79,7 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the blend mode.
      *
+     * @param states the render states to copy.
      * @param blendMode the blending mode used for drawing.
      */
     public RenderStates(RenderStates states, BlendMode blendMode) {
@@ -89,6 +90,7 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the transformation.
      *
+     * @param states the render states to copy.
      * @param transform the transformation matrix used for drawing.
      */
     public RenderStates(RenderStates states, Transform transform) {
@@ -99,6 +101,7 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the texture.
      *
+     * @param states the render states to copy.
      * @param texture the texture used for drawing, or {@code null} to indicate that
      *                no texture should be used.
      */
@@ -110,6 +113,7 @@ public final class RenderStates {
      * Constructs a new set of render states by copying other states,
      * but changing the shader.
      *
+     * @param states the render states to copy.
      * @param shader the shader applied to whatever is drawn using these states,
      *               or {@code null} to indicate that no shader should be used.
      */

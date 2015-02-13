@@ -55,8 +55,7 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
      * <p/>
      * This is required only if you wish to use JSFML textures in custom OpenGL code.
      *
-     * @param texture        the texture to bind, or {@code null} to indicate that
-     *                       no texture is to be used..
+     * @param texture        the texture to bind, or {@code null} to indicate that no texture is to be used.
      * @param coordinateType the coordinate type to use.
      */
     public static void bind(ConstTexture texture, CoordinateType coordinateType) {
@@ -66,6 +65,8 @@ public class Texture extends SFMLNativeObject implements ConstTexture {
     /**
      * Activates a texture for rendering, using the
      * {@link Texture.CoordinateType#NORMALIZED} coordinate type.
+     *
+     * @param texture the texture to bind, or {@code null} to indicate that no texture is to be used.
      */
     public static void bind(ConstTexture texture) {
         bind(texture, CoordinateType.NORMALIZED);
