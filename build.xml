@@ -48,6 +48,7 @@
 		<mkdir dir="${cpp.include}/JSFML/JNI" />
 		<javah destdir="${cpp.include}/JSFML/JNI" classpath="${java.classpath}">
 			<!-- internal -->
+            <class name="${jsfml.package}.JSFML" />
 			<class name="${jsfml.package}.internal.ExPtr" />
             <class name="${jsfml.package}.internal.SFMLErrorCapture" />
             <class name="${jsfml.package}.internal.SFMLInputStream$NativeStreamRef" />
@@ -326,10 +327,10 @@
 				<attribute name="Built-By" value="${user.name}"/>
 				<section name="common">
 					<attribute name="Specification-Title" value="JSFML" />
-					<attribute name="Specification-Version" value="1.0" />
+					<attribute name="Specification-Version" value="2.2" />
 					<attribute name="Specification-Vendor" value="Patrick Dinklage" />
 					<attribute name="Implementation-Title" value="org.jsfml" />
-					<attribute name="Implementation-Version" value="pre-RC" />
+					<attribute name="Implementation-Version" value="6" />
 					<attribute name="Implementation-Vendor" value="Patrick Dinklage" />
 				</section>
 				<section name="org/jsfml/">
