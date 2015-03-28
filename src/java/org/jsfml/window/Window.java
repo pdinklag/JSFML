@@ -322,7 +322,7 @@ public class Window extends SFMLNativeObject implements WindowStyle {
      * @param size the new size of the window.
      */
     public void setSize(Vector2i size) {
-        nativeSetPosition(size.x, size.y);
+        nativeSetSize(size.x, size.y);
     }
 
     private native void nativeGetSettings(Buffer buffer);
