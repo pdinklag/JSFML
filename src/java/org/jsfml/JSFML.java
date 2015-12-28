@@ -17,7 +17,7 @@ public final class JSFML {
      * <p/>
      * Use this value in order to compare JSFML versions.
      */
-    public static final int JSFML_RELEASE_NUMBER = 6;
+    public static final int JSFML_RELEASE_NUMBER = 7;
 
     /**
      * The major version number of the underlying SFML.

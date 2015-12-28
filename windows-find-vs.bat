@@ -4,6 +4,10 @@ REM This batch file is used by the Windows build targets to automatically find t
 set UNKNOWN="?"
 set RESULT=%UNKNOWN%
 
+REM MSVC++ 2015 (14.0)
+call:regQuery "HKLM\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" "ShellFolder" 2> NUL
+if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\14.0" "ShellFolder" 2> NUL
+
 REM MSVC++ 2013 (12.0)
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS" "ProductDir" 2> NUL
 if "%RESULT%"=="%UNKNOWN%" call:regQuery "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS" "ProductDir" 2> NUL
