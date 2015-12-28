@@ -1,5 +1,6 @@
 package org.jsfml.testapp;
 
+import org.jsfml.JSFML;
 import org.jsfml.internal.SFMLNative;
 import org.jsfml.examples.scene.Standalone;
 import org.jsfml.graphics.Shader;
@@ -79,6 +80,8 @@ public class TestApp {
         //Some SFML facts
         {
             System.out.println("Detecting basic SFML facts ...");
+
+            System.out.println("JSFML version: " + JSFML.VERSION_STRING);
             System.out.println("Texture.getMaximumSize(): " + Texture.getMaximumSize());
             System.out.println("Shader.isAvailable(): " + Shader.isAvailable());
             System.out.println();
