@@ -1,5 +1,6 @@
 package org.jsfml.system;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 /**
@@ -91,6 +92,17 @@ public final strictfp class Vector2f implements Serializable {
     }
 
     /**
+     * Constructs a new Vector2f from the given AWT point.
+     *
+     * @param p A {@link java.awt.Point} to convert.
+     * @return A Vector2f with the same coordinate values as the given Point.
+     */
+
+    public static Vector2f fromAwtPoint(Point p) {
+        return new Vector2f(p.x, p.y);
+    }
+
+    /**
      * The vector's X coordinate.
      */
     public final float x;
@@ -98,7 +110,7 @@ public final strictfp class Vector2f implements Serializable {
     /**
      * The vector's Y coordinate.
      */
-   public final float y;
+    public final float y;
 
     /**
      * Constructs a new vector with the given coordinates.
@@ -140,5 +152,15 @@ public final strictfp class Vector2f implements Serializable {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    /**
+     * Converts this Vector2f to a AWT Point instance. Coordinate values
+     * are rounded by truncation (cast to int).
+     *
+     * @return A {@link java.awt.Point} with this vector's coordinate values.
+     */
+    public Point toAwtPoint() {
+        return new Point((int) x, (int) y);
     }
 }
