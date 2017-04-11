@@ -79,6 +79,16 @@ public final strictfp class Vector2f implements Serializable {
     public static Vector2f div(Vector2f a, float s) {
         return new Vector2f(a.x / s, a.y / s);
     }
+    
+    /**
+     * Normalizes a vector in place.
+     * 
+     * @param a the vector to be normalized.
+     * @return a new vector, representing the normalized vector.
+     */
+     public static Vector2f normalize(Vector2f a) {
+         return div(a, length);
+     }
 
     /**
      * Computes the negation of a vector.
@@ -98,7 +108,12 @@ public final strictfp class Vector2f implements Serializable {
     /**
      * The vector's Y coordinate.
      */
-   public final float y;
+    public final float y;
+   
+   /**
+    * The vector's length, or magnitude.
+    */
+    public final float length;
 
     /**
      * Constructs a new vector with the given coordinates.
@@ -109,6 +124,7 @@ public final strictfp class Vector2f implements Serializable {
     public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
+        this.length = Math.sqrt(x*x + y*y);
     }
 
     /**
