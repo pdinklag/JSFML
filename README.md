@@ -1,10 +1,13 @@
-#JSFML - Simple Fast Multimedia Library for Java
+
+> ⛔️ __Development on JSFML has ceased in December 2015. This project is outdated and no longer maintained or supported in any way and is hosted here solely for reference.__
+
+# JSFML - Simple Fast Multimedia Library for Java
 
 "SFML is a free multimedia C++ API that provides you low and high level access to graphics, input, audio, etc." (Source: http://www.sfml-dev.org/)
 
-JSFML is the official Java library that provides Java applications with access to a wide range of the functionalities of SFML.
+JSFML _was_ the official Java library that provides Java applications with access to a wide range of the functionalities of SFML.
 
-##System requirements
+## System requirements
 
 To run a JSFML application, Java JRE 7 or higher is required.
 
@@ -12,19 +15,19 @@ Graphics features require OpenGL, audio features require OpenAL.
 
 Furthermore, there are some platform-specific requirements that are listed below.
 
-###Windows
+### Windows
 Windows XP SP2 or higher is required. Furthermore, the _Visual C++ Redistributable for Visual Studio 2013_ needs to be installed.
 
-###Linux
+### Linux
 Generally, it is recommended to install the latest updates from your distribution's vendor. For windows, an X window environment is required.
 
 Fedora users will need to install the package `openal-soft` manually.
 
-##Building
+## Building
 
 Please refer to the wiki page about building JSFML: https://github.com/pdinklag/JSFML/wiki/Building-JSFML
 
-#Philosophy
+# Philosophy
 
 ## What JSFML is and is not
 JSFML is a Java binding to SFML. It is _not_ Java re-implementation of SFML. This makes JSFML relatively easy to maintain and ensures that it can be updated to the latest SFML release, including all new features and bugfixes, in a minimal amount of time.
